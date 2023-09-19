@@ -9,7 +9,7 @@ class SendLunchSuccess extends StatelessWidget {
       body: SafeArea(
           child: SingleChildScrollView(
         child: Center(
-          // Spread out the widgets
+          // TODO: Spread out the widgets
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -28,7 +28,7 @@ class SendLunchSuccess extends StatelessWidget {
                   ),
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 28, vertical: 12),
-                    // Fix the spacing of the text widget.
+                    // TODO: Fix the spacing of the text widget.
                     child: Text(
                       "Congratulations, you have successfully sent brooklyn Simmons 3 Free Lunches! Click continue to proceed",
                       textAlign: TextAlign.center,
