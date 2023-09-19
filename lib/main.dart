@@ -11,15 +11,18 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
+        /*appBar: AppBar(
           title: const Text(
             'Lunch app',
           ),
           backgroundColor: Colors.blue,
         ),
-        body: const HomeScreen(),
+
+         */
+        body: HomeScreen(),
       ),
     );
   }

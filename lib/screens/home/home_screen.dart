@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hng_task3/screens/home/available_lunch.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,6 +19,10 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             Text('Hello from Home Screen'),
+            SizedBox(
+              height:15 ,
+            ),
+            AvailableLunch(),
           ],
         ),
       ),
