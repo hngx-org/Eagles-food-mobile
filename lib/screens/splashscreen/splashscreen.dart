@@ -7,14 +7,21 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF04764E),
-      body: SafeArea(
-        // TODO: Add all the extra glitter
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 105,
-            vertical: 200,
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: Image.asset("assets/images/splashscreen-background.png"),
           ),
-          child: Image.asset("assets/images/splashscreen.png"),
+        ),
+        child: SafeArea(
+          // TODO: Add all the extra glitter
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 105,
+              vertical: 200,
+            ),
+            child: Image.asset("assets/images/splashscreen-logo.png"),
+          ),
         ),
       ),
     );
