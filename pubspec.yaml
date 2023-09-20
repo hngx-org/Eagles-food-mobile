@@ -24,5 +24,17 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/withdraw-success.png
-    - assets/images/onboarding.png
+    - assets/images/
+    - assets/icons/
+    - assets/logo/
+
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Regular.ttf
+        - asset: assets/fonts/Inter-Medium.ttf
+        - asset: assets/fonts/Inter-Bold.ttf
+        - asset: assets/fonts/Inter-ExtraBold.ttf
+        - asset: assets/fonts/Inter-Black.ttf
+        - asset: assets/fonts/Inter-SemiBold.ttf
+        - asset: assets/fonts/Inter-Light.ttf
