@@ -7,7 +7,7 @@ class WithdrawImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Column(children: [
-        const Text('Withdraw Image'),
+        //const Text('Withdraw Image'),
         Container(
           margin: const EdgeInsets.only(
             top: 30,
