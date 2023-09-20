@@ -7,92 +7,37 @@ class LunchActions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
+    return Container(
+      decoration: BoxDecoration(color: ColorUtils.Green),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Container(
-            decoration: BoxDecoration(color: ColorUtils.Green),
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0),
-                    child: CustomButton(
-                      onPress: () {},
-                      buttonText: "Withdraw Lunch",
-                      buttonColor: ColorUtils.Pink,
-                      textColor: ColorUtils.Black,
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 10.0,
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10.0),
-                    child: CustomButton(
-                      onPress: () {},
-                      buttonText: "Send Lunch",
-                      buttonColor: ColorUtils.Yellow,
-                      textColor: ColorUtils.Black,
-                    ),
-                  ),
-                ),
-              ],
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10.0),
+              child: CustomButton(
+                onPress: () {},
+                buttonText: "Withdraw Lunch",
+                buttonColor: ColorUtils.Pink,
+                textColor: ColorUtils.Black,
+              ),
             ),
           ),
-          Stack(
-            children: <Widget>[
-              Container(
-                color: ColorUtils.Yellow,
+          const SizedBox(
+            width: 10.0,
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10.0),
+              child: CustomButton(
+                onPress: () {},
+                buttonText: "Send Lunch",
+                buttonColor: ColorUtils.Yellow,
+                textColor: ColorUtils.Black,
               ),
-              Positioned(
-                right: 0,
-                bottom: 0,
-                child: Container(
-                  decoration: BoxDecoration(color: ColorUtils.Green),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10.0),
-                          child: CustomButton(
-                            onPress: () {},
-                            buttonText: "Withdraw Lunch",
-                            buttonColor: ColorUtils.Pink,
-                            textColor: ColorUtils.Black,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 10.0,
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10.0),
-                          child: CustomButton(
-                            onPress: () {
-                              // Navigator.push();
-                            },
-                            buttonText: "Send Lunch",
-                            buttonColor: ColorUtils.Yellow,
-                            textColor: ColorUtils.Black,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          )
-          // AvailableLunch(),
+            ),
+          ),
         ],
       ),
     );
