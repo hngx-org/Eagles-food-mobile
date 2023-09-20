@@ -14,6 +14,7 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         body:  WithdrawSuccessScreen(),
+
       ),
     );
   }
