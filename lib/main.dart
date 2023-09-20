@@ -13,12 +13,6 @@ class MainApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        // appBar: AppBar(
-        //   title: const Text(
-        //     'Lunch App',
-        //   ),
-        //   backgroundColor: Colors.blue,
-        // ),
         body:  WithdrawSuccessScreen(),
       ),
     );
