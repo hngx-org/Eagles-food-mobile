@@ -48,7 +48,7 @@ class SendLunchSuccess extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 29, vertical: 60),
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(),
+                          shape: const RoundedRectangleBorder(),
                           minimumSize: const Size.fromHeight(50),
                           backgroundColor: const Color(0xFF04754D)),
                       onPressed: () {},
