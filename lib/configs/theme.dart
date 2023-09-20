@@ -1,11 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
 
 ThemeData theme = ThemeData(
     primaryColor: ColorUtils.Green,
     hintColor: ColorUtils.Yellow,
-    backgroundColor: ColorUtils.Green.withOpacity(0.09),
     unselectedWidgetColor: ColorUtils.Grey,
     fontFamily: 'Inter',
     splashFactory: NoSplash.splashFactory,
@@ -28,45 +26,43 @@ ThemeData theme = ThemeData(
 
     textTheme: TextTheme(
         // main primary body text
-        bodyText1:  TextStyle(
+        bodyLarge:  TextStyle(
             color: ColorUtils.Black,
             fontFamily: 'Inter',
             fontStyle: FontStyle.normal,
-            fontSize: 14,
+            fontSize: 16,
             fontWeight: FontWeight.w400,
         ),
 
         // secondary body text
-        bodyText2: TextStyle(
+        bodyMedium: TextStyle(
             color: ColorUtils.Grey,
             fontFamily: 'Inter',
-            height: 1.5,
             fontStyle: FontStyle.normal,
-            fontWeight: FontWeight.w300,
-            fontSize: 12
+            fontWeight: FontWeight.w400,
+            fontSize: 13
         ),
 
         // main heading text
-        headline1: TextStyle(
+        displayLarge: TextStyle(
             color: ColorUtils.Black,
             fontFamily: 'Inter',
             fontStyle: FontStyle.normal,
             fontWeight: FontWeight.w900,
-            letterSpacing: 2,
-            fontSize: 25,
+            fontSize: 30,
         ),
 
         // for all other headers
-        headline2: TextStyle(
+        displayMedium: TextStyle(
             color: ColorUtils.Black,
             fontFamily: 'Inter',
             fontStyle: FontStyle.normal,
-            fontSize: 23,
-            fontWeight: FontWeight.w700
+            fontSize: 25,
+            fontWeight: FontWeight.w600
         ),
 
         //
-        headline3: TextStyle(
+        displaySmall: TextStyle(
             color: ColorUtils.Black,
             fontFamily: 'Inter',
             fontStyle: FontStyle.normal,
@@ -75,17 +71,16 @@ ThemeData theme = ThemeData(
         ),
 
         // used for buttons
-        headline4: TextStyle(
-            color: ColorUtils.Grey,
+        headlineMedium: TextStyle(
+            color: ColorUtils.Black,
             fontFamily: 'Inter',
             fontStyle: FontStyle.normal,
-            fontSize: 15,
+            fontSize: 16,
             fontWeight: FontWeight.w500,
-            letterSpacing: 0.4
         ),
 
         // label + caption
-        headline5: TextStyle(
+        headlineSmall: TextStyle(
             color: ColorUtils.Grey,
             fontFamily: 'Inter',
             fontStyle: FontStyle.normal,
@@ -94,7 +89,7 @@ ThemeData theme = ThemeData(
         ),
 
         //overline + button small
-        headline6: TextStyle(
+        titleLarge: TextStyle(
             color: ColorUtils.Grey,
             fontFamily: 'Inter',
             fontStyle: FontStyle.normal,

@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:hng_task3/configs/sessions.dart';
 
