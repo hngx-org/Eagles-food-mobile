@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hng_task3/screens/home/home_screen.dart';
+//import 'package:hng_task3/screens/home/home_screen.dart';
+import 'package:hng_task3/screens/onboarding/onboarding_screen.dart';
 // import 'package:hng_task3/screens/withdraw/withdraw_success_screen.dart';
 
 void main() {
@@ -22,7 +23,7 @@ class MainApp extends StatelessWidget {
         ),
 
          */
-        body: HomeScreen(),
+        body: OnboardingScreen(),
       ),
     );
   }
