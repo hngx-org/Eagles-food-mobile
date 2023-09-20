@@ -210,7 +210,7 @@ class _SignupState extends State<Signup> {
                                         width: 2,
                                         color: ColorUtils.Green), // Color of the border
                                   ),
-                                  suffixIcon: Image.asset("assets/icons/icon-eye.png", height: 10, width: 10, fit: BoxFit.contain,),
+                                  suffixIcon: Image.asset("assets/icons/icon-eye.png", height: 10, width: 10, ),
                                   contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                                 ),
                               )
@@ -227,12 +227,9 @@ class _SignupState extends State<Signup> {
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
                           child: Text('Sign up today to be a part of a delicious community where you can send and receive free lunches',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                                 color: ColorUtils.Black,
-                                fontFamily: 'Inter',
-                                fontStyle: FontStyle.normal,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500
+                                fontSize: 16
                             ),
                           ),
                         ),
