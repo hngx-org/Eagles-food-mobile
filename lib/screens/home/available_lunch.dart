@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hng_task3/screens/launch_history/lunch_history_screen.dart';
+
 
 class AvailableLunch extends StatefulWidget {
   const AvailableLunch({super.key});
@@ -42,49 +44,59 @@ class _AvailableLunchState extends State<AvailableLunch> {
                 ),
                 //TODO DISPLAY THE NUMBER OF AVAILABLE LUNCHES
                 Container(
-                  height: MediaQuery.sizeOf(context).height*0.04,
-                  decoration: const BoxDecoration(
-                    color: Colors.transparent
-                  ),
+                  height: MediaQuery.sizeOf(context).height * 0.04,
+                  decoration: const BoxDecoration(color: Colors.transparent),
                   child: const Center(
-                    child: Text('34',style: TextStyle(
-                      fontSize: 24
-                    ),),
+                    child: Text(
+                      '34',
+                      style: TextStyle(fontSize: 24),
+                    ),
                   ),
                 ),
                 const SizedBox(
                   height: 13,
                 ),
-               Padding(padding: const EdgeInsets.fromLTRB(12, 0, 12, 5),child:  Row(
-                 children: [
-                   Padding(
-                     padding: const EdgeInsets.all(10),
-                     child: Container(
-                       width: MediaQuery.sizeOf(context).width*0.38,
-                       decoration: const BoxDecoration(
-                           color: Color.fromRGBO(228, 178, 166, 1)),
-                       child: TextButton(
-                           onPressed: () {},
-                           child: const Text('Withdraw Lunch',style: TextStyle(color: Colors.black),)),
-                     ),
-                   ),
-                   Padding(
-                     padding: const EdgeInsets.all(10),
-                     child: Container(
-                       width: MediaQuery.sizeOf(context).width*0.38,
-                       decoration: const BoxDecoration(
-                           color: Color.fromRGBO(239, 206, 130, 1)
-                       ),
-                       child: TextButton(
-                           onPressed: () {},
-                           child: const Text(
-                             'Send Lunch',
-                             style: TextStyle(color: Colors.black),
-                           )),
-                     ),
-                   )
-                 ],
-               ),)
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(12, 0, 12, 5),
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Container(
+                          width: MediaQuery.sizeOf(context).width * 0.38,
+                          decoration: const BoxDecoration(
+                              color: Color.fromRGBO(228, 178, 166, 1)),
+                          child: TextButton(
+                              onPressed: () {},
+                              child: const Text(
+                                'Withdraw Lunch',
+                                style: TextStyle(color: Colors.black),
+                              )),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Container(
+                          width: MediaQuery.sizeOf(context).width * 0.38,
+                          decoration: const BoxDecoration(
+                              color: Color.fromRGBO(239, 206, 130, 1)),
+                          child: TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const LaunchHistoryScreen()));
+                              },
+                              child: const Text(
+                                'Send Lunch',
+                                style: TextStyle(color: Colors.black),
+                              )),
+                        ),
+                      )
+                    ],
+                  ),
+                )
               ],
             ),
           )),

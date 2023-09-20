@@ -1,0 +1,43 @@
+import 'package:flutter/material.dart';
+import 'package:hng_task3/configs/colors.dart';
+import 'package:hng_task3/widgets/lunch_history/available_lunch_card.dart';
+import 'package:hng_task3/widgets/lunch_history/lunch_history_widget.dart';
+
+class LaunchHistoryScreen extends StatefulWidget {
+  const LaunchHistoryScreen({Key? key}) : super(key: key);
+
+  @override
+  State<LaunchHistoryScreen> createState() => _LaunchHistoryScreenState();
+}
+
+class _LaunchHistoryScreenState extends State<LaunchHistoryScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          "Lunch History",
+          style: TextStyle(
+              fontSize: 20,
+              color: ColorUtils.Black,
+              fontWeight: FontWeight.w700),
+        ),
+      ),
+      body: const SafeArea(
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              AvailableLunchCard(),
+              SizedBox(
+                height: 55,
+              ),
+              Expanded(child: LunchHistoryWidget()),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -11,5 +11,6 @@ class ColorUtils {
   static Color Black   = const Color(0xff0c0c0c);
   static Color LightBlack   = const Color(0xff1b1b1b);
   static Color White   = const Color(0xffffffff);
+  static Color EbaTan   = const Color(0xffe4b2a6);
 
 }
