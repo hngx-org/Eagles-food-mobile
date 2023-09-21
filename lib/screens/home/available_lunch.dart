@@ -42,13 +42,14 @@ class _AvailableLunchState extends State<AvailableLunch> {
                 ),
                 //TODO DISPLAY THE NUMBER OF AVAILABLE LUNCHES
                 Container(
-                  height: MediaQuery.sizeOf(context).height * 0.04,
-                  decoration: const BoxDecoration(color: Colors.transparent),
+                  height: MediaQuery.sizeOf(context).height*0.04,
+                  decoration: const BoxDecoration(
+                    color: Colors.transparent
+                  ),
                   child: const Center(
-                    child: Text(
-                      '34',
-                      style: TextStyle(fontSize: 24),
-                    ),
+                    child: Text('34',style: TextStyle(
+                      fontSize: 24
+                    ),),
                   ),
                 ),
                 const SizedBox(

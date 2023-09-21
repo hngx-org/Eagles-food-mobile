@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/widgets/home/lunch_actions.dart';
 import 'package:hng_task3/widgets/home/team.dart';
+import 'package:hng_task3/widgets/lunch_history/lunch_history_widget.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
+  const HomeScreen({super.key, required this.openDrawer});
+  final VoidCallback openDrawer;
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -60,8 +61,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const Spacer(),
                     IconButton(
+
                         onPressed: () {},
                         icon: Image.asset('assets/icons/Frame 1.png'))
+                        onPressed: widget.openDrawer,
+                        icon: const Icon(Icons.menu))
                   ],
                 ),
                 const SizedBox(
@@ -106,10 +110,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(
                   height: 32,
                 ),
-                const TeamList(),
-                const SizedBox(
-                  height: 20,
-                ),
+                TeamList(),
+                const LunchHistoryWidget()
               ],
             ),
           ),
