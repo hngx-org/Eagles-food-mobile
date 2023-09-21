@@ -12,41 +12,17 @@ class TeamList extends StatefulWidget {
 class _TeamListState extends State<TeamList> {
   final List<TeamData> _teamList = [
     TeamData(
-      senderfullName: 'Leslie Alexander',
-      receiverfullName: 'Darrell Steward',
-    ),
+        senderfullName: 'Leslie Alexander',
+        receiverfullName: 'Darrell Steward',
+        image: 'assets/images/team-1.png'),
     TeamData(
-      senderfullName: 'Brooklyn Simmons',
-      receiverfullName: 'Arlene McCoy',
-    ),
+        senderfullName: 'Brooklyn Simmons',
+        receiverfullName: 'Arlene McCoy',
+        image: 'assets/images/team-2.png'),
     TeamData(
-      senderfullName: 'Brooklyn Simmons',
-      receiverfullName: 'Arlene McCoy',
-    ),
-    TeamData(
-      senderfullName: 'Brooklyn Simmons',
-      receiverfullName: 'Arlene McCoy',
-    ),
-    TeamData(
-      senderfullName: 'Brooklyn Simmons',
-      receiverfullName: 'Arlene McCoy',
-    ),
-    TeamData(
-      senderfullName: 'Brooklyn Simmons',
-      receiverfullName: 'Arlene McCoy',
-    ),
-    TeamData(
-      senderfullName: 'Brooklyn Simmons',
-      receiverfullName: 'Arlene McCoy',
-    ),
-    TeamData(
-      senderfullName: 'Brooklyn Simmons',
-      receiverfullName: 'Arlene McCoy',
-    ),
-    TeamData(
-      senderfullName: 'Brooklyn Simmons',
-      receiverfullName: 'Arlene McCoy',
-    ),
+        senderfullName: 'Emmanuel Simmons',
+        receiverfullName: 'Arlene McCoy',
+        image: 'assets/images/team-3.png'),
   ];
 
   @override
@@ -60,16 +36,23 @@ class _TeamListState extends State<TeamList> {
           physics: const BouncingScrollPhysics(),
           itemCount: _teamList.length,
           itemBuilder: (BuildContext context, int index) {
-            return ListTile(
-              leading: const CircleAvatar(
-                backgroundImage: AssetImage('assets/images/team-1.png'),
-              ),
-              title: Text(_teamList[index].senderfullName),
-              subtitle: Text('by ${_teamList[index].receiverfullName}'),
-              trailing: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  color: ColorUtils.Yellow,
-                  child: const Text('Send Lunch')),
+            return SizedBox(
+              width: double.infinity,
+              child: ListTile(
+                  contentPadding: const EdgeInsets.all(0),
+                  leading: CircleAvatar(
+                    backgroundImage: AssetImage(_teamList[index].image),
+                  ),
+                  title: Text(_teamList[index].senderfullName),
+                  subtitle: Text('by ${_teamList[index].receiverfullName}'),
+                  trailing: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    color: ColorUtils.Yellow,
+                    child: TextButton(
+                      onPressed: () {},
+                      child: const Text('Send Lunch'),
+                    ),
+                  )),
             );
           },
         )
