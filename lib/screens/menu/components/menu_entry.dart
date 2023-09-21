@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/screens/menu/menu_screen.dart';
 
-import 'menu_home.dart';
+// import 'menu_home.dart';
 
-class MyWidget extends StatelessWidget {
-  const MyWidget({super.key});
+class NavScreen extends StatelessWidget {
+  const NavScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class MyWidget extends StatelessWidget {
       body: Stack(
         children: [
           MenuScreen(),
-          HomeScreen(),
+          // HomeScreen(),
         ],
       ),
     );

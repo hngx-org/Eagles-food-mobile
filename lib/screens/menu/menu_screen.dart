@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
+import 'package:hng_task3/screens/menu/configurations.dart';
 
 import '../../utils/assets/assets.dart';
 
@@ -15,6 +16,7 @@ class MenuScreen extends StatelessWidget {
           padding: const EdgeInsets.only(top: 50, left: 40, bottom: 70),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -62,58 +64,60 @@ class MenuScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               Column(
-                children: <Widget>[
-                  const NewRow(
-                    text: 'Home',
-                    icon: Icons.home_filled,
+                children: DrawerItems.all
+                    .map((item) => SizedBox(
+                          width: 150,
+                          child: ListTile(
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 0,
+                              vertical: 3,
+                            ),
+                            // onTap: () => onSelectedItem(item),
+
+                            leading: Icon(
+                              item.icon,
+                              color: ColorUtils.Black.withOpacity(0.5),
+                            ),
+                            title: Text(
+                              item.title,
+                              softWrap: true,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                    color: ColorUtils.Black,
+                                  ),
+                            ),
+                          ),
+                        ))
+                    .toList(),
+              ),
+              const SizedBox(
+                height: 140,
+              ),
+              const Row(
+                children: [
+                  Text(
+                    "Free Lunch App",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                      fontFamily: "Poppins",
+                      color: Color(0xFF868686),
+                    ),
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const NewRow(
-                    text: 'Send Lunch',
-                    icon: Icons.send,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const NewRow(
-                    text: 'Withdraw Lunch',
-                    icon: Icons.receipt,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const NewRow(
-                    text: 'Profile',
-                    icon: Icons.person_outline,
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    children: <Widget>[
-                      ImageIcon(AssetImage(Assets.logouticon),),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      const Text(
-                        "Logout",
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  const Row(
-                    children: [
-                      Text("Free Lunch App"),
-                    ],
-                  ),
-                  const Row(
-                    children: [
-                      Text("App version 1.0.0"),
-                    ],
+                ],
+              ),
+              const Row(
+                children: [
+                  Text(
+                    "App version 1.0.0",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 12,
+                      fontFamily: "Poppins",
+                      color: Color(0xB2B1B1C3),
+                    ),
                   ),
                 ],
               ),
@@ -124,41 +128,6 @@ class MenuScreen extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class NewRow extends StatelessWidget {
-  final IconData icon;
-  final String text;
-
-  const NewRow({
-    super.key,
-    required this.icon,
-    required this.text,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        Icon(
-          icon,
-          color: ColorUtils.Black.withOpacity(0.5),
-        ),
-        const SizedBox(
-          width: 20,
-        ),
-        Text(
-          text,
-          softWrap: true,
-          maxLines: 10,
-          style: Theme.of(context)
-              .textTheme
-              .bodyMedium!
-              .copyWith(color: ColorUtils.Black),
-        )
-      ],
     );
   }
 }
