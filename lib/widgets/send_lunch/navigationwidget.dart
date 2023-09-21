@@ -33,6 +33,9 @@ class _NavigationScreenState extends State<NavigationScreenWidget>
       // mainAxisAlignment: MainAxisAlignment.start,
       children: [
         TabBar(
+          indicatorSize: TabBarIndicatorSize.label,
+          indicatorWeight: 4,
+          indicatorColor: ColorUtils.Green,
           labelColor: ColorUtils.Green,
           unselectedLabelColor: ColorUtils.LightGrey,
           controller: _Controller,

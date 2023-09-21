@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hng_task3/widgets/custom_button.dart';
 
 class MyTeamSearch extends StatefulWidget {
   const MyTeamSearch({super.key});
@@ -21,30 +22,39 @@ class _MyTeamSearchState extends State<MyTeamSearch> {
         return Padding(
           padding: const EdgeInsets.all(10),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                height: 50,
-                width: 50,
-                child: ClipRRect(
-                    borderRadius: BorderRadius.circular(50), child: item.icon),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    height: 50,
+                    width: 50,
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(50),
+                        child: item.icon),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          item.name,
+                          textAlign: TextAlign.left,
+                          style: Theme.of(context).textTheme.displayMedium,
+                        ),
+                        Text(
+                          "${item.secondaryName}",
+                          textAlign: TextAlign.justify,
+                          style: Theme.of(context).textTheme.displaySmall,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 20),
-                child: Column(
-                  children: [
-                    Text(
-                      item.name,
-                      textAlign: TextAlign.left,
-                      style: Theme.of(context).textTheme.displayMedium,
-                    ),
-                    Text(
-                      "${item.secondaryName}",
-                      textAlign: TextAlign.justify,
-                      style: Theme.of(context).textTheme.displaySmall,
-                    ),
-                  ],
-                ),
-              )
+              // CustomButton(onPress: () {})
             ],
           ),
         );
