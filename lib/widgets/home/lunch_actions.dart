@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
 
+import '../../screens/withdraw/withdraw_lunch.dart';
+
 class LunchActions extends StatelessWidget {
   const LunchActions({super.key});
 
@@ -27,7 +29,12 @@ class LunchActions extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const WithdrawLunch()));
+                },
                 style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all(ColorUtils.Yellow)),
