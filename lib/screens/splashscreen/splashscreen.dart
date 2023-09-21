@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:hng_task3/screens/auth/auth_home.dart';
+// import 'package:hng_task3/screens/auth/auth_home.dart';
+import 'package:hng_task3/screens/onboarding/onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -18,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(const Duration(seconds: 3), () {
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => const AuthHome()),
+        MaterialPageRoute(builder: (context) => const OnboardingScreen()),
         (route) => false,
       );
     });
