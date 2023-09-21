@@ -3,6 +3,7 @@ import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/widgets/send_lunch/send_lunch_searchbar.dart';
 import 'package:hng_task3/widgets/send_lunch/my_team_search.dart';
 import 'package:hng_task3/widgets/send_lunch/everyone_search.dart';
+import 'package:hng_task3/widgets/send_lunch/navigationwidget.dart';
 
 class SendLunchSearch extends StatefulWidget {
   const SendLunchSearch({super.key});
@@ -14,9 +15,11 @@ class SendLunchSearch extends StatefulWidget {
 class _SendLunchSearchState extends State<SendLunchSearch> {
   int _currentIndex = 0;
 
+  // TabController _controller;
+
   final List<Widget> _pages = [
-    MyTeamSearch(),
-    EveryoneSearch(),
+    const MyTeamSearch(),
+    const EveryoneSearch(),
   ];
 
   @override
@@ -42,6 +45,10 @@ class _SendLunchSearchState extends State<SendLunchSearch> {
           ),
         ),
       ),
+
+      // TODO Test if there is a better way of handling the UI without the
+      // singlechildscrollview.
+
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -60,39 +67,10 @@ class _SendLunchSearchState extends State<SendLunchSearch> {
                 child: SendLunchSearchBar(),
               ),
             ),
-
-            TabBar(
-              tabs: [
-                Tab(icon: Icon(Icons.directions_car)),
-                Tab(icon: Icon(Icons.directions_transit)),
-                Tab(icon: Icon(Icons.directions_bike)),
-              ],
-            )
-
-            // Navigation
-            // BottomNavigationBar(
-            //   elevation: 0,
-            //   currentIndex: _currentIndex,
-            //   onTap: (int index) {
-            //     setState(() {
-            //       _currentIndex = index;
-            //     });
-            //   },
-            //   selectedItemColor: ColorUtils.Green,
-            //   unselectedItemColor: ColorUtils.Grey.withOpacity(0.5),
-            //   selectedLabelStyle: Theme.of(context).textTheme.displaySmall,
-            //   unselectedLabelStyle: Theme.of(context).textTheme.displaySmall,
-            //   items: [
-            //     BottomNavigationBarItem(
-            //       label: "My Team",
-            //       icon: Text("", style: Theme.of(context).textTheme.titleLarge),
-            //     ),
-            //     BottomNavigationBarItem(
-            //       label: "Everyone",
-            //       icon: Text("", style: Theme.of(context).textTheme.titleLarge),
-            //     ),
-            //   ],
-            // ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: NavigationScreenWidget(),
+            ),
           ],
         ),
       ),
