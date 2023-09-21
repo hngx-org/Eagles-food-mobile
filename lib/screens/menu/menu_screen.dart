@@ -5,14 +5,7 @@ import 'package:hng_task3/screens/menu/configurations.dart';
 import '../../utils/assets/assets.dart';
 
 class MenuScreen extends StatelessWidget {
-  const MenuScreen(
-      {super.key,
-      required this.closeDrawer,
-      required this.selectedItem,
-      required this.selectPage});
-  final DrawerItem selectedItem;
-  final VoidCallback closeDrawer;
-  final Function(DrawerItem item) selectPage;
+  const MenuScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -63,10 +56,9 @@ class MenuScreen extends StatelessWidget {
                   ),
                   // const Spacer(),
 
-                  Padding(
-                    padding: const EdgeInsets.only(right: 50.0),
-                    child: IconButton(
-                        onPressed: closeDrawer, icon: const Icon(Icons.close)),
+                  const Padding(
+                    padding: EdgeInsets.only(right: 50.0),
+                    child: Icon(Icons.close),
                   ),
                 ],
               ),
@@ -80,12 +72,11 @@ class MenuScreen extends StatelessWidget {
                               horizontal: 0,
                               vertical: 3,
                             ),
-                            onTap: () => selectPage(item),
+                            // onTap: () => onSelectedItem(item),
+
                             leading: Icon(
                               item.icon,
-                              color: selectedItem == item
-                                  ? ColorUtils.Green
-                                  : ColorUtils.Black.withOpacity(0.5),
+                              color: ColorUtils.Black.withOpacity(0.5),
                             ),
                             title: Text(
                               item.title,
@@ -94,9 +85,7 @@ class MenuScreen extends StatelessWidget {
                                   .textTheme
                                   .bodyMedium!
                                   .copyWith(
-                                    color: selectedItem == item
-                                        ? ColorUtils.Green
-                                        : ColorUtils.Black,
+                                    color: ColorUtils.Black,
                                   ),
                             ),
                           ),
@@ -110,26 +99,12 @@ class MenuScreen extends StatelessWidget {
                 children: [
                   Text(
                     "Free Lunch App",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
-                      fontFamily: "Poppins",
-                      color: Color(0xFF868686),
-                    ),
                   ),
                 ],
               ),
               const Row(
                 children: [
-                  Text(
-                    "App version 1.0.0",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 12,
-                      fontFamily: "Poppins",
-                      color: Color(0xB2B1B1C3),
-                    ),
-                  ),
+                  Text("App version 1.0.0"),
                 ],
               ),
               const Row(

@@ -17,14 +17,11 @@ class DrawerItems {
       DrawerItem(icon: Icons.receipt, title: "Withdraw Lunch");
   static const profile =
       DrawerItem(icon: Icons.person_outline, title: "Profile");
-  static const logout =
-      DrawerItem(icon: Icons.power_settings_new_sharp, title: "Logout");
 
   static final List<DrawerItem> all = [
     home,
     sendlunch,
     withdrawlunch,
     profile,
-    logout,
   ];
 }
