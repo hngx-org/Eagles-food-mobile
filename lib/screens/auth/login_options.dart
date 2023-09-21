@@ -13,7 +13,15 @@ class _LoginOptionsState extends State<LoginOptions> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: TextButton(
+          onPressed: (){
+            Navigator.pop(context);
+          },
+          child: Image.asset("assets/icons/icon-back.png", height: 50, width: 50, fit: BoxFit.contain,),
+        ),
+      ),
       body: Container(
         alignment: Alignment.center,
         height: double.infinity,
@@ -43,7 +51,7 @@ class _LoginOptionsState extends State<LoginOptions> {
                 padding: const EdgeInsets.only(left: 20.0, right: 20, top: 50, bottom: 30),
                 child: Text("Elevate your afternoons with a touch of flavor.",
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                  style: Theme.of(context).textTheme.displaySmall?.copyWith(
                   ),),
               ),
 

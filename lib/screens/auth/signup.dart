@@ -25,18 +25,19 @@ class _SignupState extends State<Signup> {
                   padding: const EdgeInsets.symmetric(vertical: 20.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                     TextButton(
-                       onPressed: (){
-                         Navigator.pop(context);
-                       },
-                       child: Image.asset("assets/icons/icon-back.png", height: 50, width: 50, fit: BoxFit.contain,),
-                     ),
+                      TextButton(
+                        onPressed: (){
+                          Navigator.pop(context);
+                        },
+                        child: Image.asset("assets/icons/icon-back.png", height: 50, width: 50, fit: BoxFit.contain,),
+                      ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20.0),
                         child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Image.asset("assets/logo/logo_green.png", height: 50, width: 50, fit: BoxFit.contain,),
                             Padding(
@@ -221,7 +222,7 @@ class _SignupState extends State<Signup> {
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
                           child: CustomButton(onPress: (){
                             // Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginOptions()));
-                          }, buttonText: "Sign Up", buttonColor: ColorUtils.Green, textColor: ColorUtils.White,),
+                          }, buttonText: "Sign Up", buttonColor: ColorUtils.Green, textColor: ColorUtils.White, isUppercase: true),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10.0),

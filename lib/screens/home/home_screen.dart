@@ -23,11 +23,15 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 Row(
                   children: [
-                    const Column(
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Good Morning'),
-                        Text('Williams'),
+                        Text('Good Morning',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge
+                                ?.copyWith(fontWeight: FontWeight.w700)),
+                        const Text('Williams'),
                       ],
                     ),
                     const Spacer(),
@@ -66,6 +70,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 40,
                 ),
                 const TeamList(),
+                const SizedBox(
+                  height: 20,
+                ),
               ],
             ),
           ),
