@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hng_task3/configs/colors.dart';
+import 'package:hng_task3/screens/auth/auth_home.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -56,36 +58,42 @@ class OnboardingScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      // SizedBox(
+                      //   width: 154,
+                      //   height: 60,
+                      //   child: OutlinedButton(
+                      //     onPressed: () {},
+                      //     child: const Text(
+                      //       "BACK",
+                      //       style: TextStyle(
+                      //         fontFamily: "Poppins",
+                      //         fontSize: 16,
+                      //         fontWeight: FontWeight.w600,
+                      //         color: Color(0xff313131),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                      // const SizedBox(
+                      //   width: 11,
+                      // ),
                       SizedBox(
-                        width: 154,
+                        width: 254,
                         height: 60,
                         child: OutlinedButton(
-                          onPressed: () {},
-                          child: const Text(
-                            "Back",
-                            style: TextStyle(
-                              fontFamily: "Poppins",
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xff313131),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 11,
-                      ),
-                      SizedBox(
-                        width: 154,
-                        height: 60,
-                        child: OutlinedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const AuthHome(),
+                                ));
+                          },
                           style: OutlinedButton.styleFrom(
-                            foregroundColor: Colors.black,
-                            backgroundColor: Colors.greenAccent[700],
+                            foregroundColor: Colors.white,
+                            backgroundColor: ColorUtils.Green,
                           ),
                           child: const Text(
-                            "Next",
+                            "NEXT",
                             style: TextStyle(
                               fontFamily: "Poppins",
                               fontSize: 16,
