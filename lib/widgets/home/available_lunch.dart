@@ -11,10 +11,10 @@ class _AvailableLunchState extends State<AvailableLunch> {
   @override
   Widget build(BuildContext context) {
     return Material(
-        child: SizedBox(
-      height: MediaQuery.sizeOf(context).height * 0.24,
-      width: MediaQuery.sizeOf(context).width * 0.95,
-      child: Card(
+      child: SizedBox(
+        height: MediaQuery.sizeOf(context).height * 0.24,
+        width: MediaQuery.sizeOf(context).width * 0.95,
+        child: Card(
           elevation: 5,
           shadowColor: const Color.fromRGBO(239, 206, 130, 1),
           child: Container(
@@ -42,14 +42,13 @@ class _AvailableLunchState extends State<AvailableLunch> {
                 ),
                 //TODO DISPLAY THE NUMBER OF AVAILABLE LUNCHES
                 Container(
-                  height: MediaQuery.sizeOf(context).height*0.04,
-                  decoration: const BoxDecoration(
-                    color: Colors.transparent
-                  ),
+                  height: MediaQuery.sizeOf(context).height * 0.04,
+                  decoration: const BoxDecoration(color: Colors.transparent),
                   child: const Center(
-                    child: Text('34',style: TextStyle(
-                      fontSize: 24
-                    ),),
+                    child: Text(
+                      '34',
+                      style: TextStyle(fontSize: 24),
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -92,7 +91,9 @@ class _AvailableLunchState extends State<AvailableLunch> {
                 )
               ],
             ),
-          )),
-    ));
+          ),
+        ),
+      ),
+    );
   }
 }

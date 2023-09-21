@@ -9,44 +9,42 @@ import 'package:http/http.dart' as http;
 const String baseUrl = "";
 
 class Network {
-
   static Future<dynamic> get(String endpoint) async {
-
-    if(await NetworkUtils.hasNetwork()){
+    if (await NetworkUtils.hasNetwork()) {
       var url = Uri.parse(baseUrl + endpoint);
       try {
-        var response = await http.get(url, headers: await NetworkUtils.headers());
-        if(response.statusCode == 200){
-          return  json.decode(response.body);
-        } else{
+        var response =
+            await http.get(url, headers: await NetworkUtils.headers());
+        if (response.statusCode == 200) {
+          return json.decode(response.body);
+        } else {
           NetworkErrors.handleNetworkErrors(response);
         }
       } catch (e, stackTrace) {
         print(stackTrace);
       }
-    } else{
+    } else {
       Toasts.showToast(Colors.black, "No Internet Connection");
     }
   }
 
   static Future<dynamic> post({required String endpoint, dynamic data}) async {
-    if(await NetworkUtils.hasNetwork()){
+    if (await NetworkUtils.hasNetwork()) {
       var url = Uri.parse(baseUrl + endpoint);
 
       try {
-        var response = await http.post(url, headers: await NetworkUtils.headers(), body: data);
-        if(response.statusCode == 200){
+        var response = await http.post(url,
+            headers: await NetworkUtils.headers(), body: data);
+        if (response.statusCode == 200) {
           return json.decode(response.body);
-        } else{
+        } else {
           NetworkErrors.handleNetworkErrors(response);
         }
       } catch (e, stackTrace) {
         print(stackTrace);
       }
-    }else{
+    } else {
       Toasts.showToast(Colors.black, "No Internet Connection");
     }
-
   }
-
 }

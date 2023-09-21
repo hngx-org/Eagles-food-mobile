@@ -44,7 +44,7 @@ class _AuthHomeState extends State<AuthHome> {
                 padding: const EdgeInsets.only(left: 20.0, right: 20, top: 50, bottom: 30),
                 child: Text("Elevate your afternoons with a touch of flavor.",
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                  style: Theme.of(context).textTheme.displaySmall?.copyWith(
                 ),),
               ),
 
@@ -52,14 +52,14 @@ class _AuthHomeState extends State<AuthHome> {
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: CustomButton(onPress: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginOptions()));
-                }, buttonText: "Login", buttonColor: ColorUtils.Green, textColor: ColorUtils.White,),
+                }, buttonText: "Login", buttonColor: ColorUtils.Green, textColor: ColorUtils.White, isUppercase: true),
               ),
 
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: CustomButton(onPress: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context) => const Signup()));
-                }, buttonText: "Create an account", buttonColor: ColorUtils.Pink, textColor: ColorUtils.Grey,),
+                }, buttonText: "Create an account", buttonColor: ColorUtils.Pink, textColor: ColorUtils.Grey, isUppercase: true),
               ),
             ],
           ),
