@@ -5,7 +5,7 @@ ThemeData theme = ThemeData(
     primaryColor: ColorUtils.Green,
     hintColor: ColorUtils.Yellow,
     unselectedWidgetColor: ColorUtils.Grey,
-    fontFamily: 'Inter',
+    fontFamily: 'Stapel',
     splashFactory: NoSplash.splashFactory,
 
     buttonTheme: ButtonThemeData(
@@ -28,7 +28,7 @@ ThemeData theme = ThemeData(
         // main primary body text
         bodyLarge:  TextStyle(
             color: ColorUtils.Black,
-            fontFamily: 'Inter',
+            fontFamily: 'Poppins',
             fontStyle: FontStyle.normal,
             fontSize: 16,
             fontWeight: FontWeight.w400,
@@ -37,7 +37,7 @@ ThemeData theme = ThemeData(
         // secondary body text
         bodyMedium: TextStyle(
             color: ColorUtils.Grey,
-            fontFamily: 'Inter',
+            fontFamily: 'Poppins',
             fontStyle: FontStyle.normal,
             fontWeight: FontWeight.w400,
             fontSize: 13
@@ -46,7 +46,7 @@ ThemeData theme = ThemeData(
         // main heading text
         displayLarge: TextStyle(
             color: ColorUtils.Black,
-            fontFamily: 'Inter',
+            fontFamily: 'Stapel',
             fontStyle: FontStyle.normal,
             fontWeight: FontWeight.w900,
             fontSize: 30,
@@ -55,7 +55,7 @@ ThemeData theme = ThemeData(
         // for all other headers
         displayMedium: TextStyle(
             color: ColorUtils.Black,
-            fontFamily: 'Inter',
+            fontFamily: 'Stapel',
             fontStyle: FontStyle.normal,
             fontSize: 25,
             fontWeight: FontWeight.w600
@@ -64,16 +64,16 @@ ThemeData theme = ThemeData(
         //
         displaySmall: TextStyle(
             color: ColorUtils.Black,
-            fontFamily: 'Inter',
+            fontFamily: 'Poppins',
             fontStyle: FontStyle.normal,
-            fontSize: 20,
-            fontWeight: FontWeight.w500
+            fontSize: 23,
+            fontWeight: FontWeight.w600
         ),
 
         // used for buttons
         headlineMedium: TextStyle(
             color: ColorUtils.Black,
-            fontFamily: 'Inter',
+            fontFamily: 'Poppins',
             fontStyle: FontStyle.normal,
             fontSize: 16,
             fontWeight: FontWeight.w500,
@@ -82,7 +82,7 @@ ThemeData theme = ThemeData(
         // label + caption
         headlineSmall: TextStyle(
             color: ColorUtils.Grey,
-            fontFamily: 'Inter',
+            fontFamily: 'Poppins',
             fontStyle: FontStyle.normal,
             fontSize: 14,
             fontWeight: FontWeight.w500
@@ -91,7 +91,7 @@ ThemeData theme = ThemeData(
         //overline + button small
         titleLarge: TextStyle(
             color: ColorUtils.Grey,
-            fontFamily: 'Inter',
+            fontFamily: 'Poppins',
             fontStyle: FontStyle.normal,
             fontSize: 12,
             fontWeight: FontWeight.w700,

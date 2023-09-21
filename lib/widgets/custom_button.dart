@@ -2,19 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton(
-      {required this.onPress,
-      this.buttonText,
-      this.buttonColor,
-      this.fontSize = 16,
-      this.textColor = Colors.white,
-      this.isOutlined = false,
-      this.outlineColor = Colors.white,
-      this.padding = const EdgeInsets.symmetric(vertical: 25),
-      this.centerText = true,
-      this.icon,
-      this.iconHeight = 20,
-      this.iconWidth = 20});
+  const CustomButton({
+    required this.onPress,
+    this.buttonText,
+    this.buttonColor,
+    this.fontSize = 16,
+    this.isUppercase = false,
+    this.textColor = Colors.white,
+    this.isOutlined = false,
+    this.outlineColor = Colors.white,
+    this.padding = const EdgeInsets.symmetric(vertical: 25),
+    this.centerText = true,
+    this.icon,
+    this.iconHeight = 20,
+    this.iconWidth = 20
+});
 
   final fontSize;
   final buttonText;
@@ -28,6 +30,7 @@ class CustomButton extends StatelessWidget {
   final icon;
   final iconHeight;
   final iconWidth;
+  final isUppercase;
 
   @override
   Widget build(BuildContext context) {
@@ -57,14 +60,11 @@ class CustomButton extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (icon != null)
-              Padding(
-                padding: const EdgeInsets.only(right: 20.0),
-                child: Image.asset(icon,
-                    height: iconHeight.toDouble(), width: iconWidth.toDouble()),
-              ),
-            Text(
-              icon == null ? buttonText.toUpperCase() : buttonText,
+            if(icon != null) Padding(
+              padding: const EdgeInsets.only(right: 20.0),
+              child: Image.asset(icon, height: iconHeight.toDouble(), width: iconWidth.toDouble()),
+            ),
+            Text(isUppercase ? buttonText.toUpperCase() : buttonText,
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     color: textColor,
                     fontSize: fontSize.toDouble(),
