@@ -73,7 +73,7 @@ ThemeData theme = ThemeData(
         // used for buttons
         headlineMedium: TextStyle(
             color: ColorUtils.Black,
-            fontFamily: 'Poppins',
+            fontFamily: 'Stapel',
             fontStyle: FontStyle.normal,
             fontSize: 16,
             fontWeight: FontWeight.w500,
