@@ -31,7 +31,13 @@ class LunchActions extends StatelessWidget {
                 style: ButtonStyle(
                     backgroundColor:
                         MaterialStateProperty.all(ColorUtils.Yellow)),
-                child: const Text('Withdraw Lunch'),
+                child: Text(
+                  'Withdraw Lunch',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineMedium
+                      ?.copyWith(fontSize: 10),
+                ),
               ),
             ),
           ),
