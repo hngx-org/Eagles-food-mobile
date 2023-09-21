@@ -30,13 +30,13 @@ class _NavigationScreenState extends State<NavigationScreenWidget>
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
+      // mainAxisAlignment: MainAxisAlignment.start,
       children: [
         TabBar(
           labelColor: ColorUtils.Green,
           unselectedLabelColor: ColorUtils.LightGrey,
           controller: _Controller,
-          tabs: [
+          tabs: const [
             Tab(
               icon: Text(""),
               text: 'My Team',
@@ -48,12 +48,12 @@ class _NavigationScreenState extends State<NavigationScreenWidget>
           ],
         ),
 
-        // TODO Fix the space between the nav bar and dummy data
+        // TODO Attempt to remove the mediaquery.
         Container(
           height: MediaQuery.of(context).size.height,
           child: TabBarView(
             controller: _Controller,
-            children: <Widget>[
+            children: const <Widget>[
               MyTeamSearch(),
               EveryoneSearch(),
             ],
