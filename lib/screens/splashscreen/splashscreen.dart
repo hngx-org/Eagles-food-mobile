@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:hng_task3/screens/auth/auth_home.dart';
+// import 'package:hng_task3/screens/auth/auth_home.dart';
+import 'package:hng_task3/screens/onboarding/onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -11,17 +12,16 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     Timer(const Duration(seconds: 3), () {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(builder: (context) => const AuthHome()),
-              (route) => false,
-        );
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => const OnboardingScreen()),
+        (route) => false,
+      );
     });
   }
 
@@ -40,7 +40,11 @@ class _SplashScreenState extends State<SplashScreen> {
               fit: BoxFit.cover,
             ),
           ),
-          child: Image.asset("assets/logo/logo_white.png", height: 100, width: 100,),
+          child: Image.asset(
+            "assets/logo/logo_white.png",
+            height: 100,
+            width: 100,
+          ),
         ),
       ),
     );
