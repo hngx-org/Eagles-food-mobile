@@ -16,7 +16,7 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: theme,
       darkTheme: theme,
-      home: const HomeScreen(),
+      home: const SplashScreen(),
     );
   }
 }
