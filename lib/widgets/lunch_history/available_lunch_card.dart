@@ -14,7 +14,6 @@ class AvailableLunchCard extends StatelessWidget {
             left: -16,
             bottom: -150,
             child: Image.asset('assets/images/line-vector.png')),
-
         Container(
           decoration: BoxDecoration(
             color: ColorUtils.Green,
@@ -42,20 +41,21 @@ class AvailableLunchCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                   ListTile(
+                  ListTile(
                     contentPadding: EdgeInsets.zero,
                     title: Text(
                       'Available Lunches For\nWithdrawal',
-                      style: Theme.of(context).textTheme.displaySmall?.copyWith(color: ColorUtils.White,),
+                      style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                            color: ColorUtils.White,
+                          ),
                     ),
-                    trailing:const Wrap(
-                      children: [Icon(Icons.info)],
+                    trailing: const Wrap(
+                      children: [Icon(Icons.info_outline)],
                     ),
                   ),
                   const SizedBox(
                     height: 13,
                   ),
-
                   Container(
                     height: MediaQuery.sizeOf(context).height * 0.04,
                     decoration: const BoxDecoration(color: Colors.transparent),

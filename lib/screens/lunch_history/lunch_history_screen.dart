@@ -25,15 +25,20 @@ class _LaunchHistoryScreenState extends State<LaunchHistoryScreen> {
         ),
       ),
       body: const SafeArea(
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
+        child: SingleChildScrollView(
           child: Column(
             children: [
-              AvailableLunchCard(),
-              SizedBox(
-                height: 55,
+              Padding(
+                padding: EdgeInsets.all(16.0),
+                child: AvailableLunchCard(),
               ),
-              Expanded(child: LunchHistoryWidget()),
+              SizedBox(
+                height: 30,
+              ),
+              Padding(
+                padding: EdgeInsets.all(16.0),
+                child: LunchHistoryWidget(),
+              ),
             ],
           ),
         ),
