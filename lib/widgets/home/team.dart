@@ -30,7 +30,13 @@ class _TeamListState extends State<TeamList> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('My Team'),
+        Text(
+          'My Team',
+          style: Theme.of(context)
+              .textTheme
+              .bodyLarge
+              ?.copyWith(fontWeight: FontWeight.w700, fontSize: 18),
+        ),
         ListView.builder(
           shrinkWrap: true,
           physics: const BouncingScrollPhysics(),
@@ -50,7 +56,11 @@ class _TeamListState extends State<TeamList> {
                     color: ColorUtils.Yellow,
                     child: TextButton(
                       onPressed: () {},
-                      child: const Text('Send Lunch'),
+                      child: Text(
+                        'Send Lunch',
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            fontWeight: FontWeight.w700, fontSize: 13),
+                      ),
                     ),
                   )),
             );
