@@ -132,9 +132,6 @@ class MenuScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              const Row(
-                children: <Widget>[],
-              )
             ],
           ),
         ),
