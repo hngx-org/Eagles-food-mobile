@@ -61,30 +61,38 @@ class _SendLunchSearchState extends State<SendLunchSearch> {
               ),
             ),
 
-            // Navigation
-            BottomNavigationBar(
-              elevation: 0,
-              currentIndex: _currentIndex,
-              onTap: (int index) {
-                setState(() {
-                  _currentIndex = index;
-                });
-              },
-              selectedItemColor: ColorUtils.Green,
-              unselectedItemColor: ColorUtils.Grey.withOpacity(0.5),
-              selectedLabelStyle: Theme.of(context).textTheme.displaySmall,
-              unselectedLabelStyle: Theme.of(context).textTheme.displaySmall,
-              items: [
-                BottomNavigationBarItem(
-                  label: "My Team",
-                  icon: Text("", style: Theme.of(context).textTheme.titleLarge),
-                ),
-                BottomNavigationBarItem(
-                  label: "Everyone",
-                  icon: Text("", style: Theme.of(context).textTheme.titleLarge),
-                ),
+            TabBar(
+              tabs: [
+                Tab(icon: Icon(Icons.directions_car)),
+                Tab(icon: Icon(Icons.directions_transit)),
+                Tab(icon: Icon(Icons.directions_bike)),
               ],
-            ),
+            )
+
+            // Navigation
+            // BottomNavigationBar(
+            //   elevation: 0,
+            //   currentIndex: _currentIndex,
+            //   onTap: (int index) {
+            //     setState(() {
+            //       _currentIndex = index;
+            //     });
+            //   },
+            //   selectedItemColor: ColorUtils.Green,
+            //   unselectedItemColor: ColorUtils.Grey.withOpacity(0.5),
+            //   selectedLabelStyle: Theme.of(context).textTheme.displaySmall,
+            //   unselectedLabelStyle: Theme.of(context).textTheme.displaySmall,
+            //   items: [
+            //     BottomNavigationBarItem(
+            //       label: "My Team",
+            //       icon: Text("", style: Theme.of(context).textTheme.titleLarge),
+            //     ),
+            //     BottomNavigationBarItem(
+            //       label: "Everyone",
+            //       icon: Text("", style: Theme.of(context).textTheme.titleLarge),
+            //     ),
+            //   ],
+            // ),
           ],
         ),
       ),
