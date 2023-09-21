@@ -77,7 +77,7 @@ class AvailableLunchCard extends StatelessWidget {
                         onPress: () {},
                         fontSize: 14,
                         buttonText: 'withdraw lunch',
-                        buttonColor: ColorUtils.EbaTan,
+                        buttonColor: ColorUtils.DeepPink,
                         textColor: ColorUtils.Black,
                         padding: const EdgeInsets.all(16),
                       )),
