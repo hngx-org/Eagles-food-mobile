@@ -61,11 +61,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const Spacer(),
                     IconButton(
-
-                        onPressed: () {},
-                        icon: Image.asset('assets/icons/Frame 1.png'))
-                        onPressed: widget.openDrawer,
-                        icon: const Icon(Icons.menu))
+                      icon: Image.asset('assets/icons/Frame 1.png'),
+                      onPressed: widget.openDrawer,
+                    )
                   ],
                 ),
                 const SizedBox(
