@@ -10,9 +10,10 @@ class SendLunchSearchBar extends StatelessWidget {
       decoration: InputDecoration(
         contentPadding: EdgeInsets.only(left: 20),
         hintText: 'Search for employee',
-        hintStyle: TextStyle(color: ColorUtils.Grey.withOpacity(0.5)),
+        hintStyle:
+            const TextStyle(color: Colors.grey, fontWeight: FontWeight.w100),
         suffixIcon: Icon(Icons.search, color: ColorUtils.Grey.withOpacity(0.5)),
-        border: OutlineInputBorder(
+        border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(61)),
         ),
       ),

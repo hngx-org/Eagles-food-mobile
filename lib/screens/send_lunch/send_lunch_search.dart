@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/widgets/send_lunch/send_lunch_searchbar.dart';
-import 'package:hng_task3/widgets/send_lunch/my_team_search.dart';
-import 'package:hng_task3/widgets/send_lunch/everyone_search.dart';
 import 'package:hng_task3/widgets/send_lunch/navigationwidget.dart';
+import 'package:hng_task3/screens/menu/components/nav_screen.dart';
 
 class SendLunchSearch extends StatefulWidget {
   const SendLunchSearch({super.key});
@@ -13,15 +11,6 @@ class SendLunchSearch extends StatefulWidget {
 }
 
 class _SendLunchSearchState extends State<SendLunchSearch> {
-  int _currentIndex = 0;
-
-  // TabController _controller;
-
-  final List<Widget> _pages = [
-    const MyTeamSearch(),
-    const EveryoneSearch(),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,13 +23,22 @@ class _SendLunchSearchState extends State<SendLunchSearch> {
           padding: const EdgeInsets.only(right: 80, left: 20),
           child: AppBar(
             backgroundColor: Colors.transparent,
-            leading: const SizedBox(
+            leading: SizedBox(
               width: 50,
               height: 50,
-              child: Image(
-                image: AssetImage("assets/icons/icon-back.png"),
-                color: null,
+              child: IconButton(
+                icon: Image.asset("assets/icons/icon-back.png"),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const NavScreen()));
+                },
               ),
+              // child: Image(
+              //   image: AssetImage("assets/icons/icon-back.png"),
+              //   color: null,
+              // ),
             ),
           ),
         ),

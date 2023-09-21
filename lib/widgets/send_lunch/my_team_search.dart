@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hng_task3/widgets/custom_button.dart';
+import 'package:hng_task3/configs/colors.dart';
+// import 'package:hng_task3/widgets/custom_button.dart';
+import 'package:hng_task3/models/team_data.dart';
 
 class MyTeamSearch extends StatefulWidget {
   const MyTeamSearch({super.key});
@@ -9,68 +11,50 @@ class MyTeamSearch extends StatefulWidget {
 }
 
 class _MyTeamSearchState extends State<MyTeamSearch> {
-  List<UserData> MyTeamUsers = [
-    UserData("Ike"),
-    UserData("Jessy"),
-    UserData("Theophilus"),
+  final List<TeamData> _teamList = [
+    TeamData(
+        senderfullName: 'Leslie Alexander',
+        receiverfullName: 'Darrell Steward',
+        image: 'assets/images/team-1.png'),
+    TeamData(
+        senderfullName: 'Brooklyn Simmons',
+        receiverfullName: 'Arlene McCoy',
+        image: 'assets/images/team-2.png'),
+    TeamData(
+        senderfullName: 'Emmanuel Simmons',
+        receiverfullName: 'Arlene McCoy',
+        image: 'assets/images/team-3.png'),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: MyTeamUsers.map((item) {
-        return Padding(
-          padding: const EdgeInsets.all(10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    height: 50,
-                    width: 50,
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.circular(50),
-                        child: item.icon),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          item.name,
-                          textAlign: TextAlign.left,
-                          style: Theme.of(context).textTheme.displayMedium,
-                        ),
-                        Text(
-                          "${item.secondaryName}",
-                          textAlign: TextAlign.justify,
-                          style: Theme.of(context).textTheme.displaySmall,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+      children: _teamList.map((item) {
+        return SizedBox(
+            width: double.infinity,
+            child: ListTile(
+              contentPadding: const EdgeInsets.all(0),
+              leading: CircleAvatar(
+                backgroundImage: AssetImage(item.image),
               ),
-              // CustomButton(onPress: () {})
-            ],
-          ),
-        );
+              title: Text(item.senderfullName),
+              subtitle: Text('by ${item.receiverfullName}'),
+              trailing: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 4),
+                color: ColorUtils.Yellow,
+                child: TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    'Send Lunch',
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge
+                        ?.copyWith(fontWeight: FontWeight.w700, fontSize: 13),
+                  ),
+                ),
+              ),
+            ));
       }).toList(),
     );
-  }
-}
-
-// Here is the class of the dummy data.
-class UserData {
-  String name;
-  String? secondaryName;
-  Image icon =
-      const Image(image: AssetImage("assets/icons/man-avatar-icon.png"));
-
-  UserData(this.name) {
-    secondaryName = "by $name fast";
   }
 }
