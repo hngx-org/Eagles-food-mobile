@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
-
 class CustomButton extends StatelessWidget {
   const CustomButton({
     required this.onPress,

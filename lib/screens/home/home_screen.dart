@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/widgets/home/lunch_actions.dart';
 import 'package:hng_task3/widgets/home/team.dart';
+import 'package:hng_task3/widgets/lunch_history/lunch_history_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -32,6 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 .bodyLarge
                                 ?.copyWith(fontWeight: FontWeight.w700)),
                         const Text('Williams'),
+
                       ],
                     ),
                     const Spacer(),
@@ -69,10 +71,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(
                   height: 40,
                 ),
-                const TeamList(),
-                const SizedBox(
-                  height: 20,
-                ),
+                TeamList(),
+                const LunchHistoryWidget()
               ],
             ),
           ),
