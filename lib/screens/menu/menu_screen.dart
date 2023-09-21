@@ -5,7 +5,14 @@ import 'package:hng_task3/screens/menu/configurations.dart';
 import '../../utils/assets/assets.dart';
 
 class MenuScreen extends StatelessWidget {
-  const MenuScreen({super.key});
+  const MenuScreen(
+      {super.key,
+      required this.closeDrawer,
+      required this.selectedItem,
+      required this.selectPage});
+  final DrawerItem selectedItem;
+  final VoidCallback closeDrawer;
+  final Function(DrawerItem item) selectPage;
 
   @override
   Widget build(BuildContext context) {
@@ -56,9 +63,10 @@ class MenuScreen extends StatelessWidget {
                   ),
                   // const Spacer(),
 
-                  const Padding(
-                    padding: EdgeInsets.only(right: 50.0),
-                    child: Icon(Icons.close),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 50.0),
+                    child: IconButton(
+                        onPressed: closeDrawer, icon: const Icon(Icons.close)),
                   ),
                 ],
               ),
@@ -72,11 +80,12 @@ class MenuScreen extends StatelessWidget {
                               horizontal: 0,
                               vertical: 3,
                             ),
-                            // onTap: () => onSelectedItem(item),
-
+                            onTap: () => selectPage(item),
                             leading: Icon(
                               item.icon,
-                              color: ColorUtils.Black.withOpacity(0.5),
+                              color: selectedItem == item
+                                  ? ColorUtils.Green
+                                  : ColorUtils.Black.withOpacity(0.5),
                             ),
                             title: Text(
                               item.title,
@@ -85,7 +94,9 @@ class MenuScreen extends StatelessWidget {
                                   .textTheme
                                   .bodyMedium!
                                   .copyWith(
-                                    color: ColorUtils.Black,
+                                    color: selectedItem == item
+                                        ? ColorUtils.Green
+                                        : ColorUtils.Black,
                                   ),
                             ),
                           ),

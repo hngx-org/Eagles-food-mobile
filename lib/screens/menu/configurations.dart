@@ -11,7 +11,7 @@ class DrawerItem {
 }
 
 class DrawerItems {
-  static const home = DrawerItem(icon: Icons.home_filled, title: "Home");
+  static const home = DrawerItem(icon: Icons.home_outlined, title: "Home");
   static const sendlunch = DrawerItem(title: 'Send Lunch', icon: Icons.send);
   static const withdrawlunch =
       DrawerItem(icon: Icons.receipt, title: "Withdraw Lunch");
