@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
-
 class CustomButton extends StatelessWidget {
   const CustomButton(
       {required this.onPress,
@@ -68,7 +67,6 @@ class CustomButton extends StatelessWidget {
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                     color: textColor,
                     fontSize: fontSize.toDouble(),
-                    fontFamily: 'Inter',
                     fontWeight: FontWeight.w700,
                   ),
             ),
