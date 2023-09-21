@@ -4,8 +4,8 @@ import 'package:hng_task3/widgets/home/team.dart';
 import 'package:hng_task3/widgets/lunch_history/lunch_history_widget.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({this.openDrawer, super.key});
-  final VoidCallback? openDrawer;
+  const HomeScreen({super.key});
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -37,9 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                     const Spacer(),
-                    IconButton(
-                        onPressed: widget.openDrawer,
-                        icon: const Icon(Icons.menu))
+                    IconButton(onPressed: () {}, icon: const Icon(Icons.menu))
                   ],
                 ),
                 const SizedBox(
