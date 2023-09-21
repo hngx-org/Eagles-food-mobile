@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/widgets/withdraw/withdraw_image.dart';
+import 'package:hng_task3/screens/withdraw/withdraw_lunch.dart';
 
 class WithdrawSuccessScreen extends StatelessWidget {
   const WithdrawSuccessScreen({super.key});
@@ -31,13 +32,18 @@ class WithdrawSuccessScreen extends StatelessWidget {
                 width: 320,
                 height: 50,
                 child: ElevatedButton(
-                  child: Text('CONTINUE'),
+                  child: const Text('CONTINUE'),
                   style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 19, 107, 22),
                       shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.zero))
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(
+                        context,
+                        //Route to homescreen
+                        MaterialPageRoute(builder: (context) => const WithdrawLunch()));
+                  },
                 ),
               ),
             ],
