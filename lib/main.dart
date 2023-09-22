@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/theme.dart';
 import 'package:hng_task3/providers/AuthProvider.dart';
-import 'package:hng_task3/screens/menu/components/nav_screen.dart';
+
+import 'package:hng_task3/screens/splashscreen/splashscreen.dart';
+
 import 'package:provider/provider.dart';
 
 void main() {
@@ -21,8 +23,8 @@ class MainApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: theme,
         darkTheme: theme,
-        home: const NavScreen()
-        //SplashScreen(),
+
+        home: const SplashScreen(),
       ),
     );
   }
