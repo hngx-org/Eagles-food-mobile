@@ -94,65 +94,6 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
                             width: MediaQuery.of(context).size.width - 16,
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 25,
-            ),
-            const Align(
-              child: Text(
-                '*By Clicking confirm, points would be coverted into your wallet as money. This process cannot be reversed as all points must be earned.',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w300,
-                  height: 1.5,
-                  color: Color(0xff4d4d4d),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Container(
-              width: 318,
-              height: 60,
-              decoration: const BoxDecoration(
-                color: Color(0xffe4b2a6),
-              ),
-              child: Center(
-                  child: TextButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              const WithdrawSuccessScreen()));
-                },
-                child: const Text(
-                  'WITHDRAW LUNCH',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    height: 1.5,
-                    color: Color(0xffffffff),
-                  ),
-                ),
-              )),
-            ),
-          ],
-        )
-      ],
-    )));
-
-
-   }
- }
-
                         Positioned(
                             right: 110,
                             left: 90,
