@@ -12,11 +12,11 @@ class NavigationScreenWidget extends StatefulWidget {
 
 class _NavigationScreenState extends State<NavigationScreenWidget>
     with TickerProviderStateMixin {
-  late TabController _Controller = new TabController(length: 2, vsync: this);
+  late TabController _Controller = TabController(length: 2, vsync: this);
 
   @override
   void initState() {
-    _Controller = new TabController(length: 2, vsync: this);
+    _Controller = TabController(length: 2, vsync: this);
     super.initState();
   }
 
@@ -29,40 +29,43 @@ class _NavigationScreenState extends State<NavigationScreenWidget>
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      // mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        TabBar(
-          indicatorSize: TabBarIndicatorSize.label,
-          indicatorWeight: 4,
-          indicatorColor: ColorUtils.Green,
-          labelColor: ColorUtils.Green,
-          unselectedLabelColor: ColorUtils.LightGrey,
-          controller: _Controller,
-          tabs: const [
-            Tab(
-              icon: Text(""),
-              text: 'My Team',
-            ),
-            Tab(
-              icon: Text(""),
-              text: 'Everyone',
-            ),
-          ],
-        ),
-
-        // TODO Attempt to remove the mediaquery.
-        Container(
-          height: MediaQuery.of(context).size.height,
-          child: TabBarView(
+    return DefaultTabController(
+      length: 2,
+      child: Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          TabBar(
+            indicatorSize: TabBarIndicatorSize.label,
+            indicatorWeight: 4,
+            indicatorColor: ColorUtils.Green,
+            labelColor: ColorUtils.Green,
+            unselectedLabelColor: ColorUtils.LightGrey,
             controller: _Controller,
-            children: const <Widget>[
-              MyTeamSearch(),
-              EveryoneSearch(),
+            tabs: const [
+              Tab(
+                icon: Text(""),
+                text: 'My Team',
+              ),
+              Tab(
+                icon: Text(""),
+                text: 'Everyone',
+              ),
             ],
           ),
-        ),
-      ],
+
+          // TODO Attempt to remove the mediaquery.
+          Expanded(
+            // height: MediaQuery.of(context).size.height,
+            child: TabBarView(
+              controller: _Controller,
+              children: const <Widget>[
+                MyTeamSearch(),
+                EveryoneSearch(),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
