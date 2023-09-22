@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/models/team_data.dart';
+import 'package:hng_task3/screens/send_lunch/send_lunch_screen.dart';
 
 class TeamList extends StatefulWidget {
   const TeamList({super.key});
@@ -55,7 +56,9 @@ class _TeamListState extends State<TeamList> {
                     padding: const EdgeInsets.symmetric(horizontal: 4),
                     color: ColorUtils.Yellow,
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: ((context) => const SendLunchScreen())));
+                      },
                       child: Text(
                         'Send Lunch',
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
