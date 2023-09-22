@@ -109,7 +109,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 32,
                 ),
                 const TeamList(),
-                const LunchHistoryWidget()
+                const SizedBox(
+                  height: 20,
+                ),
+                 const LunchHistoryWidget(limit: true,)
               ],
             ),
           ),

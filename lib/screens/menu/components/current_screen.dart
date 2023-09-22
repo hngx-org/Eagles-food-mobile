@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/screens/home/home_screen.dart';
 import 'package:hng_task3/screens/menu/configurations.dart';
+
 // import 'package:hng_task3/screens/withdraw/withdraw_lunch.dart';
 // import 'package:hng_task3/utils/assets/assets.dart';
 
@@ -15,6 +16,7 @@ class CurrentScreen extends StatelessWidget {
     required this.openDrawer,
     required this.item,
   });
+
   final bool isDrawerOpen;
   final VoidCallback openDrawer;
   final VoidCallback closeDrawer;

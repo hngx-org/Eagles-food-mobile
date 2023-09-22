@@ -7,7 +7,8 @@ import 'package:hng_task3/widgets/common/lunch_history_item.dart';
 enum LunchHistoryFIlters { Received, Sent }
 
 class LunchHistoryWidget extends StatefulWidget {
-  const LunchHistoryWidget({Key? key}) : super(key: key);
+  const LunchHistoryWidget({Key? key, required this.limit}) : super(key: key);
+  final bool limit;
 
   @override
   State<LunchHistoryWidget> createState() => _LunchHistoryWidgetState();
@@ -19,30 +20,50 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const LaunchHistoryScreen(),
-                      ));
-                },
-                child: Text(
-                  "Lunch History",
-                  style: TextStyle(
-                      fontSize: 18,
-                      fontFamily: "Stapel",
-                      color: ColorUtils.Black,
-                      fontWeight: FontWeight.w700),
-                ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Lunch History",
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: "Stapel",
+                        color: ColorUtils.Black,
+                        fontWeight: FontWeight.w700),
+                  ),
+                  if (widget.limit)
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const LunchHistoryScreen(),
+                            ));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Text(
+                          'See more',
+                          style: TextStyle(
+                              fontSize: 13,
+                              decoration: TextDecoration.underline,
+                              color: ColorUtils.Green,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                    ),
+                ],
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: DropdownButton<LunchHistoryFIlters>(
                 icon: const Icon(Icons.arrow_drop_down),
                 value: selectedFilter,
