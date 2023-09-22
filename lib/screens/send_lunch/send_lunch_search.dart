@@ -43,7 +43,6 @@ class _SendLunchSearchState extends State<SendLunchSearch> {
           ),
         ),
       ),
-
       body: Column(
         children: [
           const SizedBox(

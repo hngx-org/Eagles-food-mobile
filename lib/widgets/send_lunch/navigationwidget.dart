@@ -22,7 +22,6 @@ class _NavigationScreenState extends State<NavigationScreenWidget>
 
   @override
   void dispose() {
-    // Dispose the controller when the widget is disposed
     _Controller.dispose();
     super.dispose();
   }
@@ -32,7 +31,6 @@ class _NavigationScreenState extends State<NavigationScreenWidget>
     return DefaultTabController(
       length: 2,
       child: Column(
-        // mainAxisAlignment: MainAxisAlignment.start,
         children: [
           TabBar(
             indicatorSize: TabBarIndicatorSize.label,
@@ -52,10 +50,7 @@ class _NavigationScreenState extends State<NavigationScreenWidget>
               ),
             ],
           ),
-
-          // TODO Attempt to remove the mediaquery.
           Expanded(
-            // height: MediaQuery.of(context).size.height,
             child: TabBarView(
               controller: _Controller,
               children: const <Widget>[
