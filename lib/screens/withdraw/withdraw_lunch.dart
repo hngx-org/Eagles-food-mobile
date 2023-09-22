@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hng_task3/screens/menu/components/nav_screen.dart';
 import 'package:hng_task3/screens/withdraw/withdraw_success_screen.dart';
-import '../home/available_lunch.dart';
 
 class WithdrawLunch extends StatefulWidget {
   const WithdrawLunch({super.key});
@@ -43,11 +43,11 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
                                 color: Colors.white,
                               ),
                               onTap: () {
-                                Navigator.push(
+                                Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            const AvailableLunch()));
+                                            const NavScreen()));
                               },
                             ),
                             const Padding(
