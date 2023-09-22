@@ -1,31 +1,35 @@
 
 class User {
-  final int id;
-  final String firstName, lastName, email, phone;
+  final String? user_id;
+  final String? firstName, lastName, email, phone_number;
+  final bool? isAdmin;
 
   User({
-    required this.id,
+    required this.user_id,
     required this.firstName,
     required this.lastName,
     required this.email,
-    required this.phone,
+    required this.phone_number,
+    required this.isAdmin,
   });
 
   factory User.fromJson(Map<String, dynamic> data) {
     return User(
-        id: data['id'],
+        user_id: data['user_id'],
         email: data['email'],
         firstName: data['firstName'],
         lastName: data['lastName'],
-        phone: data['phone'],
+        phone_number: data['phone_number'],
+        isAdmin: data['isAdmin']
     );
   }
 
   Map<String, dynamic> toJson() => {
-    'id': id,
+    'user_id': user_id,
     'email': email,
     'firstName': firstName,
     'lastName': lastName,
-    'phone' : phone,
+    'phone_number' : phone_number,
+    'isAdmin': isAdmin
   };
 }
