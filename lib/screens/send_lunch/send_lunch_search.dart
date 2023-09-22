@@ -29,7 +29,7 @@ class _SendLunchSearchState extends State<SendLunchSearch> {
               child: IconButton(
                 icon: Image.asset("assets/icons/icon-back.png"),
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                           builder: (context) => const NavScreen()));

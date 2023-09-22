@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/screens/home/home_screen.dart';
-import 'package:hng_task3/screens/lunch_history/lunch_history_screen.dart';
 import 'package:hng_task3/screens/menu/configurations.dart';
+import 'package:hng_task3/screens/send_lunch/send_lunch_search.dart';
 import 'package:hng_task3/screens/withdraw/withdraw_lunch.dart';
-// import 'package:hng_task3/screens/withdraw/withdraw_lunch.dart';
-// import 'package:hng_task3/utils/assets/assets.dart';
 
 class CurrentScreen extends StatelessWidget {
   const CurrentScreen({
@@ -73,13 +71,10 @@ class CurrentScreen extends StatelessWidget {
           openDrawer: openDrawer,
         );
       case DrawerItems.sendlunch:
-        return LaunchHistoryScreen();
+        return SendLunchSearch();
       case DrawerItems.withdrawlunch:
         return WithdrawLunch();
-      case DrawerItems.profile:
-        return HomeScreen(
-          openDrawer: openDrawer,
-        );
+
       default:
         return HomeScreen(
           openDrawer: openDrawer,
