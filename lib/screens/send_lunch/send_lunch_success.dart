@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hng_task3/configs/colors.dart';
 
 class SendLunchSuccess extends StatelessWidget {
   const SendLunchSuccess({super.key});
@@ -20,8 +21,9 @@ class SendLunchSuccess extends StatelessWidget {
                   children: [
                     Text(
                       "Your Free Lunch has been sent successfully",
+                      textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontFamily: 'Poppins',
+                        color: Colors.black,
                         fontSize: 24,
                         fontWeight: FontWeight.w600,
                       ),
@@ -30,12 +32,14 @@ class SendLunchSuccess extends StatelessWidget {
                       padding:
                           EdgeInsets.symmetric(horizontal: 28, vertical: 12),
                       // TODO: Fix the spacing of the text widget.
-                      child: Text(
-                        "Congratulations, you have successfully sent brooklyn Simmons 3 Free Lunches! Click continue to proceed",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
+                      child: Center(
+                        child: Text(
+                          "Congratulations, you have successfully sent brooklyn Simmons 3 Free Lunches! Click continue to proceed",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          ),
                         ),
                       ),
                     ),
