@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/models/user.dart';
-import 'package:hng_task3/providers/AuthProvider.dart';
-import 'package:hng_task3/utils/utils.dart';
 import 'package:hng_task3/widgets/home/lunch_actions.dart';
 import 'package:hng_task3/widgets/home/team.dart';
 import 'package:hng_task3/widgets/lunch_history/lunch_history_widget.dart';
-import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.openDrawer});
