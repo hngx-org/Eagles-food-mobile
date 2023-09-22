@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hng_task3/screens/withdraw/withdraw_lunch.dart';
+
+import '../withdraw/withdraw_lunch.dart';
 
 class AvailableLunch extends StatefulWidget {
   const AvailableLunch({super.key});
@@ -32,11 +33,11 @@ class _AvailableLunchState extends State<AvailableLunch> {
                 const SizedBox(
                   height: 25,
                 ),
-                Container(
+                Padding(
                   padding: const EdgeInsets.fromLTRB(12, 0, 12, 5),
                   child: Row(
                     children: [
-                      Container(
+                      Padding(
                         padding: const EdgeInsets.all(10),
                         child: Container(
                           width: MediaQuery.sizeOf(context).width * 0.38,
@@ -56,7 +57,7 @@ class _AvailableLunchState extends State<AvailableLunch> {
                               )),
                         ),
                       ),
-                      Container(
+                      Padding(
                         padding: const EdgeInsets.all(10),
                         child: Container(
                           width: MediaQuery.sizeOf(context).width * 0.38,
@@ -69,10 +70,10 @@ class _AvailableLunchState extends State<AvailableLunch> {
                                 style: TextStyle(color: Colors.black),
                               )),
                         ),
-                      ),
+                      )
                     ],
                   ),
-                ),
+                )
               ],
             ),
           ),
