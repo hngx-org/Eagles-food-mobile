@@ -146,9 +146,8 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
                                         child: Image.asset(
                                             'assets/images/withdraw_back_button.png'),
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
+                                    ),const SizedBox(
+                                      width: 5,
                                     ),
                                     const Text(
                                       'Withdraw Lunch',
@@ -160,11 +159,14 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
                                           decoration: TextDecoration.none),
                                     ),
                                     const SizedBox(
-                                      width: 10,
+                                      width: 30,
                                     ),
-                                    const Icon(
-                                      Icons.bookmark_border,
-                                      color: Colors.white,
+                                    const Visibility(
+                                      visible: false,
+                                      child: Icon(
+                                        Icons.bookmark_border,
+                                        color: Colors.white,
+                                      ),
                                     )
                                   ],
                                 ),

@@ -3,6 +3,8 @@ import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/widgets/custom_button.dart';
 import 'package:hng_task3/screens/send_lunch/send_lunch_search.dart';
 
+import '../../screens/withdraw/withdraw_lunch.dart';
+
 class LunchActions extends StatelessWidget {
   const LunchActions({super.key});
 
@@ -32,10 +34,10 @@ class LunchActions extends StatelessWidget {
           Expanded(
             child: CustomButton(
               onPress: () {
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //         builder: (context) => const WithdrawLunch()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const WithdrawLunch()));
               },
               buttonText: "Withdraw Lunch",
               buttonColor: ColorUtils.DeepPink,
