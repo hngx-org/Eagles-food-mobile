@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
 // import 'package:hng_task3/widgets/custom_button.dart';
 import 'package:hng_task3/models/team_data.dart';
+import 'package:hng_task3/screens/send_lunch/send_lunch_screen.dart';
 
 class MyTeamSearch extends StatefulWidget {
   const MyTeamSearch({super.key});
@@ -114,7 +115,9 @@ class _MyTeamSearchState extends State<MyTeamSearch> {
                 padding: const EdgeInsets.symmetric(horizontal: 4),
                 color: ColorUtils.Yellow,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => SendLunchScreen()));
+                  },
                   child: Text(
                     'Send Lunch',
                     style: Theme.of(context)

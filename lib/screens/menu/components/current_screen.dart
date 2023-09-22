@@ -15,6 +15,7 @@ class CurrentScreen extends StatelessWidget {
     required this.openDrawer,
     required this.item,
   });
+
   final bool isDrawerOpen;
   final VoidCallback openDrawer;
   final VoidCallback closeDrawer;

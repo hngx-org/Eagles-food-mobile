@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../withdraw/withdraw_lunch.dart';
+
 class AvailableLunch extends StatefulWidget {
   const AvailableLunch({super.key});
 
@@ -11,10 +13,10 @@ class _AvailableLunchState extends State<AvailableLunch> {
   @override
   Widget build(BuildContext context) {
     return Material(
-        child: SizedBox(
-      height: MediaQuery.sizeOf(context).height * 0.15,
-      width: MediaQuery.sizeOf(context).width * 0.95,
-      child: Card(
+      child: SizedBox(
+        height: MediaQuery.sizeOf(context).height * 0.15,
+        width: MediaQuery.sizeOf(context).width * 0.95,
+        child: Card(
           elevation: 5,
           shadowColor: const Color.fromRGBO(239, 206, 130, 1),
           child: Container(
@@ -42,7 +44,13 @@ class _AvailableLunchState extends State<AvailableLunch> {
                           decoration: const BoxDecoration(
                               color: Color.fromRGBO(228, 178, 166, 1)),
                           child: TextButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const WithdrawLunch()));
+                              },
                               child: const Text(
                                 'Withdraw Lunch',
                                 style: TextStyle(color: Colors.black),
@@ -68,7 +76,9 @@ class _AvailableLunchState extends State<AvailableLunch> {
                 )
               ],
             ),
-          )),
-    ));
+          ),
+        ),
+      ),
+    );
   }
 }
