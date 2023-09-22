@@ -7,14 +7,28 @@ import 'package:hng_task3/network/network.dart';
 
 class AuthProvider with ChangeNotifier{
   User? _user;
-  String? _token;
   bool? _isLoggedIn;
   bool _isLoading = false;
 
   User? get user => _user;
-  String? get token => _token;
   bool? get isLoggedIn => _isLoggedIn;
   bool get isLoading => _isLoading;
+
+  Future<dynamic> getUserProfile() async {
+    const String url = 'user/profile';
+    try{
+      _isLoading = true;
+      final response = await Network.get(url);
+      var user = response["data"];
+      print(user);
+      _user = User.fromJson(user);
+      _isLoggedIn = false;
+      notifyListeners();
+    }catch(e){
+      print(e);
+    }
+  }
+
 
   Future<dynamic> login(Map<String, dynamic> userData) async {
     const String url = 'auth/login';
@@ -62,6 +76,14 @@ class AuthProvider with ChangeNotifier{
     } catch (error) {
       print(error);
     }
+  }
+
+  Future<dynamic> logout() async {
+    SessionManager ss = SessionManager();
+    ss.logout();
+    ss.setLogin(false);
+    ss.removeUser();
+    notifyListeners();
   }
 
 
