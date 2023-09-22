@@ -65,7 +65,7 @@ class _AvailableLunchState extends State<AvailableLunch> {
                      ),
                    )
                  ],
-               ),)
+               ),),
 
                 Padding(
                   padding: const EdgeInsets.fromLTRB(12, 0, 12, 5),
