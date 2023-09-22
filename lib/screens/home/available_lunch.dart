@@ -12,7 +12,7 @@ class _AvailableLunchState extends State<AvailableLunch> {
   Widget build(BuildContext context) {
     return Material(
         child: SizedBox(
-      height: MediaQuery.sizeOf(context).height * 0.24,
+      height: MediaQuery.sizeOf(context).height * 0.15,
       width: MediaQuery.sizeOf(context).width * 0.95,
       child: Card(
           elevation: 5,
@@ -28,32 +28,8 @@ class _AvailableLunchState extends State<AvailableLunch> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const ListTile(
-                  title: Text(
-                    'Available Lunches For Withdrawal',
-                    style: TextStyle(fontSize: 24, fontStyle: FontStyle.normal),
-                  ),
-                  trailing: Wrap(
-                    children: [Icon(Icons.info)],
-                  ),
-                ),
                 const SizedBox(
-                  height: 13,
-                ),
-                //TODO DISPLAY THE NUMBER OF AVAILABLE LUNCHES
-                Container(
-                  height: MediaQuery.sizeOf(context).height*0.04,
-                  decoration: const BoxDecoration(
-                    color: Colors.transparent
-                  ),
-                  child: const Center(
-                    child: Text('34',style: TextStyle(
-                      fontSize: 24
-                    ),),
-                  ),
-                ),
-                const SizedBox(
-                  height: 13,
+                  height: 25,
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(12, 0, 12, 5),
