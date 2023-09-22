@@ -24,6 +24,7 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
       children: [
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
               child: Column(
@@ -32,12 +33,9 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
                 children: [
                   Text(
                     "Lunch History",
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: "Stapel",
-                        color: ColorUtils.Black,
-                        fontWeight: FontWeight.w700),
-                  ),
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                     fontSize: 22
+                    ),),
                   if (widget.limit)
                     InkWell(
                       onTap: () {
@@ -52,7 +50,8 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
                         child: Text(
                           'See more',
                           style: TextStyle(
-                              fontSize: 13,
+                              fontSize: 15,
+                              fontFamily: 'Stapel',
                               decoration: TextDecoration.underline,
                               color: ColorUtils.Green,
                               fontWeight: FontWeight.w600),
@@ -62,34 +61,32 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: DropdownButton<LunchHistoryFIlters>(
-                icon: const Icon(Icons.arrow_drop_down),
-                value: selectedFilter,
-                underline: const SizedBox(),
-                alignment: Alignment.center,
-                iconEnabledColor: ColorUtils.Green,
-                style: TextStyle(
-                    color: ColorUtils.Green,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500),
-                items: LunchHistoryFIlters.values
-                    .map((e) => DropdownMenuItem<LunchHistoryFIlters>(
-                          value: e,
-                          child: Text(
-                            e.name,
-                          ),
-                        ))
-                    .toList(),
-                onChanged: (value) {
-                  setState(() {
-                    if (value != null) {
-                      selectedFilter = value;
-                    }
-                  });
-                },
+            DropdownButton<LunchHistoryFIlters>(
+              icon: const Icon(Icons.arrow_drop_down),
+              value: selectedFilter,
+              underline: const SizedBox(),
+              alignment: Alignment.center,
+              iconEnabledColor: ColorUtils.Green,
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                color: ColorUtils.Green,
+                fontSize: 20,
+                fontWeight: FontWeight.w500
               ),
+              items: LunchHistoryFIlters.values
+                  .map((e) => DropdownMenuItem<LunchHistoryFIlters>(
+                        value: e,
+                        child: Text(
+                          e.name,
+                        ),
+                      ))
+                  .toList(),
+              onChanged: (value) {
+                setState(() {
+                  if (value != null) {
+                    selectedFilter = value;
+                  }
+                });
+              },
             )
           ],
         ),
