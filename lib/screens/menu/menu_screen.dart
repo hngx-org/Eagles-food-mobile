@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
+import 'package:hng_task3/providers/AuthProvider.dart';
+import 'package:hng_task3/screens/auth/login.dart';
 import 'package:hng_task3/screens/menu/configurations.dart';
+import 'package:hng_task3/utils/utils.dart';
+import 'package:provider/provider.dart';
 
 import '../../utils/assets/assets.dart';
 
@@ -73,40 +77,59 @@ class MenuScreen extends StatelessWidget {
               const SizedBox(height: 20),
               Column(
                 children: DrawerItems.all
-                    .map((item) => SizedBox(
-                          width: 150,
-                          child: ListTile(
-                            contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 0,
-                              vertical: 3,
-                            ),
-                            onTap: () => selectPage(item),
-                            leading: Icon(
-                              item.icon,
-                              color: selectedItem == item
-                                  ? ColorUtils.Green
-                                  : item == DrawerItems.logout
-                                      ? Color.fromRGBO(248, 99, 99, 0.518)
-                                      : ColorUtils.Black.withOpacity(0.5),
-                            ),
-                            title: Text(
-                              item.title,
-                              softWrap: true,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                    color: selectedItem == item
-                                        ? ColorUtils.Green
-                                        : ColorUtils.Black,
-                                  ),
+                    .map((item) => TextButton(
+                  style: ButtonStyle(
+                    padding: MaterialStateProperty.all(EdgeInsets.zero),
+                    overlayColor: MaterialStateProperty.all(Colors.transparent),
+                    enableFeedback: false,
+                    splashFactory: NoSplash.splashFactory,
+                    foregroundColor: MaterialStateProperty.all(Colors.transparent),
+                    backgroundColor: MaterialStateProperty.all(Colors.transparent),
+                    shadowColor: MaterialStateProperty.all(Colors.transparent),
+                    elevation: MaterialStateProperty.all(0.0),
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    minimumSize: MaterialStateProperty.all(Size(0.0, 0.0)),
+                  ),
+                  onPressed: () async {
+                    // Utils.loadingProgress(context);
+                    // await Provider.of<AuthProvider>(context, listen: false).logout();
+                    // Navigator.push(context, MaterialPageRoute(builder: (context) => const Login() ));
+                  },
+                      child: SizedBox(
+                            width: 150,
+                            child: ListTile(
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 0,
+                                vertical: 3,
+                              ),
+                              onTap: () => selectPage(item),
+                              leading: Icon(
+                                item.icon,
+                                color: selectedItem == item
+                                    ? ColorUtils.Green
+                                    : item == DrawerItems.logout
+                                        ? Color.fromRGBO(248, 99, 99, 0.518)
+                                        : ColorUtils.Black.withOpacity(0.5),
+                              ),
+                              title: Text(
+                                item.title,
+                                softWrap: true,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(
+                                      color: selectedItem == item
+                                          ? ColorUtils.Green
+                                          : ColorUtils.Black,
+                                    ),
+                              ),
                             ),
                           ),
-                        ))
+                    ))
                     .toList(),
               ),
               const SizedBox(
-                height: 140,
+                height: 100,
               ),
               const Row(
                 children: [
