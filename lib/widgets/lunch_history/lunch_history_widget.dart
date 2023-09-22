@@ -34,7 +34,8 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
                 child: Text(
                   "Lunch History",
                   style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 18,
+                      fontFamily: "Stapel",
                       color: ColorUtils.Black,
                       fontWeight: FontWeight.w700),
                 ),

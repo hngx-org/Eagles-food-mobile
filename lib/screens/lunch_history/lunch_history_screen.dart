@@ -20,8 +20,9 @@ class _LaunchHistoryScreenState extends State<LaunchHistoryScreen> {
           "Lunch History",
           style: TextStyle(
               fontSize: 20,
+              fontFamily: "Stapel",
               color: ColorUtils.Black,
-              fontWeight: FontWeight.w700),
+              fontWeight: FontWeight.bold),
         ),
       ),
       body: const SafeArea(

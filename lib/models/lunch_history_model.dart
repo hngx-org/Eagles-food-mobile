@@ -52,5 +52,6 @@ class LunchHistoryModel {
   String get senderOrReceiverTittle =>
       isReceived ? 'From $senderName' : 'To $receiverName';
 
-  String get subtittle  => isReceived ? 'Received Free Lunch' : 'Sent Received Lunch';
+  String get subtittle =>
+      isReceived ? 'Received Free Lunch' : 'Sent Free Lunch';
 }

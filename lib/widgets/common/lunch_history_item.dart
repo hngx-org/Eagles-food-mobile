@@ -17,17 +17,18 @@ class LaunchHistoryItem extends StatelessWidget {
               child: Text(
                 lunchHistory.reason.toUpperCase(),
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontFamily: "Stapel",
                       fontSize: 16,
                       fontWeight: FontWeight.w700,
                     ),
               ),
             ),
             const SizedBox(
-              width: 8,
+              width: 35,
             ),
             Text(
               lunchHistory.amountTittle,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
                   color:
@@ -47,20 +48,20 @@ class LaunchHistoryItem extends StatelessWidget {
                 children: [
                   Text(
                     lunchHistory.senderOrReceiverTittle,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         fontSize: 13,
                         fontWeight: FontWeight.w400,
-                        color: ColorUtils.Grey),
+                        color: Colors.grey),
                   ),
                   const SizedBox(
                     height: 5,
                   ),
                   Text(
                     'June 18, 2020  |  4:00 AM',
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                        color: ColorUtils.Grey),
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w400,
+                        ),
                   ),
                 ],
               ),
