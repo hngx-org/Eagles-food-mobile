@@ -16,8 +16,6 @@ class _SendLunchSearchState extends State<SendLunchSearch> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      // This approach allows the app bar to remain floating and adds a padding
-      // to the return button. Avoid editing Except a change in design occurs.
       appBar: PreferredSize(
         preferredSize: const Size(0, 96),
         child: Padding(
@@ -34,7 +32,6 @@ class _SendLunchSearchState extends State<SendLunchSearch> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => const NavScreen(),
-                      // builder: (context) => const SendLunchSuccess(),
                     ),
                   );
                 },
