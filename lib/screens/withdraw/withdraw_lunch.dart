@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 import 'package:hng_task3/screens/withdraw/withdraw_success_screen.dart';
@@ -136,7 +134,7 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
                               children: [
                                 Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceEvenly,
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     InkWell(
                                       onTap: () {
@@ -204,8 +202,8 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
                               ],
                             ))
                       ],
-                    ),),
-
+                    ),
+                  ),
                   Positioned(
                     bottom: 0,
                     child: Container(
@@ -336,7 +334,7 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
                                 width: 10,
                               ),
                               Text(
-                                "\$"'$amount',
+                                "\$" '$amount',
                                 style: const TextStyle(
                                     color: Color(0xFF04764E),
                                     fontWeight: FontWeight.w700,
@@ -350,21 +348,26 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
                           bottom: 100,
                           child: InkWell(
                             onTap: () {
-                              controller.text.isNotEmpty?
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          WithdrawSuccessScreen(numOfFreeLunch: controller.text,))):ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  backgroundColor: Color(0xFFEFCE82),
-                                  content: Text('Enter number of free lunches you want to withdraw first'),
-                                ),
-                              );;
+                              controller.text.isNotEmpty
+                                  ? Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              WithdrawSuccessScreen(
+                                                numOfFreeLunch: controller.text,
+                                              )))
+                                  : ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        backgroundColor: Color(0xFFEFCE82),
+                                        content: Text(
+                                            'Enter number of free lunches you want to withdraw first'),
+                                      ),
+                                    );
+                              ;
                             },
                             child: Container(
                               margin:
-                              const EdgeInsets.symmetric(horizontal: 30),
+                                  const EdgeInsets.symmetric(horizontal: 30),
                               height: 60,
                               width: MediaQuery.of(context).size.width - 60,
                               color: const Color(0xFFE4B2A6),
@@ -409,9 +412,6 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
                       ]),
                     ),
                   ),
-
-
-
                 ],
               )),
         ),
@@ -419,4 +419,3 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
     ));
   }
 }
-
