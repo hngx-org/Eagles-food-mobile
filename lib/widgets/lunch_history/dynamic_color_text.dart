@@ -40,7 +40,7 @@ class _DynamicColorTextState extends State<DynamicColorText> {
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
               fontFamily: "Stapel",
               fontSize: 16,
-              fontWeight: FontWeight.w700,
+              fontWeight: FontWeight.w600,
               color: coloredIndexes.contains(index)
                   ? widget.dynamicColor
                   : ColorUtils.Black));
