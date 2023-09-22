@@ -18,4 +18,17 @@ class Utils {
           );
         });
   }
+
+  static loading(){
+    return  Center(
+      child: SizedBox(
+        width: 25,
+        height: 25,
+        child:CupertinoActivityIndicator(
+          color: ColorUtils.Blue,
+          radius: 15,
+        ),
+      ),
+    );
+  }
 }

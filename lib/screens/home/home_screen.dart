@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hng_task3/models/user.dart';
+import 'package:hng_task3/providers/AuthProvider.dart';
+import 'package:hng_task3/utils/utils.dart';
 import 'package:hng_task3/widgets/home/lunch_actions.dart';
 import 'package:hng_task3/widgets/home/team.dart';
 import 'package:hng_task3/widgets/lunch_history/lunch_history_widget.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.openDrawer});
@@ -11,10 +15,22 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // isLoading = true;
+    // Provider.of<AuthProvider>(context, listen: false).getUserProfile();
+  }
+
+  bool isLoading = false;
+  User? user;
   @override
   Widget build(BuildContext context) {
+    // user = Provider.of<AuthProvider>(context).user;
+    // isLoading = Provider.of<AuthProvider>(context).isLoading;
     return Scaffold(
-
         body: SingleChildScrollView(
           padding: const EdgeInsets.only(
             top: 50,
@@ -49,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       Text(
-                        'Williams',
+                        "William",
                         style: Theme.of(context)
                             .textTheme
                             .bodyLarge
