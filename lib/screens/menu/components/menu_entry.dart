@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/screens/menu/menu_screen.dart';
 
+import '../configurations.dart';
 import 'menu_home.dart';
 
 class MyWidget extends StatelessWidget {
@@ -8,10 +9,10 @@ class MyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return  const Scaffold(
       body: Stack(
         children: [
-          MenuScreen(),
+          // MenuScreen(closeDrawer: () {  }, selectedItem:const DrawerItem(icon: Icons.ice_skating, title: '') , selectPage: (DrawerItem item) {  },),
           HomeScreen(),
         ],
       ),
