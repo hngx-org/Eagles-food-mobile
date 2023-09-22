@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
+import 'package:hng_task3/screens/send_lunch/send_lunch_success.dart';
 
 import 'package:hng_task3/widgets/send_lunch/send_lunch_textfield.dart';
 
@@ -143,7 +144,13 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                               shape: const RoundedRectangleBorder(),
                               minimumSize: const Size.fromHeight(60),
                               backgroundColor: const Color(0xFF04754D)),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const SendLunchSuccess()));
+                          },
                           child: const Text(
                             "SEND LUNCH",
                             style: TextStyle(
