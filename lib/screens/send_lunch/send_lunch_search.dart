@@ -39,43 +39,11 @@ class _SendLunchSearchState extends State<SendLunchSearch> {
                   );
                 },
               ),
-              // child: Image(
-              //   image: AssetImage("assets/icons/icon-back.png"),
-              //   color: null,
-              // ),
             ),
           ),
         ),
       ),
 
-      // TODO Test if there is a better way of handling the UI without the
-      // singlechildscrollview.
-
-      // body: SingleChildScrollView(
-      //   child: Column(
-      //     children: [
-      //       const SizedBox(
-      //         height: 60,
-      //       ),
-      //       Center(
-      //         child: Text(
-      //           "Send Lunch",
-      //           style: Theme.of(context).textTheme.displayLarge,
-      //         ),
-      //       ),
-      //       const Center(
-      //         child: Padding(
-      //           padding: EdgeInsets.symmetric(horizontal: 29, vertical: 13),
-      //           child: SendLunchSearchBar(),
-      //         ),
-      //       ),
-      //       const Padding(
-      //         padding: EdgeInsets.symmetric(horizontal: 10),
-      //         child: NavigationScreenWidget(),
-      //       ),
-      //     ],
-      //   ),
-      // ),
       body: Column(
         children: [
           const SizedBox(
