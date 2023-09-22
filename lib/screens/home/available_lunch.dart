@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../withdraw/withdraw_lunch.dart';
-
 class AvailableLunch extends StatefulWidget {
   const AvailableLunch({super.key});
 
@@ -34,6 +32,7 @@ class _AvailableLunchState extends State<AvailableLunch> {
                   height: 25,
                 ),
 
+
                Padding(padding: const EdgeInsets.fromLTRB(12, 0, 12, 5),child:  Row(
                  children: [
                    Padding(
@@ -65,47 +64,7 @@ class _AvailableLunchState extends State<AvailableLunch> {
                      ),
                    )
                  ],
-               ),),
-
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(12, 0, 12, 5),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Container(
-                          width: MediaQuery.sizeOf(context).width * 0.38,
-                          decoration: const BoxDecoration(
-                              color: Color.fromRGBO(228, 178, 166, 1)),
-                          child: TextButton(
-                              onPressed: () {},
-                              child: const Text(
-                                'Withdraw Lunch',
-                                style: TextStyle(color: Colors.black),
-                              )),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Container(
-                          width: MediaQuery.sizeOf(context).width * 0.38,
-                          decoration: const BoxDecoration(
-                              color: Color.fromRGBO(239, 206, 130, 1)),
-                          child: TextButton(
-                              onPressed: () {},
-                              child: const Text(
-                                'Send Lunch',
-                                style: TextStyle(color: Colors.black),
-                              )),
-                        ),
-                      )
-                    ],
-                  ),
-                )
-
-              ],
-            ),
-          )),
+               ),
     ));
   }
 }

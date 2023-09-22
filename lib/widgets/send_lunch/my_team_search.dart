@@ -25,12 +25,83 @@ class _MyTeamSearchState extends State<MyTeamSearch> {
         senderfullName: 'Emmanuel Simmons',
         receiverfullName: 'Arlene McCoy',
         image: 'assets/images/team-3.png'),
+    TeamData(
+        senderfullName: 'Brooklyn Simmons',
+        receiverfullName: 'Arlene McCoy',
+        image: 'assets/images/team-2.png'),
+    TeamData(
+        senderfullName: 'Emmanuel Simmons',
+        receiverfullName: 'Arlene McCoy',
+        image: 'assets/images/team-3.png'),
+    TeamData(
+        senderfullName: 'Brooklyn Simmons',
+        receiverfullName: 'Arlene McCoy',
+        image: 'assets/images/team-2.png'),
+    TeamData(
+        senderfullName: 'Emmanuel Simmons',
+        receiverfullName: 'Arlene McCoy',
+        image: 'assets/images/team-3.png'),
+    TeamData(
+        senderfullName: 'Brooklyn Simmons',
+        receiverfullName: 'Arlene McCoy',
+        image: 'assets/images/team-2.png'),
+    TeamData(
+        senderfullName: 'Emmanuel Simmons',
+        receiverfullName: 'Arlene McCoy',
+        image: 'assets/images/team-3.png'),
+    TeamData(
+        senderfullName: 'Brooklyn Simmons',
+        receiverfullName: 'Arlene McCoy',
+        image: 'assets/images/team-2.png'),
+    TeamData(
+        senderfullName: 'Emmanuel Simmons',
+        receiverfullName: 'Arlene McCoy',
+        image: 'assets/images/team-3.png'),
+    TeamData(
+        senderfullName: 'Brooklyn Simmons',
+        receiverfullName: 'Arlene McCoy',
+        image: 'assets/images/team-2.png'),
+    TeamData(
+        senderfullName: 'Emmanuel Simmons',
+        receiverfullName: 'Arlene McCoy',
+        image: 'assets/images/team-3.png'),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: _teamList.map((item) {
+    // return Column(
+    //   children: _teamList.map((item) {
+    //     return SizedBox(
+    //         width: double.infinity,
+    //         child: ListTile(
+    //           contentPadding: const EdgeInsets.all(0),
+    //           leading: CircleAvatar(
+    //             backgroundImage: AssetImage(item.image),
+    //           ),
+    //           title: Text(item.senderfullName),
+    //           subtitle: Text('by ${item.receiverfullName}'),
+    //           trailing: Container(
+    //             padding: const EdgeInsets.symmetric(horizontal: 4),
+    //             color: ColorUtils.Yellow,
+    //             child: TextButton(
+    //               onPressed: () {},
+    //               child: Text(
+    //                 'Send Lunch',
+    //                 style: Theme.of(context)
+    //                     .textTheme
+    //                     .bodyLarge
+    //                     ?.copyWith(fontWeight: FontWeight.w700, fontSize: 13),
+    //               ),
+    //             ),
+    //           ),
+    //         ));
+    //   }).toList(),
+    // );
+    return ListView.builder(
+      itemCount: _teamList.length,
+      padding: EdgeInsets.zero,
+      itemBuilder: (context, index) {
+        final item = _teamList[index];
         return SizedBox(
             width: double.infinity,
             child: ListTile(
@@ -57,7 +128,7 @@ class _MyTeamSearchState extends State<MyTeamSearch> {
                 ),
               ),
             ));
-      }).toList(),
+      },
     );
   }
 }

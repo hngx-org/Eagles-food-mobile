@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/models/lunch_history_model.dart';
+import 'package:hng_task3/widgets/lunch_history/dynamic_color_text.dart';
 
 class LaunchHistoryItem extends StatelessWidget {
   const LaunchHistoryItem({Key? key, required this.lunchHistory})
@@ -14,20 +15,17 @@ class LaunchHistoryItem extends StatelessWidget {
         Row(
           children: [
             Expanded(
-              child: Text(
-                lunchHistory.reason.toUpperCase(),
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                    ),
-              ),
+              child: DynamicColorText(
+                  text: lunchHistory.reason.toUpperCase(),
+                  dynamicColor:
+                      lunchHistory.isReceived ? ColorUtils.Green : Colors.red),
             ),
             const SizedBox(
-              width: 8,
+              width: 35,
             ),
             Text(
               lunchHistory.amountTittle,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
                   color:
@@ -47,20 +45,20 @@ class LaunchHistoryItem extends StatelessWidget {
                 children: [
                   Text(
                     lunchHistory.senderOrReceiverTittle,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         fontSize: 13,
                         fontWeight: FontWeight.w400,
-                        color: ColorUtils.Grey),
+                        color: Colors.grey),
                   ),
                   const SizedBox(
                     height: 5,
                   ),
                   Text(
                     'June 18, 2020  |  4:00 AM',
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                        color: ColorUtils.Grey),
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w400,
+                        ),
                   ),
                 ],
               ),
