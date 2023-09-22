@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
-// import 'package:hng_task3/widgets/custom_button.dart';
 import 'package:hng_task3/models/team_data.dart';
 import 'package:hng_task3/screens/send_lunch/send_lunch_screen.dart';
 
@@ -69,34 +68,6 @@ class _MyTeamSearchState extends State<MyTeamSearch> {
 
   @override
   Widget build(BuildContext context) {
-    // return Column(
-    //   children: _teamList.map((item) {
-    //     return SizedBox(
-    //         width: double.infinity,
-    //         child: ListTile(
-    //           contentPadding: const EdgeInsets.all(0),
-    //           leading: CircleAvatar(
-    //             backgroundImage: AssetImage(item.image),
-    //           ),
-    //           title: Text(item.senderfullName),
-    //           subtitle: Text('by ${item.receiverfullName}'),
-    //           trailing: Container(
-    //             padding: const EdgeInsets.symmetric(horizontal: 4),
-    //             color: ColorUtils.Yellow,
-    //             child: TextButton(
-    //               onPressed: () {},
-    //               child: Text(
-    //                 'Send Lunch',
-    //                 style: Theme.of(context)
-    //                     .textTheme
-    //                     .bodyLarge
-    //                     ?.copyWith(fontWeight: FontWeight.w700, fontSize: 13),
-    //               ),
-    //             ),
-    //           ),
-    //         ));
-    //   }).toList(),
-    // );
     return ListView.builder(
       itemCount: _teamList.length,
       padding: EdgeInsets.zero,
@@ -116,7 +87,10 @@ class _MyTeamSearchState extends State<MyTeamSearch> {
                 color: ColorUtils.Yellow,
                 child: TextButton(
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => SendLunchScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SendLunchScreen()));
                   },
                   child: Text(
                     'Send Lunch',
