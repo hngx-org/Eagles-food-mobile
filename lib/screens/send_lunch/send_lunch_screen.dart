@@ -158,7 +158,7 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                               minimumSize: const Size.fromHeight(60),
                               backgroundColor: const Color(0xFF04754D)),
                           onPressed: () {
-                            Navigator.push(
+                            Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>

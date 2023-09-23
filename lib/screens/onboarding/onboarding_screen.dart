@@ -26,7 +26,8 @@ class OnboardingScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 25.0, vertical: 10),
                     child: Text(
                       "Send Free Lunch to appreciate someone at work",
                       style: Theme.of(context).textTheme.displaySmall,
@@ -34,7 +35,7 @@ class OnboardingScreen extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal:20.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Text(
                       "Rewarding someone in the office has never been this easy, create a more productive and compensating work space with free lunches.",
                       style: Theme.of(context).textTheme.bodyLarge,
@@ -45,14 +46,16 @@ class OnboardingScreen extends StatelessWidget {
                     height: 50,
                   ),
                   CustomButton(
-                    onPress: (){
-                      Navigator.push(
+                    onPress: () {
+                      Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (context) => const AuthHome(),
                           ));
                     },
-                    buttonColor: ColorUtils.Green, buttonText: "Next", isUppercase: true,
+                    buttonColor: ColorUtils.Green,
+                    buttonText: "Next",
+                    isUppercase: true,
                   ),
                 ],
               ),
@@ -63,4 +66,3 @@ class OnboardingScreen extends StatelessWidget {
     );
   }
 }
-

@@ -57,7 +57,11 @@ class _TeamListState extends State<TeamList> {
                     color: ColorUtils.Yellow,
                     child: TextButton(
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: ((context) => const SendLunchScreen())));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: ((context) =>
+                                    const SendLunchScreen())));
                       },
                       child: Text(
                         'Send Lunch',
