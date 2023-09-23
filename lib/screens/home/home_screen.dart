@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/models/user.dart';
+import 'package:hng_task3/widgets/common/search_employee.dart';
 import 'package:hng_task3/widgets/home/lunch_actions.dart';
 import 'package:hng_task3/widgets/home/team.dart';
 import 'package:hng_task3/widgets/lunch_history/lunch_history_widget.dart';
@@ -13,6 +14,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<String> employees = [
+    'John Doe',
+    'Jane Smith',
+    'Mark Johnson',
+    'Emily Davis',
+  ];
+
+  String selectedEmployee = '';
+  FocusNode focusNode = FocusNode();
+
+  @override
+  void dispose() {
+    focusNode.dispose();
+    super.dispose();
+  }
   @override
   void initState() {
     // TODO: implement initState
@@ -77,37 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             height: 30,
           ),
-          Container(
-            height: 60,
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey.shade300),
-              color: Colors.grey.shade200,
-              //borderRadius: BorderRadius.circular(10),
-            ),
-            child: const Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    decoration: InputDecoration(
-                      // filled: true,
-                      // fillColor: Colors.grey,
-                      hintText: 'Search for employee',
-                      hintStyle: TextStyle(
-                          color: Colors.grey, fontWeight: FontWeight.w100),
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
-                Icon(
-                  Icons.search,
-                  color: Colors.grey,
-                  size: 35,
-                ),
-                SizedBox(width: 10),
-              ],
-            ),
-          ),
+          searchEmployeeBox(employees, (p0) => null, selectedEmployee, focusNode),
           const SizedBox(
             height: 18,
           ),
