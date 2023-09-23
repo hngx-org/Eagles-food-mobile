@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
+// // import 'package:hng_task3/providers/AuthProvider.dart';
+// import 'package:hng_task3/screens/auth/login.dart';
 import 'package:hng_task3/screens/menu/configurations.dart';
+// import 'package:hng_task3/utils/utils.dart';
+// import 'package:provider/provider.dart';
 
 import '../../utils/assets/assets.dart';
 
@@ -89,8 +93,7 @@ class MenuScreen extends StatelessWidget {
                                 color: selectedItem == item
                                     ? ColorUtils.Green
                                     : item == DrawerItems.logout
-                                        ? const Color.fromRGBO(
-                                            248, 99, 99, 0.518)
+                                        ? Color.fromRGBO(248, 99, 99, 0.518)
                                         : ColorUtils.Black.withOpacity(0.5),
                               ),
                               title: Text(
