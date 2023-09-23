@@ -93,7 +93,8 @@ class MenuScreen extends StatelessWidget {
                                 color: selectedItem == item
                                     ? ColorUtils.Green
                                     : item == DrawerItems.logout
-                                        ? Color.fromRGBO(248, 99, 99, 0.518)
+                                        ? const Color.fromRGBO(
+                                            248, 99, 99, 0.518)
                                         : ColorUtils.Black.withOpacity(0.5),
                               ),
                               title: Text(
