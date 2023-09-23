@@ -33,8 +33,8 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isLoading = false;
   var user;
 
-  List<dynamic> my_team = [];
 
+  List<dynamic> my_team = [];
   @override
   void dispose() {
     focusNode.dispose();
@@ -57,6 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     my_team = Provider.of<TeamAndLunchProvider>(context).my_team;
+
     return Scaffold(
         body: SingleChildScrollView(
       padding: const EdgeInsets.only(
