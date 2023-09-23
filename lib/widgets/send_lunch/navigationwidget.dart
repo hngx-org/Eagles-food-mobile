@@ -12,22 +12,23 @@ class NavigationScreenWidget extends StatefulWidget {
 
 class _NavigationScreenState extends State<NavigationScreenWidget>
     with TickerProviderStateMixin {
-  late TabController _Controller = TabController(length: 2, vsync: this);
+  late TabController _controller = TabController(length: 2, vsync: this);
 
   @override
   void initState() {
-    _Controller = TabController(length: 2, vsync: this);
+    _controller = TabController(length: 2, vsync: this);
     super.initState();
   }
 
   @override
   void dispose() {
-    _Controller.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+
     return DefaultTabController(
       length: 2,
       child: Column(
@@ -38,7 +39,7 @@ class _NavigationScreenState extends State<NavigationScreenWidget>
             indicatorColor: ColorUtils.Green,
             labelColor: ColorUtils.Green,
             unselectedLabelColor: ColorUtils.LightGrey,
-            controller: _Controller,
+            controller: _controller,
             tabs: const [
               Tab(
                 icon: Text(""),
@@ -52,7 +53,7 @@ class _NavigationScreenState extends State<NavigationScreenWidget>
           ),
           Expanded(
             child: TabBarView(
-              controller: _Controller,
+              controller: _controller,
               children: const <Widget>[
                 MyTeamSearch(),
                 EveryoneSearch(),

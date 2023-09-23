@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/models/team_data.dart';
 import 'package:hng_task3/screens/send_lunch/send_lunch_screen.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/num_of_free_lunch_provider.dart';
 
 class MyTeamSearch extends StatefulWidget {
   const MyTeamSearch({super.key});
@@ -68,6 +71,7 @@ class _MyTeamSearchState extends State<MyTeamSearch> {
 
   @override
   Widget build(BuildContext context) {
+    final numOfFreeLunchProvider = Provider.of<NumOfFreeLunchProvider>(context);
     return ListView.builder(
       itemCount: _teamList.length,
       padding: EdgeInsets.zero,
@@ -90,7 +94,9 @@ class _MyTeamSearchState extends State<MyTeamSearch> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => SendLunchScreen()));
+                            builder: (context) =>
+                                SendLunchScreen(
+                                  numOfFreeLunchProvider: numOfFreeLunchProvider,)));
                   },
                   child: Text(
                     'Send Lunch',
