@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:hng_task3/configs/sessions.dart';
 import 'package:hng_task3/models/user.dart';
+import 'package:hng_task3/providers/AuthProvider.dart';
+import 'package:hng_task3/utils/utils.dart';
 import 'package:hng_task3/widgets/common/search_employee.dart';
 import 'package:hng_task3/widgets/home/lunch_actions.dart';
 import 'package:hng_task3/widgets/home/team.dart';
 import 'package:hng_task3/widgets/lunch_history/lunch_history_widget.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.openDrawer});
@@ -35,16 +39,22 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // isLoading = true;
-    // Provider.of<AuthProvider>(context, listen: false).getUserProfile();
+    getLocalUser();
+    // if(user == null){
+    //   Provider.of<AuthProvider>(context, listen: false).getUserProfile();
+    // }
+  }
+
+  Future getLocalUser() async {
+    var user = await SessionManager().getUser();
+    user = User.fromJson(user) as Map<String, dynamic>;
   }
 
   bool isLoading = false;
   User? user;
   @override
   Widget build(BuildContext context) {
-    // user = Provider.of<AuthProvider>(context).user;
-    // isLoading = Provider.of<AuthProvider>(context).isLoading;
+    user ??= Provider.of<AuthProvider>(context).user;
     return Scaffold(
         body: SingleChildScrollView(
       padding: const EdgeInsets.only(
@@ -66,17 +76,16 @@ class _HomeScreenState extends State<HomeScreen> {
                             text: 'Good ',
                             style: Theme.of(context).textTheme.bodyLarge),
                         TextSpan(
-                          text: 'Morning',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyLarge
-                              ?.copyWith(fontWeight: FontWeight.w700),
+                          text: Utils.getTimeOfDay(),
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              fontWeight: FontWeight
+                                  .w700), // Apply the style only to 'Morning'
                         ),
                       ],
                     ),
                   ),
                   Text(
-                    "Eagles",
+                    user?.firstName ?? "",
                     style: Theme.of(context)
                         .textTheme
                         .bodyLarge
