@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/theme.dart';
 import 'package:hng_task3/providers/AuthProvider.dart';
 import 'package:hng_task3/providers/num_of_free_lunch_provider.dart';
-
 import 'package:hng_task3/screens/splashscreen/splashscreen.dart';
-
 import 'package:provider/provider.dart';
 
 void main() {
@@ -25,7 +23,7 @@ class MainApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: theme,
         darkTheme: theme,
-        home: const SplashScreen(),
+        home: const NavScreen(),
       ),
     );
   }
