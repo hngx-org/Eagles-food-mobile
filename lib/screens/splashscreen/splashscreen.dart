@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/sessions.dart';
 import 'package:hng_task3/screens/menu/components/nav_screen.dart';
-// import 'package:hng_task3/screens/auth/auth_home.dart';
 import 'package:hng_task3/screens/onboarding/onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -27,8 +26,10 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(const Duration(seconds: 3), () {
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (context) => isLoggedIn ? const NavScreen() : const OnboardingScreen() ),
-            (route) => false,
+        MaterialPageRoute(
+            builder: (context) =>
+                isLoggedIn ? const NavScreen() : const OnboardingScreen()),
+        (route) => false,
       );
     });
   }
