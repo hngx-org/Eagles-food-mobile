@@ -24,7 +24,6 @@ class LunchActions extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: ColorUtils.Yellow,
-            // blurRadius: 10.0,
             spreadRadius: 1.0,
             offset: const Offset(7, 7.0),
           ),
@@ -41,8 +40,8 @@ class LunchActions extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) => WithdrawLunch(
-                          numOfFreeLunchProvider: numOfFreeLunchProvider,
-                          )));
+                              numOfFreeLunchProvider: numOfFreeLunchProvider,
+                            )));
               },
               buttonText: "Withdraw Lunch",
               buttonColor: ColorUtils.DeepPink,

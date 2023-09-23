@@ -60,7 +60,7 @@ class CurrentScreen extends StatelessWidget {
             absorbing: isDrawerOpen,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(isDrawerOpen ? 25 : 0),
-              child: getDrawerPage(openDrawer, item,context),
+              child: getDrawerPage(openDrawer, item, context),
             ),
           ),
         ),
@@ -68,7 +68,8 @@ class CurrentScreen extends StatelessWidget {
     );
   }
 
-  Widget getDrawerPage(VoidCallback openDrawer, DrawerItem item,BuildContext context) {
+  Widget getDrawerPage(
+      VoidCallback openDrawer, DrawerItem item, BuildContext context) {
     final numOfFreeLunchProvider = Provider.of<NumOfFreeLunchProvider>(context);
     switch (item) {
       case DrawerItems.home:
@@ -78,7 +79,9 @@ class CurrentScreen extends StatelessWidget {
       case DrawerItems.sendlunch:
         return const SendLunchSearch();
       case DrawerItems.withdrawlunch:
-        return  WithdrawLunch(numOfFreeLunchProvider: numOfFreeLunchProvider ,);
+        return WithdrawLunch(
+          numOfFreeLunchProvider: numOfFreeLunchProvider,
+        );
 
       default:
         return HomeScreen(
