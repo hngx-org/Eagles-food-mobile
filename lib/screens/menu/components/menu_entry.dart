@@ -12,7 +12,7 @@ class MyWidget extends StatelessWidget {
     return  const Scaffold(
       body: Stack(
         children: [
-          // MenuScreen(closeDrawer: () {  }, selectedItem:const DrawerItem(icon: Icons.ice_skating, title: '') , selectPage: (DrawerItem item) {  },),
+          MenuScreen(closeDrawer: () {  }, selectedItem:const DrawerItem(icon: Icons.ice_skating, title: '') , selectPage: (DrawerItem item) {  },),
           HomeScreen(),
         ],
       ),
