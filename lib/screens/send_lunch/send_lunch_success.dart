@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hng_task3/screens/home/home_screen.dart';
+import 'package:hng_task3/screens/menu/components/nav_screen.dart';
 
 class SendLunchSuccess extends StatelessWidget {
   const SendLunchSuccess({super.key});
@@ -12,11 +12,10 @@ class SendLunchSuccess extends StatelessWidget {
           children: [
             Column(
               children: [
-                // Image
                 Center(
                   child: Stack(
                     children: [
-                      Container(
+                      SizedBox(
                         width: 293,
                         height: 284,
                         child: Stack(
@@ -130,7 +129,7 @@ class SendLunchSuccess extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          HomeScreen(openDrawer: () {})));
+                                          const NavScreen()));
                             },
                             child: const Text(
                               "CONTINUE",

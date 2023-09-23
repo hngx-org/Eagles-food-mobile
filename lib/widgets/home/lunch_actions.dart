@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/widgets/custom_button.dart';
 import 'package:hng_task3/screens/send_lunch/send_lunch_search.dart';
+import 'package:provider/provider.dart';
 
+import '../../providers/num_of_free_lunch_provider.dart';
 import '../../screens/withdraw/withdraw_lunch.dart';
 
 class LunchActions extends StatelessWidget {
@@ -10,6 +12,7 @@ class LunchActions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final numOfFreeLunchProvider = Provider.of<NumOfFreeLunchProvider>(context);
     return Container(
       // margin: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
@@ -37,7 +40,9 @@ class LunchActions extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const WithdrawLunch()));
+                        builder: (context) => WithdrawLunch(
+                          numOfFreeLunchProvider: numOfFreeLunchProvider,
+                          )));
               },
               buttonText: "Withdraw Lunch",
               buttonColor: ColorUtils.DeepPink,

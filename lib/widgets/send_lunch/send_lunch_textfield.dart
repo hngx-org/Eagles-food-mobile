@@ -3,15 +3,16 @@ import 'package:hng_task3/configs/colors.dart';
 
 
 class SendLunchTextField extends StatelessWidget {
-  final keyboardType;
-  final suffixIcon;
+  final TextInputType? keyboardType;
+  final Widget? suffixIcon;
+  final TextEditingController? controller;
 
 
   
   const SendLunchTextField({
     super.key,
     this.keyboardType,
-    this.suffixIcon,
+    this.suffixIcon, this.controller,
 
     });
 
@@ -21,6 +22,7 @@ class SendLunchTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  TextField(
+      controller: controller,
                       keyboardType: keyboardType,
                       style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
                       textAlign: TextAlign.center,
@@ -31,13 +33,13 @@ class SendLunchTextField extends StatelessWidget {
                           borderSide: BorderSide(
                             color: ColorUtils.Green,
                           ),
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          borderRadius: const BorderRadius.all(Radius.circular(20)),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: ColorUtils.Green,
                           ),
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          borderRadius: const BorderRadius.all(Radius.circular(20)),
                         ),
                       ),
                     );

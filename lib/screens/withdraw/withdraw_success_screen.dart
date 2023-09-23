@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/screens/home/home_screen.dart';
+import 'package:hng_task3/screens/menu/components/nav_screen.dart';
 import 'package:hng_task3/widgets/withdraw/withdraw_image.dart';
 
 class WithdrawSuccessScreen extends StatelessWidget {
@@ -61,7 +62,7 @@ class WithdrawSuccessScreen extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    HomeScreen(openDrawer: () {})));
+                                    const NavScreen()));
                       },
                       child: const Text('CONTINUE',
                           style: TextStyle(

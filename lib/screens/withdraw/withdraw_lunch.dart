@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:hng_task3/providers/num_of_free_lunch_provider.dart';
 import 'dart:math' as math;
 import 'package:hng_task3/screens/withdraw/withdraw_success_screen.dart';
 
 class WithdrawLunch extends StatefulWidget {
-  const WithdrawLunch({super.key});
+  const WithdrawLunch({super.key, required this.numOfFreeLunchProvider});
+
+  final NumOfFreeLunchProvider numOfFreeLunchProvider;
 
   @override
   State<WithdrawLunch> createState() => _WithdrawLunchState();
 }
 
 class _WithdrawLunchState extends State<WithdrawLunch> {
+  NumOfFreeLunchProvider numOfFreeLunchProvider = NumOfFreeLunchProvider();
+
   TextEditingController controller = TextEditingController();
   double convertedValue = 0;
   double amount = 0;
@@ -30,10 +35,27 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
     }
   }
 
+  void updateNumOfFreeLunch(BuildContext context) {
+    String newNumOfFreeLunches = widget.numOfFreeLunchProvider.numOfFreeLunch;
+
+    if (controller.text.isNotEmpty) {
+      int numOfFreeLunch =
+      widget.numOfFreeLunchProvider.numOfFreeLunch.isNotEmpty?
+      int.parse(widget.numOfFreeLunchProvider.numOfFreeLunch):100;
+      int withdrawAmount = int.parse(controller.text);
+      newNumOfFreeLunches = (numOfFreeLunch - withdrawAmount).toString();
+    }
+
+    widget.numOfFreeLunchProvider.updateNumOfFreeLunches(
+      numOfFreeLunch: newNumOfFreeLunches,
+    );
+  }
+
   @override
   void initState() {
     super.initState();
     controller.addListener(convertValueToDouble);
+    numOfFreeLunchProvider.initPreferences();
   }
 
   @override
@@ -45,6 +67,10 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
 
   @override
   Widget build(BuildContext context) {
+    final num = widget.numOfFreeLunchProvider.numOfFreeLunch.isNotEmpty
+        ? widget.numOfFreeLunchProvider.numOfFreeLunch
+        : '100';
+
     return SafeArea(
         child: Scaffold(
       body: GestureDetector(
@@ -146,7 +172,8 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
                                         child: Image.asset(
                                             'assets/images/withdraw_back_button.png'),
                                       ),
-                                    ),const SizedBox(
+                                    ),
+                                    const SizedBox(
                                       width: 5,
                                     ),
                                     const Text(
@@ -188,12 +215,12 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
                                         decoration: TextDecoration.none),
                                   ),
                                 ),
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 30),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 30),
                                   child: Text(
-                                    '34',
+                                    num,
                                     softWrap: true,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 55,
                                         color: Colors.white,
                                         fontWeight: FontWeight.w600,
@@ -350,22 +377,34 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
                           bottom: 100,
                           child: InkWell(
                             onTap: () {
-                              controller.text.isNotEmpty
-                                  ? Navigator.push(
+                              if (controller.text.isNotEmpty) {
+                                if (convertedValue < 5) {
+                                  updateNumOfFreeLunch(context);
+                                  Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               WithdrawSuccessScreen(
                                                 numOfFreeLunch: controller.text,
-                                              )))
-                                  : ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        backgroundColor: Color(0xFFEFCE82),
-                                        content: Text(
-                                            'Enter number of free lunches you want to withdraw first'),
-                                      ),
-                                    );
-                              ;
+                                              )));
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      backgroundColor: Color(0xFFEFCE82),
+                                      content: Text(
+                                          'You can\'t withdraw more that 4 lunches at a time'),
+                                    ),
+                                  );
+                                }
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    backgroundColor: Color(0xFFEFCE82),
+                                    content: Text(
+                                        'Enter number of free lunches you want to withdraw first'),
+                                  ),
+                                );
+                              }
                             },
                             child: Container(
                               margin:

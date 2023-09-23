@@ -1,17 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
+import 'package:hng_task3/providers/num_of_free_lunch_provider.dart';
 
 import 'package:hng_task3/widgets/send_lunch/send_lunch_textfield.dart';
 import 'package:hng_task3/screens/send_lunch/send_lunch_success.dart';
 
 class SendLunchScreen extends StatefulWidget {
-  const SendLunchScreen({super.key});
+  const SendLunchScreen({super.key, required this.numOfFreeLunchProvider});
+  final NumOfFreeLunchProvider numOfFreeLunchProvider;
 
   @override
   State<SendLunchScreen> createState() => _SendLunchScreenState();
 }
 
 class _SendLunchScreenState extends State<SendLunchScreen> {
+  TextEditingController numOfFreeLunchController = TextEditingController();
+  void updateNumOfFreeLunch(BuildContext context) {
+    String newNumOfFreeLunches = widget.numOfFreeLunchProvider.numOfFreeLunch;
+
+    if (numOfFreeLunchController.text.isNotEmpty) {
+      int numOfFreeLunch =
+      widget.numOfFreeLunchProvider.numOfFreeLunch.isNotEmpty?
+      int.parse(widget.numOfFreeLunchProvider.numOfFreeLunch):100;
+      int withdrawAmount = int.parse(numOfFreeLunchController.text);
+      newNumOfFreeLunches = (numOfFreeLunch - withdrawAmount).toString();
+    }
+
+    widget.numOfFreeLunchProvider.updateNumOfFreeLunches(
+      numOfFreeLunch: newNumOfFreeLunches,
+    );
+
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,6 +133,7 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                     //Free Lunch TextField
 
                     SendLunchTextField(
+                      controller: numOfFreeLunchController,
                       keyboardType: TextInputType.number,
                       suffixIcon: Padding(
                         padding: const EdgeInsets.only(top: 10.0, right: 10.0),
@@ -138,7 +158,7 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                     ),
 
                     //Reward Reason TextField
-                    SendLunchTextField(),
+                    const SendLunchTextField(),
                     const SizedBox(
                       height: 15,
                     ),
@@ -158,6 +178,7 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                               minimumSize: const Size.fromHeight(60),
                               backgroundColor: const Color(0xFF04754D)),
                           onPressed: () {
+                            updateNumOfFreeLunch(context);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
