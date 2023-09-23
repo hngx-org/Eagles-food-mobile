@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hng_task3/screens/menu/components/nav_screen.dart';
 import 'dart:math' as math;
 import 'package:hng_task3/screens/withdraw/withdraw_success_screen.dart';
 
@@ -138,7 +139,13 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
                                   children: [
                                     InkWell(
                                       onTap: () {
-                                        Navigator.pop(context);
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const NavScreen(),
+                                          ),
+                                        );
                                       },
                                       child: SizedBox(
                                         width: 46,
@@ -146,7 +153,8 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
                                         child: Image.asset(
                                             'assets/images/withdraw_back_button.png'),
                                       ),
-                                    ),const SizedBox(
+                                    ),
+                                    const SizedBox(
                                       width: 5,
                                     ),
                                     const Text(

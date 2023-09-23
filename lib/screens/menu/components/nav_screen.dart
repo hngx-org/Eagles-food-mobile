@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hng_task3/providers/AuthProvider.dart';
+import 'package:hng_task3/screens/auth/auth_home.dart';
 import 'package:hng_task3/screens/menu/components/current_screen.dart';
 import 'package:hng_task3/screens/menu/configurations.dart';
 import 'package:hng_task3/screens/menu/menu_screen.dart';
+import 'package:provider/provider.dart';
 
 class NavScreen extends StatefulWidget {
   const NavScreen({super.key});
@@ -19,7 +22,13 @@ class _NavScreenState extends State<NavScreen> {
   void selectedPage(DrawerItem selecteditem) {
     switch (selecteditem) {
       case DrawerItems.logout:
-        print("Logout");
+        Provider.of<AuthProvider>(context, listen: false).logout();
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const AuthHome(),
+          ),
+        );
         return;
       default:
         setState(() {
