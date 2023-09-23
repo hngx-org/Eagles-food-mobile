@@ -15,8 +15,6 @@ class DrawerItems {
   static const sendlunch = DrawerItem(title: 'Send Lunch', icon: Icons.send);
   static const withdrawlunch =
       DrawerItem(icon: Icons.receipt, title: "Withdraw Lunch");
-  static const profile =
-      DrawerItem(icon: Icons.person_outline, title: "Profile");
   static const logout =
       DrawerItem(icon: Icons.power_settings_new_sharp, title: "Logout");
 
@@ -24,7 +22,6 @@ class DrawerItems {
     home,
     sendlunch,
     withdrawlunch,
-    profile,
     logout,
   ];
 }
