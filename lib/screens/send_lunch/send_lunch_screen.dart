@@ -179,7 +179,8 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                               backgroundColor: const Color(0xFF04754D)),
                           onPressed: () {
                             updateNumOfFreeLunch(context);
-                            Navigator.push(
+                            //Navigator.push(
+                            Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>

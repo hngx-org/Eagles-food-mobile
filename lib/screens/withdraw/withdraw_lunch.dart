@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/providers/num_of_free_lunch_provider.dart';
+import 'package:hng_task3/screens/menu/components/nav_screen.dart';
 import 'dart:math' as math;
 import 'package:hng_task3/screens/withdraw/withdraw_success_screen.dart';
 
@@ -164,7 +165,13 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
                                   children: [
                                     InkWell(
                                       onTap: () {
-                                        Navigator.pop(context);
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const NavScreen(),
+                                          ),
+                                        );
                                       },
                                       child: SizedBox(
                                         width: 46,

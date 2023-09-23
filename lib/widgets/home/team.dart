@@ -64,6 +64,12 @@ class _TeamListState extends State<TeamList> {
                       onPressed: () {
                         Navigator.push(context, MaterialPageRoute(builder: ((context) =>
                          SendLunchScreen(numOfFreeLunchProvider: numOfFreeLunchProvider,))));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: ((context) =>
+                                    SendLunchScreen(numOfFreeLunchProvider: numOfFreeLunchProvider,))));
+
                       },
                       child: Text(
                         'Send Lunch',

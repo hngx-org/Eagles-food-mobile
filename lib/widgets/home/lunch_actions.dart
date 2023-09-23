@@ -37,7 +37,7 @@ class LunchActions extends StatelessWidget {
           Expanded(
             child: CustomButton(
               onPress: () {
-                Navigator.push(
+                Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                         builder: (context) => WithdrawLunch(
@@ -57,7 +57,7 @@ class LunchActions extends StatelessWidget {
           Expanded(
             child: CustomButton(
               onPress: () {
-                Navigator.push(
+                Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                         builder: (context) => const SendLunchSearch()));
