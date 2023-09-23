@@ -3,6 +3,9 @@ import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/models/lunch_history_model.dart';
 import 'package:hng_task3/screens/lunch_history/lunch_history_screen.dart';
 import 'package:hng_task3/widgets/common/lunch_history_item.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/num_of_free_lunch_provider.dart';
 
 enum LunchHistoryFIlters { Received, Sent }
 
@@ -19,6 +22,7 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final numOfFreeLunchProvider = Provider.of<NumOfFreeLunchProvider>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -42,7 +46,9 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const LunchHistoryScreen(),
+                              builder: (context) =>
+                                  LunchHistoryScreen(
+                                    numOfFreeLunchProvider: numOfFreeLunchProvider,),
                             ));
                       },
                       child: Padding(

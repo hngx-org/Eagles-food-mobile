@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
+import 'package:hng_task3/screens/send_lunch/send_lunch_search.dart';
+import 'package:hng_task3/screens/withdraw/withdraw_lunch.dart';
 import 'package:hng_task3/widgets/custom_button.dart';
 
+import '../../providers/num_of_free_lunch_provider.dart';
+
 class AvailableLunchCard extends StatelessWidget {
-  const AvailableLunchCard({Key? key}) : super(key: key);
+  const AvailableLunchCard({Key? key, required this.numOfFreeLunchProvider}) : super(key: key);
+  final NumOfFreeLunchProvider numOfFreeLunchProvider;
+
 
   @override
   Widget build(BuildContext context) {
+    final num = numOfFreeLunchProvider.numOfFreeLunch.isNotEmpty
+        ? numOfFreeLunchProvider.numOfFreeLunch
+        : '100';
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -60,7 +69,7 @@ class AvailableLunchCard extends StatelessWidget {
                     height: MediaQuery.sizeOf(context).height * 0.04,
                     decoration: const BoxDecoration(color: Colors.transparent),
                     child: Text(
-                      '34',
+                      num,
                       style: Theme.of(context)
                           .textTheme
                           .displayLarge
@@ -74,7 +83,10 @@ class AvailableLunchCard extends StatelessWidget {
                     children: [
                       Expanded(
                           child: CustomButton(
-                        onPress: () {},
+                        onPress: () {Navigator.push(
+                            context, MaterialPageRoute(builder: (context)=>
+                            WithdrawLunch(numOfFreeLunchProvider: numOfFreeLunchProvider)
+                        ));},
                         fontSize: 14,
                         buttonText: 'withdraw lunch',
                         buttonColor: ColorUtils.DeepPink,
@@ -86,7 +98,12 @@ class AvailableLunchCard extends StatelessWidget {
                       ),
                       Expanded(
                           child: CustomButton(
-                        onPress: () {},
+                        onPress: () {
+                          Navigator.push(
+                              context, MaterialPageRoute(builder: (context)=>
+                              const SendLunchSearch()
+                          ));
+                        },
                         fontSize: 14,
                         buttonText: 'send lunch',
                         buttonColor: ColorUtils.Yellow,
