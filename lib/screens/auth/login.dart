@@ -239,30 +239,21 @@ class _LoginState extends State<Login> {
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
                           child: CustomButton(
                               onPress: () async {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const NavScreen()));
-                                Toasts.showToast(
-                                    Colors.green, 'Login Successful');
-
-                                // TODO FIx the login properly
-                                // Utils.loadingProgress(context);
-                                // final response =
-                                //     await Provider.of<AuthProvider>(context,
-                                //             listen: false)
-                                //         .login(userData);
-                                // Navigator.pop(context);
-                                // if (response) {
-                                //   Navigator.push(
-                                //       context,
-                                //       MaterialPageRoute(
-                                //           builder: (context) =>
-                                //               const NavScreen()));
-                                //   Toasts.showToast(
-                                //       Colors.green, 'Login Successful');
-                                // }
+                                Utils.loadingProgress(context);
+                                final response =
+                                    await Provider.of<AuthProvider>(context,
+                                            listen: false)
+                                        .login(userData);
+                                Navigator.pop(context);
+                                if (response) {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const NavScreen()));
+                                  Toasts.showToast(
+                                      Colors.green, 'Login Successful');
+                                }
                               },
                               buttonText: "Login",
                               buttonColor: ColorUtils.Green,
