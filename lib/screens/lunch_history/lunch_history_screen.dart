@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/widgets/lunch_history/available_lunch_card.dart';
 import 'package:hng_task3/widgets/lunch_history/lunch_history_widget.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/num_of_free_lunch_provider.dart';
 
 class LunchHistoryScreen extends StatefulWidget {
-  const LunchHistoryScreen({Key? key}) : super(key: key);
+  const LunchHistoryScreen({Key? key, required this.numOfFreeLunchProvider}) : super(key: key);
+  final NumOfFreeLunchProvider numOfFreeLunchProvider;
 
   @override
   State<LunchHistoryScreen> createState() => _LunchHistoryScreenState();
@@ -13,6 +17,8 @@ class LunchHistoryScreen extends StatefulWidget {
 class _LunchHistoryScreenState extends State<LunchHistoryScreen> {
   @override
   Widget build(BuildContext context) {
+    final numOfFreeLunchProvider = Provider.of<NumOfFreeLunchProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -25,18 +31,18 @@ class _LunchHistoryScreenState extends State<LunchHistoryScreen> {
               fontWeight: FontWeight.bold),
         ),
       ),
-      body: const SafeArea(
+      body:  SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.all(16.0),
-                child: AvailableLunchCard(),
+                padding: const EdgeInsets.all(16.0),
+                child: AvailableLunchCard(numOfFreeLunchProvider: numOfFreeLunchProvider,),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.all(16.0),
                 child: LunchHistoryWidget(limit: false,),
               ),
