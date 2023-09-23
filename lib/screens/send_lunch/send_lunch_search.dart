@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hng_task3/widgets/send_lunch/send_lunch_searchbar.dart';
 import 'package:hng_task3/widgets/send_lunch/navigationwidget.dart';
 import 'package:hng_task3/screens/menu/components/nav_screen.dart';
+// import 'package:hng_task3/screens/send_lunch/send_lunch_success.dart';
 
 class SendLunchSearch extends StatefulWidget {
   const SendLunchSearch({super.key});
@@ -15,8 +16,6 @@ class _SendLunchSearchState extends State<SendLunchSearch> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      // This approach allows the app bar to remain floating and adds a padding
-      // to the return button. Avoid editing Except a change in design occurs.
       appBar: PreferredSize(
         preferredSize: const Size(0, 96),
         child: Padding(
@@ -30,9 +29,11 @@ class _SendLunchSearchState extends State<SendLunchSearch> {
                 icon: Image.asset("assets/icons/icon-back.png"),
                 onPressed: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const NavScreen()));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const NavScreen(),
+                    ),
+                  );
                 },
               ),
             ),
