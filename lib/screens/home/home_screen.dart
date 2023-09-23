@@ -19,10 +19,11 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<String> employees = [
-    'John Doe',
-    'Jane Smith',
-    'Mark Johnson',
-    'Emily Davis',
+    'Oben Ayuk Gilbert Abunaw',
+    'Efosa Uyi-Idahor',
+    'akamsr',
+    'Godwin Adah',
+    'Aaron Ogbemi',
   ];
 
   String selectedEmployee = '';
@@ -72,9 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         TextSpan(
                             text: 'Good ',
-                            style: Theme.of(context).textTheme.bodyLarge
-                            //?.copyWith(fontWeight: FontWeight.w700),
-                            ),
+                            style: Theme.of(context).textTheme.bodyLarge),
                         TextSpan(
                           text: Utils.getTimeOfDay(),
                           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -103,7 +102,8 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             height: 30,
           ),
-          searchEmployeeBox(employees, (p0) => null, selectedEmployee, focusNode),
+          searchEmployeeBox(
+              employees, (p0) => null, selectedEmployee, focusNode),
           const SizedBox(
             height: 18,
           ),
