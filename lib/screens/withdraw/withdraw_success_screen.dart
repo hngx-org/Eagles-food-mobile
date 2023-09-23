@@ -46,36 +46,37 @@ class WithdrawSuccessScreen extends StatelessWidget {
                         fontSize: 14,
                         fontFamily: 'poppins'),
                     textAlign: TextAlign.center,
-                  ),
+                  ),),
+                  const SizedBox(height: 50),
+                  SizedBox(
+                    width: 298,
+                    height: 60,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF04764E),
+                          shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.zero))),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const NavScreen()));
+                      },
+                      child: const Text('CONTINUE',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16,
+                              fontFamily: 'poppins'),
+                          textAlign: TextAlign.center),
+                    )
                 ),
-                const SizedBox(height: 50),
-                SizedBox(
-                  width: 298,
-                  height: 60,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF04764E),
-                        shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.zero))),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const NavScreen()));
-                    },
-                    child: const Text('CONTINUE',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16,
-                            fontFamily: 'poppins'),
-                        textAlign: TextAlign.center),
-                  ),
-                ),
+
               ],
             ),
             Positioned(
-                bottom: 125,
+                bottom: 145,
                 left: -20,
                 child: SizedBox(
                   height: 24,
@@ -83,7 +84,7 @@ class WithdrawSuccessScreen extends StatelessWidget {
                   child: Image.asset('assets/images/wave_brown.png'),
                 )),
             Positioned(
-                bottom: 223,
+                bottom: 243,
                 right: -20,
                 child: SizedBox(
                   height: 150,
