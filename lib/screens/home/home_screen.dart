@@ -10,7 +10,7 @@ import 'package:hng_task3/widgets/lunch_history/lunch_history_widget.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key, required this.openDrawer});
+  HomeScreen({super.key, required this.openDrawer});
   final VoidCallback openDrawer;
 
   @override
@@ -28,6 +28,9 @@ class _HomeScreenState extends State<HomeScreen> {
   String selectedEmployee = '';
   FocusNode focusNode = FocusNode();
 
+  bool isLoading = false;
+  var user;
+
   @override
   void dispose() {
     focusNode.dispose();
@@ -36,24 +39,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    getLocalUser();
-    // if(user == null){
-    //   Provider.of<AuthProvider>(context, listen: false).getUserProfile();
-    // }
+
+    SessionManager().getUser().then((userJson) {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        setState(() {
+          user = User.fromJson(userJson);
+        });
+      });
+    });
   }
 
-  Future getLocalUser() async {
-    var _user = await SessionManager().getUser();
-    user =  User.fromJson(_user);
-  }
-
-  bool isLoading = false;
-  User? user;
   @override
   Widget build(BuildContext context) {
-    user ??= Provider.of<AuthProvider>(context).user;
+
     return Scaffold(
         body: SingleChildScrollView(
       padding: const EdgeInsets.only(
@@ -86,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Text(
-                    user!.firstName as String,
+                    user?.firstName ?? '',
                     style: Theme.of(context)
                         .textTheme
                         .bodyLarge
