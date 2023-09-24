@@ -34,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
   var user;
 
   List<dynamic> my_team = [];
+
   @override
   void dispose() {
     focusNode.dispose();
