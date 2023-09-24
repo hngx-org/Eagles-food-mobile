@@ -27,11 +27,7 @@ class _LunchHistoryScreenState extends State<LunchHistoryScreen> {
         centerTitle: true,
         title: Text(
           "Lunch History",
-          style: TextStyle(
-              fontSize: 20,
-              fontFamily: "Stapel",
-              color: ColorUtils.Black,
-              fontWeight: FontWeight.bold),
+          style: Theme.of(context).textTheme.displayLarge,
         ),
       ),
       body: SafeArea(

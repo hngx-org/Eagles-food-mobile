@@ -43,7 +43,7 @@ ThemeData theme = ThemeData(
       fontFamily: 'Stapel',
       fontStyle: FontStyle.normal,
       fontWeight: FontWeight.w900,
-      fontSize: 30,
+      fontSize: 25,
     ),
 
     // for all other headers
@@ -59,7 +59,7 @@ ThemeData theme = ThemeData(
         color: ColorUtils.Black,
         fontFamily: 'Poppins',
         fontStyle: FontStyle.normal,
-        fontSize: 23,
+        fontSize: 22,
         fontWeight: FontWeight.w600),
 
     // used for buttons

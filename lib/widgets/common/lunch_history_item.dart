@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/extensions/date_extension.dart';
@@ -71,18 +70,16 @@ class _LaunchHistoryItemState extends State<LaunchHistoryItem> {
                   Text(
                     _getSubTittle(),
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        fontWeight: FontWeight.w500,
-                        color: ColorUtils.LightGrey),
+                        fontWeight: FontWeight.w500, color: ColorUtils.Grey),
                   ),
                   const SizedBox(
                     height: 5,
                   ),
                   Text(
                     '${DateTime.parse(widget.lunchHistory.createdAt).formatToDate} |  ${DateTime.parse(widget.lunchHistory.createdAt).formatToTime}',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineSmall
-                        ?.copyWith(fontWeight: FontWeight.w500),
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: ColorUtils.LightGrey),
                   ),
                 ],
               ),

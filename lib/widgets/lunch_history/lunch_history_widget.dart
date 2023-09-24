@@ -55,7 +55,7 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
                     style: Theme.of(context)
                         .textTheme
                         .displayMedium
-                        ?.copyWith(fontSize: 22),
+                        ?.copyWith(fontSize: 21, fontWeight: FontWeight.w400),
                   ),
                   if (widget.limit)
                     InkWell(
@@ -112,24 +112,16 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
             )
           ],
         ),
-        filteredHistory.isNotEmpty
-            ? ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                itemCount: filteredHistory.length,
-                itemBuilder: (context, index) => Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child:
-                      LaunchHistoryItem(lunchHistory: filteredHistory[index]),
-                ),
-              )
-            : SizedBox(
-                height: 100,
-                child: Center(
-                  child: Text('No ${selectedFilter.name} Lunch'),
-                ),
-              )
+        ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+          itemCount: widget.history.length,
+          itemBuilder: (context, index) => Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: LaunchHistoryItem(lunchHistory: widget.history[index]),
+          ),
+        )
       ],
     );
   }

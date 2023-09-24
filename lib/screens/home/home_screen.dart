@@ -96,10 +96,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Text(
                     user?.firstName ?? '',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge
-                        ?.copyWith(fontWeight: FontWeight.w700, fontSize: 24),
+                    style:
+                        Theme.of(context).textTheme.displayMedium?.copyWith(),
                   ),
                 ],
               ),
