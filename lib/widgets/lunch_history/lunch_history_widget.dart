@@ -10,8 +10,9 @@ import '../../providers/num_of_free_lunch_provider.dart';
 enum LunchHistoryFIlters { Received, Sent }
 
 class LunchHistoryWidget extends StatefulWidget {
-  const LunchHistoryWidget({Key? key, required this.limit}) : super(key: key);
+  const LunchHistoryWidget({Key? key, required this.limit, this.history}) : super(key: key);
   final bool limit;
+  final history;
 
   @override
   State<LunchHistoryWidget> createState() => _LunchHistoryWidgetState();
@@ -100,11 +101,11 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
         ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: LunchHistoryModel.dummyHistory.length,
+          itemCount: widget.history.length,
           itemBuilder: (context, index) => Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: LaunchHistoryItem(
-                lunchHistory: LunchHistoryModel.dummyHistory[index]),
+                lunchHistory: widget.history[index]),
           ),
         )
       ],

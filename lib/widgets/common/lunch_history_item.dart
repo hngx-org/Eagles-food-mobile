@@ -6,30 +6,35 @@ import 'package:hng_task3/widgets/lunch_history/dynamic_color_text.dart';
 class LaunchHistoryItem extends StatelessWidget {
   const LaunchHistoryItem({Key? key, required this.lunchHistory})
       : super(key: key);
-  final LunchHistoryModel lunchHistory;
+  final lunchHistory;
 
   @override
   Widget build(BuildContext context) {
+
+    print(lunchHistory);
     return Column(
       children: [
         Row(
           children: [
             Expanded(
               child: DynamicColorText(
-                  text: lunchHistory.reason.toUpperCase(),
-                  dynamicColor:
-                      lunchHistory.isReceived ? ColorUtils.Green : Colors.red),
+                  text: lunchHistory.note.toUpperCase(),
+                  // dynamicColor:
+                  //     lunchHistory. ? ColorUtils.Green : Colors.red),
+                  dynamicColor: ColorUtils.Green),
             ),
             const SizedBox(
               width: 35,
             ),
             Text(
-              lunchHistory.amountTittle,
+              lunchHistory.quantity.toString(),
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
-                  color:
-                      lunchHistory.isReceived ? ColorUtils.Green : Colors.red),
+                  color: ColorUtils.Green
+                  // color:
+                  //     lunchHistory.isReceived ? ColorUtils.Green : Colors.red
+              ),
             ),
           ],
         ),
@@ -44,7 +49,7 @@ class LaunchHistoryItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    lunchHistory.senderOrReceiverTittle,
+                    lunchHistory.senderName,
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                         fontWeight: FontWeight.w500,
                         color: ColorUtils.LightGrey),
@@ -68,7 +73,7 @@ class LaunchHistoryItem extends StatelessWidget {
             Expanded(
               flex: 1,
               child: Text(
-                lunchHistory.subtittle,
+                "Free Lunch",
                 textAlign: TextAlign.right,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     fontSize: 14,

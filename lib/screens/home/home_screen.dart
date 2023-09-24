@@ -34,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
   var user;
 
   List<dynamic> my_team = [];
+  List<dynamic> lunch_history = [];
 
   @override
   void dispose() {
@@ -45,6 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     Provider.of<TeamAndLunchProvider>(context, listen: false).getUsers();
+    Provider.of<TeamAndLunchProvider>(context, listen: false).getLunchHistory();
     SessionManager().getUser().then((userJson) {
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         setState(() {
@@ -57,6 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     my_team = Provider.of<TeamAndLunchProvider>(context).my_team;
+    lunch_history = Provider.of<TeamAndLunchProvider>(context).lunchHistory;
     return Scaffold(
         body: SingleChildScrollView(
       padding: const EdgeInsets.only(
@@ -118,8 +121,9 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             height: 25,
           ),
-          const LunchHistoryWidget(
+          if(lunch_history.length > 0 ) LunchHistoryWidget(
             limit: true,
+            history: lunch_history,
           )
         ],
       ),
