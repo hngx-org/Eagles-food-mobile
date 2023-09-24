@@ -4,6 +4,7 @@ import 'package:hng_task3/configs/sessions.dart';
 import 'package:hng_task3/models/user.dart';
 import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
 import 'package:hng_task3/providers/num_of_free_lunch_provider.dart';
+import 'package:hng_task3/utils/toast.dart';
 import 'package:hng_task3/utils/utils.dart';
 
 import 'package:hng_task3/widgets/send_lunch/send_lunch_textfield.dart';
@@ -247,19 +248,18 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                             ],
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5.0),
-                            child: Text(
-                              'Reward Reason:',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black),
-                            ),
-                          ),
-
-                          //Reward Reason TextField
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 5.0),
+                              child: Text(
+                                'Reward Reason:',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black),
+                              )),
+//Reward Reason TextField
                           Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 10.0),
@@ -304,41 +304,55 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                                   .copyWith(color: Colors.grey[700]),
                             ),
                           ),
+
                           // Send Lunch Button
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 25),
                             child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    shape: const RoundedRectangleBorder(),
-                                    minimumSize: const Size.fromHeight(60),
-                                    backgroundColor: const Color(0xFF04754D)),
-                                onPressed: () async {
-                                  // updateNumOfFreeLunch(context);
-                                  //Navigator.push(
-                                  Utils.loadingProgress(context);
-                                  lunchData['receivers'] = [
-                                    "${widget.receiver.id}"
-                                  ];
-                                  final response =
-                                      await Provider.of<TeamAndLunchProvider>(
-                                              context,
-                                              listen: false)
-                                          .sendLunch(lunchData);
-                                  print(response);
-                                  // Navigator.pushReplacement(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //         builder: (context) =>
-                                  //             const SendLunchSuccess()));
-                                },
-                                child: Text(
-                                  "SEND LUNCH",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: ColorUtils.White,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                )),
+                              style: ElevatedButton.styleFrom(
+                                  shape: const RoundedRectangleBorder(),
+                                  minimumSize: const Size.fromHeight(60),
+                                  backgroundColor: const Color(0xFF04754D)),
+                              onPressed: () async {
+                                // updateNumOfFreeLunch(context);
+                                //Navigator.push(
+                                Utils.loadingProgress(context);
+                                lunchData['receivers'] = [
+                                  "${widget.receiver.id}"
+                                ];
+                                final response =
+                                    await Provider.of<TeamAndLunchProvider>(
+                                            context,
+                                            listen: false)
+                                        .sendLunch(lunchData);
+                                Navigator.pop(context);
+                                if (response) {
+                                  Toasts.showToast(
+                                      Colors.green, "Lunch sent successfully");
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const SendLunchSuccess()));
+                                } else {
+                                  Toasts.showToast(
+                                      Colors.red, "Failed to send lunch");
+                                }
+                                // Navigator.pushReplacement(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) =>
+                                //             const SendLunchSuccess()));
+                              },
+                              child: Text(
+                                "SEND LUNCH",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: ColorUtils.White,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
                           ),
                         ],
                       ),

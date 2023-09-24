@@ -36,7 +36,7 @@ class TeamAndLunchProvider with ChangeNotifier{
 
 //  send lunch
   Future<dynamic> sendLunch(Map<String, dynamic> lunchData) async {
-    const String url = 'user/lunch';
+    const String url = 'lunch/send';
     final Map<String, dynamic> data = {
       'receivers': lunchData['receivers'],
       'note': lunchData['note'],
@@ -46,14 +46,12 @@ class TeamAndLunchProvider with ChangeNotifier{
     print(data);
     try {
       final response = await Network.post(endpoint: url, data: jsonEncode(data));
-      print("response from send lunch $response");
-      // if(response['success'] == true){
-      //
-      //   notifyListeners();
-      //   return true;
-      // }else{
-      //   return false;
-      // }
+      if(response['success'] == true){
+        notifyListeners();
+        return true;
+      }else{
+        return false;
+      }
 
     } catch (error) {
       print(error);
