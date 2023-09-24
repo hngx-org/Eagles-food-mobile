@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/sessions.dart';
+import 'package:hng_task3/models/team.dart';
 import 'package:hng_task3/models/user.dart';
 import 'package:hng_task3/providers/AuthProvider.dart';
 import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
@@ -33,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isLoading = false;
   var user;
 
-  List<dynamic> my_team = [];
+  List<Team> my_team = [];
   List<dynamic> lunch_history = [];
 
   @override
@@ -60,6 +61,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     my_team = Provider.of<TeamAndLunchProvider>(context).my_team;
     lunch_history = Provider.of<TeamAndLunchProvider>(context).lunchHistory;
+    var list = my_team.map((t) {
+      return t.name;
+    }).toList();
     return Scaffold(
         body: SingleChildScrollView(
       padding: const EdgeInsets.only(
@@ -108,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Padding(
             padding: const EdgeInsets.only(top: 15.0),
             child: searchEmployeeBox(
-                employees, (p0) => null, selectedEmployee, focusNode),
+                list, (p0) => null, selectedEmployee, focusNode),
           ),
           const SizedBox(
             height: 18,
@@ -121,10 +125,11 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             height: 25,
           ),
-          if(lunch_history.length > 0 ) LunchHistoryWidget(
-            limit: true,
-            history: lunch_history,
-          )
+          if (lunch_history.length > 0)
+            LunchHistoryWidget(
+              limit: true,
+              history: lunch_history,
+            )
         ],
       ),
     ));
