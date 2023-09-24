@@ -3,7 +3,6 @@ import 'package:hng_task3/widgets/send_lunch/send_lunch_searchbar.dart';
 import 'package:hng_task3/widgets/send_lunch/navigationwidget.dart';
 import 'package:hng_task3/screens/menu/components/nav_screen.dart';
 
-
 class SendLunchSearch extends StatefulWidget {
   const SendLunchSearch({super.key});
 
@@ -42,18 +41,19 @@ class _SendLunchSearchState extends State<SendLunchSearch> {
           ),
         ),
       ),
-
-      body: Column(
-        children: [
-          const SizedBox(
-            height: 60,
-          ),
-          Center(
-            child: Text(
-              "Send Lunch",
-              style: Theme.of(context).textTheme.displayMedium,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 60,
             ),
-          ),
+            Center(
+              child: Text(
+                "Send Lunch",
+                style: Theme.of(context).textTheme.displayLarge,
+              ),
+            ),
             const Center(
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 29, vertical: 13),
@@ -64,6 +64,7 @@ class _SendLunchSearchState extends State<SendLunchSearch> {
               child: NavigationScreenWidget(),
             ),
           ],
+        ),
       ),
     );
   }

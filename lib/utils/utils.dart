@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
@@ -19,12 +18,12 @@ class Utils {
         });
   }
 
-  static loading(){
-    return  Center(
+  static loading() {
+    return Center(
       child: SizedBox(
         width: 25,
         height: 25,
-        child:CupertinoActivityIndicator(
+        child: CupertinoActivityIndicator(
           color: ColorUtils.Blue,
           radius: 15,
         ),

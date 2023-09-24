@@ -108,6 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: searchEmployeeBox(
                 employees, (p0) => null, selectedEmployee, focusNode),
           ),
+
           const SizedBox(
             height: 18,
           ),

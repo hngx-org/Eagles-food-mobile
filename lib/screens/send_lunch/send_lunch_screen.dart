@@ -44,19 +44,19 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
   // void updateNumOfFreeLunch(BuildContext context) {
   //   String newNumOfFreeLunches = widget.numOfFreeLunchProvider.numOfFreeLunch;
   //
-  //   if (numOfFreeLunchController.text.isNotEmpty) {
-  //     int numOfFreeLunch =
-  //         widget.numOfFreeLunchProvider.numOfFreeLunch.isNotEmpty
-  //             ? int.parse(widget.numOfFreeLunchProvider.numOfFreeLunch)
-  //             : 100;
-  //     int withdrawAmount = int.parse(numOfFreeLunchController.text);
-  //     newNumOfFreeLunches = (numOfFreeLunch - withdrawAmount).toString();
-  //   }
-  //
-  //   widget.numOfFreeLunchProvider.updateNumOfFreeLunches(
-  //     numOfFreeLunch: newNumOfFreeLunches,
-  //   );
-  // }
+//     if (numOfFreeLunchController.text.isNotEmpty) {
+//       int numOfFreeLunch =
+//           widget.numOfFreeLunchProvider.numOfFreeLunch.isNotEmpty
+//               ? int.parse(widget.numOfFreeLunchProvider.numOfFreeLunch)
+//               : 100;
+//       int withdrawAmount = int.parse(numOfFreeLunchController.text);
+//       newNumOfFreeLunches = (numOfFreeLunch - withdrawAmount).toString();
+//     }
+
+//     widget.numOfFreeLunchProvider.updateNumOfFreeLunches(
+//       numOfFreeLunch: newNumOfFreeLunches,
+//     );
+//   }
 
   @override
   Widget build(BuildContext context) {
