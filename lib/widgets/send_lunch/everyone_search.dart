@@ -1,35 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
+import 'package:hng_task3/models/team.dart';
 import 'package:hng_task3/models/team_data.dart';
 import 'package:hng_task3/screens/send_lunch/send_lunch_screen.dart';
+import 'package:hng_task3/utils/utils.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/num_of_free_lunch_provider.dart';
 
 class EveryoneSearch extends StatefulWidget {
-  const EveryoneSearch({super.key});
+  const EveryoneSearch({super.key, this.list});
+  final list;
 
   @override
   State<EveryoneSearch> createState() => _EveryoneSearchState();
 }
 
 class _EveryoneSearchState extends State<EveryoneSearch> {
-  final List<TeamData> _teamList = [
-    TeamData(
-        senderfullName: 'Leslie Alexander',
-        receiverfullName: 'Darrell Steward',
-        image: 'assets/images/team-1.png'),
-    TeamData(
-        senderfullName: 'Brooklyn Simmons',
-        receiverfullName: 'Arlene McCoy',
-        image: 'assets/images/team-2.png'),
-    TeamData(
-        senderfullName: 'Emmanuel Simmons',
-        receiverfullName: 'Arlene McCoy',
-        image: 'assets/images/team-3.png'),
-  ];
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: _teamList.map((item) {
+    final numOfFreeLunchProvider = Provider.of<NumOfFreeLunchProvider>(context);
+
+    return widget.list.length == 0 ? Center(child: Utils.loading(),) : ListView.builder(
+      itemCount: widget.list.length,
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      itemBuilder: (context, index) {
+        final item = widget.list[index];
         return SizedBox(
             width: double.infinity,
             child: ListTile(
@@ -37,15 +34,19 @@ class _EveryoneSearchState extends State<EveryoneSearch> {
               leading: CircleAvatar(
                 backgroundImage: AssetImage(item.image),
               ),
-              title: Text(item.senderfullName),
-              subtitle: Text('by ${item.receiverfullName}'),
+              title: Text(item.name),
+              subtitle: Text('by ${item.email}'),
               trailing: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 4),
                 color: ColorUtils.Yellow,
                 child: TextButton(
                   onPressed: () {
-                       Navigator.push(context, MaterialPageRoute(builder: (context) => SendLunchScreen()));
-                 
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                SendLunchScreen(
+                                  receiver: item,)));
                   },
                   child: Text(
                     'Send Lunch',
@@ -57,7 +58,7 @@ class _EveryoneSearchState extends State<EveryoneSearch> {
                 ),
               ),
             ));
-      }).toList(),
+      },
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
+import 'package:hng_task3/screens/auth/login.dart';
 import 'package:hng_task3/screens/auth/login_options.dart';
 import 'package:hng_task3/screens/auth/signup.dart';
 import 'package:hng_task3/widgets/custom_button.dart';
@@ -51,7 +52,7 @@ class _AuthHomeState extends State<AuthHome> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: CustomButton(onPress: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginOptions()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const Login()));
                 }, buttonText: "Login", buttonColor: ColorUtils.Green, textColor: ColorUtils.White, isUppercase: true),
               ),
 

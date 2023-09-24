@@ -20,7 +20,6 @@ class AuthProvider with ChangeNotifier{
       _isLoading = true;
       final response = await Network.get(url);
       var user = response["data"];
-      print(user);
       _user = User.fromJson(user);
       _isLoggedIn = false;
       notifyListeners();
@@ -38,11 +37,14 @@ class AuthProvider with ChangeNotifier{
     };
     try {
       final response = await Network.post(endpoint: url, data: jsonEncode(data));
-
-      if(response['success']){
+      if(response['success'] == true){
+        var _user = response['data'];
+        var token = response['data']['access_token'];
+        User? user = User.fromJson(_user);
         SessionManager ss = SessionManager();
-        ss.setToken(response['data']['access_token']);
+        ss.setToken(token);
         ss.setLogin(true);
+        ss.saveUser(user!.toJson());
         notifyListeners();
         return true;
       }else{
@@ -60,14 +62,18 @@ class AuthProvider with ChangeNotifier{
       'firstName': userData['firstName'],
       'lastName': userData['lastName'],
       'email': userData['email'],
+      'address': userData['address'],
       'phone': userData['phone'],
       'password': userData['password'],
     };
     try {
       final response = await Network.post(endpoint: url, data: json.encode(data));
-      if(response['success']){
+      if(response['success'] == true){
+        _user = User.fromJson(response['data']);
         SessionManager ss = SessionManager();
         ss.setLogin(true);
+        ss.setToken(response['data']['access_token']);
+        ss.saveUser(_user!.toJson());
         notifyListeners();
         return true;
       }else{

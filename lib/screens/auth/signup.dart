@@ -19,6 +19,7 @@ class _SignupState extends State<Signup> {
     "firstName": '',
     "lastName": "",
     "email": "",
+    "address": "",
     "phone": '',
     "password": "",
   };
@@ -112,7 +113,7 @@ class _SignupState extends State<Signup> {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 5.0),
                                 child: Text(
-                                  "Userame",
+                                  "First Name",
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyMedium
@@ -167,70 +168,70 @@ class _SignupState extends State<Signup> {
                           ),
                         ),
                         // TODO Remove the last name field.
-                        // Padding(
-                        //   padding: const EdgeInsets.symmetric(vertical: 10.0),
-                        //   child: Column(
-                        //     crossAxisAlignment: CrossAxisAlignment.start,
-                        //     mainAxisAlignment: MainAxisAlignment.start,
-                        //     children: [
-                        //       Padding(
-                        //         padding:
-                        //             const EdgeInsets.symmetric(vertical: 5.0),
-                        //         child: Text(
-                        //           "Last Name",
-                        //           style: Theme.of(context)
-                        //               .textTheme
-                        //               .bodyMedium
-                        //               ?.copyWith(
-                        //                   color: ColorUtils.LightGrey,
-                        //                   fontSize: 16),
-                        //         ),
-                        //       ),
-                        //       TextFormField(
-                        //         style: Theme.of(context)
-                        //             .textTheme
-                        //             .bodyLarge
-                        //             ?.copyWith(
-                        //                 color: ColorUtils.Grey,
-                        //                 fontWeight: FontWeight.w500,
-                        //                 fontSize: 16),
-                        //         onChanged: (value) {
-                        //           userData['lastName'] = value;
-                        //         },
-                        //         obscureText: false,
-                        //         decoration: InputDecoration(
-                        //           filled: false,
-                        //           hintStyle: Theme.of(context)
-                        //               .textTheme
-                        //               .bodyMedium
-                        //               ?.copyWith(
-                        //                   color: ColorUtils.Grey, fontSize: 16),
-                        //           border: UnderlineInputBorder(
-                        //             borderSide: BorderSide(
-                        //                 width: 1.3,
-                        //                 color: ColorUtils
-                        //                     .Grey), // Color of the border
-                        //           ),
-                        //           enabledBorder: UnderlineInputBorder(
-                        //             borderSide: BorderSide(
-                        //                 width: 1.3,
-                        //                 color: ColorUtils
-                        //                     .Grey), // Color of the border
-                        //           ),
-                        //           focusedBorder: UnderlineInputBorder(
-                        //             borderSide: BorderSide(
-                        //                 width: 2,
-                        //                 color: ColorUtils
-                        //                     .Green), // Color of the border
-                        //           ),
-                        //           contentPadding: const EdgeInsets.symmetric(
-                        //               vertical: 10, horizontal: 10),
-                        //         ),
-                        //         keyboardType: TextInputType.text,
-                        //       )
-                        //     ],
-                        //   ),
-                        // ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 5.0),
+                                child: Text(
+                                  "Last Name",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                          color: ColorUtils.LightGrey,
+                                          fontSize: 16),
+                                ),
+                              ),
+                              TextFormField(
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.copyWith(
+                                        color: ColorUtils.Grey,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16),
+                                onChanged: (value) {
+                                  userData['lastName'] = value;
+                                },
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  filled: false,
+                                  hintStyle: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                          color: ColorUtils.Grey, fontSize: 16),
+                                  border: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 1.3,
+                                        color: ColorUtils
+                                            .Grey), // Color of the border
+                                  ),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 1.3,
+                                        color: ColorUtils
+                                            .Grey), // Color of the border
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 2,
+                                        color: ColorUtils
+                                            .Green), // Color of the border
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 10),
+                                ),
+                                keyboardType: TextInputType.text,
+                              )
+                            ],
+                          ),
+                        ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
                           child: Column(
@@ -294,59 +295,99 @@ class _SignupState extends State<Signup> {
                             ],
                           ),
                         ),
-                        // TODO Remove Phone it is unecessary.
-                        // Padding(
-                        //   padding: const EdgeInsets.symmetric(vertical: 10.0),
-                        //   child: Column(
-                        //     crossAxisAlignment: CrossAxisAlignment.start,
-                        //     mainAxisAlignment: MainAxisAlignment.start,
-                        //     children: [
-                        //       Padding(
-                        //         padding: const EdgeInsets.symmetric(vertical: 5.0),
-                        //         child: Text("Phone", style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        //             color: ColorUtils.LightGrey,
-                        //             fontSize: 16
-                        //         ),),
-                        //       ),
-                        //       TextFormField(
-                        //         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        //             color: ColorUtils.Grey,
-                        //             fontWeight: FontWeight.w500,
-                        //             fontSize: 16
-                        //         ),
-                        //         onChanged: (value) {
-                        //           userData['phone'] = value;
-                        //         },
-                        //         obscureText: false,
-                        //         decoration: InputDecoration(
-                        //           filled: false,
-                        //           hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        //               color: ColorUtils.Grey,
-                        //               fontSize: 16
-                        //           ),
-                        //           border: UnderlineInputBorder(
-                        //             borderSide: BorderSide(
-                        //                 width: 1.3,
-                        //                 color: ColorUtils.Grey), // Color of the border
-                        //           ),
-                        //           enabledBorder: UnderlineInputBorder(
-                        //             borderSide: BorderSide(
-                        //                 width: 1.3,
-                        //                 color: ColorUtils.Grey
-                        //             ), // Color of the border
-                        //           ),
-                        //           focusedBorder: UnderlineInputBorder(
-                        //             borderSide: BorderSide(
-                        //                 width: 2,
-                        //                 color: ColorUtils.Green), // Color of the border
-                        //           ),
-                        //           contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-                        //         ),
-                        //         keyboardType: TextInputType.number,
-                        //       )
-                        //     ],
-                        //   ),
-                        // ),
+
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 5.0),
+                                child: Text(
+                                  "Password",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                          color: ColorUtils.LightGrey,
+                                          fontSize: 16),
+                                ),
+                                keyboardType: TextInputType.number,
+                              )
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 5.0),
+                                child: Text(
+                                  "Street Address",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                          color: ColorUtils.LightGrey,
+                                          fontSize: 16),
+                                ),
+                              ),
+                              TextFormField(
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.copyWith(
+                                        color: ColorUtils.Grey,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16),
+                                onChanged: (value) {
+                                  userData['address'] = value;
+                                },
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  filled: false,
+                                  hintStyle: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                          color: ColorUtils.Grey, fontSize: 16),
+                                  border: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 1.3,
+                                        color: ColorUtils
+                                            .Grey), // Color of the border
+                                  ),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 1.3,
+                                        color: ColorUtils
+                                            .Grey), // Color of the border
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 2,
+                                        color: ColorUtils
+                                            .Green), // Color of the border
+                                  ),
+                                  suffixIcon: Image.asset(
+                                    "assets/icons/icon-eye.png",
+                                    height: 10,
+                                    width: 10,
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                ),
+                                keyboardType: TextInputType.streetAddress,
+                              )
+                            ],
+                          ),
+                        ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
                           child: Column(
@@ -419,30 +460,21 @@ class _SignupState extends State<Signup> {
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
                           child: CustomButton(
                               onPress: () async {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const NavScreen()));
-                                Toasts.showToast(
-                                    Colors.green, 'Signup Successful');
-
-                                // TODO Fix the signup
-                                // Utils.loadingProgress(context);
-                                // final response =
-                                //     await Provider.of<AuthProvider>(context,
-                                //             listen: false)
-                                //         .register(userData);
-                                // Navigator.pop(context);
-                                // if (response) {
-                                //   Navigator.push(
-                                //       context,
-                                //       MaterialPageRoute(
-                                //           builder: (context) =>
-                                //               const NavScreen()));
-                                //   Toasts.showToast(
-                                //       Colors.green, 'Signup Successful');
-                                // }
+                                Utils.loadingProgress(context);
+                                final response =
+                                    await Provider.of<AuthProvider>(context,
+                                            listen: false)
+                                        .register(userData);
+                                Navigator.pop(context);
+                                if (response) {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const NavScreen()));
+                                  Toasts.showToast(
+                                      Colors.green, 'Signup Successful');
+                                }
                               },
                               buttonText: "Sign Up",
                               buttonColor: ColorUtils.Green,

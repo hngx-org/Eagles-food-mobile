@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hng_task3/screens/home/home_screen.dart';
+import 'package:hng_task3/configs/colors.dart';
+
+import 'package:hng_task3/screens/menu/components/nav_screen.dart';
 
 class SendLunchSuccess extends StatelessWidget {
   const SendLunchSuccess({super.key});
@@ -12,11 +14,10 @@ class SendLunchSuccess extends StatelessWidget {
           children: [
             Column(
               children: [
-                // Image
                 Center(
                   child: Stack(
                     children: [
-                      Container(
+                      SizedBox(
                         width: 293,
                         height: 284,
                         child: Stack(
@@ -126,15 +127,15 @@ class SendLunchSuccess extends StatelessWidget {
                                 minimumSize: const Size.fromHeight(50),
                                 backgroundColor: const Color(0xFF04754D)),
                             onPressed: () {
-                              Navigator.push(
+                              Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          HomeScreen(openDrawer: () {})));
+                                      builder: (context) => const NavScreen()));
                             },
-                            child: const Text(
+                            child: Text(
                               "CONTINUE",
                               style: TextStyle(
+                                color: ColorUtils.White,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
                               ),
