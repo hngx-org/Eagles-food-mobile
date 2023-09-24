@@ -1,45 +1,64 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
-import 'package:hng_task3/models/lunch_history_model.dart';
+import 'package:hng_task3/extensions/date_extension.dart';
+import 'package:hng_task3/extensions/lunch_extension.dart';
+import 'package:hng_task3/models/lunch.dart';
 import 'package:hng_task3/widgets/lunch_history/dynamic_color_text.dart';
 
-class LaunchHistoryItem extends StatelessWidget {
+class LaunchHistoryItem extends StatefulWidget {
   const LaunchHistoryItem({Key? key, required this.lunchHistory})
       : super(key: key);
-  final lunchHistory;
+
+  final Lunch lunchHistory;
+
+  @override
+  State<LaunchHistoryItem> createState() => _LaunchHistoryItemState();
+}
+
+class _LaunchHistoryItemState extends State<LaunchHistoryItem> {
+  var user;
+  bool isReceived = false;
+
+  @override
+  void initState() {
+    widget.lunchHistory.isReceived().then((received) {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        setState(() {
+          isReceived = received;
+        });
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-
-    print(lunchHistory);
+    print(widget.lunchHistory);
     return Column(
       children: [
         Row(
           children: [
             Expanded(
               child: DynamicColorText(
-                  text: lunchHistory.note.toUpperCase(),
+                  text: widget.lunchHistory.note.toUpperCase(),
                   // dynamicColor:
                   //     lunchHistory. ? ColorUtils.Green : Colors.red),
-                  dynamicColor: ColorUtils.Green),
+                  dynamicColor: isReceived ? ColorUtils.Green : Colors.red),
             ),
             const SizedBox(
               width: 35,
             ),
             Text(
-              lunchHistory.quantity.toString(),
+              "${isReceived ? "+" : "-"} ${widget.lunchHistory.quantity.toString()}",
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
-                  color: ColorUtils.Green
-                  // color:
-                  //     lunchHistory.isReceived ? ColorUtils.Green : Colors.red
-              ),
+                  color: isReceived ? ColorUtils.Green : Colors.red),
             ),
           ],
         ),
         const SizedBox(
-          height: 8,
+          height: 2,
         ),
         Row(
           children: [
@@ -49,20 +68,18 @@ class LaunchHistoryItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    lunchHistory.senderName,
+                    _getSubTittle(),
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        fontWeight: FontWeight.w500,
-                        color: ColorUtils.LightGrey),
+                        fontWeight: FontWeight.w500, color: ColorUtils.Grey),
                   ),
                   const SizedBox(
                     height: 5,
                   ),
                   Text(
-                    'June 18, 2020  |  4:00 AM',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineSmall
-                        ?.copyWith(fontWeight: FontWeight.w500),
+                    '${DateTime.parse(widget.lunchHistory.createdAt).formatToDate} |  ${DateTime.parse(widget.lunchHistory.createdAt).formatToTime}',
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: ColorUtils.LightGrey),
                   ),
                 ],
               ),
@@ -73,7 +90,7 @@ class LaunchHistoryItem extends StatelessWidget {
             Expanded(
               flex: 1,
               child: Text(
-                "Free Lunch",
+                "${isReceived ? "Received" : "Sent"} Free Lunch",
                 textAlign: TextAlign.right,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     fontSize: 14,
@@ -85,5 +102,13 @@ class LaunchHistoryItem extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  String _getSubTittle() {
+    var subtittle = isReceived
+        ? "FROM ${widget.lunchHistory.senderName}"
+        : "TO ${widget.lunchHistory.receiverName}";
+
+    return subtittle;
   }
 }

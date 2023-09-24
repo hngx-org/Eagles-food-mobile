@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/sessions.dart';
+import 'package:hng_task3/models/lunch.dart';
 import 'package:hng_task3/models/team.dart';
 import 'package:hng_task3/models/user.dart';
-import 'package:hng_task3/providers/AuthProvider.dart';
 import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
 import 'package:hng_task3/utils/utils.dart';
 import 'package:hng_task3/widgets/common/search_employee.dart';
@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key, required this.openDrawer});
+
   final VoidCallback openDrawer;
 
   @override
@@ -35,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
   var user;
 
   List<Team> my_team = [];
-  List<dynamic> lunch_history = [];
+  List<Lunch> lunch_history = [];
 
   @override
   void dispose() {
