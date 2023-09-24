@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<dynamic> my_team = [];
 
- @override
+  @override
   void dispose() {
     focusNode.dispose();
     super.dispose();
@@ -102,13 +102,11 @@ class _HomeScreenState extends State<HomeScreen> {
               )
             ],
           ),
-
           Padding(
             padding: const EdgeInsets.only(top: 15.0),
             child: searchEmployeeBox(
                 employees, (p0) => null, selectedEmployee, focusNode),
           ),
-
           const SizedBox(
             height: 18,
           ),
@@ -116,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             height: 32,
           ),
-         TeamList(list: my_team),
+          TeamList(list: my_team),
           const SizedBox(
             height: 25,
           ),

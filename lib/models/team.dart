@@ -21,12 +21,10 @@ class Team {
   }
 
   Map<String, dynamic> toJson() => {
-    "user_id": id,
-    "name": name,
-    "email": email,
-    "role": role,
-    "profile_picture": image ?? "assets/images/team-1.png",
-  };
-
-
+        "user_id": id,
+        "name": name,
+        "email": email,
+        "role": role,
+        "profile_picture": image ?? "assets/images/team-1.png",
+      };
 }

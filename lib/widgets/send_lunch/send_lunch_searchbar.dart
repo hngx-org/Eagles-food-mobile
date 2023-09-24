@@ -8,7 +8,7 @@ class SendLunchSearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.only(left: 20),
+        contentPadding: const EdgeInsets.only(left: 20),
         hintText: 'Search for employee',
         hintStyle:
             const TextStyle(color: Colors.grey, fontWeight: FontWeight.w100),

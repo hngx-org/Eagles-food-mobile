@@ -45,20 +45,19 @@ class LaunchHistoryItem extends StatelessWidget {
                 children: [
                   Text(
                     lunchHistory.senderOrReceiverTittle,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.grey),
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.w500,
+                        color: ColorUtils.LightGrey),
                   ),
                   const SizedBox(
                     height: 5,
                   ),
                   Text(
                     'June 18, 2020  |  4:00 AM',
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w400,
-                        ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall
+                        ?.copyWith(fontWeight: FontWeight.w500),
                   ),
                 ],
               ),
