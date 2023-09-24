@@ -37,18 +37,20 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
                 children: [
                   Text(
                     "Lunch History",
-                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                     fontSize: 22
-                    ),),
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayMedium
+                        ?.copyWith(fontSize: 22),
+                  ),
                   if (widget.limit)
                     InkWell(
                       onTap: () {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  LunchHistoryScreen(
-                                    numOfFreeLunchProvider: numOfFreeLunchProvider,),
+                              builder: (context) => LunchHistoryScreen(
+                                numOfFreeLunchProvider: numOfFreeLunchProvider,
+                              ),
                             ));
                       },
                       child: Padding(
@@ -60,7 +62,7 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
                               fontFamily: 'Stapel',
                               decoration: TextDecoration.underline,
                               color: ColorUtils.Green,
-                              fontWeight: FontWeight.w600),
+                              fontWeight: FontWeight.w500),
                         ),
                       ),
                     ),
@@ -74,10 +76,9 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
               alignment: Alignment.center,
               iconEnabledColor: ColorUtils.Green,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: ColorUtils.Green,
-                fontSize: 20,
-                fontWeight: FontWeight.w500
-              ),
+                  color: ColorUtils.Green,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500),
               items: LunchHistoryFIlters.values
                   .map((e) => DropdownMenuItem<LunchHistoryFIlters>(
                         value: e,

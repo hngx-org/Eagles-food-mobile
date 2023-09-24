@@ -19,19 +19,24 @@ class _SendLunchSearchState extends State<SendLunchSearch> {
         preferredSize: const Size(0, 96),
         child: AppBar(
           backgroundColor: Colors.transparent,
-          leading: SizedBox(
-            width: 50,
-            height: 50,
-            child: IconButton(
-              icon: Image.asset("assets/icons/icon-back.png"),
-              onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const NavScreen(),
-                  ),
-                );
-              },
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: SizedBox(
+              width: 50,
+              height: 50,
+              child: IconButton(
+                padding: EdgeInsets.zero,
+                constraints: const BoxConstraints(),
+                icon: Image.asset("assets/icons/icon-back.png"),
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const NavScreen(),
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ),
