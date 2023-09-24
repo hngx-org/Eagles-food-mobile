@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
+import 'package:hng_task3/models/team.dart';
+import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
 import 'package:hng_task3/widgets/send_lunch/my_team_search.dart';
 import 'package:hng_task3/widgets/send_lunch/everyone_search.dart';
+import 'package:provider/provider.dart';
 
 class NavigationScreenWidget extends StatefulWidget {
   const NavigationScreenWidget({super.key});
@@ -20,6 +23,9 @@ class _NavigationScreenState extends State<NavigationScreenWidget>
     super.initState();
   }
 
+  List<Team> my_team = [];
+  List<Team> everyone = [];
+
   @override
   void dispose() {
     _controller.dispose();
@@ -28,7 +34,8 @@ class _NavigationScreenState extends State<NavigationScreenWidget>
 
   @override
   Widget build(BuildContext context) {
-
+    var my_team = Provider.of<TeamAndLunchProvider>(context).my_team;
+    var everyone = Provider.of<TeamAndLunchProvider>(context).everyone;
     return DefaultTabController(
       length: 2,
       child: Column(
@@ -54,9 +61,9 @@ class _NavigationScreenState extends State<NavigationScreenWidget>
           Expanded(
             child: TabBarView(
               controller: _controller,
-              children: const <Widget>[
-                MyTeamSearch(),
-                EveryoneSearch(),
+              children: <Widget>[
+                MyTeamSearch(list: my_team),
+                EveryoneSearch(list: everyone),
               ],
             ),
           ),

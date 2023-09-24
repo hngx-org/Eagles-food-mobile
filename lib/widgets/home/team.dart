@@ -2,37 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/models/team_data.dart';
 import 'package:hng_task3/screens/send_lunch/send_lunch_screen.dart';
+import 'package:hng_task3/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/num_of_free_lunch_provider.dart';
 
 class TeamList extends StatefulWidget {
-  const TeamList({super.key});
-
+  const TeamList({super.key, this.list});
+  final list;
   @override
   State<TeamList> createState() => _TeamListState();
 }
 
 class _TeamListState extends State<TeamList> {
-  final List<TeamData> _teamList = [
-    TeamData(
-        senderfullName: 'Leslie Alexander',
-        receiverfullName: 'Darrell Steward',
-        image: 'assets/images/team-1.png'),
-    TeamData(
-        senderfullName: 'Brooklyn Simmons',
-        receiverfullName: 'Arlene McCoy',
-        image: 'assets/images/team-2.png'),
-    TeamData(
-        senderfullName: 'Emmanuel Simmons',
-        receiverfullName: 'Arlene McCoy',
-        image: 'assets/images/team-3.png'),
-  ];
 
   @override
   Widget build(BuildContext context) {
     final numOfFreeLunchProvider = Provider.of<NumOfFreeLunchProvider>(context);
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -43,33 +29,31 @@ class _TeamListState extends State<TeamList> {
               .bodyLarge
               ?.copyWith(fontWeight: FontWeight.w700, fontSize: 18),
         ),
-        ListView.builder(
+        widget.list.length == 0 ? Center(child: Utils.loading(),) : ListView.builder(
           shrinkWrap: true,
+          padding: const EdgeInsets.symmetric(vertical: 0),
           physics: const BouncingScrollPhysics(),
-          itemCount: _teamList.length,
+          itemCount: widget.list.length,
           itemBuilder: (BuildContext context, int index) {
             return SizedBox(
               width: double.infinity,
               child: ListTile(
                   contentPadding: const EdgeInsets.all(0),
                   leading: CircleAvatar(
-                    backgroundImage: AssetImage(_teamList[index].image),
+                    backgroundImage: AssetImage(widget.list[index].image),
                   ),
-                  title: Text(_teamList[index].senderfullName),
-                  subtitle: Text('by ${_teamList[index].receiverfullName}'),
+                  title: Text(widget.list[index].name),
+                  subtitle: Text('by ${widget.list[index].email}'),
                   trailing: Container(
                     padding: const EdgeInsets.symmetric(horizontal: 4),
                     color: ColorUtils.Yellow,
                     child: TextButton(
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: ((context) =>
-                         SendLunchScreen(numOfFreeLunchProvider: numOfFreeLunchProvider,))));
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: ((context) =>
-                                    SendLunchScreen(numOfFreeLunchProvider: numOfFreeLunchProvider,))));
-
+                                    SendLunchScreen(receiver: widget.list[index],))));
                       },
                       child: Text(
                         'Send Lunch',

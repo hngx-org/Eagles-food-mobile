@@ -35,7 +35,6 @@ class Network {
         print('request started');
         var response = await http.post(url,
             headers: await NetworkUtils.headers(), body: data);
-
         print(response.body);
         print(response.statusCode);
         if (response.statusCode == 200 || response.statusCode == 201) {

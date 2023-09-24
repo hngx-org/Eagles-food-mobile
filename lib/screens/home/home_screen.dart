@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/sessions.dart';
 import 'package:hng_task3/models/user.dart';
 import 'package:hng_task3/providers/AuthProvider.dart';
+import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
 import 'package:hng_task3/utils/utils.dart';
 import 'package:hng_task3/widgets/common/search_employee.dart';
 import 'package:hng_task3/widgets/home/lunch_actions.dart';
@@ -10,7 +11,7 @@ import 'package:hng_task3/widgets/lunch_history/lunch_history_widget.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key, required this.openDrawer});
+  HomeScreen({super.key, required this.openDrawer});
   final VoidCallback openDrawer;
 
   @override
@@ -29,7 +30,12 @@ class _HomeScreenState extends State<HomeScreen> {
   String selectedEmployee = '';
   FocusNode focusNode = FocusNode();
 
-  @override
+  bool isLoading = false;
+  var user;
+
+  List<dynamic> my_team = [];
+
+ @override
   void dispose() {
     focusNode.dispose();
     super.dispose();
@@ -37,24 +43,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    getLocalUser();
-    // if(user == null){
-    //   Provider.of<AuthProvider>(context, listen: false).getUserProfile();
-    // }
+    Provider.of<TeamAndLunchProvider>(context, listen: false).getUsers();
+    SessionManager().getUser().then((userJson) {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        setState(() {
+          user = User.fromJson(userJson);
+        });
+      });
+    });
   }
 
-  Future getLocalUser() async {
-    var user = await SessionManager().getUser();
-    user = User.fromJson(user) as Map<String, dynamic>;
-  }
-
-  bool isLoading = false;
-  User? user;
   @override
   Widget build(BuildContext context) {
-    user ??= Provider.of<AuthProvider>(context).user;
+    my_team = Provider.of<TeamAndLunchProvider>(context).my_team;
     return Scaffold(
         body: SingleChildScrollView(
       padding: const EdgeInsets.only(
@@ -85,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   Text(
-                    user?.firstName ?? "",
+                    user?.firstName ?? '',
                     style: Theme.of(context)
                         .textTheme
                         .bodyLarge
@@ -100,11 +102,13 @@ class _HomeScreenState extends State<HomeScreen> {
               )
             ],
           ),
-          const SizedBox(
-            height: 30,
+
+          Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: searchEmployeeBox(
+                employees, (p0) => null, selectedEmployee, focusNode),
           ),
-          searchEmployeeBox(
-              employees, (p0) => null, selectedEmployee, focusNode),
+
           const SizedBox(
             height: 18,
           ),
@@ -112,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             height: 32,
           ),
-          const TeamList(),
+         TeamList(list: my_team),
           const SizedBox(
             height: 25,
           ),
