@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:hng_task3/models/team.dart';
+import 'package:hng_task3/screens/send_lunch/send_lunch_screen.dart';
 
 Widget searchEmployeeBox(
-  List<String> employees,
+  List<Team> employees,
   Function(String?)? onChanged,
   String selectedEmployee,
   FocusNode focusNode,
@@ -29,11 +31,26 @@ Widget searchEmployeeBox(
       ),
     ),
     suggestionsCallback: (pattern) async {
-      return employees.where((employee) =>
-          employee.toLowerCase().startsWith(pattern.toLowerCase()));
+      List<Team> filterTeam = employees
+          .where((employee) =>
+              employee.name.toLowerCase().startsWith(pattern.toLowerCase()))
+          .toList();
+      return filterTeam.map((e) => e.name);
     },
     itemBuilder: (context, String employee) {
       return ListTile(
+        onTap: () {
+          List<Team> selectedUser =
+              employees.where((user) => user.name == employee).toList();
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SendLunchScreen(
+                receiver: selectedUser[0],
+              ),
+            ),
+          );
+        },
         title: Text(
           employee,
           style: const TextStyle(
