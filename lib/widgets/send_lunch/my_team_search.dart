@@ -15,47 +15,57 @@ class MyTeamSearch extends StatefulWidget {
 }
 
 class _MyTeamSearchState extends State<MyTeamSearch> {
-
   @override
   Widget build(BuildContext context) {
     final numOfFreeLunchProvider = Provider.of<NumOfFreeLunchProvider>(context);
-    return widget.list.length == 0 ? Center(child: Utils.loading(),) : ListView.builder(
-      itemCount: widget.list.length,
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      itemBuilder: (context, index) {
-        final item = widget.list[index];
-        return SizedBox(
-            width: double.infinity,
-            child: ListTile(
-              contentPadding: const EdgeInsets.all(0),
-              leading: CircleAvatar(
-                backgroundImage: AssetImage(item.image),
-              ),
-              title: Text(item.name),
-              subtitle: Text('by ${item.email}'),
-              trailing: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 4),
-                color: ColorUtils.Yellow,
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                SendLunchScreen(
-                                  receiver: item,)));
-                  },
-                  child: Text(
-                    'Send Lunch',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge
-                        ?.copyWith(fontWeight: FontWeight.w700, fontSize: 13),
-                  ),
-                ),
-              ),
-            ));
-      },
-    );
+    return widget.list.length == 0
+        ? Center(
+            child: Utils.loading(),
+          )
+        : ListView.builder(
+            itemCount: widget.list.length,
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            itemBuilder: (context, index) {
+              final item = widget.list[index];
+              return SizedBox(
+                  width: double.infinity,
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.all(0),
+                    leading: CircleAvatar(
+                      backgroundImage: AssetImage(item.image),
+                    ),
+                    title: Text(item.name),
+                    subtitle: Text(
+                      '${item.email}',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge
+                          ?.copyWith(fontWeight: FontWeight.w500, fontSize: 10),
+                    ),
+                    trailing: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                      color: ColorUtils.Yellow,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SendLunchScreen(
+                                        receiver: item,
+                                      )));
+                        },
+                        child: Text(
+                          'Send Lunch',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(
+                                  fontWeight: FontWeight.w700, fontSize: 13),
+                        ),
+                      ),
+                    ),
+                  ));
+            },
+          );
   }
 }

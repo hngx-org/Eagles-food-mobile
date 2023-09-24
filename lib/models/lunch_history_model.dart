@@ -17,33 +17,33 @@ class LunchHistoryModel {
   static List<LunchHistoryModel> dummyHistory = [
     LunchHistoryModel(
         reason: "Team Collaboration Champion",
-        time: DateTime(2023, 3, 12),
+        time: DateTime(2023, 9, 10),
         lunchAmount: 3,
-        senderName: "Darrell Steward",
+        senderName: "Aaron Ogbemi",
         isReceived: true),
     LunchHistoryModel(
         reason: "Team Collaboration Champion",
         time: DateTime(2023, 5, 10),
         lunchAmount: 2,
-        receiverName: "Darrell Steward",
+        receiverName: "Adesina Adebayo",
         isReceived: false),
     LunchHistoryModel(
         reason: "Timely Project Delivery",
-        time: DateTime(2023, 5, 10),
+        time: DateTime(2023, 7, 3),
         lunchAmount: 1,
-        senderName: "Jenny Wilson",
+        senderName: "Ameerah Suleiman",
         isReceived: true),
     LunchHistoryModel(
         reason: "Timely Project Delivery",
         time: DateTime(2023, 5, 10),
         lunchAmount: 1,
-        receiverName: "Jenny Wilson",
+        receiverName: "Boluwatife Bolaji",
         isReceived: false),
     LunchHistoryModel(
         reason: "Timely Project Delivery",
-        time: DateTime(2023, 5, 10),
+        time: DateTime(2023, 8, 16),
         lunchAmount: 1,
-        receiverName: "Jenny Wilson",
+        receiverName: "Divine Akubo",
         isReceived: false),
   ];
 
