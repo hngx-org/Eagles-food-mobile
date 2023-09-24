@@ -21,13 +21,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<String> employees = [
-    'Oben Ayuk Gilbert Abunaw',
-    'Efosa Uyi-Idahor',
-    'akamsr',
-    'Godwin Adah',
-    'Aaron Ogbemi',
-  ];
+  // List<String> employees = [
+  //   'Oben Ayuk Gilbert Abunaw',
+  //   'Efosa Uyi-Idahor',
+  //   'akamsr',
+  //   'Godwin Adah',
+  //   'Aaron Ogbemi',
+  // ];
 
   String selectedEmployee = '';
   FocusNode focusNode = FocusNode();
@@ -62,9 +62,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     my_team = Provider.of<TeamAndLunchProvider>(context).my_team;
     lunch_history = Provider.of<TeamAndLunchProvider>(context).lunchHistory;
-    var list = my_team.map((t) {
-      return t.name;
-    }).toList();
+    // var list = my_team.map((t) {
+    //   return t.name;
+    // }).toList();
     return Scaffold(
         body: SingleChildScrollView(
       padding: const EdgeInsets.only(
@@ -111,7 +111,11 @@ class _HomeScreenState extends State<HomeScreen> {
           Padding(
             padding: const EdgeInsets.only(top: 15.0),
             child: searchEmployeeBox(
-                list, (p0) => null, selectedEmployee, focusNode),
+              my_team,
+              (p0) => null,
+              selectedEmployee,
+              focusNode,
+            ),
           ),
           const SizedBox(
             height: 18,

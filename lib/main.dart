@@ -19,8 +19,10 @@ class MainApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<AuthProvider>(create: (_) => AuthProvider()),
-        ChangeNotifierProvider<NumOfFreeLunchProvider>(create: (_) => NumOfFreeLunchProvider()),
-        ChangeNotifierProvider<TeamAndLunchProvider>(create: (_) => TeamAndLunchProvider()),
+        ChangeNotifierProvider<NumOfFreeLunchProvider>(
+            create: (_) => NumOfFreeLunchProvider()),
+        ChangeNotifierProvider<TeamAndLunchProvider>(
+            create: (_) => TeamAndLunchProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
