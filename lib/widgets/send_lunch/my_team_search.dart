@@ -34,13 +34,19 @@ class _MyTeamSearchState extends State<MyTeamSearch> {
                     leading: CircleAvatar(
                       backgroundImage: AssetImage(item.image),
                     ),
-                    title: Text(item.name),
+                    title: Text(
+                      item.name,
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium
+                          ?.copyWith(fontSize: 16, fontWeight: FontWeight.w400),
+                    ),
                     subtitle: Text(
                       '${item.email}',
                       style: Theme.of(context)
                           .textTheme
-                          .bodyLarge
-                          ?.copyWith(fontWeight: FontWeight.w500, fontSize: 10),
+                          .headlineSmall
+                          ?.copyWith(fontWeight: FontWeight.w500, fontSize: 11),
                     ),
                     trailing: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 4),

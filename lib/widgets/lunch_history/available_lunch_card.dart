@@ -7,9 +7,9 @@ import 'package:hng_task3/widgets/custom_button.dart';
 import '../../providers/num_of_free_lunch_provider.dart';
 
 class AvailableLunchCard extends StatelessWidget {
-  const AvailableLunchCard({Key? key, required this.numOfFreeLunchProvider}) : super(key: key);
+  const AvailableLunchCard({Key? key, required this.numOfFreeLunchProvider})
+      : super(key: key);
   final NumOfFreeLunchProvider numOfFreeLunchProvider;
-
 
   @override
   Widget build(BuildContext context) {
@@ -83,12 +83,16 @@ class AvailableLunchCard extends StatelessWidget {
                     children: [
                       Expanded(
                           child: CustomButton(
-                        onPress: () {Navigator.push(
-                            context, MaterialPageRoute(builder: (context)=>
-                            WithdrawLunch(numOfFreeLunchProvider: numOfFreeLunchProvider)
-                        ));},
+                        onPress: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => WithdrawLunch(
+                                      numOfFreeLunchProvider:
+                                          numOfFreeLunchProvider)));
+                        },
                         fontSize: 14,
-                        buttonText: 'withdraw lunch',
+                        buttonText: 'Withdraw lunch',
                         buttonColor: ColorUtils.DeepPink,
                         textColor: ColorUtils.Black,
                         padding: const EdgeInsets.all(16),
@@ -100,12 +104,13 @@ class AvailableLunchCard extends StatelessWidget {
                           child: CustomButton(
                         onPress: () {
                           Navigator.push(
-                              context, MaterialPageRoute(builder: (context)=>
-                              const SendLunchSearch()
-                          ));
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const SendLunchSearch()));
                         },
                         fontSize: 14,
-                        buttonText: 'send lunch',
+                        buttonText: 'Send lunch',
                         buttonColor: ColorUtils.Yellow,
                         textColor: ColorUtils.Black,
                         padding: const EdgeInsets.all(16),
