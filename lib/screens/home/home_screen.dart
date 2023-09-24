@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/sessions.dart';
 import 'package:hng_task3/models/user.dart';
 import 'package:hng_task3/providers/AuthProvider.dart';
+import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
 import 'package:hng_task3/utils/utils.dart';
 import 'package:hng_task3/widgets/common/search_employee.dart';
 import 'package:hng_task3/widgets/home/lunch_actions.dart';
@@ -32,6 +33,8 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isLoading = false;
   var user;
 
+  List<dynamic> my_team = [];
+
   @override
   void dispose() {
     focusNode.dispose();
@@ -41,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-
+    Provider.of<TeamAndLunchProvider>(context, listen: false).getUsers();
     SessionManager().getUser().then((userJson) {
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         setState(() {
@@ -53,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-
+    my_team = Provider.of<TeamAndLunchProvider>(context).my_team;
     return Scaffold(
         body: SingleChildScrollView(
       padding: const EdgeInsets.only(
@@ -111,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             height: 32,
           ),
-          const TeamList(),
+         TeamList(list: my_team),
           const SizedBox(
             height: 25,
           ),

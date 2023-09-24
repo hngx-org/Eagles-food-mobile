@@ -1,36 +1,62 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
+import 'package:hng_task3/configs/sessions.dart';
+import 'package:hng_task3/models/user.dart';
+import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
 import 'package:hng_task3/providers/num_of_free_lunch_provider.dart';
+import 'package:hng_task3/utils/utils.dart';
 
 import 'package:hng_task3/widgets/send_lunch/send_lunch_textfield.dart';
 import 'package:hng_task3/screens/send_lunch/send_lunch_success.dart';
+import 'package:provider/provider.dart';
 
 class SendLunchScreen extends StatefulWidget {
-  const SendLunchScreen({super.key, required this.numOfFreeLunchProvider});
-  final NumOfFreeLunchProvider numOfFreeLunchProvider;
+  const SendLunchScreen({super.key, this.receiver});
+  final  receiver;
 
   @override
   State<SendLunchScreen> createState() => _SendLunchScreenState();
 }
 
 class _SendLunchScreenState extends State<SendLunchScreen> {
-  TextEditingController numOfFreeLunchController = TextEditingController();
-  void updateNumOfFreeLunch(BuildContext context) {
-    String newNumOfFreeLunches = widget.numOfFreeLunchProvider.numOfFreeLunch;
 
-    if (numOfFreeLunchController.text.isNotEmpty) {
-      int numOfFreeLunch =
-      widget.numOfFreeLunchProvider.numOfFreeLunch.isNotEmpty?
-      int.parse(widget.numOfFreeLunchProvider.numOfFreeLunch):100;
-      int withdrawAmount = int.parse(numOfFreeLunchController.text);
-      newNumOfFreeLunches = (numOfFreeLunch - withdrawAmount).toString();
-    }
+  Map<String, dynamic> lunchData = {
+    "receivers": [],
+    "quantity": '',
+    "note": ''
+  };
 
-    widget.numOfFreeLunchProvider.updateNumOfFreeLunches(
-      numOfFreeLunch: newNumOfFreeLunches,
-    );
+  var user;
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    SessionManager().getUser().then((userJson) {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        setState(() {
+          user = User.fromJson(userJson);
+        });
+      });
+    });
   }
+  // TextEditingController numOfFreeLunchController = TextEditingController();
+  // void updateNumOfFreeLunch(BuildContext context) {
+  //   String newNumOfFreeLunches = widget.numOfFreeLunchProvider.numOfFreeLunch;
+  //
+  //   if (numOfFreeLunchController.text.isNotEmpty) {
+  //     int numOfFreeLunch =
+  //     widget.numOfFreeLunchProvider.numOfFreeLunch.isNotEmpty?
+  //     int.parse(widget.numOfFreeLunchProvider.numOfFreeLunch):100;
+  //     int withdrawAmount = int.parse(numOfFreeLunchController.text);
+  //     newNumOfFreeLunches = (numOfFreeLunch - withdrawAmount).toString();
+  //   }
+  //
+  //   widget.numOfFreeLunchProvider.updateNumOfFreeLunches(
+  //     numOfFreeLunch: newNumOfFreeLunches,
+  //   );
+  //
+  // }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +69,7 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
           'Send Lunch',
           style: Theme.of(context)
               .textTheme
-              .displayLarge!
+              .displayMedium!
               .copyWith(color: Colors.white),
         ),
         leading: SizedBox(
@@ -58,7 +84,7 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
           ),
         ),
       ),
-      body: Align(
+      body: user == null ? Center(child: Utils.loading(),) :  Align(
         // heightFactor: MediaQuery.of(context).size.height,
         alignment: Alignment.bottomCenter,
         child: SingleChildScrollView(
@@ -90,20 +116,17 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(
-                      height: 10,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10.0),
+                      child: Center(child: Image.asset('assets/images/handler.png')),
                     ),
-                    Center(child: Image.asset('assets/images/handler.png')),
-                    const SizedBox(
-                      height: 20,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10.0),
+                      child: Text( widget.receiver.name,
+                          style: Theme.of(context).textTheme.displayMedium),
                     ),
-                    Text('Brooklyn Simmons',
-                        style: Theme.of(context).textTheme.displayMedium),
                     // style: Theme.of(context).textTheme.displayLarge,  ),
 
-                    const SizedBox(
-                      height: 20,
-                    ),
                     Text(
                       'Band 4 Member',
                       style: Theme.of(context)
@@ -118,56 +141,112 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                           .bodyLarge!
                           .copyWith(color: Colors.grey[700]),
                     ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Text(
-                      'Number of Free Lunch:',
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontWeight: FontWeight.bold, color: Colors.black),
-                    ),
-                    const SizedBox(
-                      height: 9,
-                    ),
 
-                    //Free Lunch TextField
-
-                    SendLunchTextField(
-                      controller: numOfFreeLunchController,
-                      keyboardType: TextInputType.number,
-                      suffixIcon: Padding(
-                        padding: const EdgeInsets.only(top: 10.0, right: 10.0),
-                        child: Text('Free lunches',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge!
-                                .copyWith(color: ColorUtils.Green)),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5.0),
+                      child: Text(
+                        'Number of Free Lunch:',
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            fontWeight: FontWeight.bold, color: Colors.black),
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      'Reward Reason:',
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontWeight: FontWeight.bold, color: Colors.black),
+
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10.0),
+                      child: TextFormField(
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge
+                            ?.copyWith(
+                            color: ColorUtils.Grey,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16),
+                        onChanged: (value) {
+                          lunchData['quantity'] = value;
+                        },
+                        obscureText: false,
+                        decoration: InputDecoration(
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+                          child: Text("Free Lunches", textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: ColorUtils.Green, fontWeight: FontWeight.w600),),
+                        ),
+                        enabledBorder:  OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: ColorUtils.Green,
+                          ),
+                          borderRadius: const BorderRadius.all(Radius.circular(20)),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: ColorUtils.Green,
+                          ),
+                          borderRadius: const BorderRadius.all(Radius.circular(20)),
+                        ),
+                      ),
+                        keyboardType: TextInputType.emailAddress,
+                      )
                     ),
 
-                    const SizedBox(
-                      height: 9,
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text("Your are left with ", textAlign: TextAlign.left, style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400, color: ColorUtils.Black),),
+                        Text(" ${user.lunchCreditBalance} ", textAlign: TextAlign.left, style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600, color: ColorUtils.Green),),
+                        Text(" free lunches", textAlign: TextAlign.left, style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400, color: ColorUtils.Black),),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5.0),
+                      child: Text(
+                        'Reward Reason:',
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            fontWeight: FontWeight.bold, color: Colors.black),
+                      ),
                     ),
 
                     //Reward Reason TextField
-                    const SendLunchTextField(),
-                    const SizedBox(
-                      height: 15,
+                    Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        child: TextFormField(
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(
+                              color: ColorUtils.Grey,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16),
+                          onChanged: (value) {
+                            lunchData['note'] = value;
+                          },
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            enabledBorder:  OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: ColorUtils.Green,
+                              ),
+                              borderRadius: const BorderRadius.all(Radius.circular(20)),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: ColorUtils.Green,
+                              ),
+                              borderRadius: const BorderRadius.all(Radius.circular(20)),
+                            ),
+                          ),
+                          keyboardType: TextInputType.emailAddress,
+                        )
                     ),
-                    Text(
-                      'By Clicking send lunch, you choose to reward recipient with the stipulated number of lunch',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium!
-                          .copyWith(color: Colors.grey[700]),
+
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5.0),
+                      child: Text(
+                        'By Clicking send lunch, you choose to reward recipient with the stipulated number of lunch',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium!
+                            .copyWith(color: Colors.grey[700]),
+                      ),
                     ),
                     // Send Lunch Button
                     Padding(
@@ -177,14 +256,18 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                               shape: const RoundedRectangleBorder(),
                               minimumSize: const Size.fromHeight(60),
                               backgroundColor: const Color(0xFF04754D)),
-                          onPressed: () {
-                            updateNumOfFreeLunch(context);
+                          onPressed: () async {
+                            // updateNumOfFreeLunch(context);
                             //Navigator.push(
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const SendLunchSuccess()));
+                            Utils.loadingProgress(context);
+                            lunchData['receivers'] = [ "${widget.receiver.id}" ];
+                            final response = await Provider.of<TeamAndLunchProvider>(context, listen: false).sendLunch(lunchData);
+                            print(response);
+                            // Navigator.pushReplacement(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) =>
+                            //             const SendLunchSuccess()));
                           },
                           child: const Text(
                             "SEND LUNCH",
