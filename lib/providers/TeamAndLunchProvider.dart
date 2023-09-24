@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:hng_task3/configs/sessions.dart';
+import 'package:hng_task3/models/lunch.dart';
 import 'package:hng_task3/models/team.dart';
 import 'package:hng_task3/models/user.dart';
 import 'package:hng_task3/network/network.dart';
@@ -9,7 +10,9 @@ import 'package:hng_task3/network/network.dart';
 class TeamAndLunchProvider with ChangeNotifier{
   List<Team> _my_team = [];
   List<Team> _everyone = [];
+  List<Lunch> _lunchHistory = [];
 
+  List<Lunch> get lunchHistory => _lunchHistory;
   List<Team> get my_team => _my_team;
   List<Team> get everyone => _everyone;
 
@@ -42,8 +45,6 @@ class TeamAndLunchProvider with ChangeNotifier{
       'note': lunchData['note'],
       'quantity': lunchData['quantity']
     };
-
-    print(data);
     try {
       final response = await Network.post(endpoint: url, data: jsonEncode(data));
       if(response['success'] == true){
@@ -55,6 +56,23 @@ class TeamAndLunchProvider with ChangeNotifier{
 
     } catch (error) {
       print(error);
+    }
+  }
+
+//  lunch history
+
+  Future<dynamic> getLunchHistory() async {
+    const String url = 'lunch/all';
+    try{
+      _lunchHistory = [];
+      final response = await Network.get(url);
+      var lunchHistory = response["data"];
+      lunchHistory.forEach((element) {
+        _lunchHistory.add(Lunch.fromJson(element));
+      });
+      notifyListeners();
+    }catch(e){
+      print(e);
     }
   }
 
