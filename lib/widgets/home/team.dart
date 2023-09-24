@@ -27,8 +27,8 @@ class _TeamListState extends State<TeamList> {
           'My Team',
           style: Theme.of(context)
               .textTheme
-              .bodyLarge
-              ?.copyWith(fontWeight: FontWeight.w700, fontSize: 18),
+              .displayMedium
+              ?.copyWith(fontSize: 21, fontWeight: FontWeight.w400),
         ),
         widget.list.length == 0
             ? Center(

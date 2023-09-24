@@ -10,7 +10,9 @@ import '../../providers/num_of_free_lunch_provider.dart';
 enum LunchHistoryFIlters { Received, Sent }
 
 class LunchHistoryWidget extends StatefulWidget {
-  const LunchHistoryWidget({Key? key, required this.limit, required this.history}) : super(key: key);
+  const LunchHistoryWidget(
+      {Key? key, required this.limit, required this.history})
+      : super(key: key);
   final bool limit;
   final history;
 
@@ -41,7 +43,7 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
                     style: Theme.of(context)
                         .textTheme
                         .displayMedium
-                        ?.copyWith(fontSize: 22),
+                        ?.copyWith(fontSize: 21, fontWeight: FontWeight.w400),
                   ),
                   if (widget.limit)
                     InkWell(
@@ -106,8 +108,7 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
           itemCount: widget.history.length,
           itemBuilder: (context, index) => Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
-            child: LaunchHistoryItem(
-                lunchHistory: widget.history[index]),
+            child: LaunchHistoryItem(lunchHistory: widget.history[index]),
           ),
         )
       ],

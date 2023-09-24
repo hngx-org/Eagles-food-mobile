@@ -7,8 +7,10 @@ import 'package:provider/provider.dart';
 import '../../providers/num_of_free_lunch_provider.dart';
 
 class LunchHistoryScreen extends StatefulWidget {
-  const LunchHistoryScreen({Key? key, this.numOfFreeLunchProvider, this.history}) : super(key: key);
-  final  numOfFreeLunchProvider;
+  const LunchHistoryScreen(
+      {Key? key, this.numOfFreeLunchProvider, this.history})
+      : super(key: key);
+  final numOfFreeLunchProvider;
   final history;
 
   @override
@@ -25,27 +27,28 @@ class _LunchHistoryScreenState extends State<LunchHistoryScreen> {
         centerTitle: true,
         title: Text(
           "Lunch History",
-          style: TextStyle(
-              fontSize: 20,
-              fontFamily: "Stapel",
-              color: ColorUtils.Black,
-              fontWeight: FontWeight.bold),
+          style: Theme.of(context).textTheme.displayLarge,
         ),
       ),
-      body:  SafeArea(
+      body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: AvailableLunchCard(numOfFreeLunchProvider: numOfFreeLunchProvider,),
+                child: AvailableLunchCard(
+                  numOfFreeLunchProvider: numOfFreeLunchProvider,
+                ),
               ),
               const SizedBox(
                 height: 30,
               ),
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: LunchHistoryWidget(limit: false, history: widget.history,),
+                child: LunchHistoryWidget(
+                  limit: false,
+                  history: widget.history,
+                ),
               ),
             ],
           ),
