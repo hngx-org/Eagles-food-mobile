@@ -102,11 +102,12 @@ class _HomeScreenState extends State<HomeScreen> {
               )
             ],
           ),
-          const SizedBox(
-            height: 30,
+
+          Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: searchEmployeeBox(
+                employees, (p0) => null, selectedEmployee, focusNode),
           ),
-          searchEmployeeBox(
-              employees, (p0) => null, selectedEmployee, focusNode),
           const SizedBox(
             height: 18,
           ),
