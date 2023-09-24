@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/providers/AuthProvider.dart';
 import 'package:hng_task3/screens/auth/signup.dart';
-import 'package:hng_task3/screens/home/home_screen.dart';
 import 'package:hng_task3/screens/menu/components/nav_screen.dart';
 import 'package:hng_task3/utils/toast.dart';
 import 'package:hng_task3/utils/utils.dart';
@@ -241,8 +240,7 @@ class _LoginState extends State<Login> {
                               onPress: () async {
                                 Utils.loadingProgress(context);
                                 print(userData);
-                                final response =
-                                    await Provider.of<AuthProvider>(context,
+                                final response = await Provider.of<AuthProvider>(context,
                                             listen: false)
                                         .login(userData);
                                 Navigator.pop(context);
