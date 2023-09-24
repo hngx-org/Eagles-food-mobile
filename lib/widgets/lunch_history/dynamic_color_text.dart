@@ -32,19 +32,26 @@ class _DynamicColorTextState extends State<DynamicColorText> {
 
   @override
   Widget build(BuildContext context) {
-    return Text.rich(TextSpan(
-        children: List.generate(splitedText.length, (index) {
-      l.log(index.toString());
-      return TextSpan(
-          text: "${splitedText[index]} ",
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
-              fontFamily: "Stapel",
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-              color: coloredIndexes.contains(index)
-                  ? widget.dynamicColor
-                  : ColorUtils.Black));
-    })));
+    // return Text.rich(TextSpan(
+    //     children: List.generate(splitedText.length, (index) {
+    //   l.log(index.toString());
+    //   return TextSpan(
+    //       text: "${splitedText[index]} ",
+    //       style: Theme.of(context).textTheme.titleMedium?.copyWith(
+    //           fontFamily: "Stapel",
+    //           fontSize: 16,
+    //           fontWeight: FontWeight.w600,
+    //           color: coloredIndexes.contains(index)
+    //               ? widget.dynamicColor
+    //               : ColorUtils.Black));
+    // })));
+    return Text(
+      widget.text,
+      style: Theme.of(context).textTheme.displayMedium?.copyWith(
+          fontSize: 16,
+          fontWeight: FontWeight.w400,
+          color: widget.dynamicColor),
+    );
   }
 }
 
@@ -60,6 +67,5 @@ List<int> getColoredIndexes<T>(List<String> list, int indexLength) {
     } else {
       return [startIndex, startIndex + 1];
     }
-
   }
 }

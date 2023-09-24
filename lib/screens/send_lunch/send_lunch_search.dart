@@ -41,30 +41,27 @@ class _SendLunchSearchState extends State<SendLunchSearch> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 60,
+      body: Column(
+        children: [
+          const SizedBox(
+            height: 60,
+          ),
+          Center(
+            child: Text(
+              "Send Lunch",
+              style: Theme.of(context).textTheme.displayLarge,
             ),
-            Center(
-              child: Text(
-                "Send Lunch",
-                style: Theme.of(context).textTheme.displayLarge,
-              ),
+          ),
+          const Center(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 29, vertical: 13),
+              child: SendLunchSearchBar(),
             ),
-            const Center(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 29, vertical: 13),
-                child: SendLunchSearchBar(),
-              ),
-            ),
-            const Expanded(
-              child: NavigationScreenWidget(),
-            ),
-          ],
-        ),
+          ),
+          const Expanded(
+            child: NavigationScreenWidget(),
+          ),
+        ],
       ),
     );
   }
