@@ -46,8 +46,9 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
   //
   //   if (numOfFreeLunchController.text.isNotEmpty) {
   //     int numOfFreeLunch =
-  //     widget.numOfFreeLunchProvider.numOfFreeLunch.isNotEmpty?
-  //     int.parse(widget.numOfFreeLunchProvider.numOfFreeLunch):100;
+  //         widget.numOfFreeLunchProvider.numOfFreeLunch.isNotEmpty
+  //             ? int.parse(widget.numOfFreeLunchProvider.numOfFreeLunch)
+  //             : 100;
   //     int withdrawAmount = int.parse(numOfFreeLunchController.text);
   //     newNumOfFreeLunches = (numOfFreeLunch - withdrawAmount).toString();
   //   }
@@ -55,8 +56,8 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
   //   widget.numOfFreeLunchProvider.updateNumOfFreeLunches(
   //     numOfFreeLunch: newNumOfFreeLunches,
   //   );
-  //
   // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -269,10 +270,11 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                             //         builder: (context) =>
                             //             const SendLunchSuccess()));
                           },
-                          child: const Text(
+                          child: Text(
                             "SEND LUNCH",
                             style: TextStyle(
                               fontSize: 16,
+                              color: ColorUtils.White,
                               fontWeight: FontWeight.w600,
                             ),
                           )),

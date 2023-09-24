@@ -18,14 +18,16 @@ class _SendLunchSearchState extends State<SendLunchSearch> {
       extendBodyBehindAppBar: true,
       appBar: PreferredSize(
         preferredSize: const Size(0, 96),
-        child: Padding(
-          padding: const EdgeInsets.only(right: 80, left: 20),
-          child: AppBar(
-            backgroundColor: Colors.transparent,
-            leading: SizedBox(
+        child: AppBar(
+          backgroundColor: Colors.transparent,
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: SizedBox(
               width: 50,
               height: 50,
               child: IconButton(
+                padding: EdgeInsets.zero,
+                constraints: const BoxConstraints(),
                 icon: Image.asset("assets/icons/icon-back.png"),
                 onPressed: () {
                   Navigator.pushReplacement(

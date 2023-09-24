@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hng_task3/configs/colors.dart';
 
 import 'package:hng_task3/screens/menu/components/nav_screen.dart';
 
@@ -129,11 +130,12 @@ class SendLunchSuccess extends StatelessWidget {
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          const NavScreen()));},
-                            child: const Text(
+                                      builder: (context) => const NavScreen()));
+                            },
+                            child: Text(
                               "CONTINUE",
                               style: TextStyle(
+                                color: ColorUtils.White,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
                               ),
