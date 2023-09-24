@@ -22,7 +22,7 @@ class _EveryoneSearchState extends State<EveryoneSearch> {
     final numOfFreeLunchProvider = Provider.of<NumOfFreeLunchProvider>(context);
     return widget.list.length == 0 ? Center(child: Utils.loading(),) : ListView.builder(
       itemCount: widget.list.length,
-      padding: const EdgeInsets.symmetric(vertical: 5),
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
       itemBuilder: (context, index) {
         final item = widget.list[index];
         return SizedBox(

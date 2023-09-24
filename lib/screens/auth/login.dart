@@ -240,12 +240,13 @@ class _LoginState extends State<Login> {
                           child: CustomButton(
                               onPress: () async {
                                 Utils.loadingProgress(context);
+                                print(userData);
                                 final response =
                                     await Provider.of<AuthProvider>(context,
                                             listen: false)
                                         .login(userData);
                                 Navigator.pop(context);
-                                if (response) {
+                                if (response == true) {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
