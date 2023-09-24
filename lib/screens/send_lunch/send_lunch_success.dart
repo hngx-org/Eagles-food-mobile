@@ -120,7 +120,7 @@ class SendLunchSuccess extends StatelessWidget {
                       // Continue Button
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 29, vertical: 60),
+                            horizontal: 20, vertical: 20),
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                                 shape: const RoundedRectangleBorder(),
@@ -146,14 +146,6 @@ class SendLunchSuccess extends StatelessWidget {
                 ),
               ],
             ),
-            Positioned(
-                bottom: 433,
-                right: -20,
-                child: SizedBox(
-                  height: 150,
-                  width: 112,
-                  child: Image.asset('assets/images/withdraw_vector_right.png'),
-                ))
           ],
         ),
       ),
