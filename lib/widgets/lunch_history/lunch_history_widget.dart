@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
-import 'package:hng_task3/models/lunch_history_model.dart';
+import 'package:hng_task3/configs/sessions.dart';
+import 'package:hng_task3/models/lunch.dart';
+import 'package:hng_task3/models/user.dart';
 import 'package:hng_task3/screens/lunch_history/lunch_history_screen.dart';
 import 'package:hng_task3/widgets/common/lunch_history_item.dart';
 import 'package:provider/provider.dart';
@@ -10,20 +12,32 @@ import '../../providers/num_of_free_lunch_provider.dart';
 enum LunchHistoryFIlters { Received, Sent }
 
 class LunchHistoryWidget extends StatefulWidget {
-  const LunchHistoryWidget({Key? key, required this.limit, this.history}) : super(key: key);
+  const LunchHistoryWidget(
+      {Key? key, required this.limit, required this.history})
+      : super(key: key);
   final bool limit;
-  final history;
+  final List<Lunch> history;
 
   @override
   State<LunchHistoryWidget> createState() => _LunchHistoryWidgetState();
 }
 
 class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
+  var filteredHistory = [];
   var selectedFilter = LunchHistoryFIlters.Received;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _applyFilter();
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final numOfFreeLunchProvider = Provider.of<NumOfFreeLunchProvider>(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -41,7 +55,7 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
                     style: Theme.of(context)
                         .textTheme
                         .displayMedium
-                        ?.copyWith(fontSize: 22),
+                        ?.copyWith(fontSize: 21, fontWeight: FontWeight.w400),
                   ),
                   if (widget.limit)
                     InkWell(
@@ -50,6 +64,7 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => LunchHistoryScreen(
+                                history: widget.history,
                                 numOfFreeLunchProvider: numOfFreeLunchProvider,
                               ),
                             ));
@@ -89,11 +104,10 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
                       ))
                   .toList(),
               onChanged: (value) {
-                setState(() {
-                  if (value != null) {
-                    selectedFilter = value;
-                  }
-                });
+                if (value != null) {
+                  selectedFilter = value;
+                }
+                _applyFilter();
               },
             )
           ],
@@ -101,14 +115,36 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
         ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
+          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
           itemCount: widget.history.length,
           itemBuilder: (context, index) => Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
-            child: LaunchHistoryItem(
-                lunchHistory: widget.history[index]),
+            child: LaunchHistoryItem(lunchHistory: widget.history[index]),
           ),
         )
       ],
     );
+  }
+
+  Future<void> _applyFilter() async {
+    var userMap = await SessionManager().getUser();
+    User user = User.fromJson(userMap);
+
+    switch (selectedFilter) {
+      case LunchHistoryFIlters.Received:
+        filteredHistory = widget.history
+            .where((element) => element.receiverId.toString() == user.id)
+            .toList();
+        break;
+
+      case LunchHistoryFIlters.Sent:
+        filteredHistory = widget.history
+            .where((element) => element.senderId.toString() == user.id)
+            .toList();
+
+        break;
+    }
+
+    setState(() {});
   }
 }

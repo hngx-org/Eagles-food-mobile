@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/providers/num_of_free_lunch_provider.dart';
 import 'package:hng_task3/screens/menu/components/nav_screen.dart';
 import 'dart:math' as math;
@@ -41,8 +42,9 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
 
     if (controller.text.isNotEmpty) {
       int numOfFreeLunch =
-      widget.numOfFreeLunchProvider.numOfFreeLunch.isNotEmpty?
-      int.parse(widget.numOfFreeLunchProvider.numOfFreeLunch):100;
+          widget.numOfFreeLunchProvider.numOfFreeLunch.isNotEmpty
+              ? int.parse(widget.numOfFreeLunchProvider.numOfFreeLunch)
+              : 100;
       int withdrawAmount = int.parse(controller.text);
       newNumOfFreeLunches = (numOfFreeLunch - withdrawAmount).toString();
     }
@@ -183,15 +185,11 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
                                     const SizedBox(
                                       width: 5,
                                     ),
-                                    const Text(
-                                      'Withdraw Lunch',
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w700,
-                                          fontFamily: 'Stapel Semi Expanded',
-                                          decoration: TextDecoration.none),
-                                    ),
+                                    Text('Withdraw Lunch',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displayLarge!
+                                            .copyWith(color: ColorUtils.White)),
                                     const SizedBox(
                                       width: 30,
                                     ),
@@ -211,15 +209,13 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
                                   margin: const EdgeInsets.only(left: 30),
                                   height: 54,
                                   width: 222,
-                                  child: const Text(
+                                  child: Text(
                                     'Available Lunches for withdrawal',
                                     softWrap: true,
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w500,
-                                        fontFamily: 'Poppins',
-                                        decoration: TextDecoration.none),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displaySmall!
+                                        .copyWith(color: ColorUtils.White),
                                   ),
                                 ),
                                 Padding(
@@ -305,7 +301,7 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
                                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do',
                                   softWrap: true,
                                   style: TextStyle(
-                                      fontSize: 14,
+                                      fontSize: 16,
                                       color: Color(0xFF4E4E4E),
                                       fontWeight: FontWeight.w400,
                                       fontFamily: 'Poppins',

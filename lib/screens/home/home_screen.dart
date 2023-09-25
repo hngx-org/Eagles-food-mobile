@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/sessions.dart';
+import 'package:hng_task3/models/lunch.dart';
+import 'package:hng_task3/models/team.dart';
 import 'package:hng_task3/models/user.dart';
-import 'package:hng_task3/providers/AuthProvider.dart';
 import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
 import 'package:hng_task3/utils/utils.dart';
 import 'package:hng_task3/widgets/common/search_employee.dart';
@@ -12,6 +13,7 @@ import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key, required this.openDrawer});
+
   final VoidCallback openDrawer;
 
   @override
@@ -19,13 +21,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<String> employees = [
-    'Oben Ayuk Gilbert Abunaw',
-    'Efosa Uyi-Idahor',
-    'akamsr',
-    'Godwin Adah',
-    'Aaron Ogbemi',
-  ];
+  // List<String> employees = [
+  //   'Oben Ayuk Gilbert Abunaw',
+  //   'Efosa Uyi-Idahor',
+  //   'akamsr',
+  //   'Godwin Adah',
+  //   'Aaron Ogbemi',
+  // ];
 
   String selectedEmployee = '';
   FocusNode focusNode = FocusNode();
@@ -33,8 +35,8 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isLoading = false;
   var user;
 
-  List<dynamic> my_team = [];
-  List<dynamic> lunch_history = [];
+  List<Team> my_team = [];
+  List<Lunch> lunch_history = [];
 
   @override
   void dispose() {
@@ -60,6 +62,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     my_team = Provider.of<TeamAndLunchProvider>(context).my_team;
     lunch_history = Provider.of<TeamAndLunchProvider>(context).lunchHistory;
+    // var list = my_team.map((t) {
+    //   return t.name;
+    // }).toList();
     return Scaffold(
         body: SingleChildScrollView(
       padding: const EdgeInsets.only(
@@ -91,10 +96,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Text(
                     user?.firstName ?? '',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge
-                        ?.copyWith(fontWeight: FontWeight.w700, fontSize: 24),
+                    style:
+                        Theme.of(context).textTheme.displayMedium?.copyWith(),
                   ),
                 ],
               ),
@@ -108,7 +111,11 @@ class _HomeScreenState extends State<HomeScreen> {
           Padding(
             padding: const EdgeInsets.only(top: 15.0),
             child: searchEmployeeBox(
-                employees, (p0) => null, selectedEmployee, focusNode),
+              my_team,
+              (p0) => null,
+              selectedEmployee,
+              focusNode,
+            ),
           ),
           const SizedBox(
             height: 18,
@@ -121,10 +128,11 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(
             height: 25,
           ),
-          if(lunch_history.length > 0 ) LunchHistoryWidget(
-            limit: true,
-            history: lunch_history,
-          )
+          if (lunch_history.length > 0)
+            LunchHistoryWidget(
+              limit: true,
+              history: lunch_history,
+            )
         ],
       ),
     ));
