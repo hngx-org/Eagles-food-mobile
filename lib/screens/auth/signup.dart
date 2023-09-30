@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/providers/AuthProvider.dart';
@@ -23,6 +24,7 @@ class _SignupState extends State<Signup> {
     "phone": '',
     "password": "",
   };
+  bool showPassword = false;
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +74,7 @@ class _SignupState extends State<Signup> {
           ],
         ),
       ),
-      body: Container(
+      body: SizedBox(
           height: double.infinity,
           width: double.infinity,
           child: SingleChildScrollView(
@@ -430,7 +432,7 @@ class _SignupState extends State<Signup> {
                                 onChanged: (value) {
                                   userData['password'] = value;
                                 },
-                                obscureText: true,
+                                obscureText: showPassword?false:true,
                                 decoration: InputDecoration(
                                   filled: false,
                                   hintStyle: Theme.of(context)
@@ -456,11 +458,16 @@ class _SignupState extends State<Signup> {
                                         color: ColorUtils
                                             .Green), // Color of the border
                                   ),
-                                  suffixIcon: Image.asset(
-                                    "assets/icons/icon-eye.png",
-                                    height: 10,
-                                    width: 10,
-                                  ),
+                                  suffixIcon: IconButton(
+                                      onPressed: (){
+                                        setState(() {
+                                          showPassword = !showPassword;
+                                        });
+
+                                      },
+                                      icon: Icon(
+                                          showPassword ?Icons.remove_red_eye
+                                              :Icons.remove_red_eye_outlined)),
                                   contentPadding: const EdgeInsets.symmetric(
                                       horizontal: 10),
                                 ),
