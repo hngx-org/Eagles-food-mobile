@@ -16,6 +16,7 @@ dependencies:
   shared_preferences: ^2.2.1
   flutter_typeahead: ^4.2.0
   intl: ^0.18.1
+  iconify_flutter: ^0.0.5
 
 dev_dependencies:
   flutter_test:

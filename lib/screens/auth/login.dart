@@ -6,6 +6,8 @@ import 'package:hng_task3/screens/menu/components/nav_screen.dart';
 import 'package:hng_task3/utils/toast.dart';
 import 'package:hng_task3/utils/utils.dart';
 import 'package:hng_task3/widgets/custom_button.dart';
+import 'package:iconify_flutter/iconify_flutter.dart';
+import 'package:iconify_flutter/icons/mdi.dart';
 import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
@@ -20,6 +22,8 @@ class _LoginState extends State<Login> {
     "email": "",
     "password": "",
   };
+  final _formKey = GlobalKey<FormState>();
+  bool showPassword = false;
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +73,7 @@ class _LoginState extends State<Login> {
           ],
         ),
       ),
-      body: Container(
+      body: SizedBox(
           height: double.infinity,
           width: double.infinity,
           child: SingleChildScrollView(
@@ -96,6 +100,7 @@ class _LoginState extends State<Login> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20.0),
                   child: Form(
+                    key: _formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -120,6 +125,12 @@ class _LoginState extends State<Login> {
                                 ),
                               ),
                               TextFormField(
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter your email.';
+                                  }
+                                  return null;
+                                },
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyLarge
@@ -184,6 +195,12 @@ class _LoginState extends State<Login> {
                                 ),
                               ),
                               TextFormField(
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter your password.';
+                                  }
+                                  return null;
+                                },
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyLarge
@@ -194,7 +211,7 @@ class _LoginState extends State<Login> {
                                 onChanged: (value) {
                                   userData['password'] = value;
                                 },
-                                obscureText: true,
+                                obscureText: showPassword ? false : true,
                                 decoration: InputDecoration(
                                   filled: false,
                                   hintStyle: Theme.of(context)
@@ -220,12 +237,17 @@ class _LoginState extends State<Login> {
                                         color: ColorUtils
                                             .Green), // Color of the border
                                   ),
-                                  suffixIcon: Image.asset(
-                                    "assets/icons/icon-eye.png",
-                                    height: 10,
-                                    width: 10,
-                                    fit: BoxFit.contain,
-                                  ),
+                                  suffixIcon: IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          showPassword = !showPassword;
+                                        });
+                                      },
+                                      icon: Iconify(
+                                          !showPassword
+                                              ? Mdi.eye_outline
+                                              : Mdi.eye_off_outline,
+                                          color: ColorUtils.Green)),
                                   contentPadding: const EdgeInsets.symmetric(
                                       vertical: 10, horizontal: 10),
                                 ),
@@ -238,20 +260,22 @@ class _LoginState extends State<Login> {
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
                           child: CustomButton(
                               onPress: () async {
-                                Utils.loadingProgress(context);
-                                print(userData);
-                                final response = await Provider.of<AuthProvider>(context,
-                                            listen: false)
-                                        .login(userData);
-                                Navigator.pop(context);
-                                if (response == true) {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const NavScreen()));
-                                  Toasts.showToast(
-                                      Colors.green, 'Login Successful');
+                                if (_formKey.currentState!.validate()) {
+                                  Utils.loadingProgress(context);
+                                  final response =
+                                      await Provider.of<AuthProvider>(context,
+                                              listen: false)
+                                          .login(userData);
+                                  Navigator.pop(context);
+                                  if (response == true) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const NavScreen()));
+                                    Toasts.showToast(
+                                        Colors.green, 'Login Successful');
+                                  }
                                 }
                               },
                               buttonText: "Login",

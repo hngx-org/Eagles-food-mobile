@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/providers/AuthProvider.dart';
@@ -6,6 +5,8 @@ import 'package:hng_task3/screens/menu/components/nav_screen.dart';
 import 'package:hng_task3/utils/toast.dart';
 import 'package:hng_task3/utils/utils.dart';
 import 'package:hng_task3/widgets/custom_button.dart';
+import 'package:iconify_flutter/iconify_flutter.dart';
+import 'package:iconify_flutter/icons/mdi.dart';
 import 'package:provider/provider.dart';
 
 class Signup extends StatefulWidget {
@@ -25,56 +26,57 @@ class _SignupState extends State<Signup> {
     "password": "",
   };
   bool showPassword = false;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Image.asset(
-                "assets/icons/icon-back.png",
-                height: 50,
-                width: 50,
-                fit: BoxFit.contain,
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Image.asset(
+                  "assets/icons/icon-back.png",
+                  height: 50,
+                  width: 50,
+                  fit: BoxFit.contain,
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    "assets/logo/logo_green.png",
-                    height: 50,
-                    width: 50,
-                    fit: BoxFit.contain,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Text(
-                      "Free Launch",
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayMedium
-                          ?.copyWith(fontWeight: FontWeight.w900),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      "assets/logo/logo_green.png",
+                      height: 50,
+                      width: 50,
+                      fit: BoxFit.contain,
                     ),
-                  )
-                ],
-              ),
-            )
-          ],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      child: Text(
+                        "Free Launch",
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium
+                            ?.copyWith(fontWeight: FontWeight.w900),
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
-      ),
-      body: SizedBox(
+        body: SizedBox(
           height: double.infinity,
           width: double.infinity,
           child: SingleChildScrollView(
@@ -101,6 +103,7 @@ class _SignupState extends State<Signup> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 20.0),
                   child: Form(
+                    key: _formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -125,6 +128,12 @@ class _SignupState extends State<Signup> {
                                 ),
                               ),
                               TextFormField(
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter your first name.';
+                                  }
+                                  return null;
+                                },
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyLarge
@@ -190,6 +199,12 @@ class _SignupState extends State<Signup> {
                                 ),
                               ),
                               TextFormField(
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter your last name.';
+                                  }
+                                  return null;
+                                },
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyLarge
@@ -254,6 +269,15 @@ class _SignupState extends State<Signup> {
                                 ),
                               ),
                               TextFormField(
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter your email address.';
+                                  }
+                                  if (!value.contains('@')) {
+                                    return 'Please enter a valid email address.';
+                                  }
+                                  return null;
+                                },
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyLarge
@@ -305,45 +329,63 @@ class _SignupState extends State<Signup> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 5.0),
-                                child: Text("Phone", style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    color: ColorUtils.LightGrey,
-                                    fontSize: 16
-                                ),),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 5.0),
+                                child: Text(
+                                  "Phone",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                          color: ColorUtils.LightGrey,
+                                          fontSize: 16),
+                                ),
                               ),
                               TextFormField(
-                                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                    color: ColorUtils.Grey,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16
-                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter your phone contact.';
+                                  }
+                                  return null;
+                                },
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.copyWith(
+                                        color: ColorUtils.Grey,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16),
                                 onChanged: (value) {
                                   userData['phone'] = value;
                                 },
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   filled: false,
-                                  hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                      color: ColorUtils.Grey,
-                                      fontSize: 16
-                                  ),
+                                  hintStyle: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                          color: ColorUtils.Grey, fontSize: 16),
                                   border: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                         width: 1.3,
-                                        color: ColorUtils.Grey), // Color of the border
+                                        color: ColorUtils
+                                            .Grey), // Color of the border
                                   ),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                         width: 1.3,
-                                        color: ColorUtils.Grey
-                                    ), // Color of the border
+                                        color: ColorUtils
+                                            .Grey), // Color of the border
                                   ),
                                   focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                         width: 2,
-                                        color: ColorUtils.Green), // Color of the border
+                                        color: ColorUtils
+                                            .Green), // Color of the border
                                   ),
-                                  contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
                                 ),
                                 keyboardType: TextInputType.number,
                               )
@@ -357,45 +399,63 @@ class _SignupState extends State<Signup> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 5.0),
-                                child: Text("Street Address", style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    color: ColorUtils.LightGrey,
-                                    fontSize: 16
-                                ),),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 5.0),
+                                child: Text(
+                                  "Street Address",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                          color: ColorUtils.LightGrey,
+                                          fontSize: 16),
+                                ),
                               ),
                               TextFormField(
-                                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                    color: ColorUtils.Grey,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16
-                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter your street address.';
+                                  }
+                                  return null;
+                                },
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.copyWith(
+                                        color: ColorUtils.Grey,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16),
                                 onChanged: (value) {
                                   userData['address'] = value;
                                 },
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   filled: false,
-                                  hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                      color: ColorUtils.Grey,
-                                      fontSize: 16
-                                  ),
+                                  hintStyle: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                          color: ColorUtils.Grey, fontSize: 16),
                                   border: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                         width: 1.3,
-                                        color: ColorUtils.Grey), // Color of the border
+                                        color: ColorUtils
+                                            .Grey), // Color of the border
                                   ),
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                         width: 1.3,
-                                        color: ColorUtils.Grey
-                                    ), // Color of the border
+                                        color: ColorUtils
+                                            .Grey), // Color of the border
                                   ),
                                   focusedBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                         width: 2,
-                                        color: ColorUtils.Green), // Color of the border
+                                        color: ColorUtils
+                                            .Green), // Color of the border
                                   ),
-                                  contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
                                 ),
                                 keyboardType: TextInputType.streetAddress,
                               )
@@ -422,6 +482,12 @@ class _SignupState extends State<Signup> {
                                 ),
                               ),
                               TextFormField(
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter a password.';
+                                  }
+                                  return null;
+                                },
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyLarge
@@ -432,7 +498,7 @@ class _SignupState extends State<Signup> {
                                 onChanged: (value) {
                                   userData['password'] = value;
                                 },
-                                obscureText: showPassword?false:true,
+                                obscureText: showPassword ? false : true,
                                 decoration: InputDecoration(
                                   filled: false,
                                   hintStyle: Theme.of(context)
@@ -459,15 +525,16 @@ class _SignupState extends State<Signup> {
                                             .Green), // Color of the border
                                   ),
                                   suffixIcon: IconButton(
-                                      onPressed: (){
+                                      onPressed: () {
                                         setState(() {
                                           showPassword = !showPassword;
                                         });
-
                                       },
-                                      icon: Icon(
-                                          showPassword ?Icons.remove_red_eye
-                                              :Icons.remove_red_eye_outlined)),
+                                      icon: Iconify(
+                                          !showPassword
+                                              ? Mdi.eye_outline
+                                              : Mdi.eye_off_outline,
+                                          color: ColorUtils.Green)),
                                   contentPadding: const EdgeInsets.symmetric(
                                       horizontal: 10),
                                 ),
@@ -479,20 +546,22 @@ class _SignupState extends State<Signup> {
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
                           child: CustomButton(
                               onPress: () async {
-                                Utils.loadingProgress(context);
-                                final response =
-                                    await Provider.of<AuthProvider>(context,
-                                            listen: false)
-                                        .register(userData);
-                                Navigator.pop(context);
-                                if (response) {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const NavScreen()));
-                                  Toasts.showToast(
-                                      Colors.green, 'Signup Successful');
+                                if (_formKey.currentState!.validate()) {
+                                  Utils.loadingProgress(context);
+                                  final response =
+                                      await Provider.of<AuthProvider>(context,
+                                              listen: false)
+                                          .register(userData);
+                                  Navigator.pop(context);
+                                  if (response) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const NavScreen()));
+                                    Toasts.showToast(
+                                        Colors.green, 'Signup Successful');
+                                  }
                                 }
                               },
                               buttonText: "Sign Up",
@@ -518,7 +587,7 @@ class _SignupState extends State<Signup> {
                 )
               ],
             ),
-          )),
-    );
+          ),
+        ));
   }
 }
