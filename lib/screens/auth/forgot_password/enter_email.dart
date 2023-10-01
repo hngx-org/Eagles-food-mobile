@@ -17,29 +17,50 @@ class EnterEmail extends StatelessWidget {
     final formKey = GlobalKey<FormState>();
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0,
         title:  Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                "assets/logo/logo_green.png",
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Image.asset(
+                "assets/icons/icon-back.png",
                 height: 50,
                 width: 50,
                 fit: BoxFit.contain,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Text(
-                  "Free Launch",
-                  style: Theme.of(context)
-                      .textTheme
-                      .displayMedium
-                      ?.copyWith(fontWeight: FontWeight.w900),
-                ),
-              )
-            ],
-          ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    "assets/logo/logo_green.png",
+                    height: 50,
+                    width: 50,
+                    fit: BoxFit.contain,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Text(
+                      "Free Lunch",
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium
+                          ?.copyWith(fontWeight: FontWeight.w900),
+                    ),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
         centerTitle: true,
       ),
       body: SizedBox(
@@ -55,7 +76,7 @@ class EnterEmail extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 20.0, bottom: 15),
                   child: Text(
-                    "Verify your account(step 1)",
+                    "Verify your account",
                     style: Theme.of(context)
                         .textTheme
                         .displaySmall

@@ -60,7 +60,6 @@ class TeamAndLunchProvider with ChangeNotifier{
   }
 
 //  lunch history
-
   Future<dynamic> getLunchHistory() async {
     const String url = 'lunch/all';
     try{
@@ -73,6 +72,36 @@ class TeamAndLunchProvider with ChangeNotifier{
       notifyListeners();
     }catch(e){
       print(e);
+    }
+  }
+
+//  withdraw lunch
+  Future<dynamic> withDrawLunch(dynamic amount) async {
+    const String url = 'lunch/withdrawlunch';
+    final data = {
+      "quantity" : amount
+    };
+    try {
+      final response = await Network.post(endpoint: url, data: jsonEncode(data));
+      if(response['success'] == true){
+        SessionManager ss = SessionManager();
+        var user = await ss.getUser();
+        String? lunchCreditBalance = user['LunchCreditBalance'];
+        print(lunchCreditBalance.runtimeType);
+        print(amount.runtimeType);
+        if (lunchCreditBalance != null) {
+          int currentBalance = int.parse(lunchCreditBalance); // Use a default value if parsing fails
+          num newBalance = currentBalance - amount;
+          print(newBalance);
+          user['LunchCreditBalance'] = newBalance.toString();
+        }
+        notifyListeners();
+        return true;
+      }else{
+        return false;
+      }
+    } catch (error) {
+      print(error);
     }
   }
 

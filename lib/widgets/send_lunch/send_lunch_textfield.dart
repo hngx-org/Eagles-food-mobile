@@ -7,17 +7,12 @@ class SendLunchTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final TextEditingController? controller;
 
-
-  
   const SendLunchTextField({
     super.key,
     this.keyboardType,
     this.suffixIcon, this.controller,
 
     });
-
-
-
 
   @override
   Widget build(BuildContext context) {

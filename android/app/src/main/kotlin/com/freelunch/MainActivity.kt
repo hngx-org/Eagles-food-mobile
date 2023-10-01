@@ -1,4 +1,4 @@
-package com.example.hng_task3
+package com.freelunch
 
 import io.flutter.embedding.android.FlutterActivity
 

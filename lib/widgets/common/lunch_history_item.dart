@@ -33,7 +33,6 @@ class _LaunchHistoryItemState extends State<LaunchHistoryItem> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.lunchHistory);
     return Column(
       children: [
         Row(
@@ -41,8 +40,6 @@ class _LaunchHistoryItemState extends State<LaunchHistoryItem> {
             Expanded(
               child: DynamicColorText(
                   text: widget.lunchHistory.note.toUpperCase(),
-                  // dynamicColor:
-                  //     lunchHistory. ? ColorUtils.Green : Colors.red),
                   dynamicColor: isReceived ? ColorUtils.Green : Colors.red),
             ),
             const SizedBox(

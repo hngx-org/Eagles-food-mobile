@@ -21,6 +21,7 @@ class MenuScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor:  Theme.of(context).backgroundColor,
       body: SingleChildScrollView(
         child: Container(
           height: MediaQuery.of(context).size.height,

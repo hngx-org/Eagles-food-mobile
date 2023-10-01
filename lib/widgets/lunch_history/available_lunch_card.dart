@@ -4,18 +4,13 @@ import 'package:hng_task3/screens/send_lunch/send_lunch_search.dart';
 import 'package:hng_task3/screens/withdraw/withdraw_lunch.dart';
 import 'package:hng_task3/widgets/custom_button.dart';
 
-import '../../providers/num_of_free_lunch_provider.dart';
-
 class AvailableLunchCard extends StatelessWidget {
-  const AvailableLunchCard({Key? key, required this.numOfFreeLunchProvider})
+  const AvailableLunchCard({Key? key, this.availableLunch})
       : super(key: key);
-  final NumOfFreeLunchProvider numOfFreeLunchProvider;
+  final availableLunch;
 
   @override
   Widget build(BuildContext context) {
-    final num = numOfFreeLunchProvider.numOfFreeLunch.isNotEmpty
-        ? numOfFreeLunchProvider.numOfFreeLunch
-        : '100';
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -58,27 +53,20 @@ class AvailableLunchCard extends StatelessWidget {
                             color: ColorUtils.White,
                           ),
                     ),
-                    trailing: const Wrap(
-                      children: [Icon(Icons.info_outline)],
-                    ),
+                    trailing: const Icon(Icons.info_outline, color: Colors.white, size: 30,),
                   ),
-                  const SizedBox(
-                    height: 13,
-                  ),
-                  Container(
-                    height: MediaQuery.sizeOf(context).height * 0.04,
-                    decoration: const BoxDecoration(color: Colors.transparent),
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0),
                     child: Text(
-                      num,
+                      availableLunch,
                       style: Theme.of(context)
                           .textTheme
                           .displayLarge
                           ?.copyWith(color: Colors.white),
                     ),
                   ),
-                  const SizedBox(
-                    height: 13,
-                  ),
+
                   Row(
                     children: [
                       Expanded(
@@ -87,9 +75,7 @@ class AvailableLunchCard extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => WithdrawLunch(
-                                      numOfFreeLunchProvider:
-                                          numOfFreeLunchProvider)));
+                                  builder: (context) => WithdrawLunch()));
                         },
                         fontSize: 14,
                         buttonText: 'Withdraw lunch',
@@ -98,7 +84,7 @@ class AvailableLunchCard extends StatelessWidget {
                         padding: const EdgeInsets.all(16),
                       )),
                       const SizedBox(
-                        width: 16,
+                        width: 10,
                       ),
                       Expanded(
                           child: CustomButton(

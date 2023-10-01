@@ -13,6 +13,7 @@ Widget searchEmployeeBox(
     textFieldConfiguration: TextFieldConfiguration(
       focusNode: focusNode,
       decoration: InputDecoration(
+        contentPadding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         hintText: 'Search for an employee',
         hintStyle: const TextStyle(
             color: Color(0xFF929292),

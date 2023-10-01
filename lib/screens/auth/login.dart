@@ -61,7 +61,7 @@ class _LoginState extends State<Login> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: Text(
-                      "Free Launch",
+                      "Free Lunch",
                       style: Theme.of(context)
                           .textTheme
                           .displayMedium

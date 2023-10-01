@@ -7,8 +7,6 @@ import 'package:hng_task3/screens/lunch_history/lunch_history_screen.dart';
 import 'package:hng_task3/widgets/common/lunch_history_item.dart';
 import 'package:provider/provider.dart';
 
-import '../../providers/num_of_free_lunch_provider.dart';
-
 enum LunchHistoryFIlters { Received, Sent }
 
 class LunchHistoryWidget extends StatefulWidget {
@@ -36,7 +34,6 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final numOfFreeLunchProvider = Provider.of<NumOfFreeLunchProvider>(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,7 +62,6 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
                             MaterialPageRoute(
                               builder: (context) => LunchHistoryScreen(
                                 history: widget.history,
-                                numOfFreeLunchProvider: numOfFreeLunchProvider,
                               ),
                             ));
                       },
