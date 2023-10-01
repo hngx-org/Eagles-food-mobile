@@ -1,54 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
-import 'package:hng_task3/providers/AuthProvider.dart';
-import 'package:hng_task3/screens/auth/forgot_password/enter_email.dart';
-import 'package:hng_task3/screens/auth/signup.dart';
-import 'package:hng_task3/screens/menu/components/nav_screen.dart';
-import 'package:hng_task3/utils/toast.dart';
-import 'package:hng_task3/utils/utils.dart';
+import 'package:hng_task3/screens/auth/login.dart';
 import 'package:hng_task3/widgets/custom_button.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/mdi.dart';
-import 'package:provider/provider.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class ResetPasswordScreen extends StatefulWidget {
+  const ResetPasswordScreen({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
 }
 
-class _LoginState extends State<Login> {
+class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   final userData = {
-    "email": "",
     "password": "",
   };
   final _formKey = GlobalKey<FormState>();
   bool showPassword = false;
+  bool showPassword_ = false;
+  TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Image.asset(
-                "assets/icons/icon-back.png",
-                height: 50,
-                width: 50,
-                fit: BoxFit.contain,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -70,16 +47,13 @@ class _LoginState extends State<Login> {
                   )
                 ],
               ),
-            )
-          ],
-        ),
       ),
       body: SizedBox(
           height: double.infinity,
           width: double.infinity,
           child: SingleChildScrollView(
             padding:
-                const EdgeInsets.only(right: 20, left: 20, top: 30, bottom: 20),
+            const EdgeInsets.only(right: 20, left: 20, top: 30, bottom: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -87,7 +61,7 @@ class _LoginState extends State<Login> {
                 Padding(
                   padding: const EdgeInsets.only(top: 20.0, bottom: 15),
                   child: Text(
-                    "Login",
+                    "Reset password",
                     style: Theme.of(context)
                         .textTheme
                         .displayLarge
@@ -95,7 +69,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 Text(
-                  "Your next complimentary meal is just a click away. Let's get started!",
+                  "Enter  and confirm your new password",
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 Padding(
@@ -114,21 +88,22 @@ class _LoginState extends State<Login> {
                             children: [
                               Padding(
                                 padding:
-                                    const EdgeInsets.symmetric(vertical: 10.0),
+                                const EdgeInsets.symmetric(vertical: 10.0),
                                 child: Text(
-                                  "Email",
+                                  "New password",
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyMedium
                                       ?.copyWith(
-                                          color: ColorUtils.LightGrey,
-                                          fontSize: 16),
+                                      color: ColorUtils.LightGrey,
+                                      fontSize: 16),
                                 ),
                               ),
                               TextFormField(
+                                controller: controller,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please enter your email.';
+                                    return 'Please enter your new password.';
                                   }
                                   return null;
                                 },
@@ -136,20 +111,20 @@ class _LoginState extends State<Login> {
                                     .textTheme
                                     .bodyLarge
                                     ?.copyWith(
-                                        color: ColorUtils.Grey,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 16),
+                                    color: ColorUtils.Grey,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16),
                                 onChanged: (value) {
-                                  userData['email'] = value;
+                                  userData['password'] = value;
                                 },
-                                obscureText: false,
+                                obscureText: showPassword_ ? false : true,
                                 decoration: InputDecoration(
                                   filled: false,
                                   hintStyle: Theme.of(context)
                                       .textTheme
                                       .bodyMedium
                                       ?.copyWith(
-                                          color: ColorUtils.Grey, fontSize: 16),
+                                      color: ColorUtils.Grey, fontSize: 16),
                                   border: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                         width: 1.3,
@@ -168,10 +143,21 @@ class _LoginState extends State<Login> {
                                         color: ColorUtils
                                             .Green), // Color of the border
                                   ),
+                                  suffixIcon: IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          showPassword_ = !showPassword_;
+                                        });
+                                      },
+                                      icon: Iconify(
+                                          !showPassword_
+                                              ? Mdi.eye_outline
+                                              : Mdi.eye_off_outline,
+                                          color: ColorUtils.Green)),
                                   contentPadding: const EdgeInsets.symmetric(
                                       vertical: 10, horizontal: 10),
                                 ),
-                                keyboardType: TextInputType.emailAddress,
+                                keyboardType: TextInputType.visiblePassword,
                               )
                             ],
                           ),
@@ -184,15 +170,15 @@ class _LoginState extends State<Login> {
                             children: [
                               Padding(
                                 padding:
-                                    const EdgeInsets.symmetric(vertical: 10.0),
+                                const EdgeInsets.symmetric(vertical: 10.0),
                                 child: Text(
-                                  "Password",
+                                  "Confirm new password",
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyMedium
                                       ?.copyWith(
-                                          color: ColorUtils.LightGrey,
-                                          fontSize: 16),
+                                      color: ColorUtils.LightGrey,
+                                      fontSize: 16),
                                 ),
                               ),
                               TextFormField(
@@ -200,18 +186,19 @@ class _LoginState extends State<Login> {
                                   if (value == null || value.isEmpty) {
                                     return 'Please enter your password.';
                                   }
+                                  if (value != controller.text) {
+                                    return 'Passwords do not match.';
+                                  }
+
                                   return null;
                                 },
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyLarge
                                     ?.copyWith(
-                                        color: ColorUtils.Grey,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 16),
-                                onChanged: (value) {
-                                  userData['password'] = value;
-                                },
+                                    color: ColorUtils.Grey,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16),
                                 obscureText: showPassword ? false : true,
                                 decoration: InputDecoration(
                                   filled: false,
@@ -219,7 +206,7 @@ class _LoginState extends State<Login> {
                                       .textTheme
                                       .bodyMedium
                                       ?.copyWith(
-                                          color: ColorUtils.Grey, fontSize: 16),
+                                      color: ColorUtils.Grey, fontSize: 16),
                                   border: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                         width: 1.3,
@@ -262,85 +249,17 @@ class _LoginState extends State<Login> {
                           child: CustomButton(
                               onPress: () async {
                                 if (_formKey.currentState!.validate()) {
-                                  Utils.loadingProgress(context);
-                                  final response =
-                                      await Provider.of<AuthProvider>(context,
-                                              listen: false)
-                                          .login(userData);
-                                  Navigator.pop(context);
-                                  if (response == true) {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const NavScreen()));
-                                    Toasts.showToast(
-                                        Colors.green, 'Login Successful');
-                                  }
+                                  //Utils.loadingProgress(context);
+                                  Navigator.pushAndRemoveUntil(
+                                      context, MaterialPageRoute(builder: (context)=>const Login()), (route) => false);
                                 }
                               },
-                              buttonText: "Login",
+                              buttonText: "Reset password",
                               buttonColor: ColorUtils.Green,
                               textColor: ColorUtils.White,
                               isUppercase: true),
                         ),
-                        Row(
-                          children: [
-                            Text(
-                              'Forgot password ?',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(
-                                      color: ColorUtils.LightGrey,
-                                      fontSize: 16),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10.0),
-                              child: CustomButton(
-                                onPress: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context)=>
-                                          const EnterEmail()));
-                                },
-                                buttonText: "Reset Here",
-                                buttonColor: Colors.transparent,
-                                textColor: ColorUtils.Green,
-                                padding: EdgeInsets.zero,
-                                fontSize: 15,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 15.0),
-                          child: Text(
-                            "Don't have an account ?",
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.copyWith(
-                                    color: ColorUtils.Grey, fontSize: 16),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10.0),
-                          child: CustomButton(
-                              onPress: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => const Signup()));
-                              },
-                              buttonText: "Create an account",
-                              buttonColor: ColorUtils.Yellow,
-                              textColor: ColorUtils.Grey,
-                              isUppercase: true),
-                        ),
+
                       ],
                     ),
                   ),

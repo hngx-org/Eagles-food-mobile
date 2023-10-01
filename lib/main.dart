@@ -3,6 +3,9 @@ import 'package:hng_task3/configs/theme.dart';
 import 'package:hng_task3/providers/AuthProvider.dart';
 import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
 import 'package:hng_task3/providers/num_of_free_lunch_provider.dart';
+import 'package:hng_task3/screens/auth/forgot_password/enter_email.dart';
+import 'package:hng_task3/screens/auth/forgot_password/otp_verification.dart';
+import 'package:hng_task3/screens/auth/login.dart';
 import 'package:hng_task3/screens/menu/components/nav_screen.dart';
 import 'package:hng_task3/screens/splashscreen/splashscreen.dart';
 import 'package:provider/provider.dart';
@@ -25,11 +28,11 @@ class MainApp extends StatelessWidget {
             create: (_) => TeamAndLunchProvider()),
       ],
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: theme,
-        darkTheme: theme,
-        home: const SplashScreen(),
-      ),
+          debugShowCheckedModeBanner: false,
+          theme: theme,
+          darkTheme: theme,
+          home: const SplashScreen(),
+         ),
     );
   }
 }
