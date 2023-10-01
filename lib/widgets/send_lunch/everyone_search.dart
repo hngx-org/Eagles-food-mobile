@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
-import 'package:hng_task3/models/team.dart';
-import 'package:hng_task3/models/team_data.dart';
 import 'package:hng_task3/screens/send_lunch/send_lunch_screen.dart';
 import 'package:hng_task3/utils/utils.dart';
-import 'package:provider/provider.dart';
-
-import '../../providers/num_of_free_lunch_provider.dart';
 
 class EveryoneSearch extends StatefulWidget {
   const EveryoneSearch({super.key, this.list});
@@ -19,14 +14,13 @@ class EveryoneSearch extends StatefulWidget {
 class _EveryoneSearchState extends State<EveryoneSearch> {
   @override
   Widget build(BuildContext context) {
-    final numOfFreeLunchProvider = Provider.of<NumOfFreeLunchProvider>(context);
     return widget.list.length == 0
         ? Center(
             child: Utils.loading(),
           )
         : ListView.builder(
             itemCount: widget.list.length,
-            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             itemBuilder: (context, index) {
               final item = widget.list[index];
               return SizedBox(

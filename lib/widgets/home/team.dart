@@ -1,13 +1,8 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
-import 'package:hng_task3/models/team_data.dart';
 import 'package:hng_task3/screens/send_lunch/send_lunch_screen.dart';
 import 'package:hng_task3/utils/utils.dart';
-import 'package:provider/provider.dart';
-
-import '../../providers/num_of_free_lunch_provider.dart';
 
 class TeamList extends StatefulWidget {
   const TeamList({super.key, this.list});
@@ -19,7 +14,6 @@ class TeamList extends StatefulWidget {
 class _TeamListState extends State<TeamList> {
   @override
   Widget build(BuildContext context) {
-    final numOfFreeLunchProvider = Provider.of<NumOfFreeLunchProvider>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

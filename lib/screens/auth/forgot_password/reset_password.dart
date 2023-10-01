@@ -25,7 +25,25 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Image.asset(
+                "assets/icons/icon-back.png",
+                height: 50,
+                width: 50,
+                fit: BoxFit.contain,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -38,7 +56,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: Text(
-                      "Free Launch",
+                      "Free Lunch",
                       style: Theme.of(context)
                           .textTheme
                           .displayMedium
@@ -47,6 +65,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   )
                 ],
               ),
+            )
+          ],
+        ),
       ),
       body: SizedBox(
           height: double.infinity,

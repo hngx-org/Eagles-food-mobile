@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
 
-ThemeData theme = ThemeData(
+ThemeData lightTheme = ThemeData(
   primaryColor: ColorUtils.Green,
   hintColor: ColorUtils.Yellow,
-  unselectedWidgetColor: ColorUtils.Grey,
+  unselectedWidgetColor: ColorUtils.LightGrey,
+  backgroundColor: ColorUtils.White,
   fontFamily: 'Stapel',
   splashFactory: NoSplash.splashFactory,
   buttonTheme: ButtonThemeData(

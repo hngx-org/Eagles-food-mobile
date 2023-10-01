@@ -3,11 +3,8 @@ import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/configs/sessions.dart';
 import 'package:hng_task3/models/user.dart';
 import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
-import 'package:hng_task3/providers/num_of_free_lunch_provider.dart';
 import 'package:hng_task3/utils/toast.dart';
 import 'package:hng_task3/utils/utils.dart';
-
-import 'package:hng_task3/widgets/send_lunch/send_lunch_textfield.dart';
 import 'package:hng_task3/screens/send_lunch/send_lunch_success.dart';
 import 'package:provider/provider.dart';
 
@@ -25,12 +22,10 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
     "quantity": '',
     "note": ''
   };
-
   var user;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     SessionManager().getUser().then((userJson) {
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -40,23 +35,6 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
       });
     });
   }
-  // TextEditingController numOfFreeLunchController = TextEditingController();
-  // void updateNumOfFreeLunch(BuildContext context) {
-  //   String newNumOfFreeLunches = widget.numOfFreeLunchProvider.numOfFreeLunch;
-  //
-//     if (numOfFreeLunchController.text.isNotEmpty) {
-//       int numOfFreeLunch =
-//           widget.numOfFreeLunchProvider.numOfFreeLunch.isNotEmpty
-//               ? int.parse(widget.numOfFreeLunchProvider.numOfFreeLunch)
-//               : 100;
-//       int withdrawAmount = int.parse(numOfFreeLunchController.text);
-//       newNumOfFreeLunches = (numOfFreeLunch - withdrawAmount).toString();
-//     }
-
-//     widget.numOfFreeLunchProvider.updateNumOfFreeLunches(
-//       numOfFreeLunch: newNumOfFreeLunches,
-//     );
-//   }
 
   @override
   Widget build(BuildContext context) {
@@ -64,25 +42,38 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
       backgroundColor: ColorUtils.Green,
       appBar: AppBar(
         centerTitle: true,
+        automaticallyImplyLeading: false,
         backgroundColor: ColorUtils.Green,
         elevation: 0,
-        title: Text(
-          'Send Lunch',
-          style: Theme.of(context)
-              .textTheme
-              .displayMedium!
-              .copyWith(color: Colors.white),
-        ),
-        leading: SizedBox(
-          width: 50,
-          height: 50,
-          child: IconButton(
-            padding: const EdgeInsets.only(left: 10),
-            icon: Image.asset("assets/icons/icon-back.png"),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Image.asset(
+                "assets/icons/icon-back.png",
+                height: 50,
+                width: 50,
+                fit: BoxFit.contain,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Text(
+                  "Send Lunch",
+                  style: Theme.of(context)
+                      .textTheme
+                      .displayMedium
+                      ?.copyWith(fontWeight: FontWeight.w900),
+                ),
+              ),
+            )
+          ],
         ),
       ),
       body: user == null
@@ -112,9 +103,9 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                     //Body
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
-                      decoration: const BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).backgroundColor,
+                          borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(30),
                               topRight: Radius.circular(30))),
                       child: Column(
@@ -159,7 +150,7 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                                   .bodyMedium!
                                   .copyWith(
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.black),
+                              ),
                             ),
                           ),
 
@@ -210,7 +201,6 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                                 ),
                                 keyboardType: TextInputType.emailAddress,
                               )),
-
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -223,7 +213,8 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                                     .bodySmall
                                     ?.copyWith(
                                         fontWeight: FontWeight.w400,
-                                        color: ColorUtils.Black),
+                                        // color: ColorUtils.Black
+                                ),
                               ),
                               Text(
                                 " ${user.lunchCreditBalance} ",
@@ -243,10 +234,12 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                                     .bodySmall
                                     ?.copyWith(
                                         fontWeight: FontWeight.w400,
-                                        color: ColorUtils.Black),
+                                        // color: ColorUtils.Black
+                                ),
                               ),
                             ],
                           ),
+
                           Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 5.0),
@@ -257,7 +250,8 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                                     .bodyMedium!
                                     .copyWith(
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.black),
+                                        // color: Colors.black
+                                ),
                               )),
 //Reward Reason TextField
                           Padding(

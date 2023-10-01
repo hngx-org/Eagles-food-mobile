@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hng_task3/providers/num_of_free_lunch_provider.dart';
 import 'package:hng_task3/screens/home/home_screen.dart';
 import 'package:hng_task3/screens/menu/configurations.dart';
-// import 'package:hng_task3/screens/send_lunch/send_lunch_screen.dart';
 import 'package:hng_task3/screens/send_lunch/send_lunch_search.dart';
 import 'package:hng_task3/screens/withdraw/withdraw_lunch.dart';
-import 'package:provider/provider.dart';
 
 class CurrentScreen extends StatelessWidget {
   const CurrentScreen({
@@ -70,7 +67,6 @@ class CurrentScreen extends StatelessWidget {
 
   Widget getDrawerPage(
       VoidCallback openDrawer, DrawerItem item, BuildContext context) {
-    final numOfFreeLunchProvider = Provider.of<NumOfFreeLunchProvider>(context);
     switch (item) {
       case DrawerItems.home:
         return HomeScreen(
@@ -80,7 +76,7 @@ class CurrentScreen extends StatelessWidget {
         return const SendLunchSearch();
       case DrawerItems.withdrawlunch:
         return WithdrawLunch(
-          numOfFreeLunchProvider: numOfFreeLunchProvider,
+
         );
 
       default:

@@ -17,25 +17,46 @@ class OTPVerification extends StatelessWidget {
     TextEditingController controller = TextEditingController();
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0,
         title:  Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              "assets/logo/logo_green.png",
-              height: 50,
-              width: 50,
-              fit: BoxFit.contain,
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Image.asset(
+                "assets/icons/icon-back.png",
+                height: 50,
+                width: 50,
+                fit: BoxFit.contain,
+              ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Text(
-                "Free Launch",
-                style: Theme.of(context)
-                    .textTheme
-                    .displayMedium
-                    ?.copyWith(fontWeight: FontWeight.w900),
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    "assets/logo/logo_green.png",
+                    height: 50,
+                    width: 50,
+                    fit: BoxFit.contain,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Text(
+                      "Free Lunch",
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium
+                          ?.copyWith(fontWeight: FontWeight.w900),
+                    ),
+                  )
+                ],
               ),
             )
           ],
@@ -55,7 +76,7 @@ class OTPVerification extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 20.0, bottom: 15),
                   child: Text(
-                    "Verify your account(step 2)",
+                    "Verify your account",
                     style: Theme.of(context)
                         .textTheme
                         .displaySmall
@@ -67,7 +88,7 @@ class OTPVerification extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20.0),
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: Form(
                     key: formKey,
                     child: Column(
@@ -119,13 +140,14 @@ class OTPVerification extends StatelessWidget {
                                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                                 pinTheme: PinTheme(
                                   shape: PinCodeFieldShape.box,
-                                  fieldWidth: 50,
+                                  fieldWidth: 70,
+                                  fieldHeight: 70,
                                   inactiveColor: ColorUtils.Grey,
                                   selectedColor: ColorUtils.Green.withOpacity(0.5),
                                   activeFillColor: ColorUtils.Green,
                                   selectedFillColor: ColorUtils.Green,
                                   inactiveFillColor: ColorUtils.LightGrey,
-                                  borderWidth: 1,
+                                  borderWidth: 0,
                                   borderRadius: BorderRadius.circular(8)
                                 ),
                               ),
@@ -143,7 +165,6 @@ class OTPVerification extends StatelessWidget {
                                       MaterialPageRoute(
                                           builder: (context)=>
                                           const ResetPasswordScreen()));
-
                                 }
                               },
                               buttonText: "Submit",
