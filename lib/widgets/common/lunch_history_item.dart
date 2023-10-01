@@ -39,12 +39,20 @@ class _LaunchHistoryItemState extends State<LaunchHistoryItem> {
         Row(
           children: [
             Expanded(
-              child: DynamicColorText(
-                  text: widget.lunchHistory.note.toUpperCase(),
-                  // dynamicColor:
-                  //     lunchHistory. ? ColorUtils.Green : Colors.red),
-                  dynamicColor: isReceived ? ColorUtils.Green : Colors.red),
-            ),
+                // Changed the overhead text widget
+                child: Text(
+              widget.lunchHistory.note.toUpperCase(),
+              style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w400,
+                  color: ColorUtils.Black),
+            )
+                // child: DynamicColorText(
+                //     text: widget.lunchHistory.note.toUpperCase(),
+                //     // dynamicColor:
+                //     //     lunchHistory. ? ColorUtils.Green : Colors.red),
+                //     dynamicColor: isReceived ? ColorUtils.Green : Colors.red),
+                ),
             const SizedBox(
               width: 35,
             ),

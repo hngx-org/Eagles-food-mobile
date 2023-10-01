@@ -314,7 +314,7 @@ class _SignupState extends State<Signup> {
                                           color: ColorUtils.LightGrey,
                                           fontSize: 16),
                                 ),
-                                keyboardType: TextInputType.number,
+                                // keyboardType: TextInputType.number,
                               )
                             ],
                           ),
