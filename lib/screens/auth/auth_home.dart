@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
+import 'package:hng_task3/screens/auth/login.dart';
 import 'package:hng_task3/screens/auth/login_options.dart';
 import 'package:hng_task3/screens/auth/signup.dart';
 import 'package:hng_task3/widgets/custom_button.dart';
@@ -44,22 +45,22 @@ class _AuthHomeState extends State<AuthHome> {
                 padding: const EdgeInsets.only(left: 20.0, right: 20, top: 50, bottom: 30),
                 child: Text("Elevate your afternoons with a touch of flavor.",
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                  style: Theme.of(context).textTheme.displaySmall?.copyWith(
                 ),),
               ),
 
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: CustomButton(onPress: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginOptions()));
-                }, buttonText: "Login", buttonColor: ColorUtils.Green, textColor: ColorUtils.White,),
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const Login()));
+                }, buttonText: "Login", buttonColor: ColorUtils.Green, textColor: ColorUtils.White, isUppercase: true),
               ),
 
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: CustomButton(onPress: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context) => const Signup()));
-                }, buttonText: "Create an account", buttonColor: ColorUtils.Pink, textColor: ColorUtils.Grey,),
+                }, buttonText: "Create an account", buttonColor: ColorUtils.Pink, textColor: ColorUtils.Grey, isUppercase: true),
               ),
             ],
           ),

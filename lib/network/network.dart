@@ -6,7 +6,7 @@ import 'package:hng_task3/utils/toast.dart';
 import 'package:http/http.dart' as http;
 
 //this base url should be the url of the backend e.g www.backend.com/api
-const String baseUrl = "";
+const String baseUrl = "https://hngxeaglesfood-4graz0d2.b4a.run/api/";
 
 class Network {
   static Future<dynamic> get(String endpoint) async {
@@ -31,11 +31,13 @@ class Network {
   static Future<dynamic> post({required String endpoint, dynamic data}) async {
     if (await NetworkUtils.hasNetwork()) {
       var url = Uri.parse(baseUrl + endpoint);
-
       try {
+        print('request started');
         var response = await http.post(url,
             headers: await NetworkUtils.headers(), body: data);
-        if (response.statusCode == 200) {
+        print(response.body);
+        print(response.statusCode);
+        if (response.statusCode == 200 || response.statusCode == 201) {
           return json.decode(response.body);
         } else {
           NetworkErrors.handleNetworkErrors(response);

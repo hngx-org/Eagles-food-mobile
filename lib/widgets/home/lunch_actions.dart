@@ -1,21 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
+import 'package:hng_task3/widgets/custom_button.dart';
+import 'package:hng_task3/screens/send_lunch/send_lunch_search.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/num_of_free_lunch_provider.dart';
+import '../../screens/withdraw/withdraw_lunch.dart';
 
 class LunchActions extends StatelessWidget {
   const LunchActions({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final numOfFreeLunchProvider = Provider.of<NumOfFreeLunchProvider>(context);
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10),
+      // margin: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
         color: ColorUtils.Green,
+        image: const DecorationImage(
+          image: AssetImage("assets/images/withdrawal-bg.png"),
+          fit: BoxFit.cover,
+        ),
         boxShadow: [
           BoxShadow(
             color: ColorUtils.Yellow,
-            // blurRadius: 10.0,
-            spreadRadius: 2.0,
-            offset: const Offset(10, 12.0),
+            spreadRadius: 1.0,
+            offset: const Offset(7, 7.0),
           ),
         ],
       ),
@@ -24,30 +34,38 @@ class LunchActions extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
-              child: TextButton(
-                onPressed: () {},
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(ColorUtils.Yellow)),
-                child: const Text('Withdraw Lunch'),
-              ),
+            child: CustomButton(
+              onPress: () {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => WithdrawLunch(
+                              numOfFreeLunchProvider: numOfFreeLunchProvider,
+                            )));
+              },
+              buttonText: "Withdraw Lunch",
+              buttonColor: ColorUtils.DeepPink,
+              fontSize: 13,
+              textColor: ColorUtils.Black,
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
             ),
           ),
           const SizedBox(
             width: 10.0,
           ),
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
-              child: TextButton(
-                onPressed: () {},
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(ColorUtils.Yellow)),
-                child: const Text('Send Lunch'),
-              ),
+            child: CustomButton(
+              onPress: () {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SendLunchSearch()));
+              },
+              buttonText: "Send Lunch",
+              buttonColor: ColorUtils.Yellow,
+              fontSize: 13,
+              textColor: ColorUtils.Black,
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
             ),
           ),
         ],
