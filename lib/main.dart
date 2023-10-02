@@ -9,7 +9,7 @@ import 'package:hng_task3/providers/ProfileProvider.dart';
 import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
 import 'package:hng_task3/screens/invites/send_invites.dart';
 
-import 'package:hng_task3/screens/splashscreen/splashscreen.dart';
+import 'package:hng_task3/screens/onboarding/splashscreen.dart';
 import 'package:provider/provider.dart';
 
 void main() {

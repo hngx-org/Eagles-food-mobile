@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/components/widgets/lunch_history/available_lunch_card.dart';
 import 'package:hng_task3/components/widgets/lunch_history/lunch_history_widget.dart';
-import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/configs/sessions.dart';
 import 'package:hng_task3/models/user.dart';
 import 'package:hng_task3/providers/AuthProvider.dart';

@@ -4,7 +4,7 @@ import 'package:hng_task3/screens/home/menu/configurations.dart';
 import 'package:hng_task3/screens/invites/send_invites.dart';
 import 'package:hng_task3/screens/profile/profile.dart';
 import 'package:hng_task3/screens/send_lunch/send_lunch_search.dart';
-import 'package:hng_task3/screens/withdraw/withdraw_lunch.dart';
+import 'package:hng_task3/screens/withdraw_lunch/withdraw_lunch.dart';
 
 class CurrentScreen extends StatelessWidget {
   const CurrentScreen({

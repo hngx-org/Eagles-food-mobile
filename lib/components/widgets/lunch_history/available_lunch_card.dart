@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hng_task3/components/custom_button.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/screens/send_lunch/send_lunch_search.dart';
-import 'package:hng_task3/screens/withdraw/withdraw_lunch.dart';
+import 'package:hng_task3/screens/withdraw_lunch/withdraw_lunch.dart';
 
 class AvailableLunchCard extends StatelessWidget {
   const AvailableLunchCard({Key? key, this.availableLunch})

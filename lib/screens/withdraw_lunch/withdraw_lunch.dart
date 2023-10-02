@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hng_task3/components/custom_button.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
-import 'package:hng_task3/screens/withdraw/withdraw_success_screen.dart';
+import 'package:hng_task3/screens/withdraw_lunch/withdraw_success_screen.dart';
 import 'package:hng_task3/utils/toast.dart';
 import 'package:hng_task3/utils/utils.dart';
 import 'package:provider/provider.dart';

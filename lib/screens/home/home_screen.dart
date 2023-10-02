@@ -10,7 +10,7 @@ import 'package:hng_task3/models/team.dart';
 import 'package:hng_task3/models/user.dart';
 import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
 import 'package:hng_task3/screens/send_lunch/send_lunch_search.dart';
-import 'package:hng_task3/screens/withdraw/withdraw_lunch.dart';
+import 'package:hng_task3/screens/withdraw_lunch/withdraw_lunch.dart';
 import 'package:hng_task3/utils/utils.dart';
 import 'package:provider/provider.dart';
 
