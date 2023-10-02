@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hng_task3/components/widgets/send_lunch/navigationwidget.dart';
 import 'package:hng_task3/configs/colors.dart';
-import 'package:hng_task3/widgets/send_lunch/navigationwidget.dart';
 
 class SendLunchSearch extends StatefulWidget {
   const SendLunchSearch({super.key});
@@ -60,7 +60,7 @@ class _SendLunchSearchState extends State<SendLunchSearch> {
                 const TextStyle(color: Colors.grey, fontWeight: FontWeight.w100),
                 suffixIcon: Icon(Icons.search, color: ColorUtils.Grey.withOpacity(0.5)),
                 border: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                  borderRadius: BorderRadius.all(Radius.circular(30)),
                 ),
               ),
               onChanged: (value) {

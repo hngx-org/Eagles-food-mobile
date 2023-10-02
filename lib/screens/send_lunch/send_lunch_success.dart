@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
-
-import 'package:hng_task3/screens/menu/components/nav_screen.dart';
+import 'package:hng_task3/screens/home/menu/components/nav_screen.dart';
 
 class SendLunchSuccess extends StatelessWidget {
   const SendLunchSuccess({super.key});
