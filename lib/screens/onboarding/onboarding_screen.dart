@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hng_task3/components/custom_button.dart';
 import 'package:hng_task3/configs/colors.dart';
-import 'package:hng_task3/screens/auth/auth_home.dart';
-import 'package:hng_task3/widgets/custom_button.dart';
+import 'package:hng_task3/screens/onboarding/auth/auth_home.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});

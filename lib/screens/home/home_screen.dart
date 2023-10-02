@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hng_task3/components/custom_button.dart';
+import 'package:hng_task3/components/widgets/common/search_employee.dart';
+import 'package:hng_task3/components/widgets/home/team.dart';
+import 'package:hng_task3/components/widgets/lunch_history/lunch_history_widget.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/configs/sessions.dart';
 import 'package:hng_task3/models/lunch.dart';
@@ -6,13 +10,8 @@ import 'package:hng_task3/models/team.dart';
 import 'package:hng_task3/models/user.dart';
 import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
 import 'package:hng_task3/screens/send_lunch/send_lunch_search.dart';
-import 'package:hng_task3/screens/withdraw/withdraw_lunch.dart';
+import 'package:hng_task3/screens/withdraw_lunch/withdraw_lunch.dart';
 import 'package:hng_task3/utils/utils.dart';
-import 'package:hng_task3/widgets/common/search_employee.dart';
-import 'package:hng_task3/widgets/custom_button.dart';
-import 'package:hng_task3/widgets/home/team.dart';
-import 'package:hng_task3/widgets/lunch_history/lunch_history_widget.dart';
-import 'package:hng_task3/widgets/send_lunch/navigationwidget.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -200,6 +199,7 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.symmetric(vertical: 10.0),
             child: TeamList(list: my_team),
           ),
+
           if (lunch_history.length > 0)
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10.0),

@@ -8,19 +8,19 @@ ThemeData darkTheme = ThemeData(
   backgroundColor: ColorUtils.Black,
   fontFamily: 'Stapel',
   splashFactory: NoSplash.splashFactory,
-  colorScheme: ColorScheme(
-      brightness: Brightness.dark,
-      background: ColorUtils.White,
-      primary: ColorUtils.Green,
-      onPrimary: ColorUtils.White,
-      secondary: ColorUtils.Black,
-      onSecondary: ColorUtils.White,
-      error: Colors.red,
-      onError: Colors.white,
-      onBackground: ColorUtils.Black,
-      surface: Colors.white,
-      onSurface: ColorUtils.Black
-  ),
+  // colorScheme: ColorScheme(
+  //     brightness: Brightness.dark,
+  //     background: ColorUtils.White,
+  //     primary: ColorUtils.Green,
+  //     onPrimary: ColorUtils.White,
+  //     secondary: ColorUtils.Black,
+  //     onSecondary: ColorUtils.White,
+  //     error: Colors.red,
+  //     onError: Colors.white,
+  //     onBackground: ColorUtils.Black,
+  //     surface: Colors.white,
+  //     onSurface: ColorUtils.Black
+  // ),
   buttonTheme: ButtonThemeData(
     buttonColor: ColorUtils.Blue,
     textTheme: ButtonTextTheme.primary,
