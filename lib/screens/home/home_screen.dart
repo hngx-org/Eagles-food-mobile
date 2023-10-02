@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:hng_task3/components/custom_button.dart';
+import 'package:hng_task3/components/widgets/common/search_employee.dart';
+import 'package:hng_task3/components/widgets/home/team.dart';
+import 'package:hng_task3/components/widgets/lunch_history/lunch_history_widget.dart';
+import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/configs/sessions.dart';
 import 'package:hng_task3/models/lunch.dart';
 import 'package:hng_task3/models/team.dart';
 import 'package:hng_task3/models/user.dart';
 import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
+import 'package:hng_task3/screens/send_lunch/send_lunch_search.dart';
+import 'package:hng_task3/screens/withdraw_lunch/withdraw_lunch.dart';
 import 'package:hng_task3/utils/utils.dart';
-import 'package:hng_task3/widgets/common/search_employee.dart';
-import 'package:hng_task3/widgets/home/lunch_actions.dart';
-import 'package:hng_task3/widgets/home/team.dart';
-import 'package:hng_task3/widgets/lunch_history/lunch_history_widget.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,14 +24,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // List<String> employees = [
-  //   'Oben Ayuk Gilbert Abunaw',
-  //   'Efosa Uyi-Idahor',
-  //   'akamsr',
-  //   'Godwin Adah',
-  //   'Aaron Ogbemi',
-  // ];
-
   String selectedEmployee = '';
   FocusNode focusNode = FocusNode();
 
@@ -48,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     Provider.of<TeamAndLunchProvider>(context, listen: false).getUsers();
-    Provider.of<TeamAndLunchProvider>(context, listen: false).getLunchHistory();
+    my_team.isEmpty ? Provider.of<TeamAndLunchProvider>(context, listen: false).getLunchHistory() : null;
     SessionManager().getUser().then((userJson) {
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         setState(() {
@@ -62,10 +57,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     my_team = Provider.of<TeamAndLunchProvider>(context).my_team;
     lunch_history = Provider.of<TeamAndLunchProvider>(context).lunchHistory;
-    // var list = my_team.map((t) {
-    //   return t.name;
-    // }).toList();
     return Scaffold(
+        backgroundColor:  Theme.of(context).backgroundColor,
         body: SingleChildScrollView(
       padding: const EdgeInsets.only(
         top: 50,
@@ -103,11 +96,38 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const Spacer(),
               IconButton(
-                icon: Image.asset('assets/icons/Frame 1.png'),
+                icon: Image.asset('assets/icons/Frame 1.png', ),
                 onPressed: widget.openDrawer,
               )
             ],
           ),
+          // GestureDetector(
+          //   onTap: (){
+          //     Navigator.push(context, MaterialPageRoute(builder: (context) => const NavigationScreenWidget()));
+          //   },
+          //   child: Padding(
+          //     padding: const EdgeInsets.symmetric(vertical: 10.0),
+          //     child: TextFormField(
+          //       decoration: InputDecoration(
+          //         hintText: 'Search for an employee',
+          //         hintStyle: const TextStyle(
+          //             color: Color(0xFF929292),
+          //             fontFamily: 'poppins',
+          //             fontWeight: FontWeight.w400),
+          //         suffixIcon: Icon(
+          //           Icons.search,
+          //           color: focusNode.hasFocus ? const Color(0xFF929292) : null,
+          //         ),
+          //         filled: true,
+          //         fillColor: const Color(0xFFEBEBEB),
+          //         focusedBorder: const OutlineInputBorder(
+          //             borderSide: BorderSide(color: Color(0xFFEBEBEB), width: 1)),
+          //         border: const OutlineInputBorder(
+          //             borderSide: BorderSide(color: Color(0xFFEBEBEB), width: 1)),
+          //       ),
+          //     ),
+          //   ),
+          // ),
           Padding(
             padding: const EdgeInsets.only(top: 15.0),
             child: searchEmployeeBox(
@@ -117,21 +137,76 @@ class _HomeScreenState extends State<HomeScreen> {
               focusNode,
             ),
           ),
-          const SizedBox(
-            height: 18,
+          Container(
+            margin: const EdgeInsets.symmetric(vertical: 15),
+            decoration: BoxDecoration(
+              color: ColorUtils.Green,
+              image: const DecorationImage(
+                image: AssetImage("assets/images/withdrawal-bg.png"),
+                fit: BoxFit.cover,
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: ColorUtils.Yellow,
+                  spreadRadius: 1.0,
+                  offset: const Offset(7, 7.0),
+                ),
+              ],
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Expanded(
+                  child: CustomButton(
+                    onPress: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => WithdrawLunch(
+                                user: user
+                              )));
+                    },
+                    buttonText: "Withdraw Lunch",
+                    buttonColor: ColorUtils.DeepPink,
+                    fontSize: 13,
+                    textColor: ColorUtils.Black,
+                    padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                  ),
+                ),
+                const SizedBox(
+                  width: 10.0,
+                ),
+                Expanded(
+                  child: CustomButton(
+                    onPress: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SendLunchSearch()));
+                    },
+                    buttonText: "Send Lunch",
+                    buttonColor: ColorUtils.Yellow,
+                    fontSize: 13,
+                    textColor: ColorUtils.Black,
+                    padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                  ),
+                ),
+              ],
+            ),
           ),
-          const LunchActions(),
-          const SizedBox(
-            height: 32,
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            child: TeamList(list: my_team),
           ),
-          TeamList(list: my_team),
-          const SizedBox(
-            height: 25,
-          ),
+
           if (lunch_history.length > 0)
-            LunchHistoryWidget(
-              limit: true,
-              history: lunch_history,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10.0),
+              child: LunchHistoryWidget(
+                limit: true,
+                history: lunch_history,
+              ),
             )
         ],
       ),
