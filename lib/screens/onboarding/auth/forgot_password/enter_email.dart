@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:hng_task3/components/custom_button.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/screens/onboarding/auth/forgot_password/otp_verification.dart';
+import 'package:hng_task3/utils/toast.dart';
+import 'package:provider/provider.dart';
+
+import '../../../../providers/AuthProvider.dart';
+import '../../../../utils/utils.dart';
 
 class EnterEmail extends StatelessWidget {
   const EnterEmail({super.key});
@@ -10,10 +15,14 @@ class EnterEmail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController controller = TextEditingController();
+
     final userData = {
       "email": "",
     };
+
     final formKey = GlobalKey<FormState>();
+
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -170,10 +179,17 @@ class EnterEmail extends StatelessWidget {
                           child: CustomButton(
                               onPress: () async {
                                 if (formKey.currentState!.validate()) {
-                                  //Utils.loadingProgress(context);
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(builder: (context)=> OTPVerification(email: controller.text,)));
+                                  Utils.loadingProgress(context);
+                                  final response = await Provider.of<AuthProvider>(context,
+                                      listen: false)
+                                      .forgotPassword(userData);
+                                  Navigator.pop(context);
+                                  if(response == true){
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (context)=> OTPVerification(email: controller.text,)));
+                                    Toasts.showToast(Colors.green, 'User exists.');
+                                  }
 
                                   }
                                 },

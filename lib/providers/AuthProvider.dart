@@ -27,6 +27,22 @@ class AuthProvider with ChangeNotifier{
       print(e);
     }
   }
+  Future<dynamic> verifyOTP(String email, String otp) async {
+
+    String url = 'auth/verify-reset-token?email=$email&token=$otp';
+    try{
+      _isLoading = true;
+      final response = await Network.get(url);
+      if(response['success']== true){
+        _isLoading = false;
+        return true;
+      }else{
+        _isLoading = false;
+        return false;}
+    }catch(e){
+      print(e);
+    }
+  }
 
 
   Future<dynamic> login(Map<String, dynamic> userData) async {
@@ -49,6 +65,47 @@ class AuthProvider with ChangeNotifier{
         return true;
       }else{
         return false;
+      }
+
+    } catch (error) {
+      print(error);
+    }
+  }
+
+
+  Future<dynamic> forgotPassword(Map<String, dynamic> userData) async {
+    const String url = 'auth/forgot-password';
+    final Map<String, dynamic> data = {
+      'email': userData['email'],
+    };
+    try {
+      final response = await Network.post(endpoint: url, data: jsonEncode(data));
+      if(response['statusCode'] == 200){
+        return true;
+      }else{
+        return false;
+
+      }
+
+    } catch (error) {
+      print(error);
+    }
+  }
+  Future<dynamic> resetPassword(Map<String, dynamic> userData,) async {
+    const String url = 'auth/forgot-password';
+    final Map<String, dynamic> data = {
+      'email': userData['email'],
+      'resetToken': userData['email'],
+      'newPassword': userData['newPassword'],
+
+    };
+    try {
+      final response = await Network.post(endpoint: url, data: jsonEncode(data));
+      if(response['statusCode'] == 200){
+        return true;
+      }else{
+        return false;
+
       }
 
     } catch (error) {

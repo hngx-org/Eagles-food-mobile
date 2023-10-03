@@ -3,7 +3,12 @@ import 'package:flutter/services.dart';
 import 'package:hng_task3/components/custom_button.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/screens/onboarding/auth/forgot_password/reset_password.dart';
+import 'package:hng_task3/utils/toast.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:provider/provider.dart';
+
+import '../../../../providers/AuthProvider.dart';
+import '../../../../utils/utils.dart';
 
 class OTPVerification extends StatelessWidget {
   const OTPVerification({super.key, required this.email});
@@ -132,7 +137,8 @@ class OTPVerification extends StatelessWidget {
                                 appContext: context,
                                 controller: controller,
                                 length: 4,
-                                onChanged: (value){},
+                                onChanged: (value){
+                                },
                                 cursorHeight: 19,
                                 enableActiveFill: true,
                                 textStyle: Theme.of(context).textTheme.displaySmall,
@@ -158,13 +164,19 @@ class OTPVerification extends StatelessWidget {
                           child: CustomButton(
                               onPress: () async {
                                 if (formKey.currentState!.validate()) {
-                                  //Utils.loadingProgress(context);
+                                  Utils.loadingProgress(context);
+                                  final response = await Provider.of<AuthProvider>(context,
+                                      listen: false)
+                                      .verifyOTP(email,controller.text);
+                                  Navigator.pop(context);
+                                  if(response == true){
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context)=>
-                                          const ResetPasswordScreen()));
-                                }
+                                           ResetPasswordScreen(email: email,otp: controller.text,)));
+                                  Toasts.showToast(Colors.green, 'Verification successful');
+                                }}
                               },
                               buttonText: "Submit",
                               buttonColor: ColorUtils.Green,
