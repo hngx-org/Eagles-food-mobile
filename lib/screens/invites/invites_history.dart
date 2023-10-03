@@ -3,6 +3,7 @@ import 'package:hng_task3/components/custom_button.dart';
 import 'package:hng_task3/components/shimmers/teamShimmer.dart';
 import 'package:hng_task3/components/widgets/invites/invite_history.dart';
 import 'package:hng_task3/configs/colors.dart';
+import 'package:hng_task3/screens/home/menu/components/nav_screen.dart';
 import 'package:hng_task3/screens/invites/invites_reply.dart';
 
 class InvitesHistory extends StatefulWidget {
@@ -26,7 +27,11 @@ class _InvitesHistoryState extends State<InvitesHistory> {
           children: [
             TextButton(
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                        const NavScreen()), (route)=> false);
               },
               child: Image.asset(
                 "assets/icons/icon-back.png",

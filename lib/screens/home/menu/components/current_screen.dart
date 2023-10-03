@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hng_task3/screens/home/home_screen.dart';
 import 'package:hng_task3/screens/home/menu/configurations.dart';
 import 'package:hng_task3/screens/invites/invites.dart';
+import 'package:hng_task3/screens/invites/invites_history.dart';
 import 'package:hng_task3/screens/profile/profile.dart';
 import 'package:hng_task3/screens/send_lunch/send_lunch_search.dart';
 import 'package:hng_task3/screens/withdraw_lunch/withdraw_lunch.dart';
@@ -82,6 +83,8 @@ class CurrentScreen extends StatelessWidget {
         return const Profile();
       case DrawerItems.invitesPage:
         return const Invites();
+      case DrawerItems.manageInvitesPage:
+        return const InvitesHistory();
 
       default:
         return HomeScreen(
