@@ -55,7 +55,6 @@ class AvailableLunchCard extends StatelessWidget {
                     ),
                     trailing: const Icon(Icons.info_outline, color: Colors.white, size: 30,),
                   ),
-
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10.0),
                     child: Text(
@@ -66,7 +65,6 @@ class AvailableLunchCard extends StatelessWidget {
                           ?.copyWith(color: Colors.white),
                     ),
                   ),
-
                   Row(
                     children: [
                       Expanded(

@@ -19,6 +19,8 @@ class DrawerItems {
   DrawerItem(icon: Icons.person_outline, title: "Profile");
   static const invitesPage =
   DrawerItem(icon: Icons.insert_invitation, title: "Invites");
+  static const manageInvitesPage =
+  DrawerItem(icon: Icons.manage_accounts_outlined, title: "Manage Invites");
   static const logout =
       DrawerItem(icon: Icons.power_settings_new_sharp, title: "Logout");
 
@@ -28,6 +30,7 @@ class DrawerItems {
     withdrawlunch,
     profilePage,
     invitesPage,
+    manageInvitesPage,
     logout,
   ];
 }
