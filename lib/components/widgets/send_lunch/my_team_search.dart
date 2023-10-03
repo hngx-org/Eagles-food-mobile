@@ -7,6 +7,7 @@ import 'package:hng_task3/utils/utils.dart';
 class MyTeamSearch extends StatefulWidget {
   const MyTeamSearch({super.key, this.list});
   final list;
+  // final String search;
   @override
   State<MyTeamSearch> createState() => _MyTeamSearchState();
 }
@@ -16,12 +17,11 @@ class _MyTeamSearchState extends State<MyTeamSearch> {
   Widget build(BuildContext context) {
     return widget.list.length == 0
         ? ListView.builder(
-              shrinkWrap: true,
-              padding: const EdgeInsets.symmetric(vertical: 0),
-              physics: const BouncingScrollPhysics(),
-              itemCount: 8,
-              itemBuilder: (context, index) => const TeamShimmer()
-          )
+            shrinkWrap: true,
+            padding: const EdgeInsets.symmetric(vertical: 0),
+            physics: const BouncingScrollPhysics(),
+            itemCount: 8,
+            itemBuilder: (context, index) => const TeamShimmer())
         : ListView.builder(
             itemCount: widget.list.length,
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),

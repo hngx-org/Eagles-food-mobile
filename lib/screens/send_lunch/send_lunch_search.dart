@@ -10,6 +10,8 @@ class SendLunchSearch extends StatefulWidget {
 }
 
 class _SendLunchSearchState extends State<SendLunchSearch> {
+  TextEditingController searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,18 +49,21 @@ class _SendLunchSearchState extends State<SendLunchSearch> {
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        children:  [
+        children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
             child: TextFormField(
+              controller: searchController,
               decoration: InputDecoration(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 hintText: 'Search for employee',
                 filled: true,
                 fillColor: Theme.of(context).unselectedWidgetColor,
-                hintStyle:
-                const TextStyle(color: Colors.grey, fontWeight: FontWeight.w100),
-                suffixIcon: Icon(Icons.search, color: ColorUtils.Grey.withOpacity(0.5)),
+                hintStyle: const TextStyle(
+                    color: Colors.grey, fontWeight: FontWeight.w100),
+                suffixIcon:
+                    Icon(Icons.search, color: ColorUtils.Grey.withOpacity(0.5)),
                 border: const OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(30)),
                 ),
@@ -66,11 +71,16 @@ class _SendLunchSearchState extends State<SendLunchSearch> {
               onChanged: (value) {
                 // Perform search operations based on the entered value
                 // Update the search results accordingly
+                setState(() {
+                  NavigationScreenWidget(search: searchController.text);
+                });
               },
             ),
           ),
           const Expanded(
-            child: NavigationScreenWidget(),
+            child: NavigationScreenWidget(
+              search: "",
+            ),
           ),
         ],
       ),

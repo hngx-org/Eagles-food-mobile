@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/screens/home/home_screen.dart';
-import 'package:hng_task3/screens/menu/components/nav_screen.dart';
-import 'package:hng_task3/widgets/withdraw/withdraw_image.dart';
+import 'package:hng_task3/screens/home/menu/components/nav_screen.dart';
+// import 'package:hng_task3/widgets/withdraw/withdraw_image.dart';
 
 class WithdrawSuccessScreen extends StatelessWidget {
   const WithdrawSuccessScreen({super.key, required this.numOfFreeLunch});
@@ -20,7 +20,7 @@ class WithdrawSuccessScreen extends StatelessWidget {
             child: Stack(children: [
               Column(
                 children: [
-                  const WithdrawImage(),
+                  //const WithdrawImage(),
                   const SizedBox(height: 30),
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 28),
