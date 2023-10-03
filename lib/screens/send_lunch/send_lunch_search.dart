@@ -12,6 +12,7 @@ class SendLunchSearch extends StatefulWidget {
 
 class _SendLunchSearchState extends State<SendLunchSearch> {
   TextEditingController searchController = TextEditingController();
+  String _searchQuery = '';
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +29,8 @@ class _SendLunchSearchState extends State<SendLunchSearch> {
               onPressed: () {
                 Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                        const NavScreen()), (route)=> false);
+                    MaterialPageRoute(builder: (context) => const NavScreen()),
+                    (route) => false);
               },
               child: Image.asset(
                 "assets/icons/icon-back.png",
@@ -77,14 +77,14 @@ class _SendLunchSearchState extends State<SendLunchSearch> {
                 // Perform search operations based on the entered value
                 // Update the search results accordingly
                 setState(() {
-                  NavigationScreenWidget(search: searchController.text);
+                  _searchQuery = value;
                 });
               },
             ),
           ),
-          const Expanded(
+          Expanded(
             child: NavigationScreenWidget(
-              search: "",
+              search: _searchQuery,
             ),
           ),
         ],

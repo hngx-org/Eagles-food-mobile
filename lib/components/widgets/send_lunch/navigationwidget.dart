@@ -40,10 +40,14 @@ class _NavigationScreenState extends State<NavigationScreenWidget>
     var my_team = Provider.of<TeamAndLunchProvider>(context).my_team;
     var everyone = Provider.of<TeamAndLunchProvider>(context).everyone;
 
-    var filterdMyTeam =
-        my_team.where((team) => team.name.contains(widget.search));
-    var filterdEveryone =
-        everyone.where((team) => team.name.contains(widget.search));
+    List<Team> filterdMyTeam = my_team
+        .where((team) =>
+            team.name.toLowerCase().contains(widget.search.toLowerCase()))
+        .toList();
+    List<Team> filterdEveryone = everyone
+        .where((team) =>
+            team.name.toLowerCase().contains(widget.search.toLowerCase()))
+        .toList();
 
     return DefaultTabController(
       length: 2,
@@ -71,8 +75,8 @@ class _NavigationScreenState extends State<NavigationScreenWidget>
             child: TabBarView(
               controller: _controller,
               children: <Widget>[
-                MyTeamSearch(list: my_team),
-                EveryoneSearch(list: everyone),
+                MyTeamSearch(list: filterdMyTeam),
+                EveryoneSearch(list: filterdEveryone),
               ],
             ),
           ),
