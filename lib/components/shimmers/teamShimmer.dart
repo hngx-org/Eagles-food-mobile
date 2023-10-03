@@ -11,7 +11,7 @@ class TeamShimmer extends StatelessWidget {
       leading: Shimmer.fromColors(
         baseColor: Colors.grey[300]!,
         highlightColor: Colors.grey[100]!,
-        child: CircleAvatar(
+        child: const  CircleAvatar(
           backgroundColor: Colors.white,
           radius: 30.0,
         ),
@@ -40,7 +40,7 @@ class TeamShimmer extends StatelessWidget {
           color: Colors.white,
           child: TextButton(
             onPressed: () {},
-            child: Text(
+            child: const Text(
               'Invite',
               style: TextStyle(
                 fontWeight: FontWeight.w700,

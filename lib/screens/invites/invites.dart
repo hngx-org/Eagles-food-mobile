@@ -1,40 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:hng_task3/components/shimmers/invitesShimmer.dart';
 import 'package:hng_task3/components/shimmers/teamShimmer.dart';
+import 'package:hng_task3/components/widgets/invites/invites.dart';
 import 'package:hng_task3/configs/colors.dart';
-import 'package:hng_task3/models/team.dart';
-import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
-import 'package:hng_task3/utils/utils.dart';
-import 'package:provider/provider.dart';
-class SendInvites extends StatefulWidget {
-  const SendInvites({super.key});
+class Invites extends StatefulWidget {
+  const Invites({super.key});
 
   @override
-  State<SendInvites> createState() => _SendInvitesState();
+  State<Invites> createState() => _InvitesState();
 }
 
-class _SendInvitesState extends State<SendInvites> {
+class _InvitesState extends State<Invites> {
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    Provider.of<TeamAndLunchProvider>(context, listen: false).getUsers();
-    super.initState();
-  }
+  List list = [
+    {
+      "team": "Team Eagle",
+      "sender": "Dorcas"
+    },
+    {
+      "team": "Team Demezel",
+      "sender": "Mike"
+    },
+    {
+      "team": "Team Commander",
+      "sender": "Joyce"
+    },
 
-  void search(String query) {
-    query = query.toLowerCase();
-    filtered = list.where((person) {
-      return person.name.toLowerCase().contains(query);
-    }).toList();
-  }
+  ];
 
-  List<Team> filtered = [];
-  List<Team> list = [];
 
   @override
   Widget build(BuildContext context) {
-    list = Provider.of<TeamAndLunchProvider>(context).everyone;
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title:  Row(
@@ -55,7 +53,7 @@ class _SendInvitesState extends State<SendInvites> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Text(
-                "Send Team Invite",
+                "Team Invites",
                 style: Theme.of(context)
                     .textTheme
                     .displayMedium
@@ -72,10 +70,12 @@ class _SendInvitesState extends State<SendInvites> {
         ],
       ),
       body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0,),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),
+              padding: const EdgeInsets.symmetric( vertical: 15),
               child: TextFormField(
                 style: Theme.of(context).textTheme.bodyLarge,
                 decoration: InputDecoration(
@@ -111,11 +111,11 @@ class _SendInvitesState extends State<SendInvites> {
                   ),
                 ),
                 onChanged: (value) {
-                  search(value);
+                  // search(value);
                 },
               ),
             ),
-            Text("Send an invite for someone to join your team",
+            Text("Accept to Join a Team",
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   fontWeight: FontWeight.w500,
                   color: ColorUtils.LightGrey
@@ -123,56 +123,18 @@ class _SendInvitesState extends State<SendInvites> {
 
             list.isEmpty ? ListView.builder(
                 shrinkWrap: true,
-                padding: const EdgeInsets.symmetric(vertical: 0),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 physics: const BouncingScrollPhysics(),
                 itemCount: 8,
-                itemBuilder: (context, index) => const TeamShimmer()
+                itemBuilder: (context, index) => const InviteShimmer()
             ) : ListView.builder(
-              itemCount: filtered.length,
+              itemCount: list.length,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              padding: const EdgeInsets.symmetric(vertical: 10),
               itemBuilder: (context, index) {
-                final item = filtered[index];
-                return SizedBox(
-                    width: double.infinity,
-                    child: ListTile(
-                      contentPadding: const EdgeInsets.all(0),
-                      leading: CircleAvatar(
-                        backgroundImage: AssetImage(item.image.toString()),
-                      ),
-                      title: Text(
-                        item.name,
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium
-                            ?.copyWith(fontSize: 16, fontWeight: FontWeight.w400),
-                      ),
-                      subtitle: Text(
-                        '${item.email}',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineSmall
-                            ?.copyWith(fontWeight: FontWeight.w500, fontSize: 11),
-                      ),
-                      trailing: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10 , vertical: 0),
-                        color: ColorUtils.Green,
-                        child: TextButton(
-                          onPressed: () {
-
-                          },
-                          child: Text(
-                            'Invite',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.copyWith(
-                                fontWeight: FontWeight.w700, fontSize: 13, color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ));
+                final item = list[index];
+                return Invitations(invite: item,);
               },
             )
           ],

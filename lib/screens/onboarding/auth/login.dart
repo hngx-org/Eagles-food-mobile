@@ -29,6 +29,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Row(
@@ -269,11 +270,11 @@ class _LoginState extends State<Login> {
                                           .login(userData);
                                   Navigator.pop(context);
                                   if (response == true) {
-                                    Navigator.push(
+                                    Navigator.pushAndRemoveUntil(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const NavScreen()));
+                                                const NavScreen()), (route)=> false);
                                     Toasts.showToast(
                                         Colors.green, 'Login Successful');
                                   }

@@ -38,13 +38,13 @@ class AuthProvider with ChangeNotifier{
     try {
       final response = await Network.post(endpoint: url, data: jsonEncode(data));
       if(response['success'] == true){
-        var _user = response['data'];
+        var user = response['data'];
         var token = response['data']['access_token'];
-        User? user = User.fromJson(_user);
+        _user = User.fromJson(user);
         SessionManager ss = SessionManager();
         ss.setToken(token);
         ss.setLogin(true);
-        ss.saveUser(user!.toJson());
+        ss.saveUser(_user!.toJson());
         notifyListeners();
         return true;
       }else{
@@ -69,7 +69,8 @@ class AuthProvider with ChangeNotifier{
     try {
       final response = await Network.post(endpoint: url, data: json.encode(data));
       if(response['success'] == true){
-        _user = User.fromJson(response['data']);
+        var user = response['data'];
+        _user = User.fromJson(user);
         SessionManager ss = SessionManager();
         ss.setLogin(true);
         ss.setToken(response['data']['access_token']);
