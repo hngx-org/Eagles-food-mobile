@@ -27,6 +27,22 @@ class AuthProvider with ChangeNotifier{
       print(e);
     }
   }
+  Future<dynamic> verifyOTP(String email, String otp) async {
+
+    String url = 'auth/verify-reset-token?email=$email&token=$otp';
+    try{
+      _isLoading = true;
+      final response = await Network.get(url);
+      if(response['success']== true){
+        _isLoading = false;
+        return true;
+      }else{
+        _isLoading = false;
+        return false;}
+    }catch(e){
+      print(e);
+    }
+  }
 
 
   Future<dynamic> login(Map<String, dynamic> userData) async {
@@ -38,17 +54,58 @@ class AuthProvider with ChangeNotifier{
     try {
       final response = await Network.post(endpoint: url, data: jsonEncode(data));
       if(response['success'] == true){
-        var _user = response['data'];
+        var user = response['data'];
         var token = response['data']['access_token'];
-        User? user = User.fromJson(_user);
+        _user = User.fromJson(user);
         SessionManager ss = SessionManager();
         ss.setToken(token);
         ss.setLogin(true);
-        ss.saveUser(user!.toJson());
+        ss.saveUser(_user!.toJson());
         notifyListeners();
         return true;
       }else{
         return false;
+      }
+
+    } catch (error) {
+      print(error);
+    }
+  }
+
+
+  Future<dynamic> forgotPassword(Map<String, dynamic> userData) async {
+    const String url = 'auth/forgot-password';
+    final Map<String, dynamic> data = {
+      'email': userData['email'],
+    };
+    try {
+      final response = await Network.post(endpoint: url, data: jsonEncode(data));
+      if(response['statusCode'] == 200){
+        return true;
+      }else{
+        return false;
+
+      }
+
+    } catch (error) {
+      print(error);
+    }
+  }
+  Future<dynamic> resetPassword(Map<String, dynamic> userData,) async {
+    const String url = 'auth/forgot-password';
+    final Map<String, dynamic> data = {
+      'email': userData['email'],
+      'resetToken': userData['email'],
+      'newPassword': userData['newPassword'],
+
+    };
+    try {
+      final response = await Network.post(endpoint: url, data: jsonEncode(data));
+      if(response['statusCode'] == 200){
+        return true;
+      }else{
+        return false;
+
       }
 
     } catch (error) {
@@ -69,7 +126,8 @@ class AuthProvider with ChangeNotifier{
     try {
       final response = await Network.post(endpoint: url, data: json.encode(data));
       if(response['success'] == true){
-        _user = User.fromJson(response['data']);
+        var user = response['data'];
+        _user = User.fromJson(user);
         SessionManager ss = SessionManager();
         ss.setLogin(true);
         ss.setToken(response['data']['access_token']);

@@ -6,6 +6,8 @@ class CustomButton extends StatelessWidget {
     this.buttonText,
     this.buttonColor,
     this.fontSize = 16,
+    this.fontWeight = FontWeight.w500,
+    this.fontFamily = 'Stapel',
     this.isUppercase = false,
     this.textColor = Colors.white,
     this.isOutlined = false,
@@ -18,6 +20,8 @@ class CustomButton extends StatelessWidget {
 });
 
   final fontSize;
+  final fontWeight;
+  final fontFamily;
   final buttonText;
   final buttonColor;
   final textColor;
@@ -68,6 +72,7 @@ class CustomButton extends StatelessWidget {
                     color: textColor,
                     fontSize: fontSize.toDouble(),
                     fontWeight: FontWeight.w500,
+                    fontFamily: fontFamily
                   ),
             ),
           ],

@@ -14,7 +14,7 @@ class _AuthHomeState extends State<AuthHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      backgroundColor: Theme.of(context).backgroundColor,
       body: Container(
         alignment: Alignment.center,
         height: double.infinity,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/components/custom_button.dart';
 import 'package:hng_task3/configs/colors.dart';
+import 'package:hng_task3/providers/AuthProvider.dart';
 import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
 import 'package:hng_task3/screens/withdraw_lunch/withdraw_success_screen.dart';
 import 'package:hng_task3/utils/toast.dart';
@@ -8,8 +9,8 @@ import 'package:hng_task3/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 class WithdrawLunch extends StatefulWidget {
-  const WithdrawLunch({super.key, this.user});
-  final user;
+  WithdrawLunch({super.key, this.user});
+  var user;
   @override
   State<WithdrawLunch> createState() => _WithdrawLunchState();
 }
@@ -25,6 +26,8 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
 
   @override
   Widget build(BuildContext context) {
+    var user = Provider.of<AuthProvider>(context).user;
+    print(user);
     return Scaffold(
       backgroundColor:  Theme.of(context).backgroundColor,
       body: SingleChildScrollView(

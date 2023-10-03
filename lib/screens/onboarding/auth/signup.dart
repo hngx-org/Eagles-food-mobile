@@ -31,6 +31,7 @@ class _SignupState extends State<Signup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
           automaticallyImplyLeading: false,
           title: Row(
@@ -554,11 +555,11 @@ class _SignupState extends State<Signup> {
                                           .register(userData);
                                   Navigator.pop(context);
                                   if (response) {
-                                    Navigator.push(
+                                    Navigator.pushAndRemoveUntil(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const NavScreen()));
+                                                const NavScreen()), (route)=> false);
                                     Toasts.showToast(
                                         Colors.green, 'Signup Successful');
                                   }
