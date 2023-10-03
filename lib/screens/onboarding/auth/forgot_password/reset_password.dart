@@ -2,11 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:hng_task3/components/custom_button.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/screens/onboarding/auth/login.dart';
+import 'package:hng_task3/utils/toast.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/mdi.dart';
+import 'package:provider/provider.dart';
+
+import '../../../../providers/AuthProvider.dart';
+import '../../../../utils/utils.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
-  const ResetPasswordScreen({super.key});
+  const ResetPasswordScreen({super.key, required this.email, required this.otp});
+  final String email;
+  final String otp;
 
   @override
   State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
@@ -14,7 +21,9 @@ class ResetPasswordScreen extends StatefulWidget {
 
 class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   final userData = {
-    "password": "",
+    "email": "",
+    "resetToken": "",
+    "newPassword": "",
   };
   final _formKey = GlobalKey<FormState>();
   bool showPassword = false;
@@ -136,7 +145,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                     fontWeight: FontWeight.w500,
                                     fontSize: 16),
                                 onChanged: (value) {
-                                  userData['password'] = value;
+                                  setState(() {
+                                    userData['email'] = widget.email;
+                                    userData['resetToken'] = widget.otp;
+                                  });
+                                  userData['newPassword'] = value;
                                 },
                                 obscureText: showPassword_ ? false : true,
                                 decoration: InputDecoration(
@@ -270,10 +283,17 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           child: CustomButton(
                               onPress: () async {
                                 if (_formKey.currentState!.validate()) {
-                                  //Utils.loadingProgress(context);
+                                  print(userData);
+                                  Utils.loadingProgress(context);
+                                  final response =
+                                  await Provider.of<AuthProvider>(context,
+                                      listen: false)
+                                      .resetPassword(userData);
+                                  if(response == true){
                                   Navigator.pushAndRemoveUntil(
                                       context, MaterialPageRoute(builder: (context)=>const Login()), (route) => false);
-                                }
+                               Toasts.showToast(Colors.green, 'Password reset successful');
+                                }}
                               },
                               buttonText: "Reset password",
                               buttonColor: ColorUtils.Green,
