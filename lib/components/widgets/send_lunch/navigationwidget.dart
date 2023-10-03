@@ -7,7 +7,10 @@ import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
 import 'package:provider/provider.dart';
 
 class NavigationScreenWidget extends StatefulWidget {
-  const NavigationScreenWidget({super.key});
+  final String search;
+
+  const NavigationScreenWidget({Key? key, required this.search})
+      : super(key: key);
 
   @override
   State<NavigationScreenWidget> createState() => _NavigationScreenState();
@@ -36,6 +39,16 @@ class _NavigationScreenState extends State<NavigationScreenWidget>
   Widget build(BuildContext context) {
     var my_team = Provider.of<TeamAndLunchProvider>(context).my_team;
     var everyone = Provider.of<TeamAndLunchProvider>(context).everyone;
+
+    List<Team> filterdMyTeam = my_team
+        .where((team) =>
+            team.name.toLowerCase().contains(widget.search.toLowerCase()))
+        .toList();
+    List<Team> filterdEveryone = everyone
+        .where((team) =>
+            team.name.toLowerCase().contains(widget.search.toLowerCase()))
+        .toList();
+
     return DefaultTabController(
       length: 2,
       child: Column(
@@ -62,8 +75,8 @@ class _NavigationScreenState extends State<NavigationScreenWidget>
             child: TabBarView(
               controller: _controller,
               children: <Widget>[
-                MyTeamSearch(list: my_team),
-                EveryoneSearch(list: everyone),
+                MyTeamSearch(list: filterdMyTeam),
+                EveryoneSearch(list: filterdEveryone),
               ],
             ),
           ),

@@ -7,7 +7,7 @@ import 'package:hng_task3/models/lunch.dart';
 import 'package:hng_task3/models/user.dart';
 import 'package:hng_task3/screens/lunch_history/lunch_history_screen.dart';
 
-enum LunchHistoryFIlters { Received, Sent }
+enum LunchHistoryFIlters { All, Received, Sent }
 
 class LunchHistoryWidget extends StatefulWidget {
   const LunchHistoryWidget(
@@ -22,7 +22,7 @@ class LunchHistoryWidget extends StatefulWidget {
 
 class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
   var filteredHistory = [];
-  var selectedFilter = LunchHistoryFIlters.Received;
+  var selectedFilter = LunchHistoryFIlters.All;
 
   @override
   void initState() {
@@ -81,6 +81,8 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
                 ],
               ),
             ),
+
+            // Filter Button
             DropdownButton<LunchHistoryFIlters>(
               icon: const Icon(Icons.arrow_drop_down),
               value: selectedFilter,
@@ -118,10 +120,14 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-          itemCount: widget.history.length,
+          // itemCount: widget.history.length,
+          itemCount: filteredHistory.length,
           itemBuilder: (context, index) => Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
-            child: LaunchHistoryItem(lunchHistory: widget.history[index]),
+            child: LaunchHistoryItem(
+              // lunchHistory: widget.history[index],
+              lunchHistory: filteredHistory[index],
+            ),
           ),
         )
       ],
@@ -133,6 +139,10 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
     User user = User.fromJson(userMap);
 
     switch (selectedFilter) {
+      case LunchHistoryFIlters.All:
+        filteredHistory = widget.history.toList();
+        break;
+
       case LunchHistoryFIlters.Received:
         filteredHistory = widget.history
             .where((element) => element.receiverId.toString() == user.id)
@@ -143,7 +153,6 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
         filteredHistory = widget.history
             .where((element) => element.senderId.toString() == user.id)
             .toList();
-
         break;
     }
 
