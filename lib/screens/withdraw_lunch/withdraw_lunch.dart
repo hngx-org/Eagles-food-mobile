@@ -228,8 +228,10 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
                         padding: const EdgeInsets.symmetric(vertical: 20.0),
                         child: CustomButton(onPress: () async {
                             if (amount > 0 ) {
+                              var balanceAmt = int.parse(widget.user.lunchCreditBalance) - amount;
+                              print(balanceAmt);
                               Utils.loadingProgress(context);
-                              final response  = await Provider.of<TeamAndLunchProvider>(context, listen: false).withDrawLunch(amount);
+                              final response  = await Provider.of<TeamAndLunchProvider>(context, listen: false).withDrawLunch(amount, balanceAmt);
                               Navigator.pop(context);
                               if(response){
                                 Navigator.pushReplacement(

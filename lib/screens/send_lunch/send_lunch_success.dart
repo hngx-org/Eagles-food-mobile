@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hng_task3/components/custom_button.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/screens/home/menu/components/nav_screen.dart';
 
@@ -100,8 +101,7 @@ class SendLunchSuccess extends StatelessWidget {
                           ),
                           Padding(
                             padding: EdgeInsets.symmetric(
-                                horizontal: 28, vertical: 12),
-                            // TODO: Fix the spacing of the text widget.
+                                horizontal: 20, vertical: 15),
                             child: Center(
                               child: Text(
                                 "Congratulations, you have successfully sent brooklyn Simmons 3 Free Lunches! Click continue to proceed",
@@ -116,30 +116,16 @@ class SendLunchSuccess extends StatelessWidget {
                         ],
                       ),
 
-                      // Continue Button
                       Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 20),
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                shape: const RoundedRectangleBorder(),
-                                minimumSize: const Size.fromHeight(50),
-                                backgroundColor: const Color(0xFF04754D)),
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const NavScreen()));
-                            },
-                            child: Text(
-                              "CONTINUE",
-                              style: TextStyle(
-                                color: ColorUtils.White,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            )),
+                        padding: const EdgeInsets.symmetric(vertical: 20.0),
+                        child: CustomButton(onPress: () async {
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const NavScreen()), (route)=>false);
+                        }, buttonText: "Continue", buttonColor: ColorUtils.Green, textColor: ColorUtils.White, isUppercase: true),
                       ),
+
                     ],
                   ),
                 ),
