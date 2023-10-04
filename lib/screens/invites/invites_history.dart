@@ -15,6 +15,9 @@ class InvitesHistory extends StatefulWidget {
 
 class _InvitesHistoryState extends State<InvitesHistory> {
   List list = [];
+  String _searchQuery = '';
+  List filterdList = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +30,7 @@ class _InvitesHistoryState extends State<InvitesHistory> {
           children: [
             TextButton(
               onPressed: () {
-               Navigator.pop(context);
+                Navigator.pop(context);
               },
               child: Image.asset(
                 "assets/icons/icon-back.png",
@@ -119,7 +122,7 @@ class _InvitesHistoryState extends State<InvitesHistory> {
                         buttonText: 'Invites Accepted',
                         buttonColor: ColorUtils.DeepPink,
                         textColor: ColorUtils.Black,
-                            padding: const EdgeInsets.symmetric(vertical: 15),
+                        padding: const EdgeInsets.symmetric(vertical: 15),
                       )),
                       const SizedBox(
                         width: 10,

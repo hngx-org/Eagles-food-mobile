@@ -7,6 +7,7 @@ import 'package:hng_task3/screens/home/menu/components/nav_screen.dart';
 import 'package:hng_task3/screens/invites/invites_history.dart';
 import 'package:hng_task3/utils/utils.dart';
 import 'package:provider/provider.dart';
+
 class SendInvites extends StatefulWidget {
   const SendInvites({super.key});
 
@@ -15,6 +16,8 @@ class SendInvites extends StatefulWidget {
 }
 
 class _SendInvitesState extends State<SendInvites> {
+  TextEditingController searchController = TextEditingController();
+  String _searchQuery = '';
 
   @override
   void initState() {
@@ -39,7 +42,7 @@ class _SendInvitesState extends State<SendInvites> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title:  Row(
+        title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -47,9 +50,8 @@ class _SendInvitesState extends State<SendInvites> {
               onPressed: () {
                 Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                        const NavScreen()), (route)=> false);
+                    MaterialPageRoute(builder: (context) => const NavScreen()),
+                    (route) => false);
               },
               child: Image.asset(
                 "assets/icons/icon-back.png",
@@ -65,61 +67,71 @@ class _SendInvitesState extends State<SendInvites> {
                 style: Theme.of(context)
                     .textTheme
                     .displayMedium
-                    ?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 20
-                ),
+                    ?.copyWith(fontWeight: FontWeight.w700, fontSize: 20),
               ),
             )
           ],
         ),
         actions: [
-          IconButton(onPressed: (){
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                    const InvitesHistory()));
-          }, icon: Icon(Icons.history, color: ColorUtils.Green,))
+          IconButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const InvitesHistory()));
+              },
+              icon: Icon(
+                Icons.history,
+                color: ColorUtils.Green,
+              ))
         ],
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),
-              child: TextFormField(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),
+              child:
+
+                  // Search bar
+                  TextFormField(
+                controller: searchController,
                 style: Theme.of(context).textTheme.bodyLarge,
                 decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   hintText: 'Search for member',
                   filled: true,
-                  fillColor: Theme.of(context).unselectedWidgetColor.withOpacity(0.2),
+                  fillColor:
+                      Theme.of(context).unselectedWidgetColor.withOpacity(0.2),
                   hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: ColorUtils.LightGrey,
-                      fontWeight: FontWeight.w500
+                      color: ColorUtils.LightGrey, fontWeight: FontWeight.w500),
+                  suffixIcon: Icon(
+                    Icons.search,
+                    color: ColorUtils.LightGrey,
+                    size: 30,
                   ),
-                  suffixIcon: Icon(Icons.search, color: ColorUtils.LightGrey, size: 30,),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(
                       width: 1,
                       color: ColorUtils.LightGrey,
                     ),
-                    borderRadius: const  BorderRadius.all(Radius.circular(30)),
+                    borderRadius: const BorderRadius.all(Radius.circular(30)),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                       width: 1,
                       color: ColorUtils.LightGrey,
                     ),
-                    borderRadius: const  BorderRadius.all(Radius.circular(30)),
+                    borderRadius: const BorderRadius.all(Radius.circular(30)),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                       width: 1,
                       color: ColorUtils.LightGrey,
                     ),
-                    borderRadius: const  BorderRadius.all(Radius.circular(50)),
+                    borderRadius: const BorderRadius.all(Radius.circular(50)),
                   ),
                 ),
                 onChanged: (value) {
@@ -127,66 +139,73 @@ class _SendInvitesState extends State<SendInvites> {
                 },
               ),
             ),
-            Text("Send an invite for someone to join your team",
+            Text(
+              "Send an invite for someone to join your team",
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.w500,
-                  color: ColorUtils.LightGrey
-              ),),
-
-            list.isEmpty ? ListView.builder(
-                shrinkWrap: true,
-                padding: const EdgeInsets.symmetric(vertical: 0),
-                physics: const BouncingScrollPhysics(),
-                itemCount: 8,
-                itemBuilder: (context, index) => const TeamShimmer()
-            ) : ListView.builder(
-              itemCount: filtered.length,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              itemBuilder: (context, index) {
-                final item = filtered[index];
-                return SizedBox(
-                    width: double.infinity,
-                    child: ListTile(
-                      contentPadding: const EdgeInsets.all(0),
-                      leading: CircleAvatar(
-                        backgroundImage: AssetImage(item.image.toString()),
-                      ),
-                      title: Text(
-                        item.name,
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium
-                            ?.copyWith(fontSize: 16, fontWeight: FontWeight.w400),
-                      ),
-                      subtitle: Text(
-                        '${item.email}',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineSmall
-                            ?.copyWith(fontWeight: FontWeight.w500, fontSize: 11),
-                      ),
-                      trailing: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 10 , vertical: 0),
-                        color: ColorUtils.Green,
-                        child: TextButton(
-                          onPressed: () {
-
-                          },
-                          child: Text(
-                            'Invite',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.copyWith(
-                                fontWeight: FontWeight.w700, fontSize: 13, color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ));
-              },
-            )
+                  fontWeight: FontWeight.w500, color: ColorUtils.LightGrey),
+            ),
+            list.isEmpty
+                ? ListView.builder(
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.symmetric(vertical: 0),
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: 8,
+                    itemBuilder: (context, index) => const TeamShimmer())
+                : ListView.builder(
+                    itemCount: filtered.length,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 20),
+                    itemBuilder: (context, index) {
+                      final item = filtered[index];
+                      return SizedBox(
+                          width: double.infinity,
+                          child: ListTile(
+                            contentPadding: const EdgeInsets.all(0),
+                            leading: CircleAvatar(
+                              backgroundImage:
+                                  AssetImage(item.image.toString()),
+                            ),
+                            title: Text(
+                              item.name,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium
+                                  ?.copyWith(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400),
+                            ),
+                            subtitle: Text(
+                              '${item.email}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineSmall
+                                  ?.copyWith(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 11),
+                            ),
+                            trailing: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 0),
+                              color: ColorUtils.Green,
+                              child: TextButton(
+                                onPressed: () {},
+                                child: Text(
+                                  'Invite',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge
+                                      ?.copyWith(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 13,
+                                          color: Colors.white),
+                                ),
+                              ),
+                            ),
+                          ));
+                    },
+                  )
           ],
         ),
       ),

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
-import 'package:hng_task3/configs/colors.dart';
+import 'package:hng_task3/configs/sessions.dart';
+import 'package:hng_task3/models/user.dart';
 import 'package:hng_task3/screens/home/menu/components/nav_screen.dart';
 import 'package:hng_task3/screens/profile/edit_profile.dart';
+import 'package:provider/provider.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -12,6 +14,30 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  String selectedEmployee = '';
+  FocusNode focusNode = FocusNode();
+
+  bool isLoading = false;
+  var user;
+
+  @override
+  void dispose() {
+    focusNode.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    SessionManager().getUser().then((userJson) {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        setState(() {
+          user = User.fromJson(userJson);
+        });
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,7 +113,7 @@ class _ProfileState extends State<Profile> {
               Padding(
                 padding: const EdgeInsets.only(top: 18, bottom: 10),
                 child: Text(
-                  'Test',
+                  "${user?.firstName} ${user?.lastName}",
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
@@ -95,11 +121,11 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
 
-              // Location
+              // Organization Name
               Padding(
                 padding: const EdgeInsets.only(bottom: 30),
                 child: Text(
-                  'Test',
+                  "${user.orgName}",
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontSize: 16,
                         color: ColorUtils.Green,
@@ -132,7 +158,7 @@ class _ProfileState extends State<Profile> {
                             ),
                       ),
                       Text(
-                        'Test',
+                        "${user?.phone}",
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,
@@ -170,7 +196,7 @@ class _ProfileState extends State<Profile> {
                                   ),
                         ),
                         Text(
-                          'Test',
+                          "${user?.email}",
                           style:
                               Theme.of(context).textTheme.bodyMedium!.copyWith(
                                     fontSize: 16,
@@ -210,7 +236,7 @@ class _ProfileState extends State<Profile> {
                                   ),
                         ),
                         Text(
-                          'Test',
+                          '16th Avenue',
                           style:
                               Theme.of(context).textTheme.bodyMedium!.copyWith(
                                     fontSize: 16,
