@@ -112,6 +112,27 @@ class AuthProvider with ChangeNotifier{
       print(error);
     }
   }
+  Future<dynamic> changePassword(Map<String, dynamic> userData,) async {
+    const String url = 'auth/changePassword';
+    final Map<String, dynamic> data = {
+      'email': userData['email'],
+      'oldPassword': userData['oldPassword'],
+      'newPassword': userData['newPassword'],
+
+    };
+    try {
+      final response = await Network.post(endpoint: url, data: jsonEncode(data));
+      if(response['statusCode'] == 200){
+        return true;
+      }else{
+        return false;
+
+      }
+
+    } catch (error) {
+      print(error);
+    }
+  }
 
   Future<dynamic> register(Map<String, dynamic> userData) async {
     const String url = 'auth/user/signup';

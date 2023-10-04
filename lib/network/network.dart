@@ -49,4 +49,26 @@ class Network {
       Toasts.showToast(Colors.black, "No Internet Connection");
     }
   }
+
+  static Future<dynamic> put({required String endpoint, dynamic data}) async {
+    if (await NetworkUtils.hasNetwork()) {
+      var url = Uri.parse(baseUrl + endpoint);
+      try {
+        print('request started');
+        var response = await http.put(url,
+            headers: await NetworkUtils.headers(), body: data);
+        print(response.body);
+        print(response.statusCode);
+        if (response.statusCode == 200 || response.statusCode == 201) {
+          return json.decode(response.body);
+        } else {
+          NetworkErrors.handleNetworkErrors(response);
+        }
+      } catch (e, stackTrace) {
+        print(stackTrace);
+      }
+    } else {
+      Toasts.showToast(Colors.black, "No Internet Connection");
+    }
+  }
 }

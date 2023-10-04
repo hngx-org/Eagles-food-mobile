@@ -15,7 +15,7 @@ import 'package:hng_task3/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({super.key, required this.openDrawer});
+  const HomeScreen({super.key, required this.openDrawer});
 
   final VoidCallback openDrawer;
 
