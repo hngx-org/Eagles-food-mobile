@@ -85,7 +85,7 @@ class _ProfileState extends State<Profile> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const EditProfile(),
+                    builder: (context) => EditProfile(user: user,),
                   ));
             },
             child: Image.asset(

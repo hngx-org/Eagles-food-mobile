@@ -13,14 +13,13 @@ import '../../models/user.dart';
 import '../../utils/toast.dart';
 import '../../utils/utils.dart';
 class EditProfile extends StatefulWidget {
-  const EditProfile({super.key});
-
+  const EditProfile({super.key, this.user});
+  final user;
   @override
   State<EditProfile> createState() => _EditProfileState();
 }
 
 class _EditProfileState extends State<EditProfile> {
-  var user;
   final _formKey = GlobalKey<FormState>();
   final userData = {
     "firstName": '',
@@ -47,13 +46,7 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   void initState(){
-    SessionManager().getUser().then((userJson) {
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        setState(() {
-          user = User.fromJson(userJson);
-        });
-      });
-    });
+
   }
 
   @override
@@ -186,6 +179,7 @@ class _EditProfileState extends State<EditProfile> {
                                 userData['firstName'] = value:
                                 '';
                               },
+                              initialValue: widget.user.firstName,
                               obscureText: false,
                               decoration: InputDecoration(
                                 filled: false,
@@ -251,6 +245,7 @@ class _EditProfileState extends State<EditProfile> {
                               onChanged: (value) {
                                 userData['lastName'] = value;
                               },
+                              initialValue: widget.user.lastName,
                               obscureText: false,
                               decoration: InputDecoration(
                                 filled: false,
@@ -322,6 +317,9 @@ class _EditProfileState extends State<EditProfile> {
                               onChanged: (value) {
                                 userData['email'] = value;
                               },
+                              readOnly: true,
+                              enabled: false,
+                              initialValue: widget.user.email,
                               obscureText: false,
                               decoration: InputDecoration(
                                 filled: false,
@@ -387,6 +385,7 @@ class _EditProfileState extends State<EditProfile> {
                               onChanged: (value) {
                                 userData['phone'] = value;
                               },
+                              initialValue: widget.user.phone,
                               obscureText: false,
                               decoration: InputDecoration(
                                 filled: false,
