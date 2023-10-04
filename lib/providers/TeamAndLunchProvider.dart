@@ -38,7 +38,7 @@ class TeamAndLunchProvider with ChangeNotifier{
   }
 
 //  send lunch
-  Future<dynamic> sendLunch(Map<String, dynamic> lunchData) async {
+  Future<dynamic> sendLunch(Map<String, dynamic> lunchData, int balanceAmt) async {
     const String url = 'lunch/send';
     final Map<String, dynamic> data = {
       'receivers': lunchData['receivers'],
@@ -48,6 +48,10 @@ class TeamAndLunchProvider with ChangeNotifier{
     try {
       final response = await Network.post(endpoint: url, data: jsonEncode(data));
       if(response['success'] == true){
+        SessionManager ss = SessionManager();
+        var user = await ss.getUser();
+        user['LunchCreditBalance'] = balanceAmt.toString();
+        ss.saveUser(user);
         notifyListeners();
         return true;
       }else{
@@ -76,7 +80,7 @@ class TeamAndLunchProvider with ChangeNotifier{
   }
 
 //  withdraw lunch
-  Future<dynamic> withDrawLunch(dynamic amount) async {
+  Future<dynamic> withDrawLunch(int amount, int balanceAmt) async {
     const String url = 'lunch/withdrawlunch';
     final data = {
       "quantity" : amount
@@ -86,15 +90,8 @@ class TeamAndLunchProvider with ChangeNotifier{
       if(response['success'] == true){
         SessionManager ss = SessionManager();
         var user = await ss.getUser();
-        String? lunchCreditBalance = user['LunchCreditBalance'];
-        print(lunchCreditBalance.runtimeType);
-        print(amount.runtimeType);
-        if (lunchCreditBalance != null) {
-          int currentBalance = int.parse(lunchCreditBalance); // Use a default value if parsing fails
-          num newBalance = currentBalance - amount;
-          print(newBalance);
-          user['LunchCreditBalance'] = newBalance.toString();
-        }
+        user['LunchCreditBalance'] = balanceAmt.toString();
+        ss.saveUser(user);
         notifyListeners();
         return true;
       }else{
