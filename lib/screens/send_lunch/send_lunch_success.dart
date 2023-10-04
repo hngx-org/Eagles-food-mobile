@@ -9,6 +9,7 @@ class SendLunchSuccess extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       body: SafeArea(
         child: Stack(
           children: [
@@ -90,13 +91,16 @@ class SendLunchSuccess extends StatelessWidget {
                       const Column(
                         children: [
                           // Free Lunch Text
-                          Text(
-                            "Your Free Lunch has been sent successfully",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 24,
-                              fontWeight: FontWeight.w600,
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 30.0),
+                            child: Text(
+                              "Your Free Lunch has been sent successfully",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 24,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
                           Padding(
@@ -117,7 +121,7 @@ class SendLunchSuccess extends StatelessWidget {
                       ),
 
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20.0),
+                        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20),
                         child: CustomButton(onPress: () async {
                           Navigator.pushAndRemoveUntil(
                               context,
@@ -125,7 +129,6 @@ class SendLunchSuccess extends StatelessWidget {
                                   builder: (context) => const NavScreen()), (route)=>false);
                         }, buttonText: "Continue", buttonColor: ColorUtils.Green, textColor: ColorUtils.White, isUppercase: true),
                       ),
-
                     ],
                   ),
                 ),

@@ -6,13 +6,39 @@ import 'package:hng_task3/network/network.dart';
 
 class InvitesProvider with ChangeNotifier {
   List<Invite> _invites = [];
+  List<Invite> _allinvites = [];
   bool _isLoading = false;
 
 
   List<Invite> get invites => _invites;
+  List<Invite> get allinvites => _invites;
   bool get isLoading => _isLoading;
 
   Future<dynamic> getInvites() async {
+    const String url = 'user/userinvites';
+    try {
+      _isLoading = true;
+      _invites = [];
+      final response = await Network.get(url);
+      if(response['success'] == true){
+        var invites = response['data'];
+        invites.forEach((invite) {
+          _invites.add(Invite.fromJson(invite));
+        });
+        _isLoading = false;
+        notifyListeners();
+        return true;
+      }else{
+        return false;
+      }
+    } catch (error) {
+      print(error);
+    }
+
+  }
+
+
+  Future<dynamic> getAllInvites() async {
     const String url = 'user/userinvites';
     try {
       _isLoading = true;

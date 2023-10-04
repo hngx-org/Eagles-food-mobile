@@ -3,8 +3,11 @@ import 'package:hng_task3/components/custom_button.dart';
 import 'package:hng_task3/components/shimmers/teamShimmer.dart';
 import 'package:hng_task3/components/widgets/invites/invite_history.dart';
 import 'package:hng_task3/configs/colors.dart';
+import 'package:hng_task3/models/invite.dart';
+import 'package:hng_task3/providers/InvitesProvider.dart';
 import 'package:hng_task3/screens/home/menu/components/nav_screen.dart';
 import 'package:hng_task3/screens/invites/invites_reply.dart';
+import 'package:provider/provider.dart';
 
 class InvitesHistory extends StatefulWidget {
   const InvitesHistory({super.key});
@@ -18,8 +21,19 @@ class _InvitesHistoryState extends State<InvitesHistory> {
   String _searchQuery = '';
   List filterdList = [];
 
+    @override
+    void initState() {
+      Provider.of<InvitesProvider>(context).getAllInvites();
+      super.initState();
+    }
+
+  List<Invite> invites = [];
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
+    invites = Provider.of<InvitesProvider>(context).allinvites;
+    isLoading = Provider.of<InvitesProvider>(context).isLoading;
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
@@ -101,7 +115,7 @@ class _InvitesHistoryState extends State<InvitesHistory> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10.0),
                     child: Text(
-                      "35",
+                      "${invites.length}",
                       style: Theme.of(context)
                           .textTheme
                           .displayLarge
@@ -156,19 +170,26 @@ class _InvitesHistoryState extends State<InvitesHistory> {
                     ?.copyWith(fontWeight: FontWeight.w700, fontSize: 20),
               ),
             ),
-            list.isEmpty
+           isLoading
                 ? ListView.builder(
                     shrinkWrap: true,
                     padding: const EdgeInsets.symmetric(vertical: 0),
                     physics: const BouncingScrollPhysics(),
                     itemCount: 8,
                     itemBuilder: (context, index) => const TeamShimmer())
-                : ListView.builder(
+                :
+           invites.isEmpty ?  Container(
+             padding: const EdgeInsets.symmetric(vertical: 100),
+             alignment: Alignment.center,
+             child: Text("You have no invites at this time",
+               style: Theme.of(context).textTheme.bodyLarge,),
+           ) :
+           ListView.builder(
                     itemCount: 5,
                     padding: const EdgeInsets.symmetric(
                         vertical: 10, horizontal: 20),
                     itemBuilder: (context, index) {
-                      final item = list[index];
+                      final item = invites[index];
                       return InviteHistory();
                     },
                   )

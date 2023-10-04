@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hng_task3/components/custom_button.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/configs/sessions.dart';
 import 'package:hng_task3/models/user.dart';
 import 'package:hng_task3/screens/home/menu/components/nav_screen.dart';
+import 'package:hng_task3/screens/profile/change_password.dart';
 import 'package:hng_task3/screens/profile/edit_profile.dart';
 import 'package:provider/provider.dart';
 
@@ -45,7 +47,7 @@ class _ProfileState extends State<Profile> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             TextButton(
@@ -75,23 +77,25 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
             ),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const EditProfile(),
-                    ));
-              },
-              child: Image.asset(
-                "assets/icons/icon-edit.png",
-                height: 30,
-                width: 30,
-                fit: BoxFit.contain,
-              ),
-            ),
           ],
         ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EditProfile(user: user,),
+                  ));
+            },
+            child: Image.asset(
+              "assets/icons/icon-edit.png",
+              height: 20,
+              width: 20,
+              color: ColorUtils.Green
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -101,13 +105,9 @@ class _ProfileState extends State<Profile> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // Avatar
-              SizedBox(
-                width: 104,
-                height: 104,
-                child: CircleAvatar(
-                    // backgroundImage:
-                    ),
-              ),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(100),
+                  child: Image.asset(user.profilePic, height: 150, width: 150, fit: BoxFit.cover,)),
 
               // Name
               Padding(
@@ -250,12 +250,20 @@ class _ProfileState extends State<Profile> {
               ),
 
               // Settings
-              Text(
-                'Settings',
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                    ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
+                child: CustomButton(
+                    onPress: () async {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ChangePassword(user: user),
+                          ));
+                    },
+                    buttonText: "Change Password",
+                    buttonColor: ColorUtils.LightGrey,
+                    textColor: ColorUtils.White,
+                    isUppercase: true),
               ),
             ],
           ),

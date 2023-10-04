@@ -23,11 +23,18 @@ class LunchHistoryWidget extends StatefulWidget {
 class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
   var filteredHistory = [];
   var selectedFilter = LunchHistoryFIlters.All;
-
+  var user;
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _applyFilter();
+    });
+    SessionManager().getUser().then((userJson) {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        setState(() {
+          user = User.fromJson(userJson);
+        });
+      });
     });
     super.initState();
   }
@@ -61,6 +68,7 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => LunchHistoryScreen(
+                                user: user,
                                 history: widget.history,
                               ),
                             ));
