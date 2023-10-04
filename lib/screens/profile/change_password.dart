@@ -9,8 +9,8 @@ import '../../providers/AuthProvider.dart';
 import '../../utils/toast.dart';
 import '../../utils/utils.dart';
 class ChangePassword extends StatefulWidget {
-  const ChangePassword({super.key});
-
+  const ChangePassword({super.key, this.user});
+  final user;
   @override
   State<ChangePassword> createState() => _ChangePasswordState();
 }
@@ -270,6 +270,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                               onPress: () async {
                                 if (_formKey.currentState!.validate()) {
                                   print(userData);
+                                  userData["email"] = widget.user.email;
                                   Utils.loadingProgress(context);
                                   final response =
                                   await Provider.of<AuthProvider>(context,
@@ -279,7 +280,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                                     Toasts.showToast(Colors.green, 'Password updated successfully');
                                   }}
                               },
-                              buttonText: "Reset password",
+                              buttonText: "Change password",
                               buttonColor: ColorUtils.Green,
                               textColor: ColorUtils.White,
                               isUppercase: true),

@@ -39,7 +39,7 @@ class User {
         currency: data['Currency'],
         currencyCode: data['CurrencyCode'],
         lunchCreditBalance: data['LunchCreditBalance'],
-        profilePic: data['ProfilePic'],
+        profilePic: data['ProfilePic'] == '' ?  "assets/images/team-1.png" : data['ProfilePic'],
         orgName: data['organization_name']
     );
   }
