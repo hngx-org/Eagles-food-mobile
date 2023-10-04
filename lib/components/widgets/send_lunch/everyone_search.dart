@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hng_task3/components/shimmers/teamShimmer.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/screens/send_lunch/send_lunch_screen.dart';
-import 'package:hng_task3/utils/utils.dart';
 
 class EveryoneSearch extends StatefulWidget {
   const EveryoneSearch({super.key, this.list});
@@ -77,8 +76,9 @@ class _EveryoneSearchState extends State<EveryoneSearch> {
               },
             );
     } else {
-      return ListTile(
-        title: Text("No User found",
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        child: Text("No User found",
             style: Theme.of(context)
                 .textTheme
                 .displayMedium

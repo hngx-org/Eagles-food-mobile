@@ -119,26 +119,22 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                                     Image.asset('assets/images/handler.png')),
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10.0),
+                            padding: const EdgeInsets.symmetric(vertical: 5.0),
                             child: Text(widget.receiver.name,
                                 style:
                                     Theme.of(context).textTheme.displayMedium),
                           ),
                           // style: Theme.of(context).textTheme.displayLarge,  ),
 
-                          Text(
-                            'Band 4 Member',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge!
-                                .copyWith(color: Colors.grey[700]),
-                          ),
-                          Text(
-                            'Associate Creative Director',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge!
-                                .copyWith(color: Colors.grey[700]),
+                          Padding(
+                            padding: const EdgeInsets.only( bottom: 20.0),
+                            child: Text(
+                              '${user.orgName} Member',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge!
+                                  .copyWith(color: Colors.grey[700]),
+                            ),
                           ),
 
                           Padding(
@@ -158,13 +154,14 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                               padding:
                                   const EdgeInsets.symmetric(vertical: 10.0),
                               child: TextFormField(
+                                textAlign: TextAlign.center,
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyLarge
                                     ?.copyWith(
                                         color: ColorUtils.Grey,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 16),
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 20),
                                 onChanged: (value) {
                                   lunchData['quantity'] = value;
                                 },

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/components/custom_button.dart';
 import 'package:hng_task3/configs/colors.dart';
+import 'package:hng_task3/configs/sessions.dart';
+import 'package:hng_task3/models/user.dart';
 import 'package:hng_task3/providers/AuthProvider.dart';
 import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
+import 'package:hng_task3/screens/home/menu/components/nav_screen.dart';
 import 'package:hng_task3/screens/withdraw_lunch/withdraw_success_screen.dart';
 import 'package:hng_task3/utils/toast.dart';
 import 'package:hng_task3/utils/utils.dart';
@@ -21,13 +24,20 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
 
   @override
   void initState() {
+    SessionManager().getUser().then((userJson) {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        setState(() {
+          widget.user ??= User.fromJson(userJson);
+        });
+      });
+    });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    var user = Provider.of<AuthProvider>(context).user;
-    print(user);
+    // var user = Provider.of<AuthProvider>(context, listen: false).user;
+
     return Scaffold(
       backgroundColor:  Theme.of(context).backgroundColor,
       body: SingleChildScrollView(
@@ -73,7 +83,10 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
                                 children: [
                                   TextButton(
                                     onPressed: () {
-                                      Navigator.pop(context);
+                                      Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => const NavScreen()), (route)=>false);
                                     },
                                     child: Image.asset(
                                       "assets/images/withdraw_back_button.png",

@@ -12,6 +12,8 @@ import 'package:hng_task3/screens/invites/invites_history.dart';
 import 'package:hng_task3/screens/invites/invites_reply_success.dart';
 
 import 'package:hng_task3/screens/onboarding/splashscreen.dart';
+import 'package:hng_task3/screens/profile/change_password.dart';
+import 'package:hng_task3/screens/profile/edit_profile.dart';
 import 'package:provider/provider.dart';
 
 void main() {
