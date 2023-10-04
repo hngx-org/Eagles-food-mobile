@@ -55,7 +55,7 @@ class Network {
       var url = Uri.parse(baseUrl + endpoint);
       try {
         print('request started');
-        var response = await http.post(url,
+        var response = await http.put(url,
             headers: await NetworkUtils.headers(), body: data);
         print(response.body);
         print(response.statusCode);

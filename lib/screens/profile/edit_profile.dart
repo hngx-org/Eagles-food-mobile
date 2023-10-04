@@ -1,10 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hng_task3/providers/ProfileProvider.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:file_picker/file_picker.dart';
 
 import '../../components/custom_button.dart';
 import '../../configs/colors.dart';
+import '../../configs/sessions.dart';
+import '../../models/user.dart';
 import '../../utils/toast.dart';
 import '../../utils/utils.dart';
 class EditProfile extends StatefulWidget {
@@ -15,6 +20,7 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
+  var user;
   final _formKey = GlobalKey<FormState>();
   final userData = {
     "firstName": '',
@@ -23,21 +29,34 @@ class _EditProfileState extends State<EditProfile> {
     "profilePic": "",
     "phone": '',
   };
+  File? image;
 
-  void selectProfilePic() async {
-    final FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.image,
-      allowedExtensions: ['jpg', 'jpeg', 'png', 'gif'],
-    );
-
-    if (result != null && result.files.isNotEmpty) {
-      for (final file in result.files) {
-        setState(() {
-          userData['profilePic'] = file.path!.toString();
-        });
-      }}
-
+  Future<void> pickImage() async {
+    try {
+      final pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (pickedImage == null) return;
+      final imageFile = File(pickedImage.path);
+      setState(() {
+        image = imageFile;
+        userData['profilePic'] = imageFile.path;
+      });
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
   }
+
+  @override
+  void initState(){
+    SessionManager().getUser().then((userJson) {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        setState(() {
+          user = User.fromJson(userJson);
+        });
+        print('User: $user');
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,13 +141,30 @@ class _EditProfileState extends State<EditProfile> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Center(
-                                child: CircleAvatar(
-                                  backgroundImage: AssetImage(
-                                      userData['profilePic']!.isNotEmpty?
-                                      userData['profilePic']!:
-                                      'assets/icons/man-avatar-icon.png'),
+                                child: GestureDetector(
+                                  onTap: (){pickImage();},
+                                  child:  image!=null?Container(
+                                      margin: const EdgeInsets.only(top: 16),
+                                      width: 100,
+                                      height: 100,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(100),
+                                      ),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(100),
+                                        child: Image.file(
+                                          image!,
+                                          fit: BoxFit.cover,height: 100,width: 100,),
+                                      ),
+                                    ):
+                                    const CircleAvatar(
+                                      radius: 50,
+                                      backgroundImage: AssetImage(
+                                          'assets/icons/man-avatar-icon.png'
+                                      ),
+                                    ),
+                                  )
                                 ),
-                              ),
                               Padding(
                                 padding:
                                 const EdgeInsets.symmetric(vertical: 5.0),
@@ -151,7 +187,9 @@ class _EditProfileState extends State<EditProfile> {
                                     fontWeight: FontWeight.w500,
                                     fontSize: 16),
                                 onChanged: (value) {
-                                  userData['firstName'] = value;
+                                  value.isNotEmpty?
+                                  userData['firstName'] = value:
+                                  '';
                                 },
                                 obscureText: false,
                                 decoration: InputDecoration(
@@ -400,8 +438,7 @@ class _EditProfileState extends State<EditProfile> {
                                       listen: false)
                                       .updateProfile(userData);
                                   Navigator.pop(context);
-                                  if (response) {
-
+                                  if (response == true) {
                                     Toasts.showToast(
                                         Colors.green, 'Profile updated successfully');
                                   }

@@ -19,7 +19,7 @@ class ProfileProvider with ChangeNotifier {
     };
     try {
       final response = await Network.put(endpoint: url, data: json.encode(data));
-      if(response['success'] == true){
+      if(response['statusCode'] == 200){
 
         return true;
       }else{
