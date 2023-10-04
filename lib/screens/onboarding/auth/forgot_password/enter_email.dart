@@ -22,7 +22,6 @@ class EnterEmail extends StatelessWidget {
 
     final formKey = GlobalKey<FormState>();
 
-
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,

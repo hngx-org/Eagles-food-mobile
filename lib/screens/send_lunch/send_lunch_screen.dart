@@ -253,7 +253,6 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                                         // color: Colors.black
                                 ),
                               )),
-//Reward Reason TextField
                           Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 10.0),
@@ -308,17 +307,16 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                                   minimumSize: const Size.fromHeight(60),
                                   backgroundColor: const Color(0xFF04754D)),
                               onPressed: () async {
-                                // updateNumOfFreeLunch(context);
-                                //Navigator.push(
                                 Utils.loadingProgress(context);
                                 lunchData['receivers'] = [
                                   "${widget.receiver.id}"
                                 ];
+                                var balanceAmt = int.parse(user.lunchCreditBalance) - int.parse(lunchData['quantity']);
                                 final response =
                                     await Provider.of<TeamAndLunchProvider>(
                                             context,
                                             listen: false)
-                                        .sendLunch(lunchData);
+                                        .sendLunch(lunchData, balanceAmt);
                                 Navigator.pop(context);
                                 if (response) {
                                   Toasts.showToast(
@@ -332,11 +330,11 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                                   Toasts.showToast(
                                       Colors.red, "Failed to send lunch");
                                 }
-                                // Navigator.pushReplacement(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder: (context) =>
-                                //             const SendLunchSuccess()));
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const SendLunchSuccess()));
                               },
                               child: Text(
                                 "SEND LUNCH",

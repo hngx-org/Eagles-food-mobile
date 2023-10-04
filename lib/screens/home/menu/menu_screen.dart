@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
+import 'package:hng_task3/configs/sessions.dart';
+import 'package:hng_task3/providers/AuthProvider.dart';
 import 'package:hng_task3/screens/home/menu/configurations.dart';
+import 'package:provider/provider.dart';
 
-class MenuScreen extends StatelessWidget {
+import '../../../models/user.dart';
+
+class MenuScreen extends StatefulWidget {
   const MenuScreen(
       {super.key,
       required this.closeDrawer,
@@ -13,7 +18,26 @@ class MenuScreen extends StatelessWidget {
   final Function(DrawerItem item) selectPage;
 
   @override
+  State<MenuScreen> createState() => _MenuScreenState();
+}
+
+class _MenuScreenState extends State<MenuScreen> {
+  var user;
+  @override
+  void initState() {
+    // TODO: implement initState
+    SessionManager().getUser().then((userJson) {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        setState(() {
+          user = User.fromJson(userJson);
+        });
+      });
+    });
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
+    user ??= Provider.of<AuthProvider>(context).user;
     return Scaffold(
       backgroundColor:  Theme.of(context).backgroundColor,
       body: SingleChildScrollView(
@@ -68,7 +92,7 @@ class MenuScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(right: 50.0),
                         child: IconButton(
-                            onPressed: closeDrawer,
+                            onPressed: widget.closeDrawer,
                             icon: const Icon(Icons.close)),
                       ),
                     ],
@@ -76,17 +100,17 @@ class MenuScreen extends StatelessWidget {
                 ),
                 Column(
                   children: DrawerItems.all
-                      .map((item) => SizedBox(
+                      .map((item) =>  SizedBox(
                             width: 150,
                             child: ListTile(
                               contentPadding: const EdgeInsets.symmetric(
                                 horizontal: 0,
                                 vertical: 3,
                               ),
-                              onTap: () => selectPage(item),
+                              onTap: () => widget.selectPage(item),
                               leading: Icon(
                                 item.icon,
-                                color: selectedItem == item
+                                color: widget.selectedItem == item
                                     ? ColorUtils.Green
                                     : item == DrawerItems.logout
                                         ? const Color.fromRGBO(
@@ -100,13 +124,14 @@ class MenuScreen extends StatelessWidget {
                                     .textTheme
                                     .bodyMedium!
                                     .copyWith(
-                                      color: selectedItem == item
+                                      color: widget.selectedItem == item
                                           ? ColorUtils.Green
                                           : ColorUtils.Black,
                                     ),
                               ),
                             ),
-                          ))
+                          )
+                      )
                       .toList(),
                 ),
                 const Spacer(),

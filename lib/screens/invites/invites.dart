@@ -3,8 +3,11 @@ import 'package:hng_task3/components/shimmers/invitesShimmer.dart';
 import 'package:hng_task3/components/shimmers/teamShimmer.dart';
 import 'package:hng_task3/components/widgets/invites/invites.dart';
 import 'package:hng_task3/configs/colors.dart';
+import 'package:hng_task3/models/invite.dart';
+import 'package:hng_task3/providers/InvitesProvider.dart';
 import 'package:hng_task3/screens/home/menu/components/nav_screen.dart';
 import 'package:hng_task3/screens/invites/send_invites.dart';
+import 'package:provider/provider.dart';
 class Invites extends StatefulWidget {
   const Invites({super.key});
 
@@ -14,25 +17,22 @@ class Invites extends StatefulWidget {
 
 class _InvitesState extends State<Invites> {
 
-  List list = [
-    {
-      "team": "Team Eagle",
-      "sender": "Dorcas"
-    },
-    {
-      "team": "Team Demezel",
-      "sender": "Mike"
-    },
-    {
-      "team": "Team Commander",
-      "sender": "Joyce"
-    },
+  @override
+  void initState() {
+    // TODO: implement initState
+    Provider.of<InvitesProvider>(context, listen: false).getInvites();
+    isLoading = true;
+    super.initState();
+  }
 
-  ];
+  List<Invite> invites = [];
+  bool isLoading = false;
 
 
   @override
   Widget build(BuildContext context) {
+    invites = Provider.of<InvitesProvider>(context).invites;
+    isLoading = Provider.of<InvitesProvider>(context).isLoading;
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
@@ -71,15 +71,7 @@ class _InvitesState extends State<Invites> {
             )
           ],
         ),
-        actions: [
-          IconButton(onPressed: (){
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                    const SendInvites()));
-          }, icon: Icon(Icons.send, color: ColorUtils.Green,))
-        ],
+
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20.0,),
@@ -133,19 +125,19 @@ class _InvitesState extends State<Invites> {
                   color: ColorUtils.LightGrey
               ),),
 
-            list.isEmpty ? ListView.builder(
+            isLoading ? ListView.builder(
                 shrinkWrap: true,
                 padding: const EdgeInsets.symmetric(vertical: 10),
                 physics: const BouncingScrollPhysics(),
                 itemCount: 8,
                 itemBuilder: (context, index) => const InviteShimmer()
             ) : ListView.builder(
-              itemCount: list.length,
+              itemCount: invites.length,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               padding: const EdgeInsets.symmetric(vertical: 10),
               itemBuilder: (context, index) {
-                final item = list[index];
+                final item = invites[index];
                 return Invitations(invite: item,);
               },
             )
