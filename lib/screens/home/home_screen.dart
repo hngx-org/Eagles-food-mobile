@@ -101,33 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
               )
             ],
           ),
-          // GestureDetector(
-          //   onTap: (){
-          //     Navigator.push(context, MaterialPageRoute(builder: (context) => const NavigationScreenWidget()));
-          //   },
-          //   child: Padding(
-          //     padding: const EdgeInsets.symmetric(vertical: 10.0),
-          //     child: TextFormField(
-          //       decoration: InputDecoration(
-          //         hintText: 'Search for an employee',
-          //         hintStyle: const TextStyle(
-          //             color: Color(0xFF929292),
-          //             fontFamily: 'poppins',
-          //             fontWeight: FontWeight.w400),
-          //         suffixIcon: Icon(
-          //           Icons.search,
-          //           color: focusNode.hasFocus ? const Color(0xFF929292) : null,
-          //         ),
-          //         filled: true,
-          //         fillColor: const Color(0xFFEBEBEB),
-          //         focusedBorder: const OutlineInputBorder(
-          //             borderSide: BorderSide(color: Color(0xFFEBEBEB), width: 1)),
-          //         border: const OutlineInputBorder(
-          //             borderSide: BorderSide(color: Color(0xFFEBEBEB), width: 1)),
-          //       ),
-          //     ),
-          //   ),
-          // ),
+
           Padding(
             padding: const EdgeInsets.only(top: 15.0),
             child: searchEmployeeBox(

@@ -27,11 +27,7 @@ class _InvitesHistoryState extends State<InvitesHistory> {
           children: [
             TextButton(
               onPressed: () {
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                        const NavScreen()), (route)=> false);
+               Navigator.pop(context);
               },
               child: Image.asset(
                 "assets/icons/icon-back.png",

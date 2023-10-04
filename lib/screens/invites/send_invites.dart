@@ -3,6 +3,8 @@ import 'package:hng_task3/components/shimmers/teamShimmer.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/models/team.dart';
 import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
+import 'package:hng_task3/screens/home/menu/components/nav_screen.dart';
+import 'package:hng_task3/screens/invites/invites_history.dart';
 import 'package:hng_task3/utils/utils.dart';
 import 'package:provider/provider.dart';
 class SendInvites extends StatefulWidget {
@@ -43,7 +45,11 @@ class _SendInvitesState extends State<SendInvites> {
           children: [
             TextButton(
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                        const NavScreen()), (route)=> false);
               },
               child: Image.asset(
                 "assets/icons/icon-back.png",
@@ -68,7 +74,13 @@ class _SendInvitesState extends State<SendInvites> {
           ],
         ),
         actions: [
-          IconButton(onPressed: (){}, icon: const Icon(Icons.more_vert,))
+          IconButton(onPressed: (){
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                    const InvitesHistory()));
+          }, icon: Icon(Icons.history, color: ColorUtils.Green,))
         ],
       ),
       body: SingleChildScrollView(

@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/components/custom_button.dart';
 import 'package:hng_task3/configs/colors.dart';
+import 'package:hng_task3/providers/InvitesProvider.dart';
+import 'package:hng_task3/screens/invites/invites.dart';
+import 'package:hng_task3/screens/invites/invites_reply_success.dart';
+import 'package:hng_task3/utils/utils.dart';
+import 'package:provider/provider.dart';
 class Invitations extends StatelessWidget {
   const Invitations({super.key, this.invite});
  final invite;
@@ -30,14 +35,14 @@ class Invitations extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(invite['team'],
+                Text(invite.org,
                   style: Theme.of(context).textTheme.displaySmall?.copyWith(
                     fontSize: 18,
                     fontWeight: FontWeight.w700
                   ),
                 ),
                 Text(
-                  "Sent by ${invite['sender']}",
+                  "Sent on ${invite.createdAt}",
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: ColorUtils.Green,
                     fontWeight: FontWeight.w500
@@ -52,8 +57,20 @@ class Invitations extends StatelessWidget {
             children: [
               Expanded(
                 child: CustomButton(
-                  onPress: () {
-
+                  onPress: ()  async {
+                    dynamic data = {
+                      "inviteId": invite.id,
+                      "status": true
+                    };
+                    Utils.loadingProgress(context);
+                    final response = await Provider.of<InvitesProvider>(context, listen: false).replyInvite(data);
+                    if(response){
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                              InviteReplySuccess(team: invite)));
+                    }
                   },
                   buttonText: "Accept",
                   buttonColor: ColorUtils.Green,
@@ -69,8 +86,20 @@ class Invitations extends StatelessWidget {
               ),
               Expanded(
                 child: CustomButton(
-                  onPress: () {
-
+                  onPress: () async {
+                    dynamic data = {
+                      "inviteId": invite.id,
+                      "status": false
+                    };
+                    Utils.loadingProgress(context);
+                    final response = await Provider.of<InvitesProvider>(context, listen: false).replyInvite(data);
+                    if(response){
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  Invites()));
+                    }
                   },
                   buttonText: "Decline",
                   buttonColor: ColorUtils.Red,
