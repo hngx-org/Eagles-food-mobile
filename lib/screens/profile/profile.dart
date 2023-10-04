@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
+import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/screens/home/menu/components/nav_screen.dart';
+import 'package:hng_task3/screens/profile/edit_profile.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -49,10 +51,11 @@ class _ProfileState extends State<Profile> {
             ),
             TextButton(
               onPressed: () {
-                Navigator.pushAndRemoveUntil(
+                Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const NavScreen()),
-                    (route) => false);
+                    MaterialPageRoute(
+                      builder: (context) => const EditProfile(),
+                    ));
               },
               child: Image.asset(
                 "assets/icons/icon-edit.png",
@@ -64,61 +67,172 @@ class _ProfileState extends State<Profile> {
           ],
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 28, right: 28, top: 20),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // Avatar
-            SizedBox(
-              width: 104,
-              height: 104,
-              child: CircleAvatar(
-                  // backgroundImage:
-                  ),
-            ),
-
-            // Name
-            Text(
-              'Test',
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
-
-            // Location
-            Text(
-              'Test',
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
-
-            // Email address
-            ListTile(
-              leading: CircleAvatar(
-                backgroundImage:
-                    AssetImage("assets/icons/icon-email-green.png"),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 28, right: 28, top: 20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              // Avatar
+              SizedBox(
+                width: 104,
+                height: 104,
+                child: CircleAvatar(
+                    // backgroundImage:
+                    ),
               ),
-              title: Column(children: [
-                Text(
-                  "holder",
-                  style: Theme.of(context)
-                      .textTheme
-                      .displayMedium
-                      ?.copyWith(fontSize: 12, fontWeight: FontWeight.w400),
+
+              // Name
+              Padding(
+                padding: const EdgeInsets.only(top: 18, bottom: 10),
+                child: Text(
+                  'Test',
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                      ),
                 ),
-                Text(
-                  "Holder",
-                  style: Theme.of(context)
-                      .textTheme
-                      .displayMedium
-                      ?.copyWith(fontSize: 16, fontWeight: FontWeight.w400),
+              ),
+
+              // Location
+              Padding(
+                padding: const EdgeInsets.only(bottom: 30),
+                child: Text(
+                  'Test',
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        fontSize: 16,
+                        color: ColorUtils.Green,
+                        fontWeight: FontWeight.bold,
+                      ),
                 ),
-              ]),
-            ),
-          ],
+              ),
+
+              // Phone Number
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Image.asset(
+                      "assets/icons/icon-call.png",
+                      height: 30,
+                      width: 30,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Mobile Phone',
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              color: ColorUtils.Grey,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                            ),
+                      ),
+                      Text(
+                        'Test',
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+
+              // Email address
+              Padding(
+                padding: const EdgeInsets.only(top: 28),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Image.asset(
+                        "assets/icons/icon-email-green.png",
+                        height: 30,
+                        width: 30,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Email Address',
+                          style:
+                              Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    color: ColorUtils.Grey,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                        ),
+                        Text(
+                          'Test',
+                          style:
+                              Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+
+              // Address
+              Padding(
+                padding: const EdgeInsets.only(top: 28, bottom: 35),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Image.asset(
+                        "assets/icons/icon-location.png",
+                        height: 30,
+                        width: 30,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Address',
+                          style:
+                              Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    color: ColorUtils.Grey,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                        ),
+                        Text(
+                          'Test',
+                          style:
+                              Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+
+              // Settings
+              Text(
+                'Settings',
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ],
+          ),
         ),
       ),
     );
