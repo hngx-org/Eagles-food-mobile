@@ -270,11 +270,12 @@ class _ChangePasswordState extends State<ChangePassword> {
                               onPress: () async {
                                 if (_formKey.currentState!.validate()) {
                                   userData["email"] = widget.user.email;
+                                  print(userData['email']);
                                   Utils.loadingProgress(context);
                                   final response =
                                   await Provider.of<AuthProvider>(context,
                                       listen: false)
-                                      .resetPassword(userData);
+                                      .changePassword(userData);
                                   Navigator.pop(context);
                                   if(response == true){
                                     Toasts.showToast(Colors.green, 'Password updated successfully');
