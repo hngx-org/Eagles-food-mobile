@@ -272,6 +272,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                                   userData["email"] = widget.user.email;
                                   print(userData['email']);
                                   Utils.loadingProgress(context);
+                                  print(userData);
                                   final response =
                                   await Provider.of<AuthProvider>(context,
                                       listen: false)

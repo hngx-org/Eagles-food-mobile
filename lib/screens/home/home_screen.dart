@@ -102,15 +102,59 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
 
-          Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: searchEmployeeBox(
-              my_team,
-              (p0) => null,
-              selectedEmployee,
-              focusNode,
+          GestureDetector(
+            onTap: (){
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SendLunchSearch()));
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15),
+              child: TextFormField(
+                style: Theme.of(context).textTheme.bodyLarge,
+                decoration: InputDecoration(
+                  contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  hintText: 'Search for member',
+                  filled: true,
+                  fillColor:
+                  Theme.of(context).unselectedWidgetColor.withOpacity(0.2),
+                  hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      color: ColorUtils.LightGrey, fontWeight: FontWeight.w500),
+                  suffixIcon: Icon(
+                    Icons.search,
+                    color: ColorUtils.LightGrey,
+                    size: 30,
+                  ),
+                  enabled: false,
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      width: 1,
+                      color: ColorUtils.LightGrey,
+                    ),
+                    borderRadius: const BorderRadius.all(Radius.circular(30)),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      width: 1,
+                      color: ColorUtils.LightGrey,
+                    ),
+                    borderRadius: const BorderRadius.all(Radius.circular(30)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      width: 1,
+                      color: ColorUtils.LightGrey,
+                    ),
+                    borderRadius: const BorderRadius.all(Radius.circular(50)),
+                  ),
+                ),
+                onChanged: (value) {},
+              ),
             ),
           ),
+
           Container(
             margin: const EdgeInsets.symmetric(vertical: 15),
             decoration: BoxDecoration(

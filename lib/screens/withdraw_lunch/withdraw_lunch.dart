@@ -37,7 +37,6 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
   @override
   Widget build(BuildContext context) {
     // var user = Provider.of<AuthProvider>(context, listen: false).user;
-
     return Scaffold(
       backgroundColor:  Theme.of(context).backgroundColor,
       body: SingleChildScrollView(
@@ -128,7 +127,7 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
                             Padding(
                               padding: const EdgeInsets.only(left: 15),
                               child: Text(
-                                widget.user.lunchCreditBalance.toString(),
+                                widget.user?.lunchCreditBalance.toString() ?? '',
                                 softWrap: true,
                                 style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                                     color: ColorUtils.White
@@ -166,14 +165,6 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
                           softWrap: true,
                           style: Theme.of(context).textTheme.displaySmall
                         ),
-                      ),
-
-                      Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do',
-                        softWrap: true,
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          color: ColorUtils.Grey,
-                        )
                       ),
 
                   Container(

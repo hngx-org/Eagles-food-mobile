@@ -23,7 +23,7 @@ class _InvitesHistoryState extends State<InvitesHistory> {
 
     @override
     void initState() {
-      Provider.of<InvitesProvider>(context).getAllInvites();
+      Provider.of<InvitesProvider>(context, listen: false).getAllInvites();
       super.initState();
     }
 

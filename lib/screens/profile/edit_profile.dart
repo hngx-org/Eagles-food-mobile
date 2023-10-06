@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -21,13 +22,7 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
   final _formKey = GlobalKey<FormState>();
-  final userData = {
-    "firstName": '',
-    "lastName": "",
-    "email": "",
-    "profilePic": "",
-    "phone": '',
-  };
+  final userData = {};
   File? image;
 
   Future<void> pickImage() async {
@@ -43,6 +38,24 @@ class _EditProfileState extends State<EditProfile> {
       print('Failed to pick image: $e');
     }
   }
+
+  var icon;
+
+  Future<String?> pickAndConvertToBase64() async {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? pickedImage = await _picker.pickImage(
+      source: ImageSource.gallery, // You can change to ImageSource.camera if needed
+    );
+    if (pickedImage != null) {
+      final imageBytes = await pickedImage.readAsBytes();
+      final base64String = base64Encode(imageBytes);
+      setState(() {
+        icon = imageBytes;
+      });
+    }
+    return null;
+  }
+
 
   @override
   void initState(){
@@ -130,8 +143,8 @@ class _EditProfileState extends State<EditProfile> {
                           children: [
                             Center(
                               child: GestureDetector(
-                                onTap: (){pickImage();},
-                                child:  image !=null ? Container(
+                                onTap: (){pickAndConvertToBase64();},
+                                child:  icon !=null ? Container(
                                     margin: const EdgeInsets.only(top: 16),
                                     width: 100,
                                     height: 100,
@@ -140,8 +153,8 @@ class _EditProfileState extends State<EditProfile> {
                                     ),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(100),
-                                      child: Image.file(
-                                        image!,
+                                      child: Image.memory(
+                                        icon!,
                                         fit: BoxFit.cover,height: 100,width: 100,),
                                     ),
                                   ):
@@ -427,10 +440,18 @@ class _EditProfileState extends State<EditProfile> {
                             onPress: () async {
                               if (_formKey.currentState!.validate()) {
                                 Utils.loadingProgress(context);
+                                dynamic data  = {
+                                  "email": userData['email'] ?? widget.user.email,
+                                  "lastName": userData['lastName'] ?? widget.user.lastName,
+                                  "firstName": userData['firstName'] ?? widget.user.firstName,
+                                  "phone": userData['phone'] ?? widget.user.phone,
+                                  "profilePic": userData['profilePic'] ?? "",
+                                  "photo": userData['profilePic'] ?? "",
+                                };
                                 final response =
                                 await Provider.of<ProfileProvider>(context,
                                     listen: false)
-                                    .updateProfile(userData);
+                                    .updateProfile(data);
                                 Navigator.pop(context);
                                 if (response == true) {
                                   Navigator.pop(context);

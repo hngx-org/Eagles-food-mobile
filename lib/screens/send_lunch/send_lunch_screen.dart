@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/configs/sessions.dart';
 import 'package:hng_task3/models/user.dart';
+import 'package:hng_task3/providers/AuthProvider.dart';
 import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
 import 'package:hng_task3/utils/toast.dart';
 import 'package:hng_task3/utils/utils.dart';
@@ -38,6 +39,8 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var user = Provider.of<AuthProvider>(context).user;
+    print(user);
     return Scaffold(
       backgroundColor: ColorUtils.Green,
       appBar: AppBar(
@@ -196,7 +199,7 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                                         Radius.circular(20)),
                                   ),
                                 ),
-                                keyboardType: TextInputType.emailAddress,
+                                keyboardType: TextInputType.number,
                               )),
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.end,
@@ -308,11 +311,8 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                                 lunchData['receivers'] = [
                                   "${widget.receiver.id}"
                                 ];
-                                var balanceAmt = int.parse(user.lunchCreditBalance) - int.parse(lunchData['quantity']);
-                                final response =
-                                    await Provider.of<TeamAndLunchProvider>(
-                                            context,
-                                            listen: false)
+                                var balanceAmt = int.parse(user.lunchCreditBalance as String) - int.parse(lunchData['quantity']);
+                                final response = await Provider.of<TeamAndLunchProvider>(context, listen: false)
                                         .sendLunch(lunchData, balanceAmt);
                                 Navigator.pop(context);
                                 if (response) {

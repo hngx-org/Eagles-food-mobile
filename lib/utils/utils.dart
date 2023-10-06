@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class Utils {
   static loadingProgress(BuildContext context) {
@@ -10,7 +11,12 @@ class Utils {
         barrierColor: ColorUtils.Grey.withOpacity(0.4),
         builder: (context) {
           return Center(
-            child: CupertinoActivityIndicator(
+            child:
+            // LoadingAnimationWidget.staggeredDotsWave(
+            //   color: ColorUtils.Green,
+            //   size: 50,
+            // ),
+            CupertinoActivityIndicator(
               color: ColorUtils.Green,
               radius: 15,
             ),

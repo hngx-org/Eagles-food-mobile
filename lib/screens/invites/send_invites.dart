@@ -5,8 +5,11 @@ import 'package:hng_task3/models/team.dart';
 import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
 import 'package:hng_task3/screens/home/menu/components/nav_screen.dart';
 import 'package:hng_task3/screens/invites/invites_history.dart';
+import 'package:hng_task3/utils/toast.dart';
 import 'package:hng_task3/utils/utils.dart';
 import 'package:provider/provider.dart';
+
+import '../../providers/InvitesProvider.dart';
 
 class SendInvites extends StatefulWidget {
   const SendInvites({super.key});
@@ -26,20 +29,22 @@ class _SendInvitesState extends State<SendInvites> {
     super.initState();
   }
 
-  void search(String query) {
-    query = query.toLowerCase();
-    filtered = list.where((person) {
-      return person.name.toLowerCase().contains(query);
-    }).toList();
-  }
-
   List<Team> filtered = [];
   List<Team> list = [];
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
-    list = Provider.of<TeamAndLunchProvider>(context).everyone;
+    list = Provider.of<TeamAndLunchProvider>(context).my_team;
+    isLoading = Provider.of<TeamAndLunchProvider>(context).isLoading;
+
+    List<Team> filtered = list
+        .where((team) =>
+        team.name.toLowerCase().contains(_searchQuery.toLowerCase()))
+        .toList();
+
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Row(
@@ -135,7 +140,9 @@ class _SendInvitesState extends State<SendInvites> {
                   ),
                 ),
                 onChanged: (value) {
-                  search(value);
+                  setState(() {
+                    _searchQuery = value;
+                  });
                 },
               ),
             ),
@@ -144,14 +151,23 @@ class _SendInvitesState extends State<SendInvites> {
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   fontWeight: FontWeight.w500, color: ColorUtils.LightGrey),
             ),
-            list.isEmpty
+            isLoading
                 ? ListView.builder(
                     shrinkWrap: true,
                     padding: const EdgeInsets.symmetric(vertical: 0),
                     physics: const BouncingScrollPhysics(),
                     itemCount: 8,
                     itemBuilder: (context, index) => const TeamShimmer())
-                : ListView.builder(
+                :
+            filtered.isEmpty ? Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Text(
+                "No member found",
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w500, color: ColorUtils.LightGrey),
+              ),
+            ) :
+            ListView.builder(
                     itemCount: filtered.length,
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
@@ -190,7 +206,17 @@ class _SendInvitesState extends State<SendInvites> {
                                   horizontal: 10, vertical: 0),
                               color: ColorUtils.Green,
                               child: TextButton(
-                                onPressed: () {},
+                                onPressed: () async {
+                                      dynamic data = {
+                                        "email": item.email
+                                      };
+                                      Utils.loadingProgress(context);
+                                     final response = await  Provider.of<InvitesProvider>(context, listen: false).sendInvite(data);
+                                      Navigator.pop(context);
+                                     if(response){
+                                        Toasts.showToast(Colors.green, "Invite sent");
+                                      }
+                                     },
                                 child: Text(
                                   'Invite',
                                   style: Theme.of(context)

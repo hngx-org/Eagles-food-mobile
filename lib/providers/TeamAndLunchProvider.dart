@@ -11,16 +11,19 @@ class TeamAndLunchProvider with ChangeNotifier{
   List<Team> _my_team = [];
   List<Team> _everyone = [];
   List<Lunch> _lunchHistory = [];
+  bool _isLoading = false;
 
   List<Lunch> get lunchHistory => _lunchHistory;
   List<Team> get my_team => _my_team;
   List<Team> get everyone => _everyone;
+  bool get isLoading => _isLoading;
 
   Future<dynamic> getUsers() async {
     const String url = 'user/all';
     try{
       _my_team = [];
       _everyone = [];
+      _isLoading = true;
       final response = await Network.get(url);
       var user = response["data"];
       var my_team = user['org'];
@@ -31,6 +34,7 @@ class TeamAndLunchProvider with ChangeNotifier{
       everyone.forEach((element) {
         _everyone.add(Team.fromJson(element));
       });
+      _isLoading = false;
       notifyListeners();
     }catch(e){
       print(e);
@@ -46,18 +50,19 @@ class TeamAndLunchProvider with ChangeNotifier{
       'quantity': lunchData['quantity']
     };
     try {
+      _isLoading = true;
       final response = await Network.post(endpoint: url, data: jsonEncode(data));
       if(response['success'] == true){
         SessionManager ss = SessionManager();
         var user = await ss.getUser();
         user['LunchCreditBalance'] = balanceAmt.toString();
         ss.saveUser(user);
+        _isLoading = false;
         notifyListeners();
         return true;
       }else{
         return false;
       }
-
     } catch (error) {
       print(error);
     }

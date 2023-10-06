@@ -10,59 +10,48 @@ class OnboardingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      body: Stack(
-        children: [
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/onboarding.png'),
-                fit: BoxFit.cover,
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.only(top: 100),
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset("assets/images/hotdog.png", height: 300, width: 300, fit: BoxFit.contain),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 30.0, vertical: 20),
+              child: Text(
+                "Send Free Lunch to appreciate someone at work",
+                style: Theme.of(context).textTheme.displaySmall,
+                textAlign: TextAlign.center,
               ),
             ),
-          ),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 15, right: 15, bottom: 56),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 25.0, vertical: 10),
-                    child: Text(
-                      "Send Free Lunch to appreciate someone at work",
-                      style: Theme.of(context).textTheme.displaySmall,
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Text(
-                      "Rewarding someone in the office has never been this easy, create a more productive and compensating work space with free lunches.",
-                      style: Theme.of(context).textTheme.bodyLarge,
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  CustomButton(
-                    onPress: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const AuthHome(),
-                          ));
-                    },
-                    buttonColor: ColorUtils.Green,
-                    buttonText: "Next",
-                    isUppercase: true,
-                  ),
-                ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Text(
+                "Rewarding someone in the office has never been this easy, create a more productive and compensating work space with free lunches.",
+                style: Theme.of(context).textTheme.bodyLarge,
+                textAlign: TextAlign.center,
               ),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.only(right: 20.0, left: 20, top: 80),
+              child: CustomButton(
+                onPress: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AuthHome(),
+                      ));
+                },
+                buttonColor: ColorUtils.Green,
+                buttonText: "Next",
+                isUppercase: true,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

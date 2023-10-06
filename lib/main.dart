@@ -3,17 +3,9 @@ import 'package:hng_task3/configs/lightTheme.dart';
 import 'package:hng_task3/configs/darkTheme.dart';
 import 'package:hng_task3/providers/AuthProvider.dart';
 import 'package:hng_task3/providers/InvitesProvider.dart';
-import 'package:hng_task3/providers/InvitesProvider.dart';
-import 'package:hng_task3/providers/ProfileProvider.dart';
 import 'package:hng_task3/providers/ProfileProvider.dart';
 import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
-import 'package:hng_task3/screens/invites/invites.dart';
-import 'package:hng_task3/screens/invites/invites_history.dart';
-import 'package:hng_task3/screens/invites/invites_reply_success.dart';
-
 import 'package:hng_task3/screens/onboarding/splashscreen.dart';
-import 'package:hng_task3/screens/profile/change_password.dart';
-import 'package:hng_task3/screens/profile/edit_profile.dart';
 import 'package:provider/provider.dart';
 
 void main() {
