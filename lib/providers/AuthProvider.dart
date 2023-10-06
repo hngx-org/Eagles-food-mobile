@@ -92,10 +92,10 @@ class AuthProvider with ChangeNotifier{
     }
   }
   Future<dynamic> resetPassword(Map<String, dynamic> userData,) async {
-    const String url = 'auth/forgot-password';
+    const String url = 'auth/reset-password';
     final Map<String, dynamic> data = {
       'email': userData['email'],
-      'resetToken': userData['email'],
+      'resetToken': userData['resetToken'],
       'newPassword': userData['newPassword'],
 
     };

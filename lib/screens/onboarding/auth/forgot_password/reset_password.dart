@@ -283,7 +283,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           child: CustomButton(
                               onPress: () async {
                                 if (_formKey.currentState!.validate()) {
-                                  print(userData);
+                                  print(userData['email']);
                                   Utils.loadingProgress(context);
                                   final response =
                                   await Provider.of<AuthProvider>(context,
