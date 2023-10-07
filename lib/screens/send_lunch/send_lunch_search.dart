@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/components/widgets/send_lunch/navigationwidget.dart';
 import 'package:hng_task3/configs/colors.dart';
-import 'package:hng_task3/screens/home/menu/components/nav_screen.dart';
+import 'package:hng_task3/screens/home/menu/nav_screen.dart';
 
 class SendLunchSearch extends StatefulWidget {
   const SendLunchSearch({super.key});

@@ -12,13 +12,9 @@ class Utils {
         builder: (context) {
           return Center(
             child:
-            // LoadingAnimationWidget.staggeredDotsWave(
-            //   color: ColorUtils.Green,
-            //   size: 50,
-            // ),
-            CupertinoActivityIndicator(
+            LoadingAnimationWidget.staggeredDotsWave(
               color: ColorUtils.Green,
-              radius: 15,
+              size: 50,
             ),
           );
         });

@@ -5,7 +5,7 @@ import 'package:hng_task3/components/widgets/invites/invites.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/models/invite.dart';
 import 'package:hng_task3/providers/InvitesProvider.dart';
-import 'package:hng_task3/screens/home/menu/components/nav_screen.dart';
+import 'package:hng_task3/screens/home/menu/nav_screen.dart';
 import 'package:hng_task3/screens/invites/send_invites.dart';
 import 'package:provider/provider.dart';
 

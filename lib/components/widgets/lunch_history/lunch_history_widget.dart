@@ -29,13 +29,13 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _applyFilter();
     });
-    SessionManager().getUser().then((userJson) {
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        setState(() {
-          user = User.fromJson(userJson);
-        });
-      });
-    });
+    // SessionManager().getUser().then((userJson) {
+    //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    //     setState(() {
+    //       user = User.fromJson(userJson);
+    //     });
+    //   });
+    // });
     super.initState();
   }
 

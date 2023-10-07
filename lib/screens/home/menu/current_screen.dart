@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/screens/home/home_screen.dart';
-import 'package:hng_task3/screens/home/menu/configurations.dart';
 import 'package:hng_task3/screens/invites/invites.dart';
 import 'package:hng_task3/screens/invites/send_invites.dart';
 import 'package:hng_task3/screens/profile/profile.dart';
@@ -25,7 +24,7 @@ class CurrentScreen extends StatelessWidget {
   final double xOffset;
   final double yOffset;
   final double scaleFactor;
-  final DrawerItem item;
+  final int item;
 
   @override
   Widget build(BuildContext context) {
@@ -69,21 +68,21 @@ class CurrentScreen extends StatelessWidget {
   }
 
   Widget getDrawerPage(
-      VoidCallback openDrawer, DrawerItem item, BuildContext context) {
+      VoidCallback openDrawer, int item, BuildContext context) {
     switch (item) {
-      case DrawerItems.home:
+      case 0:
         return HomeScreen(
           openDrawer: openDrawer,
         );
-      case DrawerItems.sendlunch:
+      case 1:
         return const SendLunchSearch();
-      case DrawerItems.withdrawlunch:
+      case 2:
         return WithdrawLunch();
-      case DrawerItems.profilePage:
+      case 3:
         return const Profile();
-      case DrawerItems.invitesPage:
+      case 4:
         return const Invites();
-      case DrawerItems.manageInvitesPage:
+      case 5:
         return const SendInvites();
 
       default:

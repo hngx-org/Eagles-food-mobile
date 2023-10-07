@@ -3,12 +3,11 @@ import 'package:hng_task3/components/shimmers/teamShimmer.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/models/team.dart';
 import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
-import 'package:hng_task3/screens/home/menu/components/nav_screen.dart';
+import 'package:hng_task3/screens/home/menu/nav_screen.dart';
 import 'package:hng_task3/screens/invites/invites_history.dart';
 import 'package:hng_task3/utils/toast.dart';
 import 'package:hng_task3/utils/utils.dart';
 import 'package:provider/provider.dart';
-
 import '../../providers/InvitesProvider.dart';
 
 class SendInvites extends StatefulWidget {

@@ -2,8 +2,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:hng_task3/components/shimmers/teamShimmer.dart';
 import 'package:hng_task3/configs/colors.dart';
+import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
 import 'package:hng_task3/screens/send_lunch/send_lunch_screen.dart';
 import 'package:hng_task3/utils/utils.dart';
+import 'package:provider/provider.dart';
 
 class TeamList extends StatefulWidget {
   const TeamList({super.key, this.list});
@@ -13,8 +15,10 @@ class TeamList extends StatefulWidget {
 }
 
 class _TeamListState extends State<TeamList> {
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
+    isLoading = Provider.of<TeamAndLunchProvider>(context).isLoading;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -25,7 +29,7 @@ class _TeamListState extends State<TeamList> {
               .displayMedium
               ?.copyWith(fontSize: 21, fontWeight: FontWeight.w400),
         ),
-        widget.list.length == 0
+        isLoading
             ? ListView.builder(
                 shrinkWrap: true,
                 padding: const EdgeInsets.symmetric(vertical: 0),
@@ -33,7 +37,12 @@ class _TeamListState extends State<TeamList> {
                 itemCount: 5,
                 itemBuilder: (context, index) => const TeamShimmer()
             )
-            : ListView.builder(
+            :
+
+        widget.list.length == 0 ?
+        const Center(child: Text('No Team Members'))
+            :
+        ListView.builder(
                 shrinkWrap: true,
                 padding: const EdgeInsets.symmetric(vertical: 0),
                 physics: const BouncingScrollPhysics(),

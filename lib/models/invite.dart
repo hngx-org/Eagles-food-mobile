@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-// "id": 3,
-// "orgId": 2,
-// "org": "Eagles Food",
-// "createdAt": "2023-10-03T14:14:13"
+
 class Invite {
 
   final int id;
   final int orgId;
   final String org;
+  final bool? status;
   final String createdAt;
 
   Invite({
@@ -15,6 +13,7 @@ class Invite {
     required this.orgId,
     required this.org,
     required this.createdAt,
+    required this.status
   });
 
   factory Invite.fromJson(Map<String, dynamic> json) {
@@ -22,6 +21,7 @@ class Invite {
       id: json['id'],
       orgId: json['orgId'],
       org: json['org'],
+      status: json['status'],
       createdAt: json['createdAt'],
     );
   }
@@ -30,6 +30,7 @@ class Invite {
     "id": id,
     "orgId": orgId,
     "org": org,
+    "status": status,
     "createdAt": createdAt,
   };
 

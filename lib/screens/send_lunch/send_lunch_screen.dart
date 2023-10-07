@@ -28,19 +28,18 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
   @override
   void initState() {
     super.initState();
-    SessionManager().getUser().then((userJson) {
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        setState(() {
-          user = User.fromJson(userJson);
-        });
-      });
-    });
+    // SessionManager().getUser().then((userJson) {
+    //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    //     setState(() {
+    //       user = User.fromJson(userJson);
+    //     });
+    //   });
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
-    var user = Provider.of<AuthProvider>(context).user;
-    print(user);
+    user = Provider.of<AuthProvider>(context).user;
     return Scaffold(
       backgroundColor: ColorUtils.Green,
       appBar: AppBar(

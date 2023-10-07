@@ -7,7 +7,7 @@ import 'package:hng_task3/models/team.dart';
 import 'package:hng_task3/models/user.dart';
 import 'package:hng_task3/network/network.dart';
 
-class TeamAndLunchProvider with ChangeNotifier{
+class TeamAndLunchProvider with ChangeNotifier {
   List<Team> _my_team = [];
   List<Team> _everyone = [];
   List<Lunch> _lunchHistory = [];

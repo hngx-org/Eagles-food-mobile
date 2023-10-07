@@ -9,8 +9,6 @@ import 'package:provider/provider.dart';
 
 import '../../components/custom_button.dart';
 import '../../configs/colors.dart';
-import '../../configs/sessions.dart';
-import '../../models/user.dart';
 import '../../utils/toast.dart';
 import '../../utils/utils.dart';
 class EditProfile extends StatefulWidget {
@@ -37,29 +35,6 @@ class _EditProfileState extends State<EditProfile> {
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
-  }
-
-  var icon;
-
-  Future<String?> pickAndConvertToBase64() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? pickedImage = await _picker.pickImage(
-      source: ImageSource.gallery, // You can change to ImageSource.camera if needed
-    );
-    if (pickedImage != null) {
-      final imageBytes = await pickedImage.readAsBytes();
-      final base64String = base64Encode(imageBytes);
-      setState(() {
-        icon = imageBytes;
-      });
-    }
-    return null;
-  }
-
-
-  @override
-  void initState(){
-
   }
 
   @override
@@ -128,7 +103,7 @@ class _EditProfileState extends State<EditProfile> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -136,35 +111,52 @@ class _EditProfileState extends State<EditProfile> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        padding: const EdgeInsets.symmetric(vertical: 0.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Center(
                               child: GestureDetector(
-                                onTap: (){pickAndConvertToBase64();},
-                                child:  icon !=null ? Container(
+                                onTap: (){pickImage();},
+                                child:  image !=null ? Container(
                                     margin: const EdgeInsets.only(top: 16),
-                                    width: 100,
-                                    height: 100,
+                                    width: 130,
+                                    height: 130,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(100),
                                     ),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(100),
-                                      child: Image.memory(
-                                        icon!,
+                                      child: Image.file(
+                                        image!,
                                         fit: BoxFit.cover,height: 100,width: 100,),
                                     ),
                                   ):
-                                  const CircleAvatar(
-                                    radius: 50,
-                                    backgroundImage: AssetImage(
-                                        'assets/icons/man-avatar-icon.png'
+                                  Container(
+                                    width: 130,
+                                    height: 130,
+                                    decoration:BoxDecoration(
+                                      border: Border.all(
+                                        width: 3,
+                                        color: ColorUtils.LightGrey
+                                      ),
+                                      borderRadius: BorderRadius.circular(100),
+                                      image : const DecorationImage(
+                                        image: AssetImage("assets/icons/man-avatar-icon.png"),
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    child: Container(
+                                      alignment:Alignment.center,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(100),
+                                        color: ColorUtils.LightGrey.withOpacity(0.2),
+                                      ),
+                                      child: const Icon(Icons.add_a_photo, color: Colors.white, size: 30),
+                                    ),
                                     ),
                                   ),
-                                )
                               ),
                             Padding(
                               padding:
@@ -435,7 +427,7 @@ class _EditProfileState extends State<EditProfile> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        padding: const EdgeInsets.symmetric(vertical: 20.0),
                         child: CustomButton(
                             onPress: () async {
                               if (_formKey.currentState!.validate()) {
@@ -445,8 +437,7 @@ class _EditProfileState extends State<EditProfile> {
                                   "lastName": userData['lastName'] ?? widget.user.lastName,
                                   "firstName": userData['firstName'] ?? widget.user.firstName,
                                   "phone": userData['phone'] ?? widget.user.phone,
-                                  "profilePic": userData['profilePic'] ?? "",
-                                  "photo": userData['profilePic'] ?? "",
+                                  "photo": image,
                                 };
                                 final response =
                                 await Provider.of<ProfileProvider>(context,

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:hng_task3/configs/sessions.dart';
 import 'package:hng_task3/network/errors.dart';
 import 'package:hng_task3/network/network_utils.dart';
 import 'package:hng_task3/utils/toast.dart';
@@ -71,4 +72,38 @@ class Network {
       Toasts.showToast(Colors.black, "No Internet Connection");
     }
   }
+
+  static Future<dynamic> multipart({required String endpoint, dynamic data}) async{
+    if(await NetworkUtils.hasNetwork()){
+      var token = await SessionManager().getToken();
+      final Map<String, String> headers = {
+        'Content-Type': 'multipart/form-data',
+        'Accept': 'multipart/form-data',
+        'Authorization': 'Bearer $token',
+      };
+      var url = Uri.parse(baseUrl + endpoint);
+      try {
+        var request = http.MultipartRequest('POST', url);
+        request.headers.addAll( await NetworkUtils.headers());
+        request.fields['firstName'] = data['firstName'];
+        request.fields['lastName'] = data['lastName'];
+        request.fields['email'] = data['email'];
+        request.fields['phone'] = data['phone'];
+        request.files.add(await http.MultipartFile.fromPath("photo" , data['photo']));
+        var result = await request.send();
+        var response = await http.Response.fromStream(result);
+        if(response.statusCode == 200){
+          return json.decode(response.body);
+        } else{
+          NetworkErrors.handleNetworkErrors(response);
+        }
+      } catch (e, stackTrace) {
+        print(stackTrace);
+        Toasts.showToast(Colors.red, 'Request failed');
+      }
+    }else{
+      Toasts.showToast(Colors.black, "No Internet Connection");
+    }
+  }
+
 }

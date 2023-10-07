@@ -9,20 +9,19 @@ import 'package:hng_task3/screens/onboarding/splashscreen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(const MyApp());
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
-
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<AuthProvider>(create: (_) => AuthProvider()),
-        ChangeNotifierProvider<TeamAndLunchProvider>(create: (_) => TeamAndLunchProvider()),
-        ChangeNotifierProvider<InvitesProvider>(create: (_) => InvitesProvider()),
-        ChangeNotifierProvider<ProfileProvider>(create: (_) => ProfileProvider()),
+        ChangeNotifierProvider(create: (_) => TeamAndLunchProvider()),
+        ChangeNotifierProvider(create: (_) => InvitesProvider()),
+        ChangeNotifierProvider(create: (_) => ProfileProvider()),
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
