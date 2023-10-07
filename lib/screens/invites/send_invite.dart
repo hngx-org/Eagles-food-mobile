@@ -1,1 +1,0 @@
-// place where an organization can send invites to people via their email

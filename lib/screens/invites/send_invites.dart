@@ -97,7 +97,6 @@ class _SendInvitesState extends State<SendInvites> {
               padding:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),
               child:
-
                   // Search bar
                   TextFormField(
                 controller: searchController,

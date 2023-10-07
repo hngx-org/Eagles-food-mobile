@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/screens/home/home_screen.dart';
 import 'package:hng_task3/screens/invites/invites.dart';
+import 'package:hng_task3/screens/invites/organizations.dart';
 import 'package:hng_task3/screens/invites/send_invites.dart';
+import 'package:hng_task3/screens/leaderboard/leaderboard.dart';
 import 'package:hng_task3/screens/profile/profile.dart';
 import 'package:hng_task3/screens/send_lunch/send_lunch_search.dart';
 import 'package:hng_task3/screens/withdraw_lunch/withdraw_lunch.dart';
@@ -84,6 +86,10 @@ class CurrentScreen extends StatelessWidget {
         return const Invites();
       case 5:
         return const SendInvites();
+      case 6:
+        return const Organizations();
+      case 7:
+        return const LeaderBoard();
 
       default:
         return HomeScreen(

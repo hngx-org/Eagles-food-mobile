@@ -35,7 +35,6 @@ class _NavScreenState extends State<NavScreen> {
       default:
         setState(() {
           item = selecteditem;
-          // Update _currentIndex based on selecteditem
           _currentIndex = getSelectedIndex(selecteditem);
           Future.delayed(
             const Duration(milliseconds: 150),
@@ -139,7 +138,7 @@ class _NavScreenState extends State<NavScreen> {
               ),
             ],
           ),
-          height: 50,
+          height: 60,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -196,7 +195,7 @@ class _NavScreenState extends State<NavScreen> {
 
                       if(_currentIndex == 1) Padding(
                         padding: const EdgeInsets.symmetric(vertical: 2.0),
-                        child: Text("Search",
+                        child: Text("Orgs",
                           style: Theme.of(context).textTheme.bodyText1?.copyWith(
                             fontWeight: FontWeight.w400,
                             fontSize: 10,
