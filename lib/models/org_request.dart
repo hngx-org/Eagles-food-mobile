@@ -1,14 +1,12 @@
-import 'package:flutter/material.dart';
 
-class Invite {
-
+class OrgRequest {
   final int id;
   final int orgId;
   final String org;
   final bool? status;
   final String createdAt;
 
-  Invite({
+  OrgRequest({
     required this.id,
     required this.orgId,
     required this.org,
@@ -16,8 +14,8 @@ class Invite {
     required this.status
   });
 
-  factory Invite.fromJson(Map<String, dynamic> json) {
-    return Invite(
+  factory OrgRequest.fromJson(Map<String, dynamic> json) {
+    return OrgRequest(
       id: json['id'],
       orgId: json['orgId'],
       org: json['org'],
@@ -33,5 +31,4 @@ class Invite {
     "status": status,
     "createdAt": createdAt,
   };
-
 }

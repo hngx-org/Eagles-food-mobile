@@ -23,6 +23,7 @@ class EnterEmail extends StatelessWidget {
     final formKey = GlobalKey<FormState>();
 
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         elevation: 0,
@@ -187,7 +188,7 @@ class EnterEmail extends StatelessWidget {
                                     Navigator.push(
                                         context,
                                         MaterialPageRoute(builder: (context)=> OTPVerification(email: controller.text,)));
-                                    Toasts.showToast(Colors.green, 'User exists.');
+                                    Toasts.showToast(Colors.green, 'Otp code has been sent');
                                   }
 
                                   }

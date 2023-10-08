@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class InviteHistory extends StatelessWidget {
-  const InviteHistory({super.key});
-
+  const InviteHistory({super.key, this.item});
+  final item;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -20,14 +20,14 @@ class InviteHistory extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "item.name",
+                  item.org,
                   style: Theme.of(context)
                       .textTheme
                       .displayMedium
                       ?.copyWith(fontSize: 16, fontWeight: FontWeight.w400),
                 ),
                 Text(
-                  'status',
+                  item.status == true ? 'Accepted' : item.status == false ? 'Declined' : 'Pending',
                   style: Theme.of(context)
                       .textTheme
                       .headlineSmall

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/components/custom_button.dart';
 import 'package:hng_task3/configs/colors.dart';
-import 'package:hng_task3/screens/home/menu/components/nav_screen.dart';
+import 'package:hng_task3/screens/home/menu/nav_screen.dart';
 
 class WithdrawSuccessScreen extends StatelessWidget {
   const WithdrawSuccessScreen();
@@ -9,6 +9,7 @@ class WithdrawSuccessScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       body: Container(
         height: double.infinity,
         width: double.infinity,

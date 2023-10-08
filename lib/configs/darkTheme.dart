@@ -36,7 +36,7 @@ ThemeData darkTheme = ThemeData(
         fontFamily: 'Poppins',
         fontStyle: FontStyle.normal,
         fontWeight: FontWeight.w400,
-        fontSize: 13),
+        fontSize: 15),
 
     // main heading text
     displayLarge: TextStyle(

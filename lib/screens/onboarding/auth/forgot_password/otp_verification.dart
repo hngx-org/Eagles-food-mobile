@@ -20,6 +20,7 @@ class OTPVerification extends StatelessWidget {
     final formKey = GlobalKey<FormState>();
     TextEditingController controller = TextEditingController();
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         elevation: 0,

@@ -6,12 +6,16 @@ import 'package:hng_task3/network/network.dart';
 
 class InvitesProvider with ChangeNotifier {
   List<Invite> _invites = [];
-  List<Invite> _allinvites = [];
+  List<Invite> _allPendingInvites = [];
+  List<Invite> _allAcceptedInvites = [];
+  List<Invite> _allDeclinedInvites = [];
   bool _isLoading = false;
 
 
   List<Invite> get invites => _invites;
-  List<Invite> get allinvites => _invites;
+  List<Invite> get allPendingInvites => _allPendingInvites;
+  List<Invite> get allAcceptedInvites => _allAcceptedInvites;
+  List<Invite> get allDeclinedInvites => _allDeclinedInvites;
   bool get isLoading => _isLoading;
 
   Future<dynamic> getInvites() async {
@@ -37,7 +41,6 @@ class InvitesProvider with ChangeNotifier {
 
   }
 
-
   Future<dynamic> getAllInvites() async {
     const String url = 'user/userinvites';
     try {
@@ -58,9 +61,7 @@ class InvitesProvider with ChangeNotifier {
     } catch (error) {
       print(error);
     }
-
   }
-
 
   Future<dynamic> sendInvite(Map<String, dynamic> data) async {
     const String url = 'organization/invite';
@@ -91,5 +92,37 @@ class InvitesProvider with ChangeNotifier {
     } catch (error) {
       print(error);
     }
+  }
+
+//  invites history
+  Future<dynamic> getInvitesHistory() async {
+    const String url = 'organization/organizationinvites';
+    try {
+      _isLoading = true;
+      _allPendingInvites = [];
+      _allAcceptedInvites = [];
+      _allDeclinedInvites = [];
+      final response = await Network.get(url);
+      if(response['success'] == true){
+        var invites = response['data'];
+        invites.forEach((invite) {
+          if(invite['status'] == true){
+            _allDeclinedInvites.add(Invite.fromJson(invite));
+          }else if (invite['status'] == true){
+            _allPendingInvites.add(Invite.fromJson(invite));
+          }else{
+            _allPendingInvites.add(Invite.fromJson(invite));
+          }
+        });
+        _isLoading = false;
+        notifyListeners();
+        return true;
+      }else{
+        return false;
+      }
+    } catch (error) {
+      print(error);
+    }
+
   }
 }

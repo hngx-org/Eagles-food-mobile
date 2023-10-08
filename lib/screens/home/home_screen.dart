@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/components/custom_button.dart';
-import 'package:hng_task3/components/widgets/common/search_employee.dart';
 import 'package:hng_task3/components/widgets/home/team.dart';
 import 'package:hng_task3/components/widgets/lunch_history/lunch_history_widget.dart';
 import 'package:hng_task3/configs/colors.dart';
-import 'package:hng_task3/configs/sessions.dart';
 import 'package:hng_task3/models/lunch.dart';
 import 'package:hng_task3/models/team.dart';
-import 'package:hng_task3/models/user.dart';
+import 'package:hng_task3/providers/AuthProvider.dart';
 import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
 import 'package:hng_task3/screens/send_lunch/send_lunch_search.dart';
 import 'package:hng_task3/screens/withdraw_lunch/withdraw_lunch.dart';
@@ -15,18 +13,15 @@ import 'package:hng_task3/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key, required this.openDrawer});
+  const HomeScreen({super.key, this.openDrawer});
 
-  final VoidCallback openDrawer;
+  final openDrawer;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String selectedEmployee = '';
-  FocusNode focusNode = FocusNode();
-
   bool isLoading = false;
   var user;
 
@@ -34,29 +29,16 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Lunch> lunch_history = [];
 
   @override
-  void dispose() {
-    focusNode.dispose();
-    super.dispose();
-  }
-
-  @override
   void initState() {
     super.initState();
-    Provider.of<TeamAndLunchProvider>(context, listen: false).getUsers();
-    my_team.isEmpty ? Provider.of<TeamAndLunchProvider>(context, listen: false).getLunchHistory() : null;
-    SessionManager().getUser().then((userJson) {
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        setState(() {
-          user = User.fromJson(userJson);
-        });
-      });
-    });
+    Provider.of<TeamAndLunchProvider>(context, listen: false).getLunchHistory();
   }
 
   @override
   Widget build(BuildContext context) {
     my_team = Provider.of<TeamAndLunchProvider>(context).my_team;
     lunch_history = Provider.of<TeamAndLunchProvider>(context).lunchHistory;
+    user = Provider.of<AuthProvider>(context).user;
     return Scaffold(
         backgroundColor:  Theme.of(context).backgroundColor,
         body: SingleChildScrollView(
@@ -101,14 +83,56 @@ class _HomeScreenState extends State<HomeScreen> {
               )
             ],
           ),
-
-          Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: searchEmployeeBox(
-              my_team,
-              (p0) => null,
-              selectedEmployee,
-              focusNode,
+          GestureDetector(
+            onTap: (){
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SendLunchSearch()));
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15),
+              child: TextFormField(
+                style: Theme.of(context).textTheme.bodyLarge,
+                decoration: InputDecoration(
+                  contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  hintText: 'Search for member',
+                  filled: true,
+                  fillColor:
+                  Theme.of(context).unselectedWidgetColor.withOpacity(0.2),
+                  hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      color: ColorUtils.LightGrey, fontWeight: FontWeight.w500),
+                  suffixIcon: Icon(
+                    Icons.search,
+                    color: ColorUtils.LightGrey,
+                    size: 30,
+                  ),
+                  enabled: false,
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      width: 1,
+                      color: ColorUtils.LightGrey,
+                    ),
+                    borderRadius: const BorderRadius.all(Radius.circular(30)),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      width: 1,
+                      color: ColorUtils.LightGrey,
+                    ),
+                    borderRadius: const BorderRadius.all(Radius.circular(30)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      width: 1,
+                      color: ColorUtils.LightGrey,
+                    ),
+                    borderRadius: const BorderRadius.all(Radius.circular(50)),
+                  ),
+                ),
+                onChanged: (value) {},
+              ),
             ),
           ),
           Container(
@@ -137,9 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => WithdrawLunch(
-                                user: user
-                              )));
+                              builder: (context) => WithdrawLunch()));
                     },
                     buttonText: "Withdraw Lunch",
                     buttonColor: ColorUtils.DeepPink,
@@ -169,6 +191,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
+
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10.0),
             child: TeamList(list: my_team),

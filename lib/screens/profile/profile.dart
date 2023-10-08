@@ -3,7 +3,8 @@ import 'package:hng_task3/components/custom_button.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/configs/sessions.dart';
 import 'package:hng_task3/models/user.dart';
-import 'package:hng_task3/screens/home/menu/components/nav_screen.dart';
+import 'package:hng_task3/providers/AuthProvider.dart';
+import 'package:hng_task3/screens/home/menu/nav_screen.dart';
 import 'package:hng_task3/screens/profile/change_password.dart';
 import 'package:hng_task3/screens/profile/edit_profile.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +21,7 @@ class _ProfileState extends State<Profile> {
   FocusNode focusNode = FocusNode();
 
   bool isLoading = false;
-  var user;
+  User? user;
 
   @override
   void dispose() {
@@ -31,17 +32,18 @@ class _ProfileState extends State<Profile> {
   @override
   void initState() {
     super.initState();
-    SessionManager().getUser().then((userJson) {
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        setState(() {
-          user = User.fromJson(userJson);
-        });
-      });
-    });
+    // SessionManager().getUser().then((userJson) {
+    //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    //     setState(() {
+    //       user = User.fromJson(userJson);
+    //     });
+    //   });
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
+    user = Provider.of<AuthProvider>(context).user;
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
@@ -107,7 +109,7 @@ class _ProfileState extends State<Profile> {
               // Avatar
               ClipRRect(
                 borderRadius: BorderRadius.circular(100),
-                  child: Image.asset(user.profilePic, height: 150, width: 150, fit: BoxFit.cover,)),
+                  child: Image.asset(user?.profilePic ?? '', height: 150, width: 150, fit: BoxFit.cover,)),
 
               // Name
               Padding(
@@ -125,7 +127,7 @@ class _ProfileState extends State<Profile> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 30),
                 child: Text(
-                  "${user.orgName}",
+                  "${user?.orgName ?? ''}",
                   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                         fontSize: 16,
                         color: ColorUtils.Green,
