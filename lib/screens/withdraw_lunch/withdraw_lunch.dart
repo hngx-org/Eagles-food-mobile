@@ -239,6 +239,7 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
                               final response  = await Provider.of<TeamAndLunchProvider>(context, listen: false).withDrawLunch(amount, balanceAmt);
                               Navigator.pop(context);
                               if(response == true){
+                                Provider.of<AuthProvider>(context, listen: false).updateUserLunch(balanceAmt.toString());
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(

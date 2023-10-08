@@ -74,6 +74,7 @@ class Network {
   }
 
   static Future<dynamic> multipart({required String endpoint, dynamic data}) async{
+
     if(await NetworkUtils.hasNetwork()){
       var token = await SessionManager().getToken();
       final Map<String, String> headers = {
@@ -83,18 +84,26 @@ class Network {
       };
       var url = Uri.parse(baseUrl + endpoint);
       try {
-        var request = http.MultipartRequest('POST', url);
+        var request = http.MultipartRequest('PUT', url);
         request.headers.addAll( await NetworkUtils.headers());
         request.fields['firstName'] = data['firstName'];
         request.fields['lastName'] = data['lastName'];
         request.fields['email'] = data['email'];
         request.fields['phone'] = data['phone'];
-        request.files.add(await http.MultipartFile.fromPath("photo" , data['photo']));
+
+        if(data['photo'] != null){
+          var photoFile = data['photo'];
+          var photoBytes = await photoFile.readAsBytes();
+          request.files.add(
+            await http.MultipartFile.fromBytes('photo', photoBytes,),
+          );
+        }
         var result = await request.send();
         var response = await http.Response.fromStream(result);
         if(response.statusCode == 200){
           return json.decode(response.body);
         } else{
+          print("multipart error ${response.statusCode}");
           NetworkErrors.handleNetworkErrors(response);
         }
       } catch (e, stackTrace) {

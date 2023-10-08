@@ -3,14 +3,14 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hng_task3/providers/ProfileProvider.dart';
+import 'package:hng_task3/providers/AuthProvider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-
 import '../../components/custom_button.dart';
 import '../../configs/colors.dart';
 import '../../utils/toast.dart';
 import '../../utils/utils.dart';
+
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key, this.user});
   final user;
@@ -440,7 +440,7 @@ class _EditProfileState extends State<EditProfile> {
                                   "photo": image,
                                 };
                                 final response =
-                                await Provider.of<ProfileProvider>(context,
+                                await Provider.of<AuthProvider>(context,
                                     listen: false)
                                     .updateProfile(data);
                                 Navigator.pop(context);

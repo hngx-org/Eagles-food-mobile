@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    my_team.isEmpty ? Provider.of<TeamAndLunchProvider>(context, listen: false).getLunchHistory() : null;
+    Provider.of<TeamAndLunchProvider>(context, listen: false).getLunchHistory();
   }
 
   @override

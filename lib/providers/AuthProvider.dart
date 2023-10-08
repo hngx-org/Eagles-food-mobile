@@ -13,19 +13,23 @@ class AuthProvider with ChangeNotifier {
   bool? get isLoggedIn => _isLoggedIn;
   bool get isLoading => _isLoading;
 
-  // Future<dynamic> getUserProfile() async {
-  //   const String url = 'user/profile';
-  //   try{
-  //     _isLoading = true;
-  //     final response = await Network.get(url);
-  //     var user = response["data"];
-  //     _user = User.fromJson(user);
-  //     _isLoggedIn = false;
-  //     notifyListeners();
-  //   }catch(e){
-  //     print(e);
-  //   }
-  // }
+  void updateUserLunch(String balance){
+    _user?.lunchCreditBalance = balance;
+  }
+
+  Future<dynamic> getUserProfile() async {
+    const String url = 'user/profile';
+    try{
+      _isLoading = true;
+      final response = await Network.get(url);
+      var user = response["data"];
+      _user = User.fromJson(user);
+      _isLoggedIn = false;
+      notifyListeners();
+    }catch(e){
+      print(e);
+    }
+  }
 
   Future<dynamic> login(Map<String, dynamic> userData) async {
     const String url = 'auth/login';
@@ -86,6 +90,22 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
+  Future<dynamic> updateProfile(Map<String, dynamic> data) async {
+    const String url = 'user/update';
+    print(data);
+    try {
+      final response = await Network.multipart(endpoint: url, data: data);
+      if(response['statusCode'] == 200){
+        print(response);
+        return true;
+      }else{
+        return false;
+      }
+    } catch (error) {
+      print(error);
+    }
+  }
+
   Future<dynamic> verifyOTP(String email, String otp) async {
     String url = 'auth/verify-reset-token?email=$email&token=$otp';
     try{
@@ -101,6 +121,8 @@ class AuthProvider with ChangeNotifier {
       print(e);
     }
   }
+
+
   Future<dynamic> forgotPassword(Map<String, dynamic> userData) async {
     const String url = 'auth/forgot-password';
     final Map<String, dynamic> data = {
@@ -117,6 +139,7 @@ class AuthProvider with ChangeNotifier {
       print(error);
     }
   }
+
   Future<dynamic> resetPassword(Map<String, dynamic> userData,) async {
     const String url = 'auth/reset-password';
     final Map<String, dynamic> data = {
@@ -135,6 +158,7 @@ class AuthProvider with ChangeNotifier {
       print(error);
     }
   }
+
   Future<dynamic> changePassword(Map<String, dynamic> userData,) async {
     const String url = 'auth/changePassword';
     final Map<String, dynamic> data = {

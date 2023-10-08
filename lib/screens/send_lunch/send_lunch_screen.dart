@@ -314,7 +314,8 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                                 final response = await Provider.of<TeamAndLunchProvider>(context, listen: false)
                                         .sendLunch(lunchData, balanceAmt);
                                 Navigator.pop(context);
-                                if (response) {
+                                if (response == true) {
+                                  Provider.of<AuthProvider>(context, listen: false).updateUserLunch(balanceAmt.toString());
                                   Toasts.showToast(
                                       Colors.green, "Lunch sent successfully");
                                   Navigator.pushReplacement(
@@ -322,15 +323,8 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               const SendLunchSuccess()));
-                                } else {
-                                  Toasts.showToast(
-                                      Colors.red, "Failed to send lunch");
                                 }
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const SendLunchSuccess()));
+
                               },
                               child: Text(
                                 "SEND LUNCH",
