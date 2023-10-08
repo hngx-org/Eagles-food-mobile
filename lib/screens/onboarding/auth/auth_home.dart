@@ -3,6 +3,7 @@ import 'package:hng_task3/components/custom_button.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/screens/onboarding/auth/login.dart';
 import 'package:hng_task3/screens/onboarding/auth/signup.dart';
+import 'package:hng_task3/screens/onboarding/auth/signup_options.dart';
 class AuthHome extends StatefulWidget {
   const AuthHome({super.key});
 
@@ -58,7 +59,7 @@ class _AuthHomeState extends State<AuthHome> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: CustomButton(onPress: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const Signup()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpOption()));
                 }, buttonText: "Create an account", buttonColor: ColorUtils.Pink, textColor: ColorUtils.Grey, isUppercase: true),
               ),
             ],
