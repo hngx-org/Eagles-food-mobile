@@ -4,8 +4,9 @@ import 'package:hng_task3/components/widgets/invites/invite_history.dart';
 import 'package:hng_task3/configs/colors.dart';
 
 class InvitesReply extends StatefulWidget {
-  const InvitesReply({super.key});
-
+  const InvitesReply({super.key, this.invites, this.page});
+  final invites;
+  final page;
   @override
   State<InvitesReply> createState() => _InvitesReplyState();
 }
@@ -54,7 +55,7 @@ class _InvitesReplyState extends State<InvitesReply> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: Text(
-                "Invites Accepted",
+                widget.page ?? '',
                 style: Theme.of(context)
                     .textTheme
                     .displayMedium
@@ -109,7 +110,7 @@ class _InvitesReplyState extends State<InvitesReply> {
                   color: ColorUtils.LightGrey
               ),),
 
-            list.isEmpty
+            widget.invites.isEmpty
                 ? ListView.builder(
                 shrinkWrap: true,
                 padding: const EdgeInsets.symmetric(vertical: 10),
@@ -121,8 +122,8 @@ class _InvitesReplyState extends State<InvitesReply> {
               padding: const EdgeInsets.symmetric(
                   vertical: 10, horizontal: 20),
               itemBuilder: (context, index) {
-                final item = list[index];
-                return InviteHistory();
+                final item = widget.invites[index];
+                return InviteHistory(item: item);
               },
             )
           ],

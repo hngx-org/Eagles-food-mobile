@@ -5,15 +5,15 @@ import 'package:hng_task3/configs/sessions.dart';
 import 'package:hng_task3/models/user.dart';
 import 'package:hng_task3/providers/AuthProvider.dart';
 import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
-import 'package:hng_task3/screens/home/menu/components/nav_screen.dart';
+import 'package:hng_task3/screens/home/menu/nav_screen.dart';
 import 'package:hng_task3/screens/withdraw_lunch/withdraw_success_screen.dart';
 import 'package:hng_task3/utils/toast.dart';
 import 'package:hng_task3/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 class WithdrawLunch extends StatefulWidget {
-  WithdrawLunch({super.key, this.user});
-  var user;
+  WithdrawLunch({super.key,});
+
   @override
   State<WithdrawLunch> createState() => _WithdrawLunchState();
 }
@@ -21,23 +21,23 @@ class WithdrawLunch extends StatefulWidget {
 class _WithdrawLunchState extends State<WithdrawLunch> {
   var convertedAmount = 0.0;
   var amount = 0;
-
+  User? user;
   @override
   void initState() {
-    SessionManager().getUser().then((userJson) {
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        setState(() {
-          widget.user ??= User.fromJson(userJson);
-        });
-      });
-    });
+    // SessionManager().getUser().then((userJson) {
+    //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    //     setState(() {
+    //       widget.user ??= User.fromJson(userJson);
+    //     });
+    //   });
+    // });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     // var user = Provider.of<AuthProvider>(context, listen: false).user;
-
+    user = Provider.of<AuthProvider>(context).user;
     return Scaffold(
       backgroundColor:  Theme.of(context).backgroundColor,
       body: SingleChildScrollView(
@@ -128,7 +128,7 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
                             Padding(
                               padding: const EdgeInsets.only(left: 15),
                               child: Text(
-                                widget.user.lunchCreditBalance.toString(),
+                                user?.lunchCreditBalance.toString() ?? '',
                                 softWrap: true,
                                 style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                                     color: ColorUtils.White
@@ -166,14 +166,6 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
                           softWrap: true,
                           style: Theme.of(context).textTheme.displaySmall
                         ),
-                      ),
-
-                      Text(
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do',
-                        softWrap: true,
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                          color: ColorUtils.Grey,
-                        )
                       ),
 
                   Container(
@@ -241,12 +233,13 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
                         padding: const EdgeInsets.symmetric(vertical: 20.0),
                         child: CustomButton(onPress: () async {
                             if (amount > 0 ) {
-                              var balanceAmt = int.parse(widget.user.lunchCreditBalance) - amount;
+                              var balanceAmt = int.parse(user!.lunchCreditBalance as String) - amount;
                               print(balanceAmt);
                               Utils.loadingProgress(context);
                               final response  = await Provider.of<TeamAndLunchProvider>(context, listen: false).withDrawLunch(amount, balanceAmt);
                               Navigator.pop(context);
-                              if(response){
+                              if(response == true){
+                                Provider.of<AuthProvider>(context, listen: false).updateUserLunch(balanceAmt.toString());
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(

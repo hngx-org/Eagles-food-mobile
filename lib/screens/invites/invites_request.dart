@@ -1,81 +1,39 @@
+// place where an org can see al the request people have made to join the organisation
 import 'package:flutter/material.dart';
 import 'package:hng_task3/components/shimmers/invitesShimmer.dart';
-import 'package:hng_task3/components/shimmers/teamShimmer.dart';
-import 'package:hng_task3/components/widgets/invites/invites.dart';
 import 'package:hng_task3/configs/colors.dart';
-import 'package:hng_task3/models/invite.dart';
-import 'package:hng_task3/providers/InvitesProvider.dart';
-import 'package:hng_task3/screens/home/menu/nav_screen.dart';
-import 'package:hng_task3/screens/invites/send_invites.dart';
+import 'package:hng_task3/models/org_request.dart';
+import 'package:hng_task3/models/org_request.dart';
+import 'package:hng_task3/providers/OrganizationProvider.dart';
 import 'package:provider/provider.dart';
 
-class Invites extends StatefulWidget {
-  const Invites({super.key});
+import '../../components/widgets/invites/invites.dart';
+class InviteRequest extends StatefulWidget {
+  const InviteRequest({super.key});
 
   @override
-  State<Invites> createState() => _InvitesState();
+  State<InviteRequest> createState() => _InviteRequestState();
 }
 
-class _InvitesState extends State<Invites> {
+class _InviteRequestState extends State<InviteRequest> {
   TextEditingController searchController = TextEditingController();
   String _searchQuery = '';
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    Provider.of<InvitesProvider>(context, listen: false).getInvites();
-    isLoading = true;
-    super.initState();
-  }
-
-  List<Invite> invites = [];
+  List<OrgRequest> filtered = [];
+  List<OrgRequest> request = [];
   bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
-    invites = Provider.of<InvitesProvider>(context).invites;
-    isLoading = Provider.of<InvitesProvider>(context).isLoading;
+    request = Provider.of<OrganizationProvider>(context).org_request;
+    isLoading = Provider.of<OrganizationProvider>(context).isLoading;
 
-    List<Invite> filterdInvites = invites
-        .where((invites) =>
-            invites.org.toLowerCase().contains(_searchQuery.toLowerCase()))
-        .toList();
-
+    // List<OrgRequest> filtered = request
+    //     .where((team) =>
+    //     team.name.toLowerCase().contains(_searchQuery.toLowerCase()))
+    //     .toList();
+    //
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            TextButton(
-              onPressed: () {
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => const NavScreen()),
-                    (route) => false);
-              },
-              child: Image.asset(
-                "assets/icons/icon-back.png",
-                height: 50,
-                width: 50,
-                fit: BoxFit.contain,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Text(
-                "Team Invites",
-                style: Theme.of(context)
-                    .textTheme
-                    .displayMedium
-                    ?.copyWith(fontWeight: FontWeight.w700, fontSize: 20),
-              ),
-            )
-          ],
-        ),
-      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(
           horizontal: 20.0,
@@ -90,11 +48,11 @@ class _InvitesState extends State<Invites> {
                 style: Theme.of(context).textTheme.bodyLarge,
                 decoration: InputDecoration(
                   contentPadding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   hintText: 'Search for member',
                   filled: true,
                   fillColor:
-                      Theme.of(context).unselectedWidgetColor.withOpacity(0.2),
+                  Theme.of(context).unselectedWidgetColor.withOpacity(0.2),
                   hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: ColorUtils.LightGrey, fontWeight: FontWeight.w500),
                   suffixIcon: Icon(
@@ -146,19 +104,19 @@ class _InvitesState extends State<Invites> {
                 itemCount: 8,
                 itemBuilder: (context, index) => const InviteShimmer()
             ) :
-              invites.isEmpty ?  Container(
-                padding: const EdgeInsets.symmetric(vertical: 100),
-                alignment: Alignment.center,
-                child: Text("You have no invites at this time",
-                  style: Theme.of(context).textTheme.bodyLarge,),
-              ) :
+            request.isEmpty ?  Container(
+              padding: const EdgeInsets.symmetric(vertical: 100),
+              alignment: Alignment.center,
+              child: Text("You have no request at this time",
+                style: Theme.of(context).textTheme.bodyLarge,),
+            ) :
             ListView.builder(
-              itemCount: invites.length,
+              itemCount: request.length,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               padding: const EdgeInsets.symmetric(vertical: 10),
               itemBuilder: (context, index) {
-                final item = invites[index];
+                final item = request[index];
                 return Invitations(invite: item,);
               },
             )

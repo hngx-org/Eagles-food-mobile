@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/components/custom_button.dart';
 import 'package:hng_task3/configs/colors.dart';
-import 'package:hng_task3/screens/home/menu/components/nav_screen.dart';
+import 'package:hng_task3/screens/home/menu/nav_screen.dart';
 
 class SendLunchSuccess extends StatelessWidget {
   const SendLunchSuccess({super.key});
@@ -88,32 +88,25 @@ class SendLunchSuccess extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      const Column(
+                       Column(
                         children: [
                           // Free Lunch Text
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 30.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 30.0),
                             child: Text(
                               "Your Free Lunch has been sent successfully",
                               textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 24,
-                                fontWeight: FontWeight.w600,
-                              ),
+                              style: Theme.of(context).textTheme.displaySmall
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 15),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
                             child: Center(
                               child: Text(
-                                "Congratulations, you have successfully sent brooklyn Simmons 3 Free Lunches! Click continue to proceed",
+                                "Congratulations, you have successfully sent 3 Free Lunches! Click continue to proceed",
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                ),
+                                style: Theme.of(context).textTheme.bodyLarge,
                               ),
                             ),
                           ),
@@ -121,7 +114,7 @@ class SendLunchSuccess extends StatelessWidget {
                       ),
 
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20),
+                        padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
                         child: CustomButton(onPress: () async {
                           Navigator.pushAndRemoveUntil(
                               context,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/configs/sessions.dart';
 import 'package:hng_task3/models/user.dart';
+import 'package:hng_task3/providers/AuthProvider.dart';
 import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
 import 'package:hng_task3/utils/toast.dart';
 import 'package:hng_task3/utils/utils.dart';
@@ -27,17 +28,18 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
   @override
   void initState() {
     super.initState();
-    SessionManager().getUser().then((userJson) {
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        setState(() {
-          user = User.fromJson(userJson);
-        });
-      });
-    });
+    // SessionManager().getUser().then((userJson) {
+    //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    //     setState(() {
+    //       user = User.fromJson(userJson);
+    //     });
+    //   });
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
+    user = Provider.of<AuthProvider>(context).user;
     return Scaffold(
       backgroundColor: ColorUtils.Green,
       appBar: AppBar(
@@ -196,7 +198,7 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                                         Radius.circular(20)),
                                   ),
                                 ),
-                                keyboardType: TextInputType.emailAddress,
+                                keyboardType: TextInputType.number,
                               )),
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.end,
@@ -308,14 +310,12 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                                 lunchData['receivers'] = [
                                   "${widget.receiver.id}"
                                 ];
-                                var balanceAmt = int.parse(user.lunchCreditBalance) - int.parse(lunchData['quantity']);
-                                final response =
-                                    await Provider.of<TeamAndLunchProvider>(
-                                            context,
-                                            listen: false)
-                                        .sendLunch(lunchData, balanceAmt);
+                                var balanceAmt = int.parse(user.lunchCreditBalance as String) - int.parse(lunchData['quantity']);
+                                final response = await Provider.of<TeamAndLunchProvider>(context, listen: false)
+                                        .sendLunch(lunchData);
                                 Navigator.pop(context);
-                                if (response) {
+                                if (response == true) {
+                                  Provider.of<AuthProvider>(context, listen: false).updateUserLunch(balanceAmt.toString());
                                   Toasts.showToast(
                                       Colors.green, "Lunch sent successfully");
                                   Navigator.pushReplacement(
@@ -323,15 +323,8 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               const SendLunchSuccess()));
-                                } else {
-                                  Toasts.showToast(
-                                      Colors.red, "Failed to send lunch");
                                 }
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const SendLunchSuccess()));
+
                               },
                               child: Text(
                                 "SEND LUNCH",

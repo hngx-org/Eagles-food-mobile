@@ -5,7 +5,7 @@ import 'package:hng_task3/components/widgets/invites/invite_history.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/models/invite.dart';
 import 'package:hng_task3/providers/InvitesProvider.dart';
-import 'package:hng_task3/screens/home/menu/components/nav_screen.dart';
+import 'package:hng_task3/screens/home/menu/nav_screen.dart';
 import 'package:hng_task3/screens/invites/invites_reply.dart';
 import 'package:provider/provider.dart';
 
@@ -23,16 +23,21 @@ class _InvitesHistoryState extends State<InvitesHistory> {
 
     @override
     void initState() {
-      Provider.of<InvitesProvider>(context).getAllInvites();
+      Provider.of<InvitesProvider>(context, listen: false).getInvitesHistory();
       super.initState();
     }
 
-  List<Invite> invites = [];
+  List<Invite> allPendingInvites = [];
+  List<Invite> allAcceptedInvites = [];
+  List<Invite> allDeclinedInvites = [];
+
   bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
-    invites = Provider.of<InvitesProvider>(context).allinvites;
+    allPendingInvites = Provider.of<InvitesProvider>(context).allPendingInvites;
+    allAcceptedInvites = Provider.of<InvitesProvider>(context).allAcceptedInvites;
+    allDeclinedInvites = Provider.of<InvitesProvider>(context).allDeclinedInvites;
     isLoading = Provider.of<InvitesProvider>(context).isLoading;
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
@@ -115,7 +120,7 @@ class _InvitesHistoryState extends State<InvitesHistory> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10.0),
                     child: Text(
-                      "${invites.length}",
+                      "${allPendingInvites.length}",
                       style: Theme.of(context)
                           .textTheme
                           .displayLarge
@@ -130,7 +135,7 @@ class _InvitesHistoryState extends State<InvitesHistory> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => InvitesReply()));
+                                  builder: (context) => InvitesReply(invites: allAcceptedInvites, page: 'Invites Accepted')));
                         },
                         fontSize: 14,
                         buttonText: 'Invites Accepted',
@@ -147,7 +152,7 @@ class _InvitesHistoryState extends State<InvitesHistory> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => InvitesReply()));
+                                  builder: (context) => InvitesReply(invites: allDeclinedInvites, page: 'Invites Declined')));
                         },
                         fontSize: 14,
                         buttonText: 'Invites Declined',
@@ -178,7 +183,7 @@ class _InvitesHistoryState extends State<InvitesHistory> {
                     itemCount: 8,
                     itemBuilder: (context, index) => const TeamShimmer())
                 :
-           invites.isEmpty ?  Container(
+           allPendingInvites.isEmpty ?  Container(
              padding: const EdgeInsets.symmetric(vertical: 100),
              alignment: Alignment.center,
              child: Text("You have no invites at this time",
@@ -186,11 +191,13 @@ class _InvitesHistoryState extends State<InvitesHistory> {
            ) :
            ListView.builder(
                     itemCount: 5,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
                     padding: const EdgeInsets.symmetric(
                         vertical: 10, horizontal: 20),
                     itemBuilder: (context, index) {
-                      final item = invites[index];
-                      return InviteHistory();
+                      final item = allPendingInvites[index];
+                      return InviteHistory(item: item);
                     },
                   )
           ],

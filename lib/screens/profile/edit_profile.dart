@@ -1,17 +1,16 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hng_task3/providers/ProfileProvider.dart';
+import 'package:hng_task3/providers/AuthProvider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-
 import '../../components/custom_button.dart';
 import '../../configs/colors.dart';
-import '../../configs/sessions.dart';
-import '../../models/user.dart';
 import '../../utils/toast.dart';
 import '../../utils/utils.dart';
+
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key, this.user});
   final user;
@@ -21,13 +20,7 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
   final _formKey = GlobalKey<FormState>();
-  final userData = {
-    "firstName": '',
-    "lastName": "",
-    "email": "",
-    "profilePic": "",
-    "phone": '',
-  };
+  final userData = {};
   File? image;
 
   Future<void> pickImage() async {
@@ -42,11 +35,6 @@ class _EditProfileState extends State<EditProfile> {
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
-  }
-
-  @override
-  void initState(){
-
   }
 
   @override
@@ -115,7 +103,7 @@ class _EditProfileState extends State<EditProfile> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -123,7 +111,7 @@ class _EditProfileState extends State<EditProfile> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        padding: const EdgeInsets.symmetric(vertical: 0.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -133,8 +121,8 @@ class _EditProfileState extends State<EditProfile> {
                                 onTap: (){pickImage();},
                                 child:  image !=null ? Container(
                                     margin: const EdgeInsets.only(top: 16),
-                                    width: 100,
-                                    height: 100,
+                                    width: 130,
+                                    height: 130,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(100),
                                     ),
@@ -145,13 +133,30 @@ class _EditProfileState extends State<EditProfile> {
                                         fit: BoxFit.cover,height: 100,width: 100,),
                                     ),
                                   ):
-                                  const CircleAvatar(
-                                    radius: 50,
-                                    backgroundImage: AssetImage(
-                                        'assets/icons/man-avatar-icon.png'
+                                  Container(
+                                    width: 130,
+                                    height: 130,
+                                    decoration:BoxDecoration(
+                                      border: Border.all(
+                                        width: 3,
+                                        color: ColorUtils.LightGrey
+                                      ),
+                                      borderRadius: BorderRadius.circular(100),
+                                      image : const DecorationImage(
+                                        image: AssetImage("assets/icons/man-avatar-icon.png"),
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    child: Container(
+                                      alignment:Alignment.center,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(100),
+                                        color: ColorUtils.LightGrey.withOpacity(0.2),
+                                      ),
+                                      child: const Icon(Icons.add_a_photo, color: Colors.white, size: 30),
+                                    ),
                                     ),
                                   ),
-                                )
                               ),
                             Padding(
                               padding:
@@ -422,15 +427,22 @@ class _EditProfileState extends State<EditProfile> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        padding: const EdgeInsets.symmetric(vertical: 20.0),
                         child: CustomButton(
                             onPress: () async {
                               if (_formKey.currentState!.validate()) {
                                 Utils.loadingProgress(context);
+                                dynamic data  = {
+                                  "email": userData['email'] ?? widget.user.email,
+                                  "lastName": userData['lastName'] ?? widget.user.lastName,
+                                  "firstName": userData['firstName'] ?? widget.user.firstName,
+                                  "phone": userData['phone'] ?? widget.user.phone,
+                                  "photo": image,
+                                };
                                 final response =
-                                await Provider.of<ProfileProvider>(context,
+                                await Provider.of<AuthProvider>(context,
                                     listen: false)
-                                    .updateProfile(userData);
+                                    .updateProfile(data);
                                 Navigator.pop(context);
                                 if (response == true) {
                                   Navigator.pop(context);

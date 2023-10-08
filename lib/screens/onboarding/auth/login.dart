@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hng_task3/components/custom_button.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/providers/AuthProvider.dart';
-import 'package:hng_task3/screens/home/menu/components/nav_screen.dart';
+import 'package:hng_task3/screens/home/menu/nav_screen.dart';
 import 'package:hng_task3/screens/onboarding/auth/forgot_password/enter_email.dart';
 import 'package:hng_task3/screens/onboarding/auth/signup.dart';
 import 'package:hng_task3/utils/toast.dart';
@@ -274,7 +274,7 @@ class _LoginState extends State<Login> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const NavScreen()), (route)=> false);
+                                                NavScreen()), (route)=> false);
                                     Toasts.showToast(
                                         Colors.green, 'Login Successful');
                                   }

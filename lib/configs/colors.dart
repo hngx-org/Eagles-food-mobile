@@ -15,5 +15,4 @@ class ColorUtils {
   static Color White = const Color(0xffffffff);
   static Color Red = const Color(0xffDA4421);
 
-
 }

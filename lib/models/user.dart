@@ -1,8 +1,8 @@
 
 class User {
-  final String? id, orgId, bankNumber, bankCode,  lunchCreditBalance;
-  final String? firstName, lastName, email, phone, profilePic , bankRegion, currency, currencyCode, bankName, orgName ;
-  final bool? isAdmin;
+  String? id, orgId, bankNumber, bankCode,  lunchCreditBalance;
+  String? firstName, lastName, email, phone, profilePic , bankRegion, currency, currencyCode, bankName, orgName ;
+  bool? isAdmin;
 
   User({
     required this.id,
