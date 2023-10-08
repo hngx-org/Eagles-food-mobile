@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:hng_task3/configs/sessions.dart';
+import 'package:hng_task3/models/leaderboard.dart';
 import 'package:hng_task3/models/lunch.dart';
 import 'package:hng_task3/models/team.dart';
-import 'package:hng_task3/models/user.dart';
 import 'package:hng_task3/network/network.dart';
 
 class TeamAndLunchProvider with ChangeNotifier {
@@ -12,11 +12,13 @@ class TeamAndLunchProvider with ChangeNotifier {
   List<Team> _everyone = [];
   List<Lunch> _lunchHistory = [];
   bool _isLoading = false;
+  List<LeaderBoard> _leaderboard = [];
 
   List<Lunch> get lunchHistory => _lunchHistory;
   List<Team> get my_team => _my_team;
   List<Team> get everyone => _everyone;
   bool get isLoading => _isLoading;
+  List<LeaderBoard> get leaderboard => _leaderboard;
 
   Future<dynamic> getUsers() async {
     const String url = 'user/all';
@@ -104,6 +106,22 @@ class TeamAndLunchProvider with ChangeNotifier {
       }
     } catch (error) {
       print(error);
+    }
+  }
+
+  Future<dynamic> getLeaderBoard() async {
+    const String url = '';
+    try{
+     _leaderboard = [];
+      final response = await Network.get(url);
+      var data = response["data"];
+      data.forEach((element) {
+        _leaderboard.add(LeaderBoard.fromJson(data));
+      });
+      _isLoading = false;
+      notifyListeners();
+    }catch(e){
+      print(e);
     }
   }
 

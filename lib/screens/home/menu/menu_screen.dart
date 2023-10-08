@@ -278,10 +278,8 @@ class _MenuScreenState extends State<MenuScreen> {
                         ),
                         onTap: () => widget.selectPage("logout"),
                         leading: Icon(
-                          Icons.manage_accounts_outlined,
-                          color: widget.selectedItem == "logout"
-                              ? ColorUtils.Green
-                              : ColorUtils.Black.withOpacity(0.5),
+                          Icons.power_settings_new,
+                          color: ColorUtils.Red
                         ),
                         title: Text(
                           "Logout",

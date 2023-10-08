@@ -89,7 +89,7 @@ class CurrentScreen extends StatelessWidget {
       case 6:
         return const Organizations();
       case 7:
-        return const LeaderBoard();
+        return const LeaderBoardScreen();
 
       default:
         return HomeScreen(

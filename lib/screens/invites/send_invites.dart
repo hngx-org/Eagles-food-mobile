@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hng_task3/components/custom_button.dart';
 import 'package:hng_task3/components/shimmers/teamShimmer.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/models/team.dart';
@@ -19,7 +20,9 @@ class SendInvites extends StatefulWidget {
 
 class _SendInvitesState extends State<SendInvites> {
   TextEditingController searchController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   String _searchQuery = '';
+  String email = '';
 
   @override
   void initState() {
@@ -148,6 +151,91 @@ class _SendInvitesState extends State<SendInvites> {
               "Send an invite for someone to join your team",
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   fontWeight: FontWeight.w500, color: ColorUtils.LightGrey),
+            ),
+
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+              decoration: BoxDecoration(
+                color: ColorUtils.Green,
+                image: const DecorationImage(
+                  image: AssetImage("assets/images/withdrawal-bg.png"),
+                  fit: BoxFit.cover,
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: ColorUtils.Yellow,
+                    spreadRadius: 1.0,
+                    offset: const Offset(7, 7.0),
+                  ),
+                ],
+              ),
+              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5.0),
+                    child: Text("Didn't find member on the list? Send a direct email", style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                      color: ColorUtils.White
+                    ),),
+                  ),
+                  TextFormField(
+                    controller: emailController,
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      color: ColorUtils.White
+                    ),
+                    decoration: InputDecoration(
+                      contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                      hintText: 'Enter email',
+                      filled: true,
+                      fillColor:
+                      Theme.of(context).unselectedWidgetColor.withOpacity(0.2),
+                      hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          color: ColorUtils.LightGrey, fontWeight: FontWeight.w500),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          width: 1,
+                          color: ColorUtils.LightGrey,
+                        ),
+                        borderRadius: const BorderRadius.all(Radius.circular(0)),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          width: 1,
+                          color: ColorUtils.LightGrey,
+                        ),
+                        borderRadius: const BorderRadius.all(Radius.circular(0)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          width: 1,
+                          color: ColorUtils.LightGrey,
+                        ),
+                        borderRadius: const BorderRadius.all(Radius.circular(0)),
+                      ),
+                    ),
+                    keyboardType: TextInputType.emailAddress,
+                    onChanged: (value) {
+                      setState(() {
+                          email = value;
+                      });
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                    child: CustomButton(
+                      onPress: () {
+
+                      },
+                      buttonText: "Send Invite",
+                      buttonColor: ColorUtils.Yellow,
+                      fontSize: 15,
+                      textColor: ColorUtils.White,
+                      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                    ),
+                  ),
+                ],
+              ),
             ),
             isLoading
                 ? ListView.builder(

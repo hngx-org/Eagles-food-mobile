@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
+import 'package:hng_task3/models/user.dart';
 import 'package:hng_task3/providers/AuthProvider.dart';
 import 'package:hng_task3/screens/home/menu/current_screen.dart';
 import 'package:hng_task3/screens/home/menu/menu_screen.dart';
@@ -98,8 +99,11 @@ class _NavScreenState extends State<NavScreen> {
     });
   }
 
+  User? user;
+
   @override
   Widget build(BuildContext context) {
+    user = Provider.of<AuthProvider>(context).user;
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: Stack(
@@ -122,11 +126,11 @@ class _NavScreenState extends State<NavScreen> {
       ),
       bottomNavigationBar: BottomAppBar(
         elevation: 0,
-        color: ColorUtils.White,
+        color: Theme.of(context).backgroundColor,
         notchMargin: 8,
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).backgroundColor,
             borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(20)
             ),
@@ -181,21 +185,21 @@ class _NavScreenState extends State<NavScreen> {
                   highlightColor: Colors.transparent,
                   onPressed: () {
                     setState(() {
-                      _currentIndex = 1;
+                      _currentIndex = 6;
                     });
                   },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Icon(Icons.search,
-                        color: _currentIndex == 0 ? ColorUtils.Green : ColorUtils.Grey,
+                      Icon(Icons.group,
+                        color: _currentIndex == 6 ? ColorUtils.Green : ColorUtils.Grey,
                         size: 22,
                       ),
 
-                      if(_currentIndex == 1) Padding(
+                      if(_currentIndex == 6) Padding(
                         padding: const EdgeInsets.symmetric(vertical: 2.0),
-                        child: Text("Orgs",
+                        child: Text("Organizations",
                           style: Theme.of(context).textTheme.bodyText1?.copyWith(
                             fontWeight: FontWeight.w400,
                             fontSize: 10,
@@ -213,21 +217,83 @@ class _NavScreenState extends State<NavScreen> {
                   highlightColor: Colors.transparent,
                   onPressed: () {
                     setState(() {
-                      _currentIndex = 2;
+                      _currentIndex = 7;
                     });
                   },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Icon(Icons.book,
-                        color: _currentIndex == 0 ? ColorUtils.Green : ColorUtils.Grey,
+                      Icon(Icons.bar_chart,
+                        color: _currentIndex == 7 ? ColorUtils.Green : ColorUtils.Grey,
+                        size: 22,
+                      ),
+                      if(_currentIndex == 7) Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 2.0),
+                        child: Text("Leaderboard",
+                          style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 10,
+                            color: ColorUtils.Green,
+                          ),
+                        ),
+                      )
+                    ],
+                  )
+              ),
+
+              user?.isAdmin == true ? MaterialButton(
+                  minWidth: 40,
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onPressed: () {
+                    setState(() {
+                      _currentIndex = 4;
+                    });
+                  },
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(Icons.insert_invitation,
+                        color: _currentIndex == 4 ? ColorUtils.Green : ColorUtils.Grey,
                         size: 22,
                       ),
 
-                      if(_currentIndex == 2) Padding(
+                      if(_currentIndex == 4) Padding(
                         padding: const EdgeInsets.symmetric(vertical: 2.0),
-                        child: Text("My Bookings",
+                        child: Text("Invites",
+                          style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 10,
+                            color: ColorUtils.Green,
+                          ),
+                        ),
+                      )
+                    ],
+                  )
+              ) :
+              MaterialButton(
+                  minWidth: 40,
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onPressed: () {
+                    setState(() {
+                      _currentIndex = 5;
+                    });
+                  },
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(Icons.manage_accounts,
+                        color: _currentIndex == 5 ? ColorUtils.Green : ColorUtils.Grey,
+                        size: 22,
+                      ),
+
+                      if(_currentIndex == 5) Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 2.0),
+                        child: Text("Send Invites",
                           style: Theme.of(context).textTheme.bodyText1?.copyWith(
                             fontWeight: FontWeight.w400,
                             fontSize: 10,
@@ -252,46 +318,14 @@ class _NavScreenState extends State<NavScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Icon(Icons.add_alert_rounded,
-                        color: _currentIndex == 0 ? ColorUtils.Green : ColorUtils.Grey,
+                      Icon(Icons.account_circle_outlined,
+                        color: _currentIndex == 3 ? ColorUtils.Green : ColorUtils.Grey,
                         size: 22,
                       ),
 
                       if(_currentIndex == 3) Padding(
                         padding: const EdgeInsets.symmetric(vertical: 2.0),
-                        child: Text("Alerts",
-                          style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 10,
-                            color: ColorUtils.Green,
-                          ),
-                        ),
-                      )
-                    ],
-                  )
-              ),
-
-              MaterialButton(
-                  minWidth: 40,
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onPressed: () {
-                    setState(() {
-                      _currentIndex = 4;
-                    });
-                  },
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(Icons.account_circle_outlined,
-                        color: _currentIndex == 0 ? ColorUtils.Green : ColorUtils.Grey,
-                        size: 22,
-                      ),
-
-                      if(_currentIndex == 4) Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 2.0),
-                        child: Text("Account",
+                        child: Text("Profile",
                           style: Theme.of(context).textTheme.bodyText1?.copyWith(
                             fontWeight: FontWeight.w400,
                             fontSize: 10,

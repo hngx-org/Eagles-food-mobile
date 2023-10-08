@@ -102,7 +102,7 @@ class _OrganizationsState extends State<Organizations> {
               ),
             ),
             Text(
-              "Send an invite for someone to join your team",
+              "Request to join an organisation",
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   fontWeight: FontWeight.w500, color: ColorUtils.LightGrey),
             ),
