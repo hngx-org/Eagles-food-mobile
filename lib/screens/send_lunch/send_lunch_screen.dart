@@ -312,7 +312,7 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                                 ];
                                 var balanceAmt = int.parse(user.lunchCreditBalance as String) - int.parse(lunchData['quantity']);
                                 final response = await Provider.of<TeamAndLunchProvider>(context, listen: false)
-                                        .sendLunch(lunchData, balanceAmt);
+                                        .sendLunch(lunchData);
                                 Navigator.pop(context);
                                 if (response == true) {
                                   Provider.of<AuthProvider>(context, listen: false).updateUserLunch(balanceAmt.toString());

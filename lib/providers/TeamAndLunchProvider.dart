@@ -1,13 +1,11 @@
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:hng_task3/configs/sessions.dart';
 import 'package:hng_task3/models/leaderboard.dart';
 import 'package:hng_task3/models/lunch.dart';
 import 'package:hng_task3/models/team.dart';
 import 'package:hng_task3/network/network.dart';
-import 'package:hng_task3/providers/AuthProvider.dart';
-import 'package:provider/provider.dart';
+
 
 class TeamAndLunchProvider with ChangeNotifier {
   List<Team> _my_team = [];
@@ -46,7 +44,7 @@ class TeamAndLunchProvider with ChangeNotifier {
   }
 
 //  send lunch
-  Future<dynamic> sendLunch(Map<String, dynamic> lunchData, int balanceAmt) async {
+  Future<dynamic> sendLunch(Map<String, dynamic> lunchData) async {
     const String url = 'lunch/send';
     final Map<String, dynamic> data = {
       'receivers': lunchData['receivers'],
