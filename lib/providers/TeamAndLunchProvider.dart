@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:hng_task3/configs/sessions.dart';

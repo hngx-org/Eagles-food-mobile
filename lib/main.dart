@@ -25,8 +25,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<OrganizationProvider>(create: (_) => OrganizationProvider()),
       ],
       child: MaterialApp(
+      // theme: ThemeData.light(useMaterial3: true),
           debugShowCheckedModeBanner: false,
-          theme: lightTheme,
+        theme: lightTheme,
           darkTheme: darkTheme,
           home: const SplashScreen(),
          ),
