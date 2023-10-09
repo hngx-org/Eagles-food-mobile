@@ -2,11 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/components/custom_button.dart';
 import 'package:hng_task3/components/shimmers/invitesShimmer.dart';
-import 'package:hng_task3/components/shimmers/teamShimmer.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/models/organization.dart';
-import 'package:hng_task3/models/team.dart';
-import 'package:hng_task3/providers/OrganizationProvider.dart';
 import 'package:hng_task3/providers/OrganizationProvider.dart';
 import 'package:hng_task3/utils/utils.dart';
 import 'package:provider/provider.dart';
