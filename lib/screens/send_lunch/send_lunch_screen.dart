@@ -70,11 +70,7 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
           ],
         ),
       ),
-      body: user == null
-          ? Center(
-              child: Utils.loading(),
-            )
-          : Align(
+      body: Align(
               // heightFactor: MediaQuery.of(context).size.height,
               alignment: Alignment.bottomCenter,
               child: SingleChildScrollView(
