@@ -61,6 +61,8 @@ class _NavScreenState extends State<NavScreen> {
         return 4;
       case "manageinvites":
         return 5;
+      case "userjoinrequest":
+        return 8;
       default:
         return 0;
     }
@@ -104,6 +106,7 @@ class _NavScreenState extends State<NavScreen> {
   @override
   Widget build(BuildContext context) {
     user = Provider.of<AuthProvider>(context).user;
+    // print(user?.isAdmin);
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: Stack(
@@ -242,7 +245,7 @@ class _NavScreenState extends State<NavScreen> {
                   )
               ),
 
-              user?.isAdmin == true ? MaterialButton(
+              user?.isAdmin != "True" ? MaterialButton(
                   minWidth: 40,
                   splashColor: Colors.transparent,
                   highlightColor: Colors.transparent,

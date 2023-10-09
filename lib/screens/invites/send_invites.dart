@@ -224,8 +224,17 @@ class _SendInvitesState extends State<SendInvites> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10.0),
                     child: CustomButton(
-                      onPress: () {
-
+                      onPress: () async {
+                        dynamic data = {
+                          "email": email
+                        };
+                        Utils.loadingProgress(context);
+                        final response = await  Provider.of<InvitesProvider>(context, listen: false).sendInvite(data);
+                        Navigator.pop(context);
+                        if(response){
+                          email = '';
+                          Toasts.showToast(ColorUtils.Green, "Invite sent");
+                        }
                       },
                       buttonText: "Send Invite",
                       buttonColor: ColorUtils.Yellow,

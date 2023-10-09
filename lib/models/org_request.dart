@@ -2,7 +2,7 @@
 class OrgRequest {
   final int id;
   final int orgId;
-  final String org;
+  final String org, email;
   final bool? status;
   final String createdAt;
 
@@ -10,6 +10,7 @@ class OrgRequest {
     required this.id,
     required this.orgId,
     required this.org,
+    required this.email,
     required this.createdAt,
     required this.status
   });
@@ -19,6 +20,7 @@ class OrgRequest {
       id: json['id'],
       orgId: json['orgId'],
       org: json['org'],
+      email: json['email'],
       status: json['status'],
       createdAt: json['createdAt'],
     );
@@ -28,6 +30,7 @@ class OrgRequest {
     "id": id,
     "orgId": orgId,
     "org": org,
+    "email": email,
     "status": status,
     "createdAt": createdAt,
   };

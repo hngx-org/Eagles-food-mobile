@@ -1,8 +1,7 @@
 
 class User {
   String? id, orgId, bankNumber, bankCode,  lunchCreditBalance;
-  String? firstName, lastName, email, phone, profilePic , bankRegion, currency, currencyCode, bankName, orgName ;
-  bool? isAdmin;
+  String? firstName, lastName, email, phone, profilePic , bankRegion, currency, currencyCode, bankName, orgName, isAdmin ;
 
   User({
     required this.id,
@@ -30,7 +29,7 @@ class User {
         firstName: data['FirstName'],
         lastName: data['LastName'],
         phone: data['Phone'],
-        isAdmin: data['isAdmin'],
+        isAdmin: data['IsAdmin'],
         orgId: data['OrgId'],
         bankNumber: data['BankNumber'],
         bankCode: data['BankCode'],
@@ -50,7 +49,7 @@ class User {
     'FirstName': firstName,
     'LastName': lastName,
     'Phone' : phone,
-    'isAdmin': isAdmin,
+    'IsAdmin': isAdmin,
     'OrgId': orgId,
     'BankNumber': bankNumber,
     'BankCode': bankCode,

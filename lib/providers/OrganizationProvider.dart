@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:hng_task3/models/org_request.dart';
 import 'package:hng_task3/models/organization.dart';
@@ -15,14 +17,34 @@ class OrganizationProvider with ChangeNotifier{
 
 
   Future<dynamic> getOrganizations() async {
-    const String url = '';
+    const String url = 'organization/all';
     try{
       _organizations = [];
       _isLoading = true;
       final response = await Network.get(url);
       var data = response["data"];
+      print(data);
       data.forEach((element) {
-        _organizations.add(Organization.fromJson(data));
+        _organizations.add(Organization.fromJson(element));
+      });
+      print(_organizations);
+      _isLoading = false;
+      notifyListeners();
+      notifyListeners();
+    }catch(e){
+      print(e);
+    }
+  }
+
+  Future<dynamic> getUserJoinRequest() async {
+    const String url = 'organization/organizationinviterequest';
+    try{
+      _org_request = [];
+      _isLoading = true;
+      final response = await Network.get(url);
+      var data = response["data"];
+      data.forEach((element) {
+        _org_request.add(OrgRequest.fromJson(element));
       });
       _isLoading = false;
       notifyListeners();
@@ -31,22 +53,47 @@ class OrganizationProvider with ChangeNotifier{
     }
   }
 
-  Future<dynamic> getUserJoinRequest() async {
-    const String url = '';
+
+  Future<dynamic> requestToJoinOrg(int orgId) async {
+    final String url = 'user/requesttojoinOrg/$orgId';
     try{
-      _org_request = [];
       _isLoading = true;
-      final response = await Network.get(url);
-      var data = response["data"];
-      data.forEach((element) {
-        _org_request.add(OrgRequest.fromJson(data));
-      });
-      _isLoading = false;
-      notifyListeners();
+      final response = await Network.post(endpoint: url);
+      if(response['success'] == true) {
+        _isLoading = false;
+        notifyListeners();
+        return true;
+      }
     }catch(e){
       print(e);
     }
   }
+
+  Future<dynamic> toggleJoinRequest(Map<String, dynamic> data) async {
+    const String url = 'organization/toggleinvite';
+    try{
+      _isLoading = true;
+
+      final response = await Network.post(endpoint: url, data: jsonEncode(data));
+      print(response);
+      if(response['success'] == true) {
+        // _org_request.forEach((element) {
+        //     if(element.id == data['inviteId']){
+        //       _org_request.remove(element);
+        //       notifyListeners();
+        //     }
+        // });
+        _isLoading = false;
+        notifyListeners();
+        return true;
+      }else{
+        return false;
+      }
+    }catch(e){
+      print(e);
+    }
+  }
+
 
 
 }

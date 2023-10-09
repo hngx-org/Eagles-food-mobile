@@ -1,12 +1,16 @@
 // list of organisations for people to request invite
 import 'package:flutter/material.dart';
+import 'package:hng_task3/components/custom_button.dart';
 import 'package:hng_task3/components/shimmers/teamShimmer.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/models/organization.dart';
 import 'package:hng_task3/models/team.dart';
 import 'package:hng_task3/providers/OrganizationProvider.dart';
 import 'package:hng_task3/providers/OrganizationProvider.dart';
+import 'package:hng_task3/utils/utils.dart';
 import 'package:provider/provider.dart';
+
+import '../../utils/toast.dart';
 class Organizations extends StatefulWidget {
   const Organizations({super.key});
 
@@ -24,14 +28,21 @@ class _OrganizationsState extends State<Organizations> {
   bool isLoading = false;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    Provider.of<OrganizationProvider>(context, listen: false).getOrganizations();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     list = Provider.of<OrganizationProvider>(context).organizations;
     isLoading = Provider.of<OrganizationProvider>(context).isLoading;
 
-    // List<Organization> filtered = list
-    //     .where((team) =>
-    //     team.name.toLowerCase().contains(_searchQuery.toLowerCase()))
-    //     .toList();
+    List<Organization> filtered = list
+        .where((team) =>
+        team.name.toLowerCase().contains(_searchQuery.toLowerCase()))
+        .toList();
 
     return Scaffold(
       appBar: AppBar(
@@ -109,7 +120,7 @@ class _OrganizationsState extends State<Organizations> {
             isLoading
                 ? ListView.builder(
                 shrinkWrap: true,
-                padding: const EdgeInsets.symmetric(vertical: 0),
+                padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 15),
                 physics: const BouncingScrollPhysics(),
                 itemCount: 8,
                 itemBuilder: (context, index) => const TeamShimmer())
@@ -130,7 +141,63 @@ class _OrganizationsState extends State<Organizations> {
                   vertical: 10, horizontal: 20),
               itemBuilder: (context, index) {
                 final item = filtered[index];
-                return null;
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(item.name,
+                              overflow: TextOverflow.ellipsis,
+                              softWrap: true,
+                              style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700
+                              ),
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Lunch price: ${item.currencyCode} ${item.lunchPrice}",
+                                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                      color: ColorUtils.Green,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500
+                                  ),
+                                ),
+
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+
+                      CustomButton(
+                        onPress: ()  async {
+                          Utils.loadingProgress(context);
+                          final response = await Provider.of<OrganizationProvider>(context, listen: false).requestToJoinOrg(item.id);
+                          if(response){
+                            Navigator.pop(context);
+                            Toasts.showToast(ColorUtils.Green, "Request sent successfully");
+                          }
+                        },
+                        buttonText: "Request To Join",
+                        buttonColor: ColorUtils.Green,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'Poppins',
+                        textColor: ColorUtils.White,
+                        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+                      ),
+                    ],
+                  ),
+                );
               },
             )
           ],

@@ -138,10 +138,9 @@ class _InvitesState extends State<Invites> {
                   fontWeight: FontWeight.w500,
                   color: ColorUtils.LightGrey
               ),),
-
             isLoading ? ListView.builder(
                 shrinkWrap: true,
-                padding: const EdgeInsets.symmetric(vertical: 10),
+                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                 physics: const BouncingScrollPhysics(),
                 itemCount: 8,
                 itemBuilder: (context, index) => const InviteShimmer()

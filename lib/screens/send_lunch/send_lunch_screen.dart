@@ -308,7 +308,7 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                               onPressed: () async {
                                 Utils.loadingProgress(context);
                                 lunchData['receivers'] = [
-                                  "${widget.receiver.id}"
+                                  "${widget.receiver.email}"
                                 ];
                                 var balanceAmt = int.parse(user.lunchCreditBalance as String) - int.parse(lunchData['quantity']);
                                 final response = await Provider.of<TeamAndLunchProvider>(context, listen: false)
