@@ -26,13 +26,6 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
   @override
   void initState() {
     super.initState();
-    // SessionManager().getUser().then((userJson) {
-    //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-    //     setState(() {
-    //       user = User.fromJson(userJson);
-    //     });
-    //   });
-    // });
   }
 
   @override
@@ -74,10 +67,6 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                     ?.copyWith(fontWeight: FontWeight.w900),
               ),
             ),
-            const SizedBox(
-              height: 18,
-              width: 18,
-            )
           ],
         ),
       ),
