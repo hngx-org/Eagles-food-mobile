@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:hng_task3/components/custom_button.dart';
 import 'package:hng_task3/configs/colors.dart';
@@ -23,6 +25,7 @@ class _SignupState extends State<Signup> {
     "email": "",
     "address": "",
     "phone": '',
+    "inviteCode": null,
     "password": "",
   };
   bool showPassword = false;
@@ -322,7 +325,6 @@ class _SignupState extends State<Signup> {
                             ],
                           ),
                         ),
-
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
                           child: Column(
@@ -463,6 +465,77 @@ class _SignupState extends State<Signup> {
                             ],
                           ),
                         ),
+                        
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 5.0),
+                                child: Text(
+                                  "Invite Code",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                          color: ColorUtils.LightGrey,
+                                          fontSize: 16),
+                                ),
+                              ),
+                              TextFormField(
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter a valid invite code.';
+                                  }
+                                  return null;
+                                },
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.copyWith(
+                                        color: ColorUtils.Grey,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16),
+                                onChanged: (value) {
+                                  userData['inviteCode'] = value;
+                                },
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  filled: false,
+                                  hintStyle: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                          color: ColorUtils.Grey, fontSize: 16),
+                                  border: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 1.3,
+                                        color: ColorUtils
+                                            .Grey), // Color of the border
+                                  ),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 1.3,
+                                        color: ColorUtils
+                                            .Grey), // Color of the border
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 2,
+                                        color: ColorUtils
+                                            .Green), // Color of the border
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
                           child: Column(
