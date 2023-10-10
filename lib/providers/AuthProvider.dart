@@ -13,20 +13,21 @@ class AuthProvider with ChangeNotifier {
   bool? get isLoggedIn => _isLoggedIn;
   bool get isLoading => _isLoading;
 
-  void updateUserLunch(String balance){
+  void updateUserLunch(String balance) {
     _user?.lunchCreditBalance = balance;
   }
 
   Future<dynamic> getUserProfile() async {
     const String url = 'user/profile';
-    try{
+    try {
       _isLoading = true;
+      ;
       final response = await Network.get(url);
       var user = response["data"];
       _user = User.fromJson(user);
       _isLoggedIn = false;
       notifyListeners();
-    }catch(e){
+    } catch (e) {
       print(e);
     }
   }
@@ -38,8 +39,9 @@ class AuthProvider with ChangeNotifier {
       'password': userData['password'].trim(),
     };
     try {
-      final response = await Network.post(endpoint: url, data: jsonEncode(data));
-      if(response['success'] == true){
+      final response =
+          await Network.post(endpoint: url, data: jsonEncode(data));
+      if (response['success'] == true) {
         var user = response['data'];
         var token = response['data']['access_token'];
         _user = User.fromJson(user);
@@ -51,7 +53,7 @@ class AuthProvider with ChangeNotifier {
         ss.setLogin(true);
         ss.saveUser(_user!.toJson());
         return true;
-      }else{
+      } else {
         return false;
       }
     } catch (error) {
@@ -68,10 +70,12 @@ class AuthProvider with ChangeNotifier {
       'address': userData['address'],
       'phone': userData['phone'],
       'password': userData['password'],
+      //'inviteCode':userData['inviteCode']
     };
     try {
-      final response = await Network.post(endpoint: url, data: json.encode(data));
-      if(response['success'] == true){
+      final response =
+          await Network.post(endpoint: url, data: json.encode(data));
+      if (response['success'] == true) {
         var user = response['data'];
         _user = User.fromJson(user);
         _isLoggedIn = true;
@@ -82,7 +86,7 @@ class AuthProvider with ChangeNotifier {
         ss.setToken(response['data']['access_token']);
         ss.saveUser(_user!.toJson());
         return true;
-      }else{
+      } else {
         return false;
       }
     } catch (error) {
@@ -95,10 +99,10 @@ class AuthProvider with ChangeNotifier {
     print(data);
     try {
       final response = await Network.multipart(endpoint: url, data: data);
-      if(response['statusCode'] == 200){
+      if (response['statusCode'] == 200) {
         print(response);
         return true;
-      }else{
+      } else {
         return false;
       }
     } catch (error) {
@@ -108,20 +112,20 @@ class AuthProvider with ChangeNotifier {
 
   Future<dynamic> verifyOTP(String email, String otp) async {
     String url = 'auth/verify-reset-token?email=$email&token=$otp';
-    try{
+    try {
       _isLoading = true;
       final response = await Network.get(url);
-      if(response['success']== true){
+      if (response['success'] == true) {
         _isLoading = false;
         return true;
-      }else{
+      } else {
         _isLoading = false;
-        return false;}
-    }catch(e){
+        return false;
+      }
+    } catch (e) {
       print(e);
     }
   }
-
 
   Future<dynamic> forgotPassword(Map<String, dynamic> userData) async {
     const String url = 'auth/forgot-password';
@@ -129,10 +133,11 @@ class AuthProvider with ChangeNotifier {
       'email': userData['email'],
     };
     try {
-      final response = await Network.post(endpoint: url, data: jsonEncode(data));
-      if(response['statusCode'] == 200){
+      final response =
+          await Network.post(endpoint: url, data: jsonEncode(data));
+      if (response['statusCode'] == 200) {
         return true;
-      }else{
+      } else {
         return false;
       }
     } catch (error) {
@@ -140,7 +145,9 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  Future<dynamic> resetPassword(Map<String, dynamic> userData,) async {
+  Future<dynamic> resetPassword(
+    Map<String, dynamic> userData,
+  ) async {
     const String url = 'auth/reset-password';
     final Map<String, dynamic> data = {
       'email': userData['email'],
@@ -148,10 +155,11 @@ class AuthProvider with ChangeNotifier {
       'newPassword': userData['newPassword'],
     };
     try {
-      final response = await Network.post(endpoint: url, data: jsonEncode(data));
-      if(response['statusCode'] == 200){
+      final response =
+          await Network.post(endpoint: url, data: jsonEncode(data));
+      if (response['statusCode'] == 200) {
         return true;
-      }else{
+      } else {
         return false;
       }
     } catch (error) {
@@ -159,7 +167,9 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  Future<dynamic> changePassword(Map<String, dynamic> userData,) async {
+  Future<dynamic> changePassword(
+    Map<String, dynamic> userData,
+  ) async {
     const String url = 'auth/changePassword';
     final Map<String, dynamic> data = {
       'email': userData['email'],
@@ -167,14 +177,13 @@ class AuthProvider with ChangeNotifier {
       'newPassword': userData['newPassword'],
     };
     try {
-      final response = await Network.post(endpoint: url, data: jsonEncode(data));
-      if(response['statusCode'] == 200){
+      final response =
+          await Network.post(endpoint: url, data: jsonEncode(data));
+      if (response['statusCode'] == 200) {
         return true;
-      }else{
+      } else {
         return false;
-
       }
-
     } catch (error) {
       print(error);
     }
@@ -188,6 +197,37 @@ class AuthProvider with ChangeNotifier {
     notifyListeners();
   }
 
-
-
+  Future<dynamic> organisationSignUp(Map<String, dynamic> userData) async {
+    const String url = 'organization/staff/signup';
+    final Map<String, dynamic> data = {
+      'firstName': userData['firstName'],
+      'lastName': userData['lastName'],
+      'email': userData['emailAdress'],
+      'address': userData['address'],
+      'phone': userData['phone'],
+      'password': userData['password'],
+      'orgName': userData['orgName'],
+      'orgLunchPrice': userData['orgLunchPrice'],
+    };
+    try {
+      final response =
+          await Network.post(endpoint: url, data: json.encode(data));
+      if (response['success'] == true) {
+        var user = response['data'];
+        _user = User.fromJson(user);
+        _isLoggedIn = true;
+        notifyListeners();
+        notifyListeners();
+        SessionManager ss = SessionManager();
+        ss.setLogin(true);
+        ss.setToken(response['data']['access_token']);
+        ss.saveUser(_user!.toJson());
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      print(error);
+    }
+  }
 }
