@@ -75,6 +75,7 @@ class TeamAndLunchProvider with ChangeNotifier {
       _lunchHistory = [];
       final response = await Network.get(url);
       var lunchHistory = response["data"];
+      print(lunchHistory);
       lunchHistory.forEach((element) {
         _lunchHistory.add(Lunch.fromJson(element));
       });

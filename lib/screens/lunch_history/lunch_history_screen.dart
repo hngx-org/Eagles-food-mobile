@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/components/widgets/lunch_history/available_lunch_card.dart';
 import 'package:hng_task3/components/widgets/lunch_history/lunch_history_widget.dart';
+import 'package:hng_task3/models/user.dart';
 import 'package:hng_task3/providers/AuthProvider.dart';
 import 'package:provider/provider.dart';
 
@@ -15,13 +16,15 @@ class LunchHistoryScreen extends StatefulWidget {
 }
 
 class _LunchHistoryScreenState extends State<LunchHistoryScreen> {
+
+  User? user;
   @override
   void initState() {
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
-    widget.user ??= Provider.of<AuthProvider>(context).user;
+    user = Provider.of<AuthProvider>(context).user;
     return Scaffold(
       backgroundColor:  Theme.of(context).backgroundColor,
       appBar: AppBar(

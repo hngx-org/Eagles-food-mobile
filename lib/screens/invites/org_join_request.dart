@@ -45,35 +45,16 @@ class _OrgJoinRequestState extends State<OrgJoinRequest> {
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            TextButton(
-              onPressed: () {
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => const NavScreen()),
-                        (route) => false);
-              },
-              child: Image.asset(
-                "assets/icons/icon-back.png",
-                height: 50,
-                width: 50,
-                fit: BoxFit.contain,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Text(
-                "User Join Request",
-                style: Theme.of(context)
-                    .textTheme
-                    .displayMedium
-                    ?.copyWith(fontWeight: FontWeight.w700, fontSize: 20),
-              ),
-            )
-          ],
+        centerTitle: true,
+        title: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Text(
+            "User Join Request",
+            style: Theme.of(context)
+                .textTheme
+                .displayMedium
+                ?.copyWith(fontWeight: FontWeight.w700, fontSize: 20),
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -133,7 +114,7 @@ class _OrgJoinRequestState extends State<OrgJoinRequest> {
               ),
             ),
             Text(
-              "Accept to Join a Team",
+              "Accept member request to join your team.",
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   fontWeight: FontWeight.w500,
                   color: ColorUtils.LightGrey
@@ -196,7 +177,6 @@ class _OrgJoinRequestState extends State<OrgJoinRequest> {
                                   fontWeight: FontWeight.w500
                               ),
                             )
-
                           ],
                         ),
                       ),
@@ -212,8 +192,8 @@ class _OrgJoinRequestState extends State<OrgJoinRequest> {
                                 };
                                 Utils.loadingProgress(context);
                                 final response = await Provider.of<OrganizationProvider>(context, listen: false).toggleJoinRequest(data);
+                                Navigator.pop(context);
                                 if(response){
-                                  Navigator.pop(context);
                                   Toasts.showToast(ColorUtils.Green, "Request accepted successfully");
                                 }
                               },
@@ -238,8 +218,8 @@ class _OrgJoinRequestState extends State<OrgJoinRequest> {
                                 };
                                 Utils.loadingProgress(context);
                                 final response = await Provider.of<OrganizationProvider>(context, listen: false).toggleJoinRequest(data);
+                                Navigator.pop(context);
                                 if(response == true){
-                                  Navigator.pop(context);
                                   Toasts.showToast(ColorUtils.Green, "Request declined successfully");
                                 }
                               },

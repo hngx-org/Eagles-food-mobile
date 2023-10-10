@@ -17,6 +17,11 @@ class AuthProvider with ChangeNotifier {
     _user?.lunchCreditBalance = balance;
   }
 
+  void updateUserOrg(String org, String orgId){
+    _user?.orgName = org;
+    _user?.orgId = orgId;
+  }
+
   Future<dynamic> getUserProfile() async {
     const String url = 'user/profile';
     try {
@@ -96,11 +101,15 @@ class AuthProvider with ChangeNotifier {
 
   Future<dynamic> updateProfile(Map<String, dynamic> data) async {
     const String url = 'user/update';
-    print(data);
     try {
       final response = await Network.multipart(endpoint: url, data: data);
-      if (response['statusCode'] == 200) {
-        print(response);
+      if(response['statusCode'] == 200){
+        var user = response['data'];
+        _user = User.fromJson(user);
+        notifyListeners();
+        notifyListeners();
+        SessionManager ss = SessionManager();
+        ss.saveUser(_user!.toJson());
         return true;
       } else {
         return false;

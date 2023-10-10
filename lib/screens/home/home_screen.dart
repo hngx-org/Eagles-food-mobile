@@ -197,7 +197,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: TeamList(list: my_team),
           ),
 
-          if (lunch_history.length > 0)
+          if (lunch_history.isNotEmpty)
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: LunchHistoryWidget(

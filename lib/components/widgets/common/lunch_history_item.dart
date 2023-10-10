@@ -17,7 +17,7 @@ class LaunchHistoryItem extends StatefulWidget {
 
 class _LaunchHistoryItemState extends State<LaunchHistoryItem> {
   var user;
-  bool isReceived = false;
+  String isReceived = '';
 
   @override
   void initState() {
@@ -40,17 +40,17 @@ class _LaunchHistoryItemState extends State<LaunchHistoryItem> {
             Expanded(
               child: DynamicColorText(
                   text: widget.lunchHistory.note.toUpperCase(),
-                  dynamicColor: isReceived ? ColorUtils.Green : Colors.red),
+                  dynamicColor: isReceived == 'received' ? ColorUtils.Green :  isReceived == 'sent' ?  Colors.red : ColorUtils.Yellow),
             ),
             const SizedBox(
               width: 35,
             ),
             Text(
-              "${isReceived ? "+" : "-"} ${widget.lunchHistory.quantity.toString()}",
+              "${isReceived == 'received' ? "+" : isReceived == 'sent' ? "-" : ''} ${widget.lunchHistory.quantity.toString()}",
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
-                  color: isReceived ? ColorUtils.Green : Colors.red),
+                  color: isReceived == 'received' ? ColorUtils.Green :  isReceived == 'sent' ?  Colors.red : ColorUtils.Yellow ),
             ),
           ],
         ),
@@ -87,7 +87,7 @@ class _LaunchHistoryItemState extends State<LaunchHistoryItem> {
             Expanded(
               flex: 1,
               child: Text(
-                "${isReceived ? "Received" : "Sent"} Free Lunch",
+                "${isReceived == 'received' ? "Received Free" : isReceived == 'sent' ?  "Sent Free" : 'Withdrawn' } Lunch",
                 textAlign: TextAlign.right,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     fontSize: 14,
@@ -102,9 +102,9 @@ class _LaunchHistoryItemState extends State<LaunchHistoryItem> {
   }
 
   String _getSubTittle() {
-    var subtittle = isReceived
-        ? "FROM ${widget.lunchHistory.senderName}"
-        : "TO ${widget.lunchHistory.receiverName}";
+    var subtittle = isReceived == 'received'
+        ? "From ${widget.lunchHistory.senderName}"
+        : "To ${widget.lunchHistory.receiverName}";
 
     return subtittle;
   }

@@ -49,48 +49,34 @@ class _SendInvitesState extends State<SendInvites> {
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            TextButton(
-              onPressed: () {
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => const NavScreen()),
-                    (route) => false);
-              },
-              child: Image.asset(
-                "assets/icons/icon-back.png",
-                height: 50,
-                width: 50,
-                fit: BoxFit.contain,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Text(
-                "Send Team Invite",
-                style: Theme.of(context)
-                    .textTheme
-                    .displayMedium
-                    ?.copyWith(fontWeight: FontWeight.w700, fontSize: 20),
-              ),
-            )
-          ],
+        centerTitle: true,
+        title: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Text(
+            "Send Team Invite",
+            style: Theme.of(context)
+                .textTheme
+                .displayMedium
+                ?.copyWith(fontWeight: FontWeight.w700, fontSize: 20),
+          ),
         ),
         actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const InvitesHistory()));
-              },
-              icon: Icon(
-                Icons.history,
-                color: ColorUtils.Green,
-              ))
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: IconButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const InvitesHistory()));
+                },
+                icon: Icon(
+                  Icons.history,
+                  color: ColorUtils.Green,
+                  size: 30,
+                  weight: 30.0,
+                )),
+          )
         ],
       ),
       body: SingleChildScrollView(
@@ -152,7 +138,6 @@ class _SendInvitesState extends State<SendInvites> {
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   fontWeight: FontWeight.w500, color: ColorUtils.LightGrey),
             ),
-
             Container(
               margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
               decoration: BoxDecoration(

@@ -47,6 +47,7 @@ class _OrganizationsState extends State<Organizations> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        centerTitle: true,
         title: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Text(
@@ -182,8 +183,8 @@ class _OrganizationsState extends State<Organizations> {
                         onPress: ()  async {
                           Utils.loadingProgress(context);
                           final response = await Provider.of<OrganizationProvider>(context, listen: false).requestToJoinOrg(item.id);
+                          Navigator.pop(context);
                           if(response){
-                            Navigator.pop(context);
                             Toasts.showToast(ColorUtils.Green, "Request sent successfully");
                           }
                         },

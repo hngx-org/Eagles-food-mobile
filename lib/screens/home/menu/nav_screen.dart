@@ -182,7 +182,7 @@ class _NavScreenState extends State<NavScreen> {
                   )
               ),
 
-              MaterialButton(
+              user?.isAdmin != "True" ? MaterialButton(
                   minWidth: 40,
                   splashColor: Colors.transparent,
                   highlightColor: Colors.transparent,
@@ -212,7 +212,37 @@ class _NavScreenState extends State<NavScreen> {
                       )
                     ],
                   )
-              ),
+              ) : MaterialButton(
+                  minWidth: 40,
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onPressed: () {
+                    setState(() {
+                      _currentIndex = 8;
+                    });
+                  },
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(Icons.group,
+                        color: _currentIndex == 8 ? ColorUtils.Green : ColorUtils.Grey,
+                        size: 22,
+                      ),
+
+                      if(_currentIndex == 8) Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 2.0),
+                        child: Text("Join Requests",
+                          style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 10,
+                            color: ColorUtils.Green,
+                          ),
+                        ),
+                      )
+                    ],
+                  )
+              ) ,
 
               MaterialButton(
                   minWidth: 40,

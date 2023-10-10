@@ -40,6 +40,7 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        centerTitle: true,
         title: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Text(
