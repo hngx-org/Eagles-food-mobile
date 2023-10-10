@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
-import 'package:hng_task3/configs/sessions.dart';
-import 'package:hng_task3/models/user.dart';
 import 'package:hng_task3/providers/AuthProvider.dart';
 import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
 import 'package:hng_task3/utils/toast.dart';
@@ -43,18 +41,22 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
     return Scaffold(
       backgroundColor: ColorUtils.Green,
       appBar: AppBar(
+        titleSpacing: 10,
         centerTitle: true,
         automaticallyImplyLeading: false,
         backgroundColor: ColorUtils.Green,
         elevation: 0,
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
               },
+              style: TextButton.styleFrom(
+                padding: EdgeInsets.zero,
+              ),
               child: Image.asset(
                 "assets/icons/icon-back.png",
                 height: 50,
@@ -63,17 +65,18 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Text(
-                  "Send Lunch",
-                  style: Theme.of(context)
-                      .textTheme
-                      .displayMedium
-                      ?.copyWith(fontWeight: FontWeight.w900),
-                ),
+              padding: const EdgeInsets.only(right: 30),
+              child: Text(
+                "Send Lunch",
+                style: Theme.of(context)
+                    .textTheme
+                    .displayMedium
+                    ?.copyWith(fontWeight: FontWeight.w900),
               ),
+            ),
+            const SizedBox(
+              height: 18,
+              width: 18,
             )
           ],
         ),
@@ -106,6 +109,7 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       decoration: BoxDecoration(
+                          // ignore: deprecated_member_use
                           color: Theme.of(context).backgroundColor,
                           borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(30),
@@ -129,7 +133,7 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                           // style: Theme.of(context).textTheme.displayLarge,  ),
 
                           Padding(
-                            padding: const EdgeInsets.only( bottom: 20.0),
+                            padding: const EdgeInsets.only(bottom: 20.0),
                             child: Text(
                               '${user.orgName} Member',
                               style: Theme.of(context)
@@ -147,8 +151,8 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                                   .textTheme
                                   .bodyMedium!
                                   .copyWith(
-                                      fontWeight: FontWeight.bold,
-                              ),
+                                    fontWeight: FontWeight.bold,
+                                  ),
                             ),
                           ),
 
@@ -211,9 +215,9 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                                     .textTheme
                                     .bodySmall
                                     ?.copyWith(
-                                        fontWeight: FontWeight.w400,
-                                        // color: ColorUtils.Black
-                                ),
+                                      fontWeight: FontWeight.w400,
+                                      // color: ColorUtils.Black
+                                    ),
                               ),
                               Text(
                                 " ${user.lunchCreditBalance} ",
@@ -232,9 +236,9 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                                     .textTheme
                                     .bodySmall
                                     ?.copyWith(
-                                        fontWeight: FontWeight.w400,
-                                        // color: ColorUtils.Black
-                                ),
+                                      fontWeight: FontWeight.w400,
+                                      // color: ColorUtils.Black
+                                    ),
                               ),
                             ],
                           ),
@@ -248,9 +252,9 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                                     .textTheme
                                     .bodyMedium!
                                     .copyWith(
-                                        fontWeight: FontWeight.bold,
-                                        // color: Colors.black
-                                ),
+                                      fontWeight: FontWeight.bold,
+                                      // color: Colors.black
+                                    ),
                               )),
                           Padding(
                               padding:
@@ -310,12 +314,19 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                                 lunchData['receivers'] = [
                                   "${widget.receiver.id}"
                                 ];
-                                var balanceAmt = int.parse(user.lunchCreditBalance as String) - int.parse(lunchData['quantity']);
-                                final response = await Provider.of<TeamAndLunchProvider>(context, listen: false)
+                                var balanceAmt = int.parse(
+                                        user.lunchCreditBalance as String) -
+                                    int.parse(lunchData['quantity']);
+                                final response =
+                                    await Provider.of<TeamAndLunchProvider>(
+                                            context,
+                                            listen: false)
                                         .sendLunch(lunchData);
                                 Navigator.pop(context);
                                 if (response == true) {
-                                  Provider.of<AuthProvider>(context, listen: false).updateUserLunch(balanceAmt.toString());
+                                  Provider.of<AuthProvider>(context,
+                                          listen: false)
+                                      .updateUserLunch(balanceAmt.toString());
                                   Toasts.showToast(
                                       Colors.green, "Lunch sent successfully");
                                   Navigator.pushReplacement(
@@ -324,7 +335,6 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                                           builder: (context) =>
                                               const SendLunchSuccess()));
                                 }
-
                               },
                               child: Text(
                                 "SEND LUNCH",
