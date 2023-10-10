@@ -21,12 +21,15 @@ class OrganisationSignUp extends StatefulWidget {
 class _OrganisationSignUpState extends State<OrganisationSignUp> {
 
    final userData = {
-    "organizationName":'',
-    "Organization Type": '',
-    "emailAdress": "",
+    "orgName":'',
+    "firstName": '',
+    "lastName": '',
+    "email": "",
     "adress": "",
     "phone": "",
     "Password": "",
+    "orgLunchPrice": "",
+    
   };
   bool showPassword = false;
   final _formKey = GlobalKey<FormState>();
@@ -111,7 +114,7 @@ class _OrganisationSignUpState extends State<OrganisationSignUp> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Padding(
+                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,7 +124,7 @@ class _OrganisationSignUpState extends State<OrganisationSignUp> {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 5.0),
                                 child: Text(
-                                  "Organization Name",
+                                  "First Name",
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyMedium
@@ -133,7 +136,7 @@ class _OrganisationSignUpState extends State<OrganisationSignUp> {
                               TextFormField(
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please enter organization name.';
+                                    return 'Please enter your first name.';
                                   }
                                   return null;
                                 },
@@ -145,7 +148,7 @@ class _OrganisationSignUpState extends State<OrganisationSignUp> {
                                         fontWeight: FontWeight.w500,
                                         fontSize: 16),
                                 onChanged: (value) {
-                                  userData['organizationName'] = value;
+                                  userData['firstName'] = value;
                                 },
                                 obscureText: false,
                                 decoration: InputDecoration(
@@ -174,7 +177,7 @@ class _OrganisationSignUpState extends State<OrganisationSignUp> {
                                             .Green), // Color of the border
                                   ),
                                   contentPadding: const EdgeInsets.symmetric(
-                                      horizontal: 10),
+                                      vertical: 10, horizontal: 10),
                                 ),
                                 keyboardType: TextInputType.text,
                               )
@@ -192,7 +195,7 @@ class _OrganisationSignUpState extends State<OrganisationSignUp> {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 5.0),
                                 child: Text(
-                                  "OrganiZation Type",
+                                  "Last Name",
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyMedium
@@ -204,7 +207,7 @@ class _OrganisationSignUpState extends State<OrganisationSignUp> {
                               TextFormField(
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please enter your Enter organization type.';
+                                    return 'Please enter your last name.';
                                   }
                                   return null;
                                 },
@@ -216,7 +219,7 @@ class _OrganisationSignUpState extends State<OrganisationSignUp> {
                                         fontWeight: FontWeight.w500,
                                         fontSize: 16),
                                 onChanged: (value) {
-                                  userData['organizationType'] = value;
+                                  userData['lastName'] = value;
                                 },
                                 obscureText: false,
                                 decoration: InputDecoration(
@@ -262,7 +265,7 @@ class _OrganisationSignUpState extends State<OrganisationSignUp> {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 5.0),
                                 child: Text(
-                                  "Email Adress",
+                                  "Organization Name",
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyMedium
@@ -274,10 +277,7 @@ class _OrganisationSignUpState extends State<OrganisationSignUp> {
                               TextFormField(
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please enter organization email address.';
-                                  }
-                                  if (!value.contains('@')) {
-                                    return 'Please enter a valid email address.';
+                                    return 'Please enter organization name.';
                                   }
                                   return null;
                                 },
@@ -289,7 +289,7 @@ class _OrganisationSignUpState extends State<OrganisationSignUp> {
                                         fontWeight: FontWeight.w500,
                                         fontSize: 16),
                                 onChanged: (value) {
-                                  userData['emailAdress'] = value;
+                                  userData['orgName'] = value;
                                 },
                                 obscureText: false,
                                 decoration: InputDecoration(
@@ -320,77 +320,7 @@ class _OrganisationSignUpState extends State<OrganisationSignUp> {
                                   contentPadding: const EdgeInsets.symmetric(
                                       horizontal: 10),
                                 ),
-                              )
-                            ],
-                          ),
-                        ),
-
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 5.0),
-                                child: Text(
-                                  "Phone",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.copyWith(
-                                          color: ColorUtils.LightGrey,
-                                          fontSize: 16),
-                                ),
-                              ),
-                              TextFormField(
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter organization phone contact.';
-                                  }
-                                  return null;
-                                },
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge
-                                    ?.copyWith(
-                                        color: ColorUtils.Grey,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 16),
-                                onChanged: (value) {
-                                  userData['phone'] = value;
-                                },
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  filled: false,
-                                  hintStyle: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.copyWith(
-                                          color: ColorUtils.Grey, fontSize: 16),
-                                  border: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 1.3,
-                                        color: ColorUtils
-                                            .Grey), // Color of the border
-                                  ),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 1.3,
-                                        color: ColorUtils
-                                            .Grey), // Color of the border
-                                  ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 2,
-                                        color: ColorUtils
-                                            .Green), // Color of the border
-                                  ),
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      horizontal: 10),
-                                ),
-                                keyboardType: TextInputType.number,
+                                keyboardType: TextInputType.text,
                               )
                             ],
                           ),
@@ -466,6 +396,219 @@ class _OrganisationSignUpState extends State<OrganisationSignUp> {
                           ),
                         ),
                         Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 5.0),
+                                child: Text(
+                                  "Email Address",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                          color: ColorUtils.LightGrey,
+                                          fontSize: 16),
+                                ),
+                              ),
+                              TextFormField(
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter organization email address.';
+                                  }
+                                  if (!value.contains('@')) {
+                                    return 'Please enter a valid email address.';
+                                  }
+                                  return null;
+                                },
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.copyWith(
+                                        color: ColorUtils.Grey,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16),
+                                onChanged: (value) {
+                                  userData['email'] = value;
+                                },
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  filled: false,
+                                  hintStyle: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                          color: ColorUtils.Grey, fontSize: 16),
+                                  border: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 1.3,
+                                        color: ColorUtils
+                                            .Grey), // Color of the border
+                                  ),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 1.3,
+                                        color: ColorUtils
+                                            .Grey), // Color of the border
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 2,
+                                        color: ColorUtils
+                                            .Green), // Color of the border
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                           Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 5.0),
+                                child: Text(
+                                  "Organization Lunch Price",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                          color: ColorUtils.LightGrey,
+                                          fontSize: 16),
+                                ),
+                              ),
+                              TextFormField(
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter organization lunch price.';
+                                  }
+                                  return null;
+                                },
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.copyWith(
+                                        color: ColorUtils.Grey,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16),
+                                onChanged: (value) {
+                                  userData['orgPrice'] = value;
+                                },
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  filled: false,
+                                  hintStyle: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                          color: ColorUtils.Grey, fontSize: 16),
+                                  border: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 1.3,
+                                        color: ColorUtils
+                                            .Grey), // Color of the border
+                                  ),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 1.3,
+                                        color: ColorUtils
+                                            .Grey), // Color of the border
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 2,
+                                        color: ColorUtils
+                                            .Green), // Color of the border
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                ),
+                                  keyboardType: TextInputType.number,
+                              )
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 5.0),
+                                child: Text(
+                                  "Phone",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                          color: ColorUtils.LightGrey,
+                                          fontSize: 16),
+                                ),
+                              ),
+                              TextFormField(
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter organization phone contact.';
+                                  }
+                                  return null;
+                                },
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.copyWith(
+                                        color: ColorUtils.Grey,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16),
+                                onChanged: (value) {
+                                  userData['phone'] = value;
+                                },
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  filled: false,
+                                  hintStyle: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                          color: ColorUtils.Grey, fontSize: 16),
+                                  border: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 1.3,
+                                        color: ColorUtils
+                                            .Grey), // Color of the border
+                                  ),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 1.3,
+                                        color: ColorUtils
+                                            .Grey), // Color of the border
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        width: 2,
+                                        color: ColorUtils
+                                            .Green), // Color of the border
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                ),
+                                keyboardType: TextInputType.number,
+                              )
+                            ],
+                          ),
+                        ),
+                       
+                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

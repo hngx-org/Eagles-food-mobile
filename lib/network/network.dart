@@ -73,9 +73,9 @@ class Network {
     }
   }
 
-  static Future<dynamic> multipart({required String endpoint, dynamic data}) async{
-
-    if(await NetworkUtils.hasNetwork()){
+  static Future<dynamic> multipart(
+      {required String endpoint, dynamic data}) async {
+    if (await NetworkUtils.hasNetwork()) {
       var token = await SessionManager().getToken();
       final Map<String, String> headers = {
         'Content-Type': 'multipart/form-data',
@@ -85,24 +85,30 @@ class Network {
       var url = Uri.parse(baseUrl + endpoint);
       try {
         var request = http.MultipartRequest('PUT', url);
-        request.headers.addAll( await NetworkUtils.headers());
+        request.headers.addAll(await NetworkUtils.headers());
         request.fields['firstName'] = data['firstName'];
         request.fields['lastName'] = data['lastName'];
         request.fields['email'] = data['email'];
         request.fields['phone'] = data['phone'];
+        request.fields['orgName'] = data['organizationName'];
+        request.fields['orgLunchPrice'] = data['orgLunchPrice'];
+      //  request.fields['inviteCode'] = data['inviteCode'];
 
-        if(data['photo'] != null){
+        if (data['photo'] != null) {
           var photoFile = data['photo'];
           var photoBytes = await photoFile.readAsBytes();
           request.files.add(
-            await http.MultipartFile.fromBytes('photo', photoBytes,),
+            await http.MultipartFile.fromBytes(
+              'photo',
+              photoBytes,
+            ),
           );
         }
         var result = await request.send();
         var response = await http.Response.fromStream(result);
-        if(response.statusCode == 200){
+        if (response.statusCode == 200) {
           return json.decode(response.body);
-        } else{
+        } else {
           print("multipart error ${response.statusCode}");
           NetworkErrors.handleNetworkErrors(response);
         }
@@ -110,9 +116,8 @@ class Network {
         print(stackTrace);
         Toasts.showToast(Colors.red, 'Request failed');
       }
-    }else{
+    } else {
       Toasts.showToast(Colors.black, "No Internet Connection");
     }
   }
-
 }
