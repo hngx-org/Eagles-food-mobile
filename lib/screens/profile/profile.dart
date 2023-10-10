@@ -33,6 +33,7 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     user = Provider.of<AuthProvider>(context).user;
+    print(user?.profilePic);
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
@@ -77,7 +78,20 @@ class _ProfileState extends State<Profile> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ClipRRect(
+                      user?.profilePic == '' ? Container(
+                      width: 130,
+                      height: 130,
+                      decoration:BoxDecoration(
+                        border: Border.all(
+                            width: 3,
+                            color: ColorUtils.LightGrey
+                        ),
+                        borderRadius: BorderRadius.circular(100),
+                        image : const DecorationImage(
+                          image: AssetImage("assets/icons/man-avatar-icon.png"),
+                          fit: BoxFit.cover,
+                        ),
+                      )) : ClipRRect(
                           borderRadius: BorderRadius.circular(100),
                           child: Image.network(user?.profilePic ?? '', height: 100, fit: BoxFit.cover,)),
                       // Name
@@ -96,7 +110,7 @@ class _ProfileState extends State<Profile> {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: Text(
-                          "${user?.orgName ?? ''}",
+                          user?.orgName ?? '',
                           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             fontSize: 16,
                             color: ColorUtils.White,

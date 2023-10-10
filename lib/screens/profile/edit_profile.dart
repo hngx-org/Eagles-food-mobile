@@ -39,6 +39,7 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
@@ -142,8 +143,8 @@ class _EditProfileState extends State<EditProfile> {
                                         color: ColorUtils.LightGrey
                                       ),
                                       borderRadius: BorderRadius.circular(100),
-                                      image : const DecorationImage(
-                                        image: AssetImage("assets/icons/man-avatar-icon.png"),
+                                      image : DecorationImage(
+                                        image: widget.user?.profilePic == '' ? AssetImage("assets/icons/man-avatar-icon.png") : NetworkImage(widget.user?.profilePic) as ImageProvider,
                                         fit: BoxFit.cover,
                                       ),
                                     ),

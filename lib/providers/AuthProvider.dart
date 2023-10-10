@@ -75,11 +75,45 @@ class AuthProvider with ChangeNotifier {
       'address': userData['address'],
       'phone': userData['phone'],
       'password': userData['password'],
-      //'inviteCode':userData['inviteCode']
     };
     try {
       final response =
           await Network.post(endpoint: url, data: json.encode(data));
+      if (response['success'] == true) {
+        var user = response['data'];
+        _user = User.fromJson(user);
+        _isLoggedIn = true;
+        notifyListeners();
+        notifyListeners();
+        SessionManager ss = SessionManager();
+        ss.setLogin(true);
+        ss.setToken(response['data']['access_token']);
+        ss.saveUser(_user!.toJson());
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      print(error);
+    }
+  }
+
+  Future<dynamic> orgRegister(Map<String, dynamic> userData) async {
+    const String url = 'organization/staff/signup';
+    final Map<String, dynamic> data = {
+      'firstName': userData['firstName'],
+      'lastName': userData['lastName'],
+      'email': userData['email'],
+      'orgCurrencyCode': userData['orgCurrencyCode'],
+      'phone': userData['phone'],
+      'password': userData['password'],
+      'orgName': userData['orgName'],
+      'orgLunchPrice': userData['orgLunchPrice'],
+      'orgHidden': false,
+    };
+    try {
+      final response =
+      await Network.post(endpoint: url, data: json.encode(data));
       if (response['success'] == true) {
         var user = response['data'];
         _user = User.fromJson(user);
@@ -105,13 +139,11 @@ class AuthProvider with ChangeNotifier {
       final response = await Network.multipart(endpoint: url, data: data);
       if(response['statusCode'] == 200){
         var user = response['data'];
-        print(user);
-        var _use = User.fromJson(user);
-        print(_use.toJson());
-        // notifyListeners();
-        // notifyListeners();
-        // SessionManager ss = SessionManager();
-        // ss.saveUser(_user!.toJson());
+        _user = User.fromJson(user);
+        notifyListeners();
+        notifyListeners();
+        SessionManager ss = SessionManager();
+        ss.saveUser(_user!.toJson());
         return true;
       } else {
         return false;

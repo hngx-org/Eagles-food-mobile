@@ -73,13 +73,7 @@ class _SendLunchSearchState extends State<SendLunchSearch> {
                     ),
                   );
                 },
-                child: Image.asset(
-                  "assets/images/withdraw_plus.png",
-                  height: 18,
-                  width: 18,
-                  fit: BoxFit.contain,
-                  color: ColorUtils.Black,
-                ),
+                child: Icon(Icons.add, size: 30,)
               ),
             ),
           ],

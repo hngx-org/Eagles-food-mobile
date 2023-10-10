@@ -71,18 +71,21 @@ class OrganizationProvider with ChangeNotifier{
 
   Future<dynamic> toggleJoinRequest(Map<String, dynamic> data) async {
     const String url = 'organization/toggleinvite';
+    print(data);
     try{
       _isLoading = true;
-
       final response = await Network.post(endpoint: url, data: jsonEncode(data));
       print(response);
+
       if(response['success'] == true) {
-        // _org_request.forEach((element) {
-        //     if(element.id == data['inviteId']){
-        //       _org_request.remove(element);
-        //       notifyListeners();
-        //     }
-        // });
+        List<OrgRequest> _updatedList = [];
+        _org_request.forEach((element) {
+            if(element.id != data['inviteId']){
+              _updatedList.add(element);
+            }
+        });
+        _org_request = _updatedList;
+        notifyListeners();
         _isLoading = false;
         notifyListeners();
         return true;

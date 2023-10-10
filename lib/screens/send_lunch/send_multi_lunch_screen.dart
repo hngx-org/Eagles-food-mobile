@@ -44,11 +44,6 @@ class _SendMultiLunchScreenState extends State<SendMultiLunchScreen> {
       final thirdEmail = _thirdEmailController.text;
       int noOfLunch;
 
-      // Test
-      // print('firstEmail: $firstEmail');
-      // print('secondEmail: $secondEmail');
-      // print('thirdEmail: $thirdEmail');
-
       Utils.loadingProgress(context);
       lunchData['receivers'] = [
         if (firstEmail != '') firstEmail,
@@ -63,8 +58,6 @@ class _SendMultiLunchScreenState extends State<SendMultiLunchScreen> {
       } else {
         noOfLunch = 3;
       }
-      // Test
-      // print('noOfLunch: $noOfLunch');
 
       var balanceAmt = int.parse(user?.lunchCreditBalance as String) -
           int.parse(lunchData['quantity'] * noOfLunch);
@@ -73,15 +66,13 @@ class _SendMultiLunchScreenState extends State<SendMultiLunchScreen> {
           await Provider.of<TeamAndLunchProvider>(context, listen: false)
               .sendLunch(lunchData);
 
+      print(response);
       if (!context.mounted) return;
       Navigator.pop(context);
-
       if (response == true) {
         Provider.of<AuthProvider>(context, listen: false)
             .updateUserLunch(balanceAmt.toString());
-
         Toasts.showToast(Colors.green, "Lunch sent successfully");
-
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -96,70 +87,33 @@ class _SendMultiLunchScreenState extends State<SendMultiLunchScreen> {
   Widget build(BuildContext context) {
     user = Provider.of<AuthProvider>(context).user;
     return Scaffold(
-      backgroundColor: ColorUtils.Green,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         titleSpacing: 10,
-        centerTitle: true,
         automaticallyImplyLeading: false,
-        backgroundColor: ColorUtils.Green,
         elevation: 0,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              style: TextButton.styleFrom(
-                padding: EdgeInsets.zero,
-              ),
-              child: Image.asset(
-                "assets/icons/icon-back.png",
-                height: 50,
-                width: 50,
-                fit: BoxFit.contain,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 24.0),
-              child: Text(
-                "Send to Multiple",
-                style: Theme.of(context)
-                    .textTheme
-                    .displayMedium
-                    ?.copyWith(fontWeight: FontWeight.w900),
-              ),
-            ),
-          ],
+        title: TextButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          style: TextButton.styleFrom(
+            padding: EdgeInsets.zero,
+          ),
+          child: Image.asset(
+            "assets/icons/icon-back.png",
+            height: 50,
+            width: 50,
+            fit: BoxFit.contain,
+          ),
         ),
       ),
-      body: user == null
-          ? Center(
-              child: Utils.loading(),
-            )
-          : Form(
+      body:  Form(
               key: _formKey,
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    //Avatar
-                    Stack(
-                      children: [
-                        Positioned(
-                          bottom: 7,
-                          right: 40,
-                          child: Image.asset('assets/images/arrow.png'),
-                        ),
-                        Align(
-                          alignment: Alignment.center,
-                          child: Image.asset('assets/images/man-avatar.png'),
-                        ),
-                      ],
-                    ),
-
                     //Body
                     Expanded(
                       child: Container(
@@ -167,28 +121,18 @@ class _SendMultiLunchScreenState extends State<SendMultiLunchScreen> {
                         decoration: BoxDecoration(
                           // ignore: deprecated_member_use
                           color: Theme.of(context).backgroundColor,
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(30),
-                            topRight: Radius.circular(30),
-                          ),
+
                         ),
                         child: SingleChildScrollView(
                           physics: const BouncingScrollPhysics(),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Container(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 10.0),
-                                child: Center(
-                                  child:
-                                      Image.asset('assets/images/handler.png'),
-                                ),
-                              ),
+
                               Padding(
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 5.0),
-                                child: Text('Send Lunch to More Members',
+                                child: Text('Send Lunch to More Members at the same time',
                                     style: Theme.of(context)
                                         .textTheme
                                         .displayMedium),
@@ -279,9 +223,12 @@ class _SendMultiLunchScreenState extends State<SendMultiLunchScreen> {
                                     ),
                                     hintText:
                                         "Enter 1st member's email address",
-                                    hintStyle: TextStyle(
-                                      color: Theme.of(context).disabledColor,
-                                      fontSize: 14,
+                                    hintStyle: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall
+                                        ?.copyWith(
+                                      fontWeight: FontWeight.w400,
+
                                     ),
                                   ),
                                   keyboardType: TextInputType.emailAddress,

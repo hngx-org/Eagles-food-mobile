@@ -25,11 +25,10 @@ class _OrganisationSignUpState extends State<OrganisationSignUp> {
     "firstName": '',
     "lastName": '',
     "email": "",
-    "adress": "",
+    "orgCurrencyCode": "",
     "phone": "",
-    "Password": "",
+    "password": "",
     "orgLunchPrice": "",
-    
   };
   bool showPassword = false;
   final _formKey = GlobalKey<FormState>();
@@ -335,7 +334,7 @@ class _OrganisationSignUpState extends State<OrganisationSignUp> {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 5.0),
                                 child: Text(
-                                  "Organization Address",
+                                  "Organization Currency Code",
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyMedium
@@ -347,7 +346,7 @@ class _OrganisationSignUpState extends State<OrganisationSignUp> {
                               TextFormField(
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please enter organization address.';
+                                    return 'Please enter organization code.';
                                   }
                                   return null;
                                 },
@@ -359,7 +358,7 @@ class _OrganisationSignUpState extends State<OrganisationSignUp> {
                                         fontWeight: FontWeight.w500,
                                         fontSize: 16),
                                 onChanged: (value) {
-                                  userData['address'] = value;
+                                  userData['orgCurrencyCode'] = value;
                                 },
                                 obscureText: false,
                                 decoration: InputDecoration(
@@ -405,7 +404,7 @@ class _OrganisationSignUpState extends State<OrganisationSignUp> {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 5.0),
                                 child: Text(
-                                  "Email Address",
+                                  "Organization Email ",
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyMedium
@@ -501,7 +500,7 @@ class _OrganisationSignUpState extends State<OrganisationSignUp> {
                                         fontWeight: FontWeight.w500,
                                         fontSize: 16),
                                 onChanged: (value) {
-                                  userData['orgPrice'] = value;
+                                  userData['orgLunchPrice'] = value;
                                 },
                                 obscureText: false,
                                 decoration: InputDecoration(
@@ -697,7 +696,7 @@ class _OrganisationSignUpState extends State<OrganisationSignUp> {
                                   final response =
                                       await Provider.of<AuthProvider>(context,
                                               listen: false)
-                                          .register(userData);
+                                          .orgRegister(userData);
                                   Navigator.pop(context);
                                   if (response) {
                                     Navigator.pushAndRemoveUntil(

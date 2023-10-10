@@ -84,21 +84,19 @@ class Network {
       };
       var url = Uri.parse(baseUrl + endpoint);
       try {
+        print(data);
         var request = http.MultipartRequest('PUT', url);
         request.headers.addAll(await NetworkUtils.headers());
         request.fields['firstName'] = data['firstName'];
         request.fields['lastName'] = data['lastName'];
         request.fields['email'] = data['email'];
         request.fields['phone'] = data['phone'];
-        request.fields['orgName'] = data['organizationName'];
-        request.fields['orgLunchPrice'] = data['orgLunchPrice'];
-      //  request.fields['inviteCode'] = data['inviteCode'];
 
         if (data['photo'] != null) {
           var photoFile = data['photo'];
           var photoBytes = await photoFile.readAsBytes();
           request.files.add(
-            await http.MultipartFile.fromBytes(
+            await http.MultipartFile.fromPath(
               'photo',
               photoBytes,
             ),

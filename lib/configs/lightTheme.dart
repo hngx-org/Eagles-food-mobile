@@ -20,6 +20,7 @@ ThemeData lightTheme = ThemeData(
     elevation: 0,
     iconTheme: IconThemeData(color: Colors.black),
   ),
+  iconTheme: IconThemeData(color: ColorUtils.Black),
   textTheme: TextTheme(
     // main primary body text
     bodyLarge: TextStyle(
@@ -37,6 +38,15 @@ ThemeData lightTheme = ThemeData(
         fontStyle: FontStyle.normal,
         fontWeight: FontWeight.w400,
         fontSize: 15),
+
+    // secondary body text
+    bodySmall: TextStyle(
+        color: ColorUtils.Grey,
+        fontFamily: 'Poppins',
+        fontStyle: FontStyle.normal,
+        fontWeight: FontWeight.w400,
+        fontSize: 13),
+
 
     // main heading text
     displayLarge: TextStyle(
