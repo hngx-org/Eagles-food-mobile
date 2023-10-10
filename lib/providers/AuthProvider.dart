@@ -105,11 +105,13 @@ class AuthProvider with ChangeNotifier {
       final response = await Network.multipart(endpoint: url, data: data);
       if(response['statusCode'] == 200){
         var user = response['data'];
-        _user = User.fromJson(user);
-        notifyListeners();
-        notifyListeners();
-        SessionManager ss = SessionManager();
-        ss.saveUser(_user!.toJson());
+        print(user);
+        var _use = User.fromJson(user);
+        print(_use.toJson());
+        // notifyListeners();
+        // notifyListeners();
+        // SessionManager ss = SessionManager();
+        // ss.saveUser(_user!.toJson());
         return true;
       } else {
         return false;

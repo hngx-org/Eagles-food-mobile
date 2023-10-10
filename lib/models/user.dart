@@ -22,6 +22,9 @@ class User {
     required this.orgName
   });
 
+
+  // {firstName: Akams, lastName: Era, email: romanricakam@gmail.com, phone: 67357253, profilePic: /app/storage/romanricakam@gmail.com.png, userId: 25, role: User, refreshToken: null, resetToken: 8104, bankNumber: 100000020, bankCode: 257801, bankName: FLC, bankRegion: Jupiter, orgId: 2, currency: null, currencyCode: null, organization_Name: Eagles Food, isAdmin: false, lunchCreditBalance: 60, createdAt: 2023-10-03T04:02:51, updatedAt: 2023-10-03T04:02:51}
+
   factory User.fromJson(Map<String, dynamic> data) {
     return User(
         id: data['Id'],
