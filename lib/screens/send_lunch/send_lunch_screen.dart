@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
-import 'package:hng_task3/configs/sessions.dart';
-import 'package:hng_task3/models/user.dart';
 import 'package:hng_task3/providers/AuthProvider.dart';
 import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
 import 'package:hng_task3/utils/toast.dart';
@@ -67,7 +65,7 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(right: 24.0),
+              padding: const EdgeInsets.only(right: 30),
               child: Text(
                 "Send Lunch",
                 style: Theme.of(context)
@@ -76,18 +74,10 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                     ?.copyWith(fontWeight: FontWeight.w900),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(right: 6),
-              child: InkWell(
-                onTap: () {},
-                child: Image.asset(
-                  "assets/images/withdraw_plus.png",
-                  height: 18,
-                  width: 18,
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ),
+            const SizedBox(
+              height: 18,
+              width: 18,
+            )
           ],
         ),
       ),
