@@ -29,17 +29,25 @@ class SignUpOption extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Image.asset("assets/logo/logo_green.png", height: 140, width: 140, fit: BoxFit.contain,),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical:10.0),
-                child: Text("Free Launch",
-                  style: Theme.of(context).textTheme.displayLarge,),
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                child: Image.asset("assets/logo/logo_green.png", height: 140, width: 140, fit: BoxFit.contain,),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
+                child: Text("You can Signup as an Org or a normal employee",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                      color: ColorUtils.Black
+                  ),),
               ),
                Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: Text("Join the Free Lunch Club",
+                textAlign: TextAlign.left,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: ColorUtils.Grey
                 ),),
@@ -48,13 +56,13 @@ class SignUpOption extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: CustomButton(onPress: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context) => const Signup()));
-                }, buttonText: "Create a user account", buttonColor: ColorUtils.Green, textColor: ColorUtils.White, isUppercase: true),
+                }, buttonText: "Create User account", buttonColor: ColorUtils.Green, textColor: ColorUtils.White, isUppercase: true),
               ),
                Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: CustomButton(onPress: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context) => const OrganisationSignUp()));
-                }, buttonText: "Create an organization account", buttonColor: ColorUtils.Green, textColor: ColorUtils.White, isUppercase: true),
+                }, buttonText: "Create Org account", buttonColor: ColorUtils.Green, textColor: ColorUtils.White, isUppercase: true),
               ),
             ],
           ),
