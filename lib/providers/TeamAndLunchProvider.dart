@@ -8,6 +8,8 @@ import 'package:hng_task3/models/lunch.dart';
 import 'package:hng_task3/models/team.dart';
 import 'package:hng_task3/network/network.dart';
 
+import '../configs/colors.dart';
+import '../utils/toast.dart';
 
 class TeamAndLunchProvider with ChangeNotifier {
   List<Team> _my_team = [];
@@ -24,7 +26,7 @@ class TeamAndLunchProvider with ChangeNotifier {
 
   Future<dynamic> getUsers() async {
     const String url = 'user/all';
-    try{
+    try {
       _my_team = [];
       _everyone = [];
       _isLoading = true;
@@ -40,7 +42,7 @@ class TeamAndLunchProvider with ChangeNotifier {
       });
       _isLoading = false;
       notifyListeners();
-    }catch(e){
+    } catch (e) {
       print(e);
     }
   }
@@ -55,23 +57,24 @@ class TeamAndLunchProvider with ChangeNotifier {
     };
     try {
       _isLoading = true;
-      final response = await Network.post(endpoint: url, data: jsonEncode(data));
-      if(response['success'] == true){
+      final response =
+          await Network.post(endpoint: url, data: jsonEncode(data));
+      if (response['success'] == true) {
         _isLoading = false;
         notifyListeners();
         return true;
-      }else{
+      } else {
         return false;
       }
     } catch (error) {
-      print(error);
+      Toasts.showToast(ColorUtils.Green, error.toString());
     }
   }
 
 //  lunch history
   Future<dynamic> getLunchHistory() async {
     const String url = 'lunch/all';
-    try{
+    try {
       _lunchHistory = [];
       final response = await Network.get(url);
       var lunchHistory = response["data"];
@@ -80,7 +83,7 @@ class TeamAndLunchProvider with ChangeNotifier {
         _lunchHistory.add(Lunch.fromJson(element));
       });
       notifyListeners();
-    }catch(e){
+    } catch (e) {
       print(e);
     }
   }
@@ -88,19 +91,18 @@ class TeamAndLunchProvider with ChangeNotifier {
 //  withdraw lunch
   Future<dynamic> withDrawLunch(int amount, int balanceAmt) async {
     const String url = 'lunch/withdrawlunch';
-    final data = {
-      "quantity" : amount
-    };
+    final data = {"quantity": amount};
     try {
-      final response = await Network.post(endpoint: url, data: jsonEncode(data));
-      if(response['success'] == true){
+      final response =
+          await Network.post(endpoint: url, data: jsonEncode(data));
+      if (response['success'] == true) {
         SessionManager ss = SessionManager();
         var user = await ss.getUser();
         user['LunchCreditBalance'] = balanceAmt.toString();
         ss.saveUser(user);
         notifyListeners();
         return true;
-      }else{
+      } else {
         return false;
       }
     } catch (error) {
@@ -110,9 +112,9 @@ class TeamAndLunchProvider with ChangeNotifier {
 
   Future<dynamic> getLeaderBoard() async {
     const String url = 'lunch/leaderboard';
-    try{
-     _leaderboard = [];
-     _isLoading = true;
+    try {
+      _leaderboard = [];
+      _isLoading = true;
       final response = await Network.get(url);
       var data = response["data"];
       print(data);
@@ -121,10 +123,8 @@ class TeamAndLunchProvider with ChangeNotifier {
       });
       _isLoading = false;
       notifyListeners();
-    }catch(e){
+    } catch (e) {
       print(e);
     }
   }
-
-
 }
