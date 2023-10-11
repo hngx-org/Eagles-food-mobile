@@ -26,13 +26,6 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
   @override
   void initState() {
     super.initState();
-    // SessionManager().getUser().then((userJson) {
-    //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-    //     setState(() {
-    //       user = User.fromJson(userJson);
-    //     });
-    //   });
-    // });
   }
 
   @override
@@ -74,18 +67,11 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                     ?.copyWith(fontWeight: FontWeight.w900),
               ),
             ),
-            const SizedBox(
-              height: 18,
-              width: 18,
-            )
+
           ],
         ),
       ),
-      body: user == null
-          ? Center(
-              child: Utils.loading(),
-            )
-          : Align(
+      body: Align(
               // heightFactor: MediaQuery.of(context).size.height,
               alignment: Alignment.bottomCenter,
               child: SingleChildScrollView(
@@ -312,7 +298,7 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                               onPressed: () async {
                                 Utils.loadingProgress(context);
                                 lunchData['receivers'] = [
-                                  "${widget.receiver.id}"
+                                  "${widget.receiver.email}"
                                 ];
                                 var balanceAmt = int.parse(
                                         user.lunchCreditBalance as String) -

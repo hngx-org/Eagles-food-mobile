@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/screens/home/home_screen.dart';
 import 'package:hng_task3/screens/invites/invites.dart';
+import 'package:hng_task3/screens/invites/org_join_request.dart';
 import 'package:hng_task3/screens/invites/organizations.dart';
 import 'package:hng_task3/screens/invites/send_invites.dart';
 import 'package:hng_task3/screens/leaderboard/leaderboard.dart';
@@ -90,6 +91,8 @@ class CurrentScreen extends StatelessWidget {
         return const Organizations();
       case 7:
         return const LeaderBoardScreen();
+      case 8:
+        return const OrgJoinRequest();
 
       default:
         return HomeScreen(

@@ -2,20 +2,20 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:hng_task3/models/invite.dart';
+import 'package:hng_task3/models/sentInvite.dart';
 import 'package:hng_task3/network/network.dart';
 
 class InvitesProvider with ChangeNotifier {
   List<Invite> _invites = [];
-  List<Invite> _allPendingInvites = [];
-  List<Invite> _allAcceptedInvites = [];
-  List<Invite> _allDeclinedInvites = [];
+  List<SendInvite> _allPendingInvites = [];
+  List<SendInvite> _allAcceptedInvites = [];
+  List<SendInvite> _allDeclinedInvites = [];
   bool _isLoading = false;
 
-
   List<Invite> get invites => _invites;
-  List<Invite> get allPendingInvites => _allPendingInvites;
-  List<Invite> get allAcceptedInvites => _allAcceptedInvites;
-  List<Invite> get allDeclinedInvites => _allDeclinedInvites;
+  List<SendInvite> get allPendingInvites => _allPendingInvites;
+  List<SendInvite> get allAcceptedInvites => _allAcceptedInvites;
+  List<SendInvite> get allDeclinedInvites => _allDeclinedInvites;
   bool get isLoading => _isLoading;
 
   Future<dynamic> getInvites() async {
@@ -105,13 +105,14 @@ class InvitesProvider with ChangeNotifier {
       final response = await Network.get(url);
       if(response['success'] == true){
         var invites = response['data'];
+        print(invites);
         invites.forEach((invite) {
           if(invite['status'] == true){
-            _allDeclinedInvites.add(Invite.fromJson(invite));
+            _allDeclinedInvites.add(SendInvite.fromJson(invite));
           }else if (invite['status'] == true){
-            _allPendingInvites.add(Invite.fromJson(invite));
+            _allPendingInvites.add(SendInvite.fromJson(invite));
           }else{
-            _allPendingInvites.add(Invite.fromJson(invite));
+            _allPendingInvites.add(SendInvite.fromJson(invite));
           }
         });
         _isLoading = false;
@@ -124,5 +125,21 @@ class InvitesProvider with ChangeNotifier {
       print(error);
     }
 
+  }
+
+//  cancel invite
+  Future<dynamic> cancelOrgInvite(dynamic data) async {
+    const String url = 'organization/invite/cancel';
+    try {
+      final response = await Network.post(endpoint: url, data: jsonEncode(data));
+      if(response['success'] == true){
+        notifyListeners();
+        return true;
+      }else{
+        return false;
+      }
+    } catch (error) {
+      print(error);
+    }
   }
 }

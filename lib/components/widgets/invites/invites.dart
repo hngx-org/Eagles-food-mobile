@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/components/custom_button.dart';
 import 'package:hng_task3/configs/colors.dart';
+import 'package:hng_task3/providers/AuthProvider.dart';
 import 'package:hng_task3/providers/InvitesProvider.dart';
 import 'package:hng_task3/screens/invites/invites.dart';
 import 'package:hng_task3/screens/invites/invites_reply_success.dart';
+import 'package:hng_task3/utils/date_extension.dart';
 import 'package:hng_task3/utils/utils.dart';
 import 'package:provider/provider.dart';
 class Invitations extends StatelessWidget {
@@ -23,7 +25,7 @@ class Invitations extends StatelessWidget {
             color: ColorUtils.LightGrey.withOpacity(0.2),
             spreadRadius: 2,
             blurRadius: 2,
-            offset: Offset(0, 0.5),
+            offset: const Offset(0, 0.5),
           ),
         ],
       ),
@@ -42,7 +44,7 @@ class Invitations extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "Sent on ${invite.createdAt}",
+                  "Sent on ${DateTime.parse(invite.createdAt).formatToDate}",
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: ColorUtils.Green,
                     fontWeight: FontWeight.w500
@@ -65,6 +67,7 @@ class Invitations extends StatelessWidget {
                     Utils.loadingProgress(context);
                     final response = await Provider.of<InvitesProvider>(context, listen: false).replyInvite(data);
                     if(response){
+                        Provider.of<AuthProvider>(context,listen: false).updateUserOrg(invite.org, invite.orgId);
                         Navigator.push(
                           context,
                           MaterialPageRoute(

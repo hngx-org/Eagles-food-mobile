@@ -75,6 +75,7 @@ class TeamAndLunchProvider with ChangeNotifier {
       _lunchHistory = [];
       final response = await Network.get(url);
       var lunchHistory = response["data"];
+      print(lunchHistory);
       lunchHistory.forEach((element) {
         _lunchHistory.add(Lunch.fromJson(element));
       });
@@ -108,13 +109,15 @@ class TeamAndLunchProvider with ChangeNotifier {
   }
 
   Future<dynamic> getLeaderBoard() async {
-    const String url = '';
+    const String url = 'lunch/leaderboard';
     try{
      _leaderboard = [];
+     _isLoading = true;
       final response = await Network.get(url);
       var data = response["data"];
+      print(data);
       data.forEach((element) {
-        _leaderboard.add(LeaderBoard.fromJson(data));
+        _leaderboard.add(LeaderBoard.fromJson(element));
       });
       _isLoading = false;
       notifyListeners();

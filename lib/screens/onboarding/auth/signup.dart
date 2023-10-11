@@ -486,12 +486,7 @@ class _SignupState extends State<Signup> {
                                 ),
                               ),
                               TextFormField(
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please enter a valid invite code.';
-                                  }
-                                  return null;
-                                },
+
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyLarge
@@ -620,7 +615,6 @@ class _SignupState extends State<Signup> {
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
                           child: CustomButton(
                               onPress: () async {
-                                if (_formKey.currentState!.validate()) {
                                   Utils.loadingProgress(context);
                                   final response =
                                       await Provider.of<AuthProvider>(context,
@@ -636,7 +630,7 @@ class _SignupState extends State<Signup> {
                                     Toasts.showToast(
                                         Colors.green, 'Signup Successful');
                                   }
-                                }
+
                               },
                               buttonText: "Sign Up",
                               buttonColor: ColorUtils.Green,

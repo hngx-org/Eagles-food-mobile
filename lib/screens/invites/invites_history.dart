@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hng_task3/components/custom_button.dart';
 import 'package:hng_task3/components/shimmers/teamShimmer.dart';
 import 'package:hng_task3/components/widgets/invites/invite_history.dart';
+import 'package:hng_task3/components/widgets/invites/sendInvite.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/models/invite.dart';
+import 'package:hng_task3/models/sentInvite.dart';
 import 'package:hng_task3/providers/InvitesProvider.dart';
 import 'package:hng_task3/screens/home/menu/nav_screen.dart';
 import 'package:hng_task3/screens/invites/invites_reply.dart';
@@ -27,9 +29,9 @@ class _InvitesHistoryState extends State<InvitesHistory> {
       super.initState();
     }
 
-  List<Invite> allPendingInvites = [];
-  List<Invite> allAcceptedInvites = [];
-  List<Invite> allDeclinedInvites = [];
+  List<SendInvite> allPendingInvites = [];
+  List<SendInvite> allAcceptedInvites = [];
+  List<SendInvite> allDeclinedInvites = [];
 
   bool isLoading = false;
 
@@ -39,6 +41,7 @@ class _InvitesHistoryState extends State<InvitesHistory> {
     allAcceptedInvites = Provider.of<InvitesProvider>(context).allAcceptedInvites;
     allDeclinedInvites = Provider.of<InvitesProvider>(context).allDeclinedInvites;
     isLoading = Provider.of<InvitesProvider>(context).isLoading;
+
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
@@ -104,7 +107,7 @@ class _InvitesHistoryState extends State<InvitesHistory> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        'Total Invites',
+                        'Total Pending Invites',
                         style:
                             Theme.of(context).textTheme.displaySmall?.copyWith(
                                   color: ColorUtils.White,
@@ -194,10 +197,10 @@ class _InvitesHistoryState extends State<InvitesHistory> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 20),
+                        vertical: 0,),
                     itemBuilder: (context, index) {
                       final item = allPendingInvites[index];
-                      return InviteHistory(item: item);
+                      return InviteSend(item: item);
                     },
                   )
           ],

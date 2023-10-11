@@ -84,6 +84,7 @@ class Network {
       };
       var url = Uri.parse(baseUrl + endpoint);
       try {
+        print(data);
         var request = http.MultipartRequest('PUT', url);
         request.headers.addAll(await NetworkUtils.headers());
         request.fields['firstName'] = data['firstName'];
@@ -98,7 +99,7 @@ class Network {
           var photoFile = data['photo'];
           var photoBytes = await photoFile.readAsBytes();
           request.files.add(
-            await http.MultipartFile.fromBytes(
+             http.MultipartFile.fromBytes(
               'photo',
               photoBytes,
             ),

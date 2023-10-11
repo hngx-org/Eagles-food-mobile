@@ -20,6 +20,7 @@ ThemeData darkTheme = ThemeData(
     elevation: 0,
     iconTheme: IconThemeData(color: Colors.black),
   ),
+  iconTheme: IconThemeData(color: ColorUtils.White),
   textTheme: TextTheme(
     // main primary body text
     bodyLarge: TextStyle(
@@ -32,11 +33,19 @@ ThemeData darkTheme = ThemeData(
 
     // secondary body text
     bodyMedium: TextStyle(
-        color: ColorUtils.Grey,
+        color: ColorUtils.White,
         fontFamily: 'Poppins',
         fontStyle: FontStyle.normal,
         fontWeight: FontWeight.w400,
         fontSize: 15),
+
+    // secondary body text
+    bodySmall: TextStyle(
+        color: ColorUtils.White,
+        fontFamily: 'Poppins',
+        fontStyle: FontStyle.normal,
+        fontWeight: FontWeight.w400,
+        fontSize: 13),
 
     // main heading text
     displayLarge: TextStyle(

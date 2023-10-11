@@ -12,7 +12,7 @@ class InvitesReply extends StatefulWidget {
 }
 
 class _InvitesReplyState extends State<InvitesReply> {
-  List list = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,26 +104,60 @@ class _InvitesReplyState extends State<InvitesReply> {
                 },
               ),
             ),
-            Text("You can modify accepted team members here",
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.w500,
-                  color: ColorUtils.LightGrey
-              ),),
-
             widget.invites.isEmpty
-                ? ListView.builder(
-                shrinkWrap: true,
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                physics: const BouncingScrollPhysics(),
-                itemCount: 8,
-                itemBuilder: (context, index) => const TeamShimmer())
+                ? Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: Text(
+                "No invites available",
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w500, color: ColorUtils.LightGrey),
+              ),
+            )
                 : ListView.builder(
-              itemCount: 5,
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: widget.invites.length,
               padding: const EdgeInsets.symmetric(
                   vertical: 10, horizontal: 20),
               itemBuilder: (context, index) {
                 final item = widget.invites[index];
-                return InviteHistory(item: item);
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              item.email,
+                              overflow: TextOverflow.ellipsis,
+                              softWrap: true,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium
+                                  ?.copyWith(fontSize: 18, fontWeight: FontWeight.w400),
+                            ),
+                            Text(
+                              item.status == true ? 'Accepted' : item.status == false ? 'Declined' : 'Pending',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineSmall
+                                  ?.copyWith(
+                                  color: ColorUtils.DeepPink,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 11
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                );
               },
             )
           ],

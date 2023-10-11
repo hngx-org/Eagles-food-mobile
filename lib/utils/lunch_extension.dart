@@ -4,9 +4,14 @@ import 'package:hng_task3/models/user.dart';
 
 extension LunchExtension on Lunch {
 
-  Future<bool> isReceived() async {
-    var userMap = await SessionManager().getUser();
-    User user = User.fromJson(userMap);
-    return (user.id == receiverId.toString());
+  Future<String> isReceived() async {
+    if(lunchStatus == 0){
+      return 'sent';
+    }else if(lunchStatus == 1){
+      return 'received';
+    }else{
+      return 'withdrawn';
+    }
   }
+
 }

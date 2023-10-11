@@ -213,7 +213,7 @@ class _MenuScreenState extends State<MenuScreen> {
                         ),
                       ),
                     ),
-                    if(user?.isAdmin != true ) SizedBox(
+                    if(user?.isAdmin != "True" ) SizedBox(
                       width: 150,
                       child: ListTile(
                         contentPadding: const EdgeInsets.symmetric(
@@ -241,7 +241,7 @@ class _MenuScreenState extends State<MenuScreen> {
                         ),
                       ),
                     ),
-                    if(user?.isAdmin == true )SizedBox(
+                    if(user?.isAdmin == "True"  )SizedBox(
                       width: 150,
                       child: ListTile(
                         contentPadding: const EdgeInsets.symmetric(
@@ -263,6 +263,34 @@ class _MenuScreenState extends State<MenuScreen> {
                               .bodyMedium!
                               .copyWith(
                             color: widget.selectedItem == "manageinvites"
+                                ? ColorUtils.Green
+                                : ColorUtils.Black,
+                          ),
+                        ),
+                      ),
+                    ),
+                    if(user?.isAdmin == "True"  )SizedBox(
+                      width: 150,
+                      child: ListTile(
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 0,
+                          vertical: 3,
+                        ),
+                        onTap: () => widget.selectPage("userjoinrequest"),
+                        leading: Icon(
+                          Icons.send,
+                          color: widget.selectedItem == "userjoinrequest"
+                              ? ColorUtils.Green
+                              : ColorUtils.Black.withOpacity(0.5),
+                        ),
+                        title: Text(
+                          "User Join Request",
+                          softWrap: true,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(
+                            color: widget.selectedItem == "userjoinrequest"
                                 ? ColorUtils.Green
                                 : ColorUtils.Black,
                           ),

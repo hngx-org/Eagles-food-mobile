@@ -32,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     Provider.of<TeamAndLunchProvider>(context, listen: false).getLunchHistory();
+    Provider.of<TeamAndLunchProvider>(context, listen: false).getUsers();
   }
 
   @override
@@ -197,7 +198,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: TeamList(list: my_team),
           ),
 
-          if (lunch_history.length > 0)
+          if (lunch_history.isNotEmpty)
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: LunchHistoryWidget(

@@ -1,16 +1,6 @@
-// {
-// "id": 38388529,
-// "senderId": 92596207,
-// "senderName": "Mary",
-// "receiverId": 92596201,
-// "receiverName": "clark",
-// "quantity": 4,
-// "redeemed": false,
-// "note": "Hello i am testing",
-// "createdAt": "2023-09-24T13:20:36"
-// },
+// {id: 1, senderId: 25, senderName: Akams, receiverId: 10, receiverName: doe, quantity: 4, redeemed: false, lunchStatus: 0, note: Heeey, createdAt: 2023-10-09T21:58:21},
 class Lunch {
-  final int id, senderId, receiverId, quantity;
+  final int id, senderId, receiverId, quantity, lunchStatus;
   final String senderName, receiverName, note, createdAt;
   final bool redeemed;
 
@@ -23,6 +13,7 @@ class Lunch {
       required this.quantity,
       required this.redeemed,
       required this.note,
+        required this.lunchStatus,
       required this.createdAt});
 
   factory Lunch.fromJson(Map<String, dynamic> json) {
@@ -35,6 +26,7 @@ class Lunch {
         quantity: json['quantity'],
         redeemed: json['redeemed'],
         note: json['note'],
+        lunchStatus: json['lunchStatus'],
         createdAt: json['createdAt']);
   }
 
@@ -47,6 +39,7 @@ class Lunch {
         'quantity': quantity,
         'redeemed': redeemed,
         'note': note,
+        'lunchStatus': lunchStatus,
         'createdAt': createdAt
       };
 }

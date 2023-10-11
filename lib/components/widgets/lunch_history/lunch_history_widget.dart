@@ -5,9 +5,11 @@ import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/configs/sessions.dart';
 import 'package:hng_task3/models/lunch.dart';
 import 'package:hng_task3/models/user.dart';
+import 'package:hng_task3/providers/AuthProvider.dart';
 import 'package:hng_task3/screens/lunch_history/lunch_history_screen.dart';
+import 'package:provider/provider.dart';
 
-enum LunchHistoryFIlters { All, Received, Sent }
+enum LunchHistoryFilters { All, Received, Sent, Withdrawal }
 
 class LunchHistoryWidget extends StatefulWidget {
   const LunchHistoryWidget(
@@ -22,26 +24,19 @@ class LunchHistoryWidget extends StatefulWidget {
 
 class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
   var filteredHistory = [];
-  var selectedFilter = LunchHistoryFIlters.All;
-  var user;
+  var selectedFilter = LunchHistoryFilters.All;
+  User? user;
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       _applyFilter();
     });
-    // SessionManager().getUser().then((userJson) {
-    //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-    //     setState(() {
-    //       user = User.fromJson(userJson);
-    //     });
-    //   });
-    // });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-
+    user = Provider.of<AuthProvider>(context).user;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -91,7 +86,7 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
             ),
 
             // Filter Button
-            DropdownButton<LunchHistoryFIlters>(
+            DropdownButton<LunchHistoryFilters>(
               icon: const Icon(Icons.arrow_drop_down),
               value: selectedFilter,
               underline: const SizedBox(),
@@ -99,10 +94,10 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
               iconEnabledColor: ColorUtils.Green,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   color: ColorUtils.Green,
-                  fontSize: 20,
+                  fontSize: 16,
                   fontWeight: FontWeight.w500),
-              items: LunchHistoryFIlters.values
-                  .map((e) => DropdownMenuItem<LunchHistoryFIlters>(
+              items: LunchHistoryFilters.values
+                  .map((e) => DropdownMenuItem<LunchHistoryFilters>(
                         value: e,
                         child: Text(
                           e.name,
@@ -118,7 +113,7 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
             )
           ],
         ),
-        widget.history.length == 0 ? ListView.builder(
+        widget.history.isEmpty ? ListView.builder(
             shrinkWrap: true,
             padding: const EdgeInsets.symmetric(vertical: 0),
             physics: const BouncingScrollPhysics(),
@@ -133,7 +128,6 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
           itemBuilder: (context, index) => Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: LaunchHistoryItem(
-              // lunchHistory: widget.history[index],
               lunchHistory: filteredHistory[index],
             ),
           ),
@@ -143,23 +137,27 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
   }
 
   Future<void> _applyFilter() async {
-    var userMap = await SessionManager().getUser();
-    User user = User.fromJson(userMap);
 
     switch (selectedFilter) {
-      case LunchHistoryFIlters.All:
+      case LunchHistoryFilters.All:
         filteredHistory = widget.history.toList();
         break;
 
-      case LunchHistoryFIlters.Received:
+      case LunchHistoryFilters.Received:
         filteredHistory = widget.history
-            .where((element) => element.receiverId.toString() == user.id)
+            .where((element) => element.lunchStatus == 1)
             .toList();
         break;
 
-      case LunchHistoryFIlters.Sent:
+      case LunchHistoryFilters.Sent:
         filteredHistory = widget.history
-            .where((element) => element.senderId.toString() == user.id)
+            .where((element) => element.lunchStatus == 0)
+            .toList();
+        break;
+
+      case LunchHistoryFilters.Withdrawal:
+        filteredHistory = widget.history
+            .where((element) => element.lunchStatus == 2)
             .toList();
         break;
     }
