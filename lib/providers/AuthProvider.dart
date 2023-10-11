@@ -76,6 +76,7 @@ class AuthProvider with ChangeNotifier {
       'address': userData['address'],
       'phone': userData['phone'],
       'password': userData['password'],
+      //'inviteCode':userData['inviteCode']
     };
     try {
       final response =
@@ -91,7 +92,7 @@ class AuthProvider with ChangeNotifier {
         ss.setToken(response['data']['access_token']);
         ss.saveUser(_user!.toJson());
         return true;
-      } else {
+      } 
         return false;
       }
     } catch (error) {

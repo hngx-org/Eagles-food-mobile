@@ -91,6 +91,9 @@ class Network {
         request.fields['lastName'] = data['lastName'];
         request.fields['email'] = data['email'];
         request.fields['phone'] = data['phone'];
+        request.fields['orgName'] = data['organizationName'];
+        request.fields['orgLunchPrice'] = data['orgLunchPrice'];
+      //  request.fields['inviteCode'] = data['inviteCode'];
 
         if (data['photo'] != null) {
           var photoFile = data['photo'];

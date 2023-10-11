@@ -43,7 +43,6 @@ class _SendMultiLunchScreenState extends State<SendMultiLunchScreen> {
       final secondEmail = _secondEmailController.text;
       final thirdEmail = _thirdEmailController.text;
       int noOfLunch;
-
       Utils.loadingProgress(context);
       lunchData['receivers'] = [
         if (firstEmail != '') firstEmail,
@@ -73,6 +72,7 @@ class _SendMultiLunchScreenState extends State<SendMultiLunchScreen> {
         Provider.of<AuthProvider>(context, listen: false)
             .updateUserLunch(balanceAmt.toString());
         Toasts.showToast(Colors.green, "Lunch sent successfully");
+
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -121,7 +121,6 @@ class _SendMultiLunchScreenState extends State<SendMultiLunchScreen> {
                         decoration: BoxDecoration(
                           // ignore: deprecated_member_use
                           color: Theme.of(context).backgroundColor,
-
                         ),
                         child: SingleChildScrollView(
                           physics: const BouncingScrollPhysics(),
@@ -228,7 +227,6 @@ class _SendMultiLunchScreenState extends State<SendMultiLunchScreen> {
                                         .bodySmall
                                         ?.copyWith(
                                       fontWeight: FontWeight.w400,
-
                                     ),
                                   ),
                                   keyboardType: TextInputType.emailAddress,
