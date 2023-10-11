@@ -124,7 +124,7 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
           physics: const NeverScrollableScrollPhysics(),
           padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
           // itemCount: widget.history.length,
-          itemCount: filteredHistory.length,
+          itemCount: widget.limit ==true && filteredHistory.length > 5 ? 5 : filteredHistory.length,
           itemBuilder: (context, index) => Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
             child: LaunchHistoryItem(

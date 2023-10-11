@@ -145,7 +145,7 @@ class _OrgJoinRequestState extends State<OrgJoinRequest> {
                   padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                   margin: const EdgeInsets.symmetric(vertical: 10),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Theme.of(context).unselectedWidgetColor,
                     boxShadow: [
                       BoxShadow(
                         color: ColorUtils.LightGrey.withOpacity(0.2),
@@ -167,6 +167,7 @@ class _OrgJoinRequestState extends State<OrgJoinRequest> {
                             Text(item.email,
                               style: Theme.of(context).textTheme.displaySmall?.copyWith(
                                   fontSize: 18,
+                                  color: ColorUtils.Black,
                                   fontWeight: FontWeight.w700
                               ),
                             ),

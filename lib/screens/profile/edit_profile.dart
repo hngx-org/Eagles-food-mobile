@@ -23,18 +23,34 @@ class _EditProfileState extends State<EditProfile> {
   final userData = {};
   File? image;
 
-  Future<void> pickImage() async {
-    try {
-      final pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if (pickedImage == null) return;
-      final imageFile = File(pickedImage.path);
-      setState(() {
-        image = imageFile;
-        userData['profilePic'] = imageFile.path;
-      });
-    } on PlatformException catch (e) {
-      print('Failed to pick image: $e');
+  // Future<void> pickImage() async {
+  //   try {
+  //     final pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+  //     if (pickedImage == null) return;
+  //     final imageFile = File(pickedImage.path);
+  //     setState(() {
+  //       image = imageFile;
+  //       userData['profilePic'] = imageFile.path;
+  //     });
+  //   } on PlatformException catch (e) {
+  //     print('Failed to pick image: $e');
+  //   }
+  // }
+
+  Future<String> pickImage() async {
+    final picker = ImagePicker();
+    final XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile == null) {
+      return "";
     }
+    File imageFile = File(pickedFile.path);
+    List<int> imageBytes = await imageFile.readAsBytes();
+    String base64String = base64Encode(imageBytes);
+    setState(() {
+      image = imageFile;
+      userData['profilePic'] = base64String;
+    });
+    return base64String;
   }
 
   @override
@@ -438,7 +454,7 @@ class _EditProfileState extends State<EditProfile> {
                                   "lastName": userData['lastName'] ?? widget.user.lastName,
                                   "firstName": userData['firstName'] ?? widget.user.firstName,
                                   "phone": userData['phone'] ?? widget.user.phone,
-                                  "photo": image,
+                                  "photo": userData['profilePic'] ?? widget.user.profilePic,
                                 };
                                 final response =
                                 await Provider.of<AuthProvider>(context,
@@ -448,7 +464,7 @@ class _EditProfileState extends State<EditProfile> {
                                 if (response == true) {
                                   Navigator.pop(context);
                                   Toasts.showToast(
-                                      Colors.green, 'Profile updated successfully');
+                                      ColorUtils.Green, 'Profile updated successfully');
                                 }
                               }
                             },

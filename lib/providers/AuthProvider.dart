@@ -92,7 +92,7 @@ class AuthProvider with ChangeNotifier {
         ss.setToken(response['data']['access_token']);
         ss.saveUser(_user!.toJson());
         return true;
-      } 
+      } else {
         return false;
       }
     } catch (error) {
