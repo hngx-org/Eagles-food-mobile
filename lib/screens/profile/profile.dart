@@ -29,7 +29,6 @@ class _ProfileState extends State<Profile> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     user = Provider.of<AuthProvider>(context).user;
@@ -91,12 +90,29 @@ class _ProfileState extends State<Profile> {
                           image: AssetImage("assets/icons/man-avatar-icon.png"),
                           fit: BoxFit.cover,
                         ),
-                      )) : ClipRRect(
-                          borderRadius: BorderRadius.circular(100),
-                          child: Image.network(user?.profilePic ?? '', height: 100, fit: BoxFit.cover,)),
+                      )) : Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              border: Border.all(
+                                  width: 3,
+                                  color: ColorUtils.LightGrey
+                              ),
+                            ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(100),
+                            child: FadeInImage(
+                              placeholder: const AssetImage("assets/icons/man-avatar-icon.png"),
+                              image: NetworkImage(user?.profilePic ?? '',),
+                              fit: BoxFit.cover,
+                              height: 130,
+                              width: 130,
+                              filterQuality: FilterQuality.high,
+                            ),
+                          ),
+                      ),
                       // Name
                       Padding(
-                        padding: const EdgeInsets.only(top: 18, bottom: 5),
+                        padding: const EdgeInsets.only(top: 10, bottom: 5),
                         child: Text(
                           "${user?.firstName} ${user?.lastName}",
                           style: Theme.of(context).textTheme.bodyLarge!.copyWith(
@@ -251,30 +267,22 @@ class _ProfileState extends State<Profile> {
                     ));
               },
             child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+              margin: const EdgeInsets.symmetric( horizontal: 10),
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: ColorUtils.White,
-                boxShadow: [
-                  BoxShadow(
-                    color: ColorUtils.LightGrey,
-                    spreadRadius: 1,
-                    blurRadius: 1,
-                    offset: const Offset(0, 1), // changes position of shadow
-                  ),
-                ],
+                color: Theme.of(context).unselectedWidgetColor,
               ),
               child: Row(
                   children: [
-                    Icon(Icons.edit, size: 20, color:ColorUtils.Green),
+                    Icon(Icons.edit, size: 20, color: ColorUtils.Green),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      padding: const  EdgeInsets.symmetric(horizontal: 10.0),
                       child: Text("Edit Profile", style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                        color: ColorUtils.Grey,
+                        fontWeight: FontWeight.w600,
                         fontSize: 18
-                      ),),
-                    )
+                      ),
+                    ))
                   ]
                 ),
             ),
@@ -288,19 +296,11 @@ class _ProfileState extends State<Profile> {
                     ));
               },
             child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+              margin: const EdgeInsets.symmetric( horizontal: 10),
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: ColorUtils.White,
-                boxShadow: [
-                  BoxShadow(
-                    color: ColorUtils.LightGrey,
-                    spreadRadius: 1,
-                    blurRadius: 1,
-                    offset: const Offset(0, 1), // changes position of shadow
-                  ),
-                ],
+                color: Theme.of(context).unselectedWidgetColor,
               ),
               child: Row(
                     children: [
@@ -308,7 +308,7 @@ class _ProfileState extends State<Profile> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
                         child: Text("Change Password", style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                            color: ColorUtils.Grey,
+                            fontWeight: FontWeight.w600,
                             fontSize: 18
                         ),),
                       )

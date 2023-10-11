@@ -1,6 +1,8 @@
 // place to see the leaderboard, who has giving the most amount of free lunch
 import 'package:flutter/material.dart';
+import 'package:hng_task3/components/shimmers/leaderboardShimmer.dart';
 import 'package:hng_task3/components/shimmers/teamShimmer.dart';
+import 'package:hng_task3/components/widgets/leaderboard/leaderboard_widget.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/models/leaderboard.dart';
 import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
@@ -25,17 +27,21 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
 
   List<LeaderBoard> filtered = [];
   List<LeaderBoard> leaderboard = [];
+  List<LeaderBoard> ranked = [];
   bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
     leaderboard = Provider.of<TeamAndLunchProvider>(context).leaderboard;
     isLoading = Provider.of<TeamAndLunchProvider>(context).isLoading;
+    leaderboard.sort((a, b) => b.quantity.compareTo(a.quantity));
 
+    print(leaderboard);
     List<LeaderBoard> filtered = leaderboard
         .where((team) =>
         team.name.toLowerCase().contains(_searchQuery.toLowerCase()))
         .toList();
+
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
@@ -112,18 +118,19 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   fontWeight: FontWeight.w500, color: ColorUtils.LightGrey),
             ),
+
             isLoading
                 ? ListView.builder(
                 shrinkWrap: true,
-                padding: const EdgeInsets.symmetric(vertical: 0),
+                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                 physics: const BouncingScrollPhysics(),
-                itemCount: 8,
-                itemBuilder: (context, index) => const TeamShimmer())
+                itemCount: 5,
+                itemBuilder: (context, index) => const LeaderBoardShimmer())
                 :
             filtered.isEmpty ? Padding(
               padding: const EdgeInsets.only(top: 20),
               child: Text(
-                "No member found",
+                "Leaderboard Empty, Be the first to send a lunch",
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     fontWeight: FontWeight.w500, color: ColorUtils.LightGrey),
               ),
@@ -136,7 +143,7 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
                   vertical: 10, horizontal: 20),
               itemBuilder: (context, index) {
                 final item = filtered[index];
-                return null;
+                return LeaderBoardWidget(item: item, index: index);
               },
             )
           ],

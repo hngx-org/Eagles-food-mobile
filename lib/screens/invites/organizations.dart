@@ -1,6 +1,7 @@
 // list of organisations for people to request invite
 import 'package:flutter/material.dart';
 import 'package:hng_task3/components/custom_button.dart';
+import 'package:hng_task3/components/shimmers/invitesShimmer.dart';
 import 'package:hng_task3/components/shimmers/teamShimmer.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/models/organization.dart';
@@ -45,6 +46,7 @@ class _OrganizationsState extends State<Organizations> {
         .toList();
 
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         centerTitle: true,
@@ -124,7 +126,7 @@ class _OrganizationsState extends State<Organizations> {
                 padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 15),
                 physics: const BouncingScrollPhysics(),
                 itemCount: 8,
-                itemBuilder: (context, index) => const TeamShimmer())
+                itemBuilder: (context, index) => const InviteShimmer())
                 :
             filtered.isEmpty ? Padding(
               padding: const EdgeInsets.only(top: 20),
@@ -142,8 +144,16 @@ class _OrganizationsState extends State<Organizations> {
                   vertical: 10, horizontal: 20),
               itemBuilder: (context, index) {
                 final item = filtered[index];
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                return Container(
+                  padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10),
+                  margin: const EdgeInsets.symmetric(vertical: 5),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(
+                        width: 1,
+                        color: ColorUtils.LightGrey
+                    ),
+                  ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

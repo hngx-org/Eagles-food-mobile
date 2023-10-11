@@ -1,24 +1,24 @@
 class LeaderBoard {
-  int id, points;
-  String name;
+  int quantity;
+  String name, email;
 
   LeaderBoard({
     required this.name,
-    required this.id,
-    required this.points
+    required this.email,
+    required this.quantity
   });
 
   factory LeaderBoard.fromJson(Map<String, dynamic> data) =>
       LeaderBoard(
-          name: data['name'],
-          id: data['id'],
-          points: data['points']
+          name: data['senderName'],
+          email: data['senderEmail'],
+          quantity: data['quantity']
       );
 
   Map<String, dynamic> toJson()=> {
-    'id': id,
-    'name': name,
-    'points': points
+    'senderEmail': email,
+    'senderName': name,
+    'quantity': quantity
   };
 
 }

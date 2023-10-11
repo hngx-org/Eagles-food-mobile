@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hng_task3/models/leaderboard.dart';
+import 'package:hng_task3/configs/colors.dart';
 class LeaderBoardWidget extends StatelessWidget {
   const LeaderBoardWidget({super.key, this.item, this.index});
   final item;
@@ -8,28 +8,35 @@ class LeaderBoardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
+      margin: const EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
-        color: Colors.red,
+        color: index == 0 ? ColorUtils.Red: index == 1 ? ColorUtils.Green : index == 2 ? ColorUtils.Yellow : ColorUtils.LightGrey,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
         children: [
           Expanded(
-            child: Text(
-              item.name,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.w500,
-                color: Colors.white,
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  item.name,
+                  style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 18
+                  ),
+                ),
+                Text(
+                  item.email,
+                  style: Theme.of(context).textTheme.bodySmall
+                ),
+              ],
             ),
           ),
           Text(
             item.quantity.toString(),
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              fontWeight: FontWeight.w500,
-              color: Colors.white,
-            ),
+            style: Theme.of(context).textTheme.displayLarge
           ),
         ],
       ),

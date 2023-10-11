@@ -41,7 +41,7 @@ class User {
         currency: data['Currency'],
         currencyCode: data['CurrencyCode'],
         lunchCreditBalance: data['LunchCreditBalance'],
-        profilePic: data['ProfilePic'],
+        profilePic: data['ProfilePic'] ?? '',
         orgName: data['organization_name']
     );
   }

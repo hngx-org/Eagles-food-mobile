@@ -96,7 +96,7 @@ class Network {
           var photoFile = data['photo'];
           var photoBytes = await photoFile.readAsBytes();
           request.files.add(
-            await http.MultipartFile.fromPath(
+             http.MultipartFile.fromBytes(
               'photo',
               photoBytes,
             ),

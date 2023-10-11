@@ -56,7 +56,7 @@ class SignUpOption extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: CustomButton(onPress: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context) => const Signup()));
-                }, buttonText: "Create User account", buttonColor: ColorUtils.Green, textColor: ColorUtils.White, isUppercase: true),
+                }, buttonText: "Create User account", buttonColor: ColorUtils.Yellow, textColor: ColorUtils.Grey, isUppercase: true),
               ),
                Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),

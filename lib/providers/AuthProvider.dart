@@ -48,6 +48,7 @@ class AuthProvider with ChangeNotifier {
           await Network.post(endpoint: url, data: jsonEncode(data));
       if (response['success'] == true) {
         var user = response['data'];
+        print(user);
         var token = response['data']['access_token'];
         _user = User.fromJson(user);
         _isLoggedIn = true;
