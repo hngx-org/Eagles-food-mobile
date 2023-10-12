@@ -50,28 +50,21 @@ class _SendMultiLunchScreenState extends State<SendMultiLunchScreen> {
         if (thirdEmail != '') thirdEmail
       ];
 
-      if (lunchData['receivers'].length == 1) {
-        noOfLunch = 1;
-      } else if (lunchData['receivers'].length == 2) {
-        noOfLunch = 2;
-      } else {
-        noOfLunch = 3;
-      }
-
+      noOfLunch = lunchData['receivers'].length;
+      int debit = int.parse(lunchData['quantity']) * noOfLunch;
       var balanceAmt = int.parse(user?.lunchCreditBalance as String) -
-          int.parse(lunchData['quantity'] * noOfLunch);
+          debit;
 
       final response =
           await Provider.of<TeamAndLunchProvider>(context, listen: false)
               .sendLunch(lunchData);
 
-      print('response: $response');
       if (!context.mounted) return;
       Navigator.pop(context);
       if (response == true) {
         Provider.of<AuthProvider>(context, listen: false)
             .updateUserLunch(balanceAmt.toString());
-        Toasts.showToast(Colors.green, "Lunch sent successfully");
+        Toasts.showToast(ColorUtils.Green, "Lunch sent successfully");
 
         Navigator.pushReplacement(
           context,

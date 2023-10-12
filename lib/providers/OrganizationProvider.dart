@@ -15,7 +15,6 @@ class OrganizationProvider with ChangeNotifier{
   bool get isLoading => _isLoading;
   List<OrgRequest> get org_request => _org_request;
 
-
   Future<dynamic> getOrganizations() async {
     const String url = 'organization/all';
     try{
@@ -76,7 +75,6 @@ class OrganizationProvider with ChangeNotifier{
       _isLoading = true;
       final response = await Network.post(endpoint: url, data: jsonEncode(data));
       print(response);
-
       if(response['success'] == true) {
         List<OrgRequest> _updatedList = [];
         _org_request.forEach((element) {

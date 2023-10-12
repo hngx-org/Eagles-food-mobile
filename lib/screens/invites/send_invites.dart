@@ -37,7 +37,7 @@ class _SendInvitesState extends State<SendInvites> {
 
   @override
   Widget build(BuildContext context) {
-    list = Provider.of<TeamAndLunchProvider>(context).my_team;
+    list = Provider.of<TeamAndLunchProvider>(context).everyone;
     isLoading = Provider.of<TeamAndLunchProvider>(context).isLoading;
 
     List<Team> filtered = list

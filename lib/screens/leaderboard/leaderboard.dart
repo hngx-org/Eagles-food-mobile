@@ -113,11 +113,6 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
                 },
               ),
             ),
-            Text(
-              "Send an invite for someone to join your team",
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.w500, color: ColorUtils.LightGrey),
-            ),
 
             isLoading
                 ? ListView.builder(

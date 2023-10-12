@@ -67,7 +67,7 @@ class Invitations extends StatelessWidget {
                     Utils.loadingProgress(context);
                     final response = await Provider.of<InvitesProvider>(context, listen: false).replyInvite(data);
                     if(response){
-                        Provider.of<AuthProvider>(context,listen: false).updateUserOrg(invite.org, invite.orgId);
+                        Provider.of<AuthProvider>(context, listen: false).updateUserOrg(invite.org, invite.orgId);
                         Navigator.push(
                           context,
                           MaterialPageRoute(

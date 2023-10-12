@@ -14,7 +14,6 @@ import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, this.openDrawer});
-
   final openDrawer;
 
   @override
@@ -40,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
     my_team = Provider.of<TeamAndLunchProvider>(context).my_team;
     lunch_history = Provider.of<TeamAndLunchProvider>(context).lunchHistory;
     user = Provider.of<AuthProvider>(context).user;
+
     return Scaffold(
         backgroundColor:  Theme.of(context).backgroundColor,
         body: SingleChildScrollView(

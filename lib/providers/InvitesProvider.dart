@@ -107,10 +107,10 @@ class InvitesProvider with ChangeNotifier {
         var invites = response['data'];
         print(invites);
         invites.forEach((invite) {
-          if(invite['status'] == true){
+          if(invite['status'] == false){
             _allDeclinedInvites.add(SendInvite.fromJson(invite));
           }else if (invite['status'] == true){
-            _allPendingInvites.add(SendInvite.fromJson(invite));
+            _allAcceptedInvites.add(SendInvite.fromJson(invite));
           }else{
             _allPendingInvites.add(SendInvite.fromJson(invite));
           }

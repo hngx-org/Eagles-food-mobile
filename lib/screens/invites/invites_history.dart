@@ -193,11 +193,11 @@ class _InvitesHistoryState extends State<InvitesHistory> {
                style: Theme.of(context).textTheme.bodyLarge,),
            ) :
            ListView.builder(
-                    itemCount: 5,
+                    itemCount: allPendingInvites.length,
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     padding: const EdgeInsets.symmetric(
-                        vertical: 0,),
+                        vertical: 0),
                     itemBuilder: (context, index) {
                       final item = allPendingInvites[index];
                       return InviteSend(item: item);
