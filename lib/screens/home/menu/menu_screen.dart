@@ -213,7 +213,7 @@ class _MenuScreenState extends State<MenuScreen> {
                         ),
                       ),
                     ),
-                    if(user?.isAdmin != "True" ) SizedBox(
+                    SizedBox(
                       width: 150,
                       child: ListTile(
                         contentPadding: const EdgeInsets.symmetric(

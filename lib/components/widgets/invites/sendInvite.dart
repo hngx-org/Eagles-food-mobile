@@ -42,26 +42,26 @@ class InviteSend extends StatelessWidget {
               ],
             ),
           ),
-          CustomButton(
-            onPress: () async {
-              dynamic data = {
-                // "inviteId": invite.id,
-                "status": false
-              };
-              Utils.loadingProgress(context);
-              final response = await Provider.of<InvitesProvider>(context, listen: false).cancelOrgInvite(data);
-              if(response){
-
-              }
-            },
-            buttonText: "Cancel Invite",
-            buttonColor: ColorUtils.Red,
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-            fontFamily: 'Poppins',
-            textColor: ColorUtils.White,
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
-          ),
+          // CustomButton(
+          //   onPress: () async {
+          //     dynamic data = {
+          //       // "inviteId": invite.id,
+          //       "status": false
+          //     };
+          //     Utils.loadingProgress(context);
+          //     final response = await Provider.of<InvitesProvider>(context, listen: false).cancelOrgInvite(data);
+          //     if(response){
+          //
+          //     }
+          //   },
+          //   buttonText: "Cancel Invite",
+          //   buttonColor: ColorUtils.Red,
+          //   fontSize: 14,
+          //   fontWeight: FontWeight.w400,
+          //   fontFamily: 'Poppins',
+          //   textColor: ColorUtils.White,
+          //   padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
+          // ),
 
         ],
       ),

@@ -40,9 +40,7 @@ class SignUpOption extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
                 child: Text("You can Signup as an Org or a normal employee",
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                      color: ColorUtils.Black
-                  ),),
+                  style: Theme.of(context).textTheme.displayMedium,),
               ),
                Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),

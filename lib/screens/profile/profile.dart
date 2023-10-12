@@ -126,7 +126,7 @@ class _ProfileState extends State<Profile> {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: Text(
-                          user?.orgName ?? '',
+                          user?.orgName ?? 'Default Organization',
                           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             fontSize: 16,
                             color: ColorUtils.White,

@@ -50,28 +50,21 @@ class _SendMultiLunchScreenState extends State<SendMultiLunchScreen> {
         if (thirdEmail != '') thirdEmail
       ];
 
-      if (lunchData['receivers'].length == 1) {
-        noOfLunch = 1;
-      } else if (lunchData['receivers'].length == 2) {
-        noOfLunch = 2;
-      } else {
-        noOfLunch = 3;
-      }
-
+      noOfLunch = lunchData['receivers'].length;
+      int debit = int.parse(lunchData['quantity']) * noOfLunch;
       var balanceAmt = int.parse(user?.lunchCreditBalance as String) -
-          int.parse(lunchData['quantity'] * noOfLunch);
+          debit;
 
       final response =
           await Provider.of<TeamAndLunchProvider>(context, listen: false)
               .sendLunch(lunchData);
 
-      print('response: $response');
       if (!context.mounted) return;
       Navigator.pop(context);
       if (response == true) {
         Provider.of<AuthProvider>(context, listen: false)
             .updateUserLunch(balanceAmt.toString());
-        Toasts.showToast(Colors.green, "Lunch sent successfully");
+        Toasts.showToast(ColorUtils.Green, "Lunch sent successfully");
 
         Navigator.pushReplacement(
           context,
@@ -85,7 +78,9 @@ class _SendMultiLunchScreenState extends State<SendMultiLunchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    user = Provider.of<AuthProvider>(context).user;
+    user = Provider
+        .of<AuthProvider>(context)
+        .user;
     return Scaffold(
       // ignore: deprecated_member_use
       backgroundColor: Theme.of(context).backgroundColor,
@@ -405,14 +400,26 @@ class _SendMultiLunchScreenState extends State<SendMultiLunchScreen> {
                               decoration: InputDecoration(
                                 suffixIcon: Padding(
                                   padding: const EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 10),
-                                  child: Text(
-                                    "Free Lunches",
+                                      vertical: 10.0),
+                                  child: TextFormField(
+                                    validator: (value) {
+                                      if (value == '') {
+                                        return 'Enter number of free lunches';
+                                      }
+                                      if (int.parse(value!) >
+                                          int.parse(user?.lunchCreditBalance
+                                          as String)) {
+                                        return 'You do not have enough free lunches';
+                                      }
+                                      return null;
+                                    },
                                     textAlign: TextAlign.center,
-                                    style: Theme.of(context)
+                                    style: Theme
+                                        .of(context)
                                         .textTheme
                                         .bodyMedium
                                         ?.copyWith(
+
                                             color: ColorUtils.Green,
                                             fontWeight: FontWeight.w600),
                                   ),
@@ -565,6 +572,7 @@ class _SendMultiLunchScreenState extends State<SendMultiLunchScreen> {
                         ),
                       ],
                     ),
+
                   ),
                 ),
               ),

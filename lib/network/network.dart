@@ -33,7 +33,6 @@ class Network {
     if (await NetworkUtils.hasNetwork()) {
       var url = Uri.parse(baseUrl + endpoint);
       try {
-        print('request started');
         var response = await http.post(url,
             headers: await NetworkUtils.headers(), body: data);
         print(response.body);
@@ -84,27 +83,15 @@ class Network {
       };
       var url = Uri.parse(baseUrl + endpoint);
       try {
-        print(data);
+
         var request = http.MultipartRequest('PUT', url);
         request.headers.addAll(await NetworkUtils.headers());
         request.fields['firstName'] = data['firstName'];
         request.fields['lastName'] = data['lastName'];
         request.fields['email'] = data['email'];
         request.fields['phone'] = data['phone'];
-        request.fields['orgName'] = data['organizationName'];
-        request.fields['orgLunchPrice'] = data['orgLunchPrice'];
-      //  request.fields['inviteCode'] = data['inviteCode'];
+        request.fields['photo'] = data['photo'];
 
-        if (data['photo'] != null) {
-          var photoFile = data['photo'];
-          var photoBytes = await photoFile.readAsBytes();
-          request.files.add(
-             http.MultipartFile.fromBytes(
-              'photo',
-              photoBytes,
-            ),
-          );
-        }
         var result = await request.send();
         var response = await http.Response.fromStream(result);
         if (response.statusCode == 200) {

@@ -15,12 +15,16 @@ class AuthProvider with ChangeNotifier {
   bool get isLoading => _isLoading;
 
   void updateUserLunch(String balance) {
+    print("updating user lunch balance , ${_user?.lunchCreditBalance}");
     _user?.lunchCreditBalance = balance;
+    print("updated user lunch balance , ${_user?.lunchCreditBalance}");
   }
 
-  void updateUserOrg(String org, String orgId) {
+  void updateUserOrg(String org, int orgId){
+    print('updating user org');
     _user?.orgName = org;
-    _user?.orgId = orgId;
+    _user?.orgId = orgId.toString();
+    print('updated user org, ${_user?.orgName}');
   }
 
   Future<dynamic> getUserProfile() async {
