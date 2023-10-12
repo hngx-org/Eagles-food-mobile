@@ -241,7 +241,7 @@ class _MenuScreenState extends State<MenuScreen> {
                         ),
                       ),
                     ),
-                    if(user?.isAdmin == "True"  )SizedBox(
+                    if(user?.isAdmin == "True"  ) SizedBox(
                       width: 150,
                       child: ListTile(
                         contentPadding: const EdgeInsets.symmetric(
@@ -269,7 +269,7 @@ class _MenuScreenState extends State<MenuScreen> {
                         ),
                       ),
                     ),
-                    if(user?.isAdmin == "True"  )SizedBox(
+                    if(user?.isAdmin == "True"  ) SizedBox(
                       width: 150,
                       child: ListTile(
                         contentPadding: const EdgeInsets.symmetric(

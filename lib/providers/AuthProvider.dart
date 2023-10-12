@@ -20,7 +20,7 @@ class AuthProvider with ChangeNotifier {
     print("updated user lunch balance , ${_user?.lunchCreditBalance}");
   }
 
-  void updateUserOrg(String org, int orgId){
+  void updateUserOrg(org, orgId){
     print('updating user org');
     _user?.orgName = org;
     _user?.orgId = orgId.toString();

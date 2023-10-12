@@ -7,7 +7,10 @@ class InviteReplySuccess extends StatelessWidget {
   final team;
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(right: 20, left: 20, top: 50),
         child: Column(

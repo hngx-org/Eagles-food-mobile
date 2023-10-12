@@ -1,19 +1,19 @@
 
 class SendInvite {
   int? id;
-  int? orgId;
-  String? org;
+  int orgId;
+  String org;
   String? createdAt;
   bool? status;
   String? email;
 
   SendInvite({
-    this.id,
-    this.orgId,
-    this.org,
-    this.createdAt,
-    this.status,
-    this.email
+    required this.id,
+    required this.orgId,
+    required this.org,
+    required this.createdAt,
+    required this.status,
+    required this.email
   });
 
   factory SendInvite.fromJson(Map<String, dynamic> json) {
