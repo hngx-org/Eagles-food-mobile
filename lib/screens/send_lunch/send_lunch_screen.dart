@@ -40,7 +40,6 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
         backgroundColor: ColorUtils.Green,
         elevation: 0,
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             TextButton(
@@ -58,7 +57,7 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(right: 30),
+              padding: const EdgeInsets.only(left: 56),
               child: Text(
                 "Send Lunch",
                 style: Theme.of(context)
@@ -67,278 +66,259 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                     ?.copyWith(fontWeight: FontWeight.w900),
               ),
             ),
-
           ],
         ),
       ),
       body: Align(
-              // heightFactor: MediaQuery.of(context).size.height,
-              alignment: Alignment.bottomCenter,
-              child: SingleChildScrollView(
+        // heightFactor: MediaQuery.of(context).size.height,
+        alignment: Alignment.bottomCenter,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              //Avatar
+              Stack(
+                children: [
+                  Positioned(
+                      bottom: 7,
+                      right: 40,
+                      child: Image.asset('assets/images/arrow.png')),
+                  Align(
+                      alignment: Alignment.center,
+                      child: Image.asset('assets/images/man-avatar.png')),
+                ],
+              ),
+
+              //Body
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                decoration: BoxDecoration(
+                    // ignore: deprecated_member_use
+                    color: Theme.of(context).backgroundColor,
+                    borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30))),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    //Avatar
-                    Stack(
-                      children: [
-                        Positioned(
-                            bottom: 7,
-                            right: 40,
-                            child: Image.asset('assets/images/arrow.png')),
-                        Align(
-                            alignment: Alignment.center,
-                            child: Image.asset('assets/images/man-avatar.png')),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10.0),
+                      child: Center(
+                          child: Image.asset('assets/images/handler.png')),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5.0),
+                      child: Text(widget.receiver.name,
+                          style: Theme.of(context).textTheme.displayMedium),
+                    ),
+                    // style: Theme.of(context).textTheme.displayLarge,  ),
+
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 20.0),
+                      child: Text(
+                        '${user.orgName} Member',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge!
+                            .copyWith(color: Colors.grey[700]),
+                      ),
                     ),
 
-                    //Body
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      decoration: BoxDecoration(
-                          // ignore: deprecated_member_use
-                          color: Theme.of(context).backgroundColor,
-                          borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(30),
-                              topRight: Radius.circular(30))),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10.0),
-                            child: Center(
-                                child:
-                                    Image.asset('assets/images/handler.png')),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5.0),
-                            child: Text(widget.receiver.name,
-                                style:
-                                    Theme.of(context).textTheme.displayMedium),
-                          ),
-                          // style: Theme.of(context).textTheme.displayLarge,  ),
-
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 20.0),
-                            child: Text(
-                              '${user.orgName} Member',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge!
-                                  .copyWith(color: Colors.grey[700]),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5.0),
+                      child: Text(
+                        'Number of Free Lunch:',
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              fontWeight: FontWeight.bold,
                             ),
-                          ),
+                      ),
+                    ),
 
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5.0),
-                            child: Text(
-                              'Number of Free Lunch:',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                            ),
-                          ),
-
-                          Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 10.0),
-                              child: TextFormField(
+                    Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        child: TextFormField(
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(
+                                  color: ColorUtils.Grey,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 20),
+                          onChanged: (value) {
+                            lunchData['quantity'] = value;
+                          },
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            suffixIcon: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 10),
+                              child: Text(
+                                "Free Lunches",
                                 textAlign: TextAlign.center,
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyLarge
+                                    .bodyMedium
                                     ?.copyWith(
-                                        color: ColorUtils.Grey,
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 20),
-                                onChanged: (value) {
-                                  lunchData['quantity'] = value;
-                                },
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  suffixIcon: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 10.0, horizontal: 10),
-                                    child: Text(
-                                      "Free Lunches",
-                                      textAlign: TextAlign.center,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium
-                                          ?.copyWith(
-                                              color: ColorUtils.Green,
-                                              fontWeight: FontWeight.w600),
-                                    ),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: ColorUtils.Green,
-                                    ),
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(20)),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: ColorUtils.Green,
-                                    ),
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(20)),
-                                  ),
-                                ),
-                                keyboardType: TextInputType.number,
-                              )),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Text(
-                                "Your are left with ",
-                                textAlign: TextAlign.left,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall
-                                    ?.copyWith(
-                                      fontWeight: FontWeight.w400,
-                                      // color: ColorUtils.Black
-                                    ),
+                                        color: ColorUtils.Green,
+                                        fontWeight: FontWeight.w600),
                               ),
-                              Text(
-                                " ${user.lunchCreditBalance} ",
-                                textAlign: TextAlign.left,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall
-                                    ?.copyWith(
-                                        fontWeight: FontWeight.w600,
-                                        color: ColorUtils.Green),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: ColorUtils.Green,
                               ),
-                              Text(
-                                " free lunches",
-                                textAlign: TextAlign.left,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall
-                                    ?.copyWith(
-                                      fontWeight: FontWeight.w400,
-                                      // color: ColorUtils.Black
-                                    ),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(20)),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: ColorUtils.Green,
                               ),
-                            ],
-                          ),
-
-                          Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 5.0),
-                              child: Text(
-                                'Reward Reason:',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      // color: Colors.black
-                                    ),
-                              )),
-                          Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 10.0),
-                              child: TextFormField(
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge
-                                    ?.copyWith(
-                                        color: ColorUtils.Grey,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 16),
-                                onChanged: (value) {
-                                  lunchData['note'] = value;
-                                },
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: ColorUtils.Green,
-                                    ),
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(20)),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: ColorUtils.Green,
-                                    ),
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(20)),
-                                  ),
-                                ),
-                                keyboardType: TextInputType.emailAddress,
-                              )),
-
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5.0),
-                            child: Text(
-                              'By Clicking send lunch, you choose to reward recipient with the stipulated number of lunch',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(color: Colors.grey[700]),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(20)),
                             ),
                           ),
-
-                          // Send Lunch Button
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 25),
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  shape: const RoundedRectangleBorder(),
-                                  minimumSize: const Size.fromHeight(60),
-                                  backgroundColor: const Color(0xFF04754D)),
-                              onPressed: () async {
-                                Utils.loadingProgress(context);
-                                lunchData['receivers'] = [
-                                  "${widget.receiver.email}"
-                                ];
-                                var balanceAmt = int.parse(
-                                        user.lunchCreditBalance as String) -
-                                    int.parse(lunchData['quantity']);
-                                final response =
-                                    await Provider.of<TeamAndLunchProvider>(
-                                            context,
-                                            listen: false)
-                                        .sendLunch(lunchData);
-                                Navigator.pop(context);
-                                if (response == true) {
-                                  Provider.of<AuthProvider>(context,
-                                          listen: false)
-                                      .updateUserLunch(balanceAmt.toString());
-                                  Toasts.showToast(
-                                      Colors.green, "Lunch sent successfully");
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const SendLunchSuccess()));
-                                }
-                              },
-                              child: Text(
-                                "SEND LUNCH",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: ColorUtils.White,
+                          keyboardType: TextInputType.number,
+                        )),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          "Your are left with ",
+                          textAlign: TextAlign.left,
+                          style:
+                              Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    fontWeight: FontWeight.w400,
+                                    // color: ColorUtils.Black
+                                  ),
+                        ),
+                        Text(
+                          " ${user.lunchCreditBalance} ",
+                          textAlign: TextAlign.left,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodySmall
+                              ?.copyWith(
                                   fontWeight: FontWeight.w600,
-                                ),
+                                  color: ColorUtils.Green),
+                        ),
+                        Text(
+                          " free lunches",
+                          textAlign: TextAlign.left,
+                          style:
+                              Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    fontWeight: FontWeight.w400,
+                                    // color: ColorUtils.Black
+                                  ),
+                        ),
+                      ],
+                    ),
+
+                    Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5.0),
+                        child: Text(
+                          'Reward Reason:',
+                          style:
+                              Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    // color: Colors.black
+                                  ),
+                        )),
+                    Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10.0),
+                        child: TextFormField(
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(
+                                  color: ColorUtils.Grey,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16),
+                          onChanged: (value) {
+                            lunchData['note'] = value;
+                          },
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: ColorUtils.Green,
                               ),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(20)),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: ColorUtils.Green,
+                              ),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(20)),
                             ),
                           ),
-                        ],
+                          keyboardType: TextInputType.emailAddress,
+                        )),
+
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5.0),
+                      child: Text(
+                        'By Clicking send lunch, you choose to reward recipient with the stipulated number of lunch',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium!
+                            .copyWith(color: Colors.grey[700]),
+                      ),
+                    ),
+
+                    // Send Lunch Button
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 25),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            shape: const RoundedRectangleBorder(),
+                            minimumSize: const Size.fromHeight(60),
+                            backgroundColor: const Color(0xFF04754D)),
+                        onPressed: () async {
+                          Utils.loadingProgress(context);
+                          lunchData['receivers'] = ["${widget.receiver.email}"];
+                          var balanceAmt =
+                              int.parse(user.lunchCreditBalance as String) -
+                                  int.parse(lunchData['quantity']);
+                          final response =
+                              await Provider.of<TeamAndLunchProvider>(context,
+                                      listen: false)
+                                  .sendLunch(lunchData);
+                          Navigator.pop(context);
+                          if (response == true) {
+                            Provider.of<AuthProvider>(context, listen: false)
+                                .updateUserLunch(balanceAmt.toString());
+                            Toasts.showToast(
+                                Colors.green, "Lunch sent successfully");
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const SendLunchSuccess()));
+                          }
+                        },
+                        child: Text(
+                          "SEND LUNCH",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: ColorUtils.White,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
-            ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
