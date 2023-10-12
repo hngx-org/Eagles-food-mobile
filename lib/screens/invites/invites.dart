@@ -138,7 +138,7 @@ class _InvitesState extends State<Invites> {
               physics: const NeverScrollableScrollPhysics(),
               padding: const EdgeInsets.symmetric(vertical: 10),
               itemBuilder: (context, index) {
-                final item = invites[index];
+                final item = filterdInvites[index];
                 return Invitations(invite: item,);
               },
             )

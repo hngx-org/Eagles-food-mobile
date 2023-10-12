@@ -217,7 +217,9 @@ class _SendInvitesState extends State<SendInvites> {
                         final response = await  Provider.of<InvitesProvider>(context, listen: false).sendInvite(data);
                         Navigator.pop(context);
                         if(response){
-                          email = '';
+                          setState((){
+                            email = '';
+                          });
                           Toasts.showToast(ColorUtils.Green, "Invite sent");
                         }
                       },

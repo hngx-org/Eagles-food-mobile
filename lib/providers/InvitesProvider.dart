@@ -67,6 +67,7 @@ class InvitesProvider with ChangeNotifier {
     const String url = 'organization/invite';
     try {
       final response = await Network.post(endpoint: url, data: jsonEncode(data));
+      print(response);
       if(response['success'] == true){
         notifyListeners();
         return true;
