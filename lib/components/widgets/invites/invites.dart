@@ -15,7 +15,7 @@ class Invitations extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 110,
+      height: 130,
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       margin: const EdgeInsets.symmetric(vertical: 10),
       decoration: BoxDecoration(
@@ -30,28 +30,34 @@ class Invitations extends StatelessWidget {
         ],
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 5.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(invite.org,
-                  style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700
+            child: Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(invite.org,
+                    overflow: TextOverflow.ellipsis,
+                    softWrap: true,
+                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                      fontSize: 18,
+                      color:ColorUtils.Black,
+                      fontWeight: FontWeight.w700
+                    ),
                   ),
-                ),
-                Text(
-                  "Sent on ${DateTime.parse(invite.createdAt).formatToDate}",
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: ColorUtils.Green,
-                    fontWeight: FontWeight.w500
-                  ),
-                )
+                  Text(
+                    "Sent on ${DateTime.parse(invite.createdAt).formatToDate}",
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      color: ColorUtils.Green,
+                      fontWeight: FontWeight.w500
+                    ),
+                  )
 
-              ],
+                ],
+              ),
             ),
           ),
           Row(
@@ -66,13 +72,15 @@ class Invitations extends StatelessWidget {
                     };
                     Utils.loadingProgress(context);
                     final response = await Provider.of<InvitesProvider>(context, listen: false).replyInvite(data);
+                    Navigator.pop(context);
                     if(response){
                         Provider.of<AuthProvider>(context, listen: false).updateUserOrg(invite.org, invite.orgId);
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                              InviteReplySuccess(team: invite)));
+                              InviteReplySuccess(team: invite))
+                        );
                     }
                   },
                   buttonText: "Accept",

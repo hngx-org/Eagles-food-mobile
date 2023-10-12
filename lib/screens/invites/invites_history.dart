@@ -181,7 +181,7 @@ class _InvitesHistoryState extends State<InvitesHistory> {
            isLoading
                 ? ListView.builder(
                     shrinkWrap: true,
-                    padding: const EdgeInsets.symmetric(vertical: 0),
+                    padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 15),
                     physics: const BouncingScrollPhysics(),
                     itemCount: 8,
                     itemBuilder: (context, index) => const TeamShimmer())

@@ -628,7 +628,7 @@ class _SignupState extends State<Signup> {
                                             builder: (context) =>
                                                 const NavScreen()), (route)=> false);
                                     Toasts.showToast(
-                                        Colors.green, 'Signup Successful');
+                                        ColorUtils.Green, 'Signup Successful');
                                   }
 
                               },

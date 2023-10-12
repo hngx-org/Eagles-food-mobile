@@ -400,28 +400,16 @@ class _SendMultiLunchScreenState extends State<SendMultiLunchScreen> {
                               decoration: InputDecoration(
                                 suffixIcon: Padding(
                                   padding: const EdgeInsets.symmetric(
-                                      vertical: 10.0),
-                                  child: TextFormField(
-                                    validator: (value) {
-                                      if (value == '') {
-                                        return 'Enter number of free lunches';
-                                      }
-                                      if (int.parse(value!) >
-                                          int.parse(user?.lunchCreditBalance
-                                          as String)) {
-                                        return 'You do not have enough free lunches';
-                                      }
-                                      return null;
-                                    },
+                                      vertical: 10.0, horizontal: 10),
+                                  child: Text(
+                                    "Free Lunches",
                                     textAlign: TextAlign.center,
-                                    style: Theme
-                                        .of(context)
+                                    style: Theme.of(context)
                                         .textTheme
                                         .bodyMedium
                                         ?.copyWith(
-
-                                            color: ColorUtils.Green,
-                                            fontWeight: FontWeight.w600),
+                                        color: ColorUtils.Green,
+                                        fontWeight: FontWeight.w600),
                                   ),
                                 ),
                                 enabledBorder: OutlineInputBorder(
@@ -457,6 +445,7 @@ class _SendMultiLunchScreenState extends State<SendMultiLunchScreen> {
                               ),
                               keyboardType: TextInputType.number,
                             )),
+
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           mainAxisAlignment: MainAxisAlignment.end,

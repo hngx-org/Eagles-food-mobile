@@ -2,19 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:hng_task3/components/shimmers/teamShimmer.dart';
 import 'package:hng_task3/components/widgets/invites/invite_history.dart';
 import 'package:hng_task3/configs/colors.dart';
+import 'package:hng_task3/models/sentInvite.dart';
 
 class InvitesReply extends StatefulWidget {
-  const InvitesReply({super.key, this.invites, this.page});
-  final invites;
+  InvitesReply({super.key, required this.invites, this.page});
+  List<SendInvite> invites;
   final page;
   @override
   State<InvitesReply> createState() => _InvitesReplyState();
 }
 
 class _InvitesReplyState extends State<InvitesReply> {
+  TextEditingController searchController = TextEditingController();
+  String _searchQuery = '';
 
   @override
   Widget build(BuildContext context) {
+
+    List<SendInvite> filterdInvites = widget.invites
+        .where((invites) =>
+        invites.org.toLowerCase().contains(_searchQuery.toLowerCase()))
+        .toList();
+
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
@@ -63,47 +72,51 @@ class _InvitesReplyState extends State<InvitesReply> {
               ),
             ),
 
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: TextFormField(
-                style: Theme.of(context).textTheme.bodyLarge,
-                decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  hintText: 'Search for member',
-                  filled: true,
-                  fillColor: Theme.of(context).unselectedWidgetColor.withOpacity(0.2),
-                  hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: ColorUtils.LightGrey,
-                      fontWeight: FontWeight.w500
-                  ),
-                  suffixIcon: Icon(Icons.search, color: ColorUtils.LightGrey, size: 30,),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 1,
-                      color: ColorUtils.LightGrey,
-                    ),
-                    borderRadius: const  BorderRadius.all(Radius.circular(30)),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 1,
-                      color: ColorUtils.LightGrey,
-                    ),
-                    borderRadius: const  BorderRadius.all(Radius.circular(30)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 1,
-                      color: ColorUtils.LightGrey,
-                    ),
-                    borderRadius: const  BorderRadius.all(Radius.circular(50)),
-                  ),
-                ),
-                onChanged: (value) {
-                  // search(value);
-                },
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(vertical: 10),
+            //   child: TextFormField(
+            //     style: Theme.of(context).textTheme.bodyLarge,
+            //     controller: searchController,
+            //     decoration: InputDecoration(
+            //       contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            //       hintText: 'Search history',
+            //       filled: true,
+            //       fillColor: Theme.of(context).unselectedWidgetColor.withOpacity(0.2),
+            //       hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
+            //           color: ColorUtils.LightGrey,
+            //           fontWeight: FontWeight.w500
+            //       ),
+            //       suffixIcon: Icon(Icons.search, color: ColorUtils.LightGrey, size: 30,),
+            //       border: OutlineInputBorder(
+            //         borderSide: BorderSide(
+            //           width: 1,
+            //           color: ColorUtils.LightGrey,
+            //         ),
+            //         borderRadius: const  BorderRadius.all(Radius.circular(30)),
+            //       ),
+            //       enabledBorder: OutlineInputBorder(
+            //         borderSide: BorderSide(
+            //           width: 1,
+            //           color: ColorUtils.LightGrey,
+            //         ),
+            //         borderRadius: const  BorderRadius.all(Radius.circular(30)),
+            //       ),
+            //       focusedBorder: OutlineInputBorder(
+            //         borderSide: BorderSide(
+            //           width: 1,
+            //           color: ColorUtils.LightGrey,
+            //         ),
+            //         borderRadius: const  BorderRadius.all(Radius.circular(50)),
+            //       ),
+            //     ),
+            //     onChanged: (value) {
+            //       setState(() {
+            //         _searchQuery = value;
+            //       });
+            //     },
+            //   ),
+            // ),
+
             widget.invites.isEmpty
                 ? Padding(
               padding: const EdgeInsets.only(top: 20),
@@ -117,11 +130,11 @@ class _InvitesReplyState extends State<InvitesReply> {
                 : ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              itemCount: widget.invites.length,
+              itemCount: filterdInvites.length,
               padding: const EdgeInsets.symmetric(
-                  vertical: 10, horizontal: 20),
+                  vertical: 10, horizontal: 15),
               itemBuilder: (context, index) {
-                final item = widget.invites[index];
+                final item = filterdInvites[index];
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: Row(
@@ -133,7 +146,7 @@ class _InvitesReplyState extends State<InvitesReply> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              item.email,
+                              item.email as String,
                               overflow: TextOverflow.ellipsis,
                               softWrap: true,
                               style: Theme.of(context)

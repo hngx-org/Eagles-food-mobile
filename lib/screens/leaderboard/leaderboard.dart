@@ -36,7 +36,6 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
     isLoading = Provider.of<TeamAndLunchProvider>(context).isLoading;
     leaderboard.sort((a, b) => b.quantity.compareTo(a.quantity));
 
-    print(leaderboard);
     List<LeaderBoard> filtered = leaderboard
         .where((team) =>
         team.name.toLowerCase().contains(_searchQuery.toLowerCase()))

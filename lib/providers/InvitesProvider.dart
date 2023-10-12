@@ -85,6 +85,13 @@ class InvitesProvider with ChangeNotifier {
     try {
       final response = await Network.post(endpoint: url, data: jsonEncode(data));
       if(response['success'] == true){
+        List<Invite> _updatedList = [];
+        _invites.forEach((element) {
+          if(element.id != data['inviteId']){
+            _updatedList.add(element);
+          }
+        });
+        _invites = _updatedList;
         notifyListeners();
         return true;
       }else{

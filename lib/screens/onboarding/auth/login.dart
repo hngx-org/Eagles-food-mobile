@@ -276,7 +276,7 @@ class _LoginState extends State<Login> {
                                             builder: (context) =>
                                                 NavScreen()), (route)=> false);
                                     Toasts.showToast(
-                                        Colors.green, 'Login Successful');
+                                        ColorUtils.Green, 'Login Successful');
                                   }
                                 }
                               },

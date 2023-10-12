@@ -72,7 +72,7 @@ class _InvitesState extends State<Invites> {
                 decoration: InputDecoration(
                   contentPadding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  hintText: 'Search for member',
+                  hintText: 'Search Invite',
                   filled: true,
                   fillColor:
                       Theme.of(context).unselectedWidgetColor.withOpacity(0.2),
@@ -133,7 +133,7 @@ class _InvitesState extends State<Invites> {
                   style: Theme.of(context).textTheme.bodyLarge,),
               ) :
             ListView.builder(
-              itemCount: invites.length,
+              itemCount: filterdInvites.length,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               padding: const EdgeInsets.symmetric(vertical: 10),
