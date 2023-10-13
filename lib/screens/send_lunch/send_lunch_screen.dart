@@ -296,10 +296,13 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                             Toasts.showToast(
                                 Colors.green, "Lunch sent successfully");
                             Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const SendLunchSuccess()));
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SendLunchSuccess(
+                                  noOfLunches: lunchData['quantity'],
+                                ),
+                              ),
+                            );
                           }
                         },
                         child: Text(

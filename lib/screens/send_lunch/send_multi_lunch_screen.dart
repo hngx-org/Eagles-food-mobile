@@ -52,8 +52,7 @@ class _SendMultiLunchScreenState extends State<SendMultiLunchScreen> {
 
       noOfLunch = lunchData['receivers'].length;
       int debit = int.parse(lunchData['quantity']) * noOfLunch;
-      var balanceAmt = int.parse(user?.lunchCreditBalance as String) -
-          debit;
+      var balanceAmt = int.parse(user?.lunchCreditBalance as String) - debit;
 
       final response =
           await Provider.of<TeamAndLunchProvider>(context, listen: false)
@@ -69,7 +68,8 @@ class _SendMultiLunchScreenState extends State<SendMultiLunchScreen> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const SendLunchSuccess(),
+            builder: (context) =>
+                SendLunchSuccess(noOfLunches: debit.toString()),
           ),
         );
       }
@@ -78,9 +78,7 @@ class _SendMultiLunchScreenState extends State<SendMultiLunchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    user = Provider
-        .of<AuthProvider>(context)
-        .user;
+    user = Provider.of<AuthProvider>(context).user;
     return Scaffold(
       // ignore: deprecated_member_use
       backgroundColor: Theme.of(context).backgroundColor,
@@ -408,8 +406,8 @@ class _SendMultiLunchScreenState extends State<SendMultiLunchScreen> {
                                         .textTheme
                                         .bodyMedium
                                         ?.copyWith(
-                                        color: ColorUtils.Green,
-                                        fontWeight: FontWeight.w600),
+                                            color: ColorUtils.Green,
+                                            fontWeight: FontWeight.w600),
                                   ),
                                 ),
                                 enabledBorder: OutlineInputBorder(
@@ -561,7 +559,6 @@ class _SendMultiLunchScreenState extends State<SendMultiLunchScreen> {
                         ),
                       ],
                     ),
-
                   ),
                 ),
               ),
