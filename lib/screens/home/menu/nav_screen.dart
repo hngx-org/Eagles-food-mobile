@@ -108,7 +108,7 @@ class _NavScreenState extends State<NavScreen> {
     user = Provider.of<AuthProvider>(context).user;
     // print(user?.isAdmin);
     return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+      // backgroundColor: Theme.of(context).backgroundColor,
       body: Stack(
         children: [
           MenuScreen(

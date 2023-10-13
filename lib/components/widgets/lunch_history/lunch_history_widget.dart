@@ -6,6 +6,7 @@ import 'package:hng_task3/configs/sessions.dart';
 import 'package:hng_task3/models/lunch.dart';
 import 'package:hng_task3/models/user.dart';
 import 'package:hng_task3/providers/AuthProvider.dart';
+import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
 import 'package:hng_task3/screens/lunch_history/lunch_history_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -26,6 +27,10 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
   var filteredHistory = [];
   var selectedFilter = LunchHistoryFilters.All;
   User? user;
+
+  bool end_reached = false;
+  int page = 1;
+
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -113,22 +118,42 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
             )
           ],
         ),
-        widget.history.isEmpty ? ListView.builder(
-            shrinkWrap: true,
-            padding: const EdgeInsets.symmetric(vertical: 0),
-            physics: const BouncingScrollPhysics(),
-            itemCount: 8,
-            itemBuilder: (context, index) => const LunchHistoryShimmer()
-        ) : ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-          // itemCount: widget.history.length,
-          itemCount: widget.limit ==true && filteredHistory.length > 5 ? 5 : filteredHistory.length,
-          itemBuilder: (context, index) => Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10),
-            child: LaunchHistoryItem(
-              lunchHistory: filteredHistory[index],
+        widget.history.isEmpty ? Expanded(
+          child: ListView.builder(
+              shrinkWrap: true,
+              padding: const EdgeInsets.symmetric(vertical: 0),
+              physics: const BouncingScrollPhysics(),
+              itemCount: 5,
+              itemBuilder: (context, index) => const LunchHistoryShimmer()
+          ),
+        ) : NotificationListener<ScrollEndNotification>(
+            onNotification: (scrollEnd) {
+              var metrics = scrollEnd.metrics;
+              if (metrics.atEdge) {
+                if (metrics.pixels == 0) {
+                } else {
+                  setState(() {
+                    end_reached = true;
+                    page ++;
+                  });
+                  Provider.of<TeamAndLunchProvider>(context, listen: false).getLunchHistory(page);
+                }
+              }
+              return true;
+            },
+          child: Expanded(
+            child: ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+              // itemCount: widget.history.length,
+              itemCount: widget.limit ==true && filteredHistory.length > 5 ? 5 : filteredHistory.length,
+              itemBuilder: (context, index) => Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: LaunchHistoryItem(
+                  lunchHistory: filteredHistory[index],
+                ),
+              ),
             ),
           ),
         )
