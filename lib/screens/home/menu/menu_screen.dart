@@ -11,8 +11,7 @@ class MenuScreen extends StatefulWidget {
       {super.key,
       required this.closeDrawer,
       required this.selectedItem,
-      required this.selectPage
-      });
+      required this.selectPage});
 
   final String selectedItem;
   final VoidCallback closeDrawer;
@@ -36,11 +35,13 @@ class _MenuScreenState extends State<MenuScreen> {
     });
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     user ??= Provider.of<AuthProvider>(context).user;
     return Scaffold(
-      backgroundColor:  Theme.of(context).backgroundColor,
+      // ignore: deprecated_member_use
+      backgroundColor: Theme.of(context).backgroundColor,
       body: SingleChildScrollView(
         child: Container(
           height: MediaQuery.of(context).size.height,
@@ -60,8 +61,11 @@ class _MenuScreenState extends State<MenuScreen> {
                         backgroundColor: Colors.transparent,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(20),
-                          child: Image.asset("assets/logo/logo_green.png",),
-                      ),),
+                          child: Image.asset(
+                            "assets/logo/logo_green.png",
+                          ),
+                        ),
+                      ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
                         child: Text(
@@ -75,7 +79,6 @@ class _MenuScreenState extends State<MenuScreen> {
                     ],
                   ),
                 ),
-
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: Row(
@@ -99,149 +102,134 @@ class _MenuScreenState extends State<MenuScreen> {
                     ],
                   ),
                 ),
-                Column(
-                  children: [
-                    SizedBox(
-                      width: 150,
-                      child: ListTile(
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 0,
-                          vertical: 3,
-                        ),
-                        onTap: () => widget.selectPage("home"),
-                        leading: Icon(
-                            Icons.home_filled,
-                          color: widget.selectedItem == "home"
-                              ? ColorUtils.Green
-                              : ColorUtils.Black.withOpacity(0.5),
-                        ),
-                        title: Text(
-                          "home",
-                          softWrap: true,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(
-                            color: widget.selectedItem == "home"
-                                ? ColorUtils.Green
-                                : ColorUtils.Black,
-                          ),
-                        ),
+                Column(children: [
+                  SizedBox(
+                    width: 150,
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 0,
+                        vertical: 3,
+                      ),
+                      onTap: () => widget.selectPage("home"),
+                      leading: Icon(
+                        Icons.home_filled,
+                        color: widget.selectedItem == "home"
+                            ? ColorUtils.Green
+                            : ColorUtils.Black.withOpacity(0.5),
+                      ),
+                      title: Text(
+                        "home",
+                        softWrap: true,
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              color: widget.selectedItem == "home"
+                                  ? ColorUtils.Green
+                                  : ColorUtils.Black,
+                            ),
                       ),
                     ),
-                    SizedBox(
-                      width: 150,
-                      child: ListTile(
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 0,
-                          vertical: 3,
-                        ),
-                        onTap: () => widget.selectPage("sendlunch"),
-                        leading: Icon(
-                          Icons.send,
-                          color: widget.selectedItem == "sendlunch"
-                              ? ColorUtils.Green
-                              : ColorUtils.Black.withOpacity(0.5),
-                        ),
-                        title: Text(
-                          "Send Lunch",
-                          softWrap: true,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(
-                            color: widget.selectedItem == "sendlunch"
-                                ? ColorUtils.Green
-                                : ColorUtils.Black,
-                          ),
-                        ),
+                  ),
+                  SizedBox(
+                    width: 150,
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 0,
+                        vertical: 3,
+                      ),
+                      onTap: () => widget.selectPage("sendlunch"),
+                      leading: Icon(
+                        Icons.send,
+                        color: widget.selectedItem == "sendlunch"
+                            ? ColorUtils.Green
+                            : ColorUtils.Black.withOpacity(0.5),
+                      ),
+                      title: Text(
+                        "Send Lunch",
+                        softWrap: true,
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              color: widget.selectedItem == "sendlunch"
+                                  ? ColorUtils.Green
+                                  : ColorUtils.Black,
+                            ),
                       ),
                     ),
-                    SizedBox(
-                      width: 150,
-                      child: ListTile(
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 0,
-                          vertical: 3,
-                        ),
-                        onTap: () => widget.selectPage("withdrawlunch"),
-                        leading: Icon(
-                          Icons.receipt,
-                          color: widget.selectedItem == "withdrawlunch"
-                              ? ColorUtils.Green
-                              : ColorUtils.Black.withOpacity(0.5),
-                        ),
-                        title: Text(
-                          "Withdraw Lunch",
-                          softWrap: true,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(
-                            color: widget.selectedItem == "withdrawlunch"
-                                ? ColorUtils.Green
-                                : ColorUtils.Black,
-                          ),
-                        ),
+                  ),
+                  SizedBox(
+                    width: 150,
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 0,
+                        vertical: 3,
+                      ),
+                      onTap: () => widget.selectPage("withdrawlunch"),
+                      leading: Icon(
+                        Icons.receipt,
+                        color: widget.selectedItem == "withdrawlunch"
+                            ? ColorUtils.Green
+                            : ColorUtils.Black.withOpacity(0.5),
+                      ),
+                      title: Text(
+                        "Withdraw Lunch",
+                        softWrap: true,
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              color: widget.selectedItem == "withdrawlunch"
+                                  ? ColorUtils.Green
+                                  : ColorUtils.Black,
+                            ),
                       ),
                     ),
-                    SizedBox(
-                      width: 150,
-                      child: ListTile(
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 0,
-                          vertical: 3,
-                        ),
-                        onTap: () => widget.selectPage("profile"),
-                        leading: Icon(
-                          Icons.person_outline,
-                          color: widget.selectedItem == "profile"
-                              ? ColorUtils.Green
-                              : ColorUtils.Black.withOpacity(0.5),
-                        ),
-                        title: Text(
-                          "Profile",
-                          softWrap: true,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(
-                            color: widget.selectedItem == "profile"
-                                ? ColorUtils.Green
-                                : ColorUtils.Black,
-                          ),
-                        ),
+                  ),
+                  SizedBox(
+                    width: 150,
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 0,
+                        vertical: 3,
+                      ),
+                      onTap: () => widget.selectPage("profile"),
+                      leading: Icon(
+                        Icons.person_outline,
+                        color: widget.selectedItem == "profile"
+                            ? ColorUtils.Green
+                            : ColorUtils.Black.withOpacity(0.5),
+                      ),
+                      title: Text(
+                        "Profile",
+                        softWrap: true,
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              color: widget.selectedItem == "profile"
+                                  ? ColorUtils.Green
+                                  : ColorUtils.Black,
+                            ),
                       ),
                     ),
-                    SizedBox(
-                      width: 150,
-                      child: ListTile(
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 0,
-                          vertical: 3,
-                        ),
-                        onTap: () => widget.selectPage("invitepage"),
-                        leading: Icon(
-                          Icons.insert_invitation,
-                          color: widget.selectedItem == "invitepage"
-                              ? ColorUtils.Green
-                              : ColorUtils.Black.withOpacity(0.5),
-                        ),
-                        title: Text(
-                          "Invites",
-                          softWrap: true,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(
-                            color: widget.selectedItem == "invitepage"
-                                ? ColorUtils.Green
-                                : ColorUtils.Black,
-                          ),
-                        ),
+                  ),
+                  SizedBox(
+                    width: 150,
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 0,
+                        vertical: 3,
+                      ),
+                      onTap: () => widget.selectPage("invitepage"),
+                      leading: Icon(
+                        Icons.insert_invitation,
+                        color: widget.selectedItem == "invitepage"
+                            ? ColorUtils.Green
+                            : ColorUtils.Black.withOpacity(0.5),
+                      ),
+                      title: Text(
+                        "Invites",
+                        softWrap: true,
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              color: widget.selectedItem == "invitepage"
+                                  ? ColorUtils.Green
+                                  : ColorUtils.Black,
+                            ),
                       ),
                     ),
-                    if(user?.isAdmin == "True"  ) SizedBox(
+                  ),
+                  if (user?.isAdmin == "True")
+                    SizedBox(
                       width: 150,
                       child: ListTile(
                         contentPadding: const EdgeInsets.symmetric(
@@ -262,14 +250,15 @@ class _MenuScreenState extends State<MenuScreen> {
                               .textTheme
                               .bodyMedium!
                               .copyWith(
-                            color: widget.selectedItem == "manageinvites"
-                                ? ColorUtils.Green
-                                : ColorUtils.Black,
-                          ),
+                                color: widget.selectedItem == "manageinvites"
+                                    ? ColorUtils.Green
+                                    : ColorUtils.Black,
+                              ),
                         ),
                       ),
                     ),
-                    if(user?.isAdmin == "True"  ) SizedBox(
+                  if (user?.isAdmin == "True")
+                    SizedBox(
                       width: 150,
                       child: ListTile(
                         contentPadding: const EdgeInsets.symmetric(
@@ -290,41 +279,35 @@ class _MenuScreenState extends State<MenuScreen> {
                               .textTheme
                               .bodyMedium!
                               .copyWith(
-                            color: widget.selectedItem == "userjoinrequest"
-                                ? ColorUtils.Green
-                                : ColorUtils.Black,
-                          ),
+                                color: widget.selectedItem == "userjoinrequest"
+                                    ? ColorUtils.Green
+                                    : ColorUtils.Black,
+                              ),
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: 150,
-                      child: ListTile(
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 0,
-                          vertical: 3,
-                        ),
-                        onTap: () => widget.selectPage("logout"),
-                        leading: Icon(
-                          Icons.power_settings_new,
-                          color: ColorUtils.Red
-                        ),
-                        title: Text(
-                          "Logout",
-                          softWrap: true,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(
-                            color: widget.selectedItem == "logout"
-                                ? ColorUtils.Green
-                                : ColorUtils.Black,
-                          ),
-                        ),
+                  SizedBox(
+                    width: 150,
+                    child: ListTile(
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 0,
+                        vertical: 3,
+                      ),
+                      onTap: () => widget.selectPage("logout"),
+                      leading:
+                          Icon(Icons.power_settings_new, color: ColorUtils.Red),
+                      title: Text(
+                        "Logout",
+                        softWrap: true,
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              color: widget.selectedItem == "logout"
+                                  ? ColorUtils.Green
+                                  : ColorUtils.Black,
+                            ),
                       ),
                     ),
-                  ]
-                ),
+                  ),
+                ]),
                 const Spacer(),
                 const Column(
                   children: [

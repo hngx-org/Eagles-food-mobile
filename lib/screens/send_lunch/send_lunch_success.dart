@@ -4,12 +4,15 @@ import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/screens/home/menu/nav_screen.dart';
 
 class SendLunchSuccess extends StatelessWidget {
-  const SendLunchSuccess({super.key});
+  final String noOfLunches;
+  const SendLunchSuccess({super.key, required this.noOfLunches});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // ignore: deprecated_member_use
       backgroundColor: Theme.of(context).backgroundColor,
+
       body: SafeArea(
         child: Stack(
           children: [
@@ -88,23 +91,24 @@ class SendLunchSuccess extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                       Column(
+                      Column(
                         children: [
                           // Free Lunch Text
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 30.0),
                             child: Text(
-                              "Your Free Lunch has been sent successfully",
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context).textTheme.displaySmall
-                            ),
+                                "Your Free Lunch has been sent successfully",
+                                textAlign: TextAlign.center,
+                                style:
+                                    Theme.of(context).textTheme.displaySmall),
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 10),
                             child: Center(
                               child: Text(
-                                "Congratulations, you have successfully sent 3 Free Lunches! Click continue to proceed",
+                                "Congratulations, you have successfully sent $noOfLunches Free Lunches! Click continue to proceed",
                                 textAlign: TextAlign.center,
                                 style: Theme.of(context).textTheme.bodyLarge,
                               ),
@@ -112,15 +116,21 @@ class SendLunchSuccess extends StatelessWidget {
                           ),
                         ],
                       ),
-
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
-                        child: CustomButton(onPress: () async {
-                          Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const NavScreen()), (route)=>false);
-                        }, buttonText: "Continue", buttonColor: ColorUtils.Green, textColor: ColorUtils.White, isUppercase: true),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 15.0, horizontal: 20),
+                        child: CustomButton(
+                            onPress: () async {
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const NavScreen()),
+                                  (route) => false);
+                            },
+                            buttonText: "Continue",
+                            buttonColor: ColorUtils.Green,
+                            textColor: ColorUtils.White,
+                            isUppercase: true),
                       ),
                     ],
                   ),
