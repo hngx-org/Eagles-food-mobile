@@ -11,6 +11,7 @@ class OrganizationProvider with ChangeNotifier{
   bool _isLoading = false;
   List<OrgRequest> _org_request = [];
 
+
   List<Organization> get organizations  => _organizations;
   bool get isLoading => _isLoading;
   List<OrgRequest> get org_request => _org_request;
@@ -99,7 +100,6 @@ class OrganizationProvider with ChangeNotifier{
       print(e);
     }
   }
-
 
 
 }

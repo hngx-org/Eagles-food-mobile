@@ -24,6 +24,13 @@ class _ProfileState extends State<Profile> {
   User? user;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    Provider.of<AuthProvider>(context, listen: false).getUserOrg();
+    super.initState();
+  }
+
+  @override
   void dispose() {
     focusNode.dispose();
     super.dispose();
@@ -123,16 +130,35 @@ class _ProfileState extends State<Profile> {
                         ),
                       ),
                       // Organization Name
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: Text(
-                          user?.orgName ?? 'Default Organization',
-                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            fontSize: 16,
-                            color: ColorUtils.White,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+
+                      Consumer<AuthProvider>(
+                        builder: (context, provider, child) {
+                          if (provider.userOrg == null) {
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Text(
+                                user!.orgName.toString(),
+                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                  fontSize: 16,
+                                  color: ColorUtils.White,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            );
+                          } else {
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Text(
+                                provider.userOrg.toString(),
+                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                  fontSize: 16,
+                                  color: ColorUtils.White,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            );
+                          }
+                        },
                       ),
                     ],
                   ),

@@ -22,7 +22,7 @@ class _MyTeamSearchState extends State<MyTeamSearch> {
   @override
   Widget build(BuildContext context) {
     if (widget.list.length > 0) {
-      return widget.list.length == 0
+      return widget.list.isEmpty
           ? ListView.builder(
               shrinkWrap: true,
               padding: const EdgeInsets.symmetric(vertical: 0),
@@ -32,18 +32,18 @@ class _MyTeamSearchState extends State<MyTeamSearch> {
           : NotificationListener<ScrollEndNotification>(
         onNotification: (scrollEnd) {
           var metrics = scrollEnd.metrics;
-          if (metrics.atEdge) {
-            if (metrics.pixels == 0) {
-            } else {
-              setState(() {
-                end_reached = true;
-                page ++;
-              });
-              Provider.of<TeamAndLunchProvider>(context, listen: false).getMyTeam(page);
+            if (metrics.atEdge) {
+              if (metrics.pixels == 0) {
+              } else {
+                setState(() {
+                  end_reached = true;
+                  page ++;
+                });
+                Provider.of<TeamAndLunchProvider>(context, listen: false).getMyTeam(page);
+              }
             }
-          }
-          return true;
-        },
+            return true;
+          },
             child: ListView.builder(
                 itemCount: widget.list.length,
                 padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),

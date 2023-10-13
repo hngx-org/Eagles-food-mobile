@@ -119,12 +119,14 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
           ],
         ),
         widget.history.isEmpty ? Expanded(
-          child: ListView.builder(
-              shrinkWrap: true,
-              padding: const EdgeInsets.symmetric(vertical: 0),
-              physics: const BouncingScrollPhysics(),
-              itemCount: 5,
-              itemBuilder: (context, index) => const LunchHistoryShimmer()
+          child: Expanded(
+            child: ListView.builder(
+                shrinkWrap: true,
+                padding: const EdgeInsets.symmetric(vertical: 0),
+                physics: const BouncingScrollPhysics(),
+                itemCount: 5,
+                itemBuilder: (context, index) => const LunchHistoryShimmer()
+            ),
           ),
         ) : NotificationListener<ScrollEndNotification>(
             onNotification: (scrollEnd) {

@@ -21,12 +21,12 @@ class _EveryoneSearchState extends State<EveryoneSearch> {
   @override
   Widget build(BuildContext context) {
     if (widget.list.length > 0) {
-      return widget.list.length == 0
+      return widget.list.isEmpty
           ? ListView.builder(
               shrinkWrap: true,
               padding: const EdgeInsets.symmetric(vertical: 0),
               physics: const BouncingScrollPhysics(),
-              itemCount: 8,
+              itemCount: 5,
               itemBuilder: (context, index) => const TeamShimmer())
           : NotificationListener<ScrollEndNotification>(
             onNotification: (scrollEnd) {
