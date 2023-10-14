@@ -7,6 +7,8 @@ import 'package:hng_task3/models/leaderboard.dart';
 import 'package:hng_task3/models/lunch.dart';
 import 'package:hng_task3/models/team.dart';
 import 'package:hng_task3/network/network.dart';
+import 'package:hng_task3/providers/AuthProvider.dart';
+import 'package:provider/provider.dart';
 
 import '../configs/colors.dart';
 import '../utils/toast.dart';
@@ -17,12 +19,14 @@ class TeamAndLunchProvider with ChangeNotifier {
   List<Lunch> _lunchHistory = [];
   bool _isLoading = false;
   List<LeaderBoard> _leaderboard = [];
+  String _lunchCreditBalance = '';
 
   List<Lunch> get lunchHistory => _lunchHistory;
   List<Team> get my_team => _my_team;
   List<Team> get everyone => _everyone;
   bool get isLoading => _isLoading;
   List<LeaderBoard> get leaderboard => _leaderboard;
+  String get lunchCreditBalance => _lunchCreditBalance;
 
   Future<dynamic> getUsers() async {
     const String url = 'user/all';
@@ -123,6 +127,22 @@ class TeamAndLunchProvider with ChangeNotifier {
       });
       _isLoading = false;
       notifyListeners();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<dynamic> getLunchCreditBalance() async {
+    const String url = 'lunch/lunch-balance';
+    try {
+      // _isLoading = true;
+      final response = await Network.get(url);
+      var data = response["data"]["balance"];
+      _lunchCreditBalance = data.toString();
+      print(_lunchCreditBalance);
+      // _isLoading = false;
+      notifyListeners();
+      return _lunchCreditBalance;
     } catch (e) {
       print(e);
     }

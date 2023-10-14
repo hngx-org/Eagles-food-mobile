@@ -5,8 +5,7 @@ import 'package:hng_task3/screens/send_lunch/send_lunch_search.dart';
 import 'package:hng_task3/screens/withdraw_lunch/withdraw_lunch.dart';
 
 class AvailableLunchCard extends StatelessWidget {
-  const AvailableLunchCard({Key? key, this.availableLunch})
-      : super(key: key);
+  const AvailableLunchCard({Key? key, this.availableLunch}) : super(key: key);
   final availableLunch;
 
   @override
@@ -53,7 +52,11 @@ class AvailableLunchCard extends StatelessWidget {
                             color: ColorUtils.White,
                           ),
                     ),
-                    trailing: const Icon(Icons.info_outline, color: Colors.white, size: 30,),
+                    trailing: const Icon(
+                      Icons.info_outline,
+                      color: Colors.white,
+                      size: 30,
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10.0),
@@ -73,7 +76,7 @@ class AvailableLunchCard extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => WithdrawLunch()));
+                                  builder: (context) => const WithdrawLunch()));
                         },
                         fontSize: 14,
                         buttonText: 'Withdraw lunch',

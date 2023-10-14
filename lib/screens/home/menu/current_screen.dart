@@ -80,7 +80,7 @@ class CurrentScreen extends StatelessWidget {
       case 1:
         return const SendLunchSearch();
       case 2:
-        return WithdrawLunch();
+        return const WithdrawLunch();
       case 3:
         return const Profile();
       case 4:
