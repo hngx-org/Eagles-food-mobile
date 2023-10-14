@@ -119,14 +119,12 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
           ],
         ),
         widget.history.isEmpty ? Expanded(
-          child: Expanded(
-            child: ListView.builder(
-                shrinkWrap: true,
-                padding: const EdgeInsets.symmetric(vertical: 0),
-                physics: const BouncingScrollPhysics(),
-                itemCount: 5,
-                itemBuilder: (context, index) => const LunchHistoryShimmer()
-            ),
+          child: ListView.builder(
+              shrinkWrap: true,
+              padding: const EdgeInsets.symmetric(vertical: 0),
+              physics: const BouncingScrollPhysics(),
+              itemCount: 5,
+              itemBuilder: (context, index) => const LunchHistoryShimmer()
           ),
         ) : NotificationListener<ScrollEndNotification>(
             onNotification: (scrollEnd) {
@@ -143,18 +141,16 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
               }
               return true;
             },
-          child: Expanded(
-            child: ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-              // itemCount: widget.history.length,
-              itemCount: widget.limit ==true && filteredHistory.length > 5 ? 5 : filteredHistory.length,
-              itemBuilder: (context, index) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: LaunchHistoryItem(
-                  lunchHistory: filteredHistory[index],
-                ),
+          child: ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+            // itemCount: widget.history.length,
+            itemCount: widget.limit ==true && filteredHistory.length > 5 ? 5 : filteredHistory.length,
+            itemBuilder: (context, index) => Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: LaunchHistoryItem(
+                lunchHistory: filteredHistory[index],
               ),
             ),
           ),

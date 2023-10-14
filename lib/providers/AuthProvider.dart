@@ -80,7 +80,7 @@ class AuthProvider with ChangeNotifier {
       'address': userData['address'],
       'phone': userData['phone'],
       'password': userData['password'],
-      //'inviteCode':userData['inviteCode']
+      'inviteCode':userData['inviteCode']
     };
     try {
       final response =
@@ -241,6 +241,18 @@ class AuthProvider with ChangeNotifier {
       _userOrg = org['Organization'];
       _user?.orgName = org['Organization'];
       _user?.orgId = org['Organization_Id'].toString();
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<dynamic> getUserLunchBalance() async {
+    const String url = 'lunch/lunch-balance';
+    try {
+      final response = await Network.get(url);
+      var lunchBalance = response["data"];
+      _user?.lunchCreditBalance = lunchBalance;
       notifyListeners();
     } catch (e) {
       print(e);

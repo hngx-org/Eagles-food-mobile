@@ -25,40 +25,50 @@ class TeamAndLunchProvider with ChangeNotifier {
   List<LeaderBoard> get leaderboard => _leaderboard;
 
   Future<dynamic> getMyTeam(page) async {
-    page ??= 0;
-    final String url = 'user/all?paeNumber=$page';
+    print('current page $page');
+    page ??= 1;
+    final String url = 'user/all?pageNumber=$page';
     try {
       if(page ==1 ){
         _my_team = [];
         _isLoading = true;
       }
       final response = await Network.get(url);
-      var user = response["data"];;
-      user.forEach((element) {
-        _my_team.add(Team.fromJson(element));
-      });
-      _isLoading = false;
-      notifyListeners();
+     if(response['success'] == true){
+       var user = response["data"];
+       print(user);
+       user.forEach((element) {
+         _my_team.add(Team.fromJson(element));
+       });
+       _isLoading = false;
+       notifyListeners();
+     }
     } catch (e) {
       print(e);
     }
   }
 
   Future<dynamic> getAllOthers(page) async {
-    page ??= 0;
-    final String url = 'user/others?paeNumber=$page';
+    print('current page $page');
+    page ??= 1;
+    print('current page $page');
+    final String url = 'user/others?pageNumber=$page';
+    print(url);
     try {
       if(page ==1 ){
         _everyone = [];
         _isLoading = true;
       }
       final response = await Network.get(url);
-      var others = response["data"];
-      others.forEach((element) {
-        _everyone.add(Team.fromJson(element));
-      });
-      _isLoading = false;
-      notifyListeners();
+     if(response['success'] == true){
+       var others = response["data"];
+       print(others);
+       others.forEach((element) {
+         _everyone.add(Team.fromJson(element));
+       });
+       _isLoading = false;
+       notifyListeners();
+     }
     } catch (e) {
       print(e);
     }

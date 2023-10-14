@@ -35,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Provider.of<TeamAndLunchProvider>(context, listen: false).getMyTeam(page);
     Provider.of<TeamAndLunchProvider>(context, listen: false).getAllOthers(page);
     Provider.of<AuthProvider>(context, listen: false).getUserOrg();
+    Provider.of<AuthProvider>(context, listen: false).getUserLunchBalance();
   }
 
   @override

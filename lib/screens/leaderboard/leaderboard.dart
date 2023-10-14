@@ -1,4 +1,5 @@
 // place to see the leaderboard, who has giving the most amount of free lunch
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hng_task3/components/shimmers/leaderboardShimmer.dart';
 import 'package:hng_task3/components/shimmers/teamShimmer.dart';
@@ -6,6 +7,7 @@ import 'package:hng_task3/components/widgets/leaderboard/leaderboard_widget.dart
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/models/leaderboard.dart';
 import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
+import 'package:hng_task3/utils/utils.dart';
 import 'package:provider/provider.dart';
 class LeaderBoardScreen extends StatefulWidget {
   const LeaderBoardScreen({super.key});
@@ -113,7 +115,6 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
               },
             ),
           ),
-
           isLoading
               ? Expanded(
                 child: ListView.builder(
@@ -137,7 +138,12 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
               var metrics = scrollEnd.metrics;
               if (metrics.atEdge) {
                 if (metrics.pixels == 0) {
+                  setState(() {
+                    end_reached = false;
+                    print("not end");
+                  });
                 } else {
+                  print("end reached");
                   setState(() {
                     end_reached = true;
                     page ++;
@@ -155,8 +161,19 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> {
                 padding: const EdgeInsets.symmetric(
                     vertical: 10, horizontal: 20),
                 itemBuilder: (context, index) {
-                  final item = filtered[index];
-                  return LeaderBoardWidget(item: item, index: index);
+                  if (index < filtered.length) {
+                    final item = filtered[index];
+                    return LeaderBoardWidget(item: item, index: index);
+                  } else if(end_reached == true) {
+                    return SizedBox(
+                      width: 25,
+                      height: 25,
+                      child: CupertinoActivityIndicator(
+                        color: ColorUtils.Blue,
+                        radius: 15,
+                      ),
+                    );
+                  }
                 },
               ),
             ),
