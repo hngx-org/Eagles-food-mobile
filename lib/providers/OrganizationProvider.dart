@@ -11,15 +11,19 @@ class OrganizationProvider with ChangeNotifier{
   bool _isLoading = false;
   List<OrgRequest> _org_request = [];
 
+
   List<Organization> get organizations  => _organizations;
   bool get isLoading => _isLoading;
   List<OrgRequest> get org_request => _org_request;
 
-  Future<dynamic> getOrganizations() async {
-    const String url = 'organization/all';
+  Future<dynamic> getOrganizations(page) async {
+    page??= 1;
+    final String url = 'organization/all?pageNumber=$page';
     try{
-      _organizations = [];
-      _isLoading = true;
+      if(page ==1 ) {
+        _organizations = [];
+        _isLoading = true;
+      }
       final response = await Network.get(url);
       var data = response["data"];
       print(data);
@@ -35,11 +39,14 @@ class OrganizationProvider with ChangeNotifier{
     }
   }
 
-  Future<dynamic> getUserJoinRequest() async {
-    const String url = 'organization/organizationinviterequest';
+  Future<dynamic> getUserJoinRequest(page) async {
+    page??=1;
+    final String url = 'organization/organizationinviterequest?pageNumber=$page';
     try{
-      _org_request = [];
-      _isLoading = true;
+      if(page ==1 ) {
+        _org_request = [];
+        _isLoading = true;
+      }
       final response = await Network.get(url);
       var data = response["data"];
       data.forEach((element) {
@@ -51,7 +58,6 @@ class OrganizationProvider with ChangeNotifier{
       print(e);
     }
   }
-
 
   Future<dynamic> requestToJoinOrg(int orgId) async {
     final String url = 'user/requesttojoinOrg/$orgId';
@@ -94,7 +100,6 @@ class OrganizationProvider with ChangeNotifier{
       print(e);
     }
   }
-
 
 
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/components/widgets/send_lunch/navigationwidget.dart';
 import 'package:hng_task3/configs/colors.dart';
+import 'package:hng_task3/screens/home/menu/nav_screen.dart';
 
 import 'send_multi_lunch_screen.dart';
 
@@ -41,7 +42,10 @@ class _SendLunchSearchState extends State<SendLunchSearch> {
           children: [
             TextButton(
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const NavScreen()), (route)=>false);
               },
               style: TextButton.styleFrom(
                 padding: EdgeInsets.zero,
