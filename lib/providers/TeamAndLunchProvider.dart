@@ -62,7 +62,6 @@ class TeamAndLunchProvider with ChangeNotifier {
       final response = await Network.get(url);
      if(response['success'] == true){
        var others = response["data"];
-       print(others);
        others.forEach((element) {
          _everyone.add(Team.fromJson(element));
        });

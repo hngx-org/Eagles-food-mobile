@@ -237,7 +237,7 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            WithdrawSuccessScreen()));
+                                            WithdrawSuccessScreen(amount: amount)));
                               }
                           } else {
                             Toasts.showToast(ColorUtils.Black, 'Enter number of lunch');

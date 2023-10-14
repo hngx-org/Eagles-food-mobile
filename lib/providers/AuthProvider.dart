@@ -252,7 +252,7 @@ class AuthProvider with ChangeNotifier {
     try {
       final response = await Network.get(url);
       var lunchBalance = response["data"];
-      _user?.lunchCreditBalance = lunchBalance;
+      _user?.lunchCreditBalance = lunchBalance['balance'].toString();
       notifyListeners();
     } catch (e) {
       print(e);
