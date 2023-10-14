@@ -24,13 +24,6 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
   User? user;
   @override
   void initState() {
-    // SessionManager().getUser().then((userJson) {
-    //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-    //     setState(() {
-    //       widget.user ??= User.fromJson(userJson);
-    //     });
-    //   });
-    // });
     super.initState();
   }
 
@@ -244,7 +237,7 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            WithdrawSuccessScreen()));
+                                            WithdrawSuccessScreen(amount: amount)));
                               }
                           } else {
                             Toasts.showToast(ColorUtils.Black, 'Enter number of lunch');

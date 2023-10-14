@@ -1,5 +1,6 @@
 class Team {
-  final String id, name, email, role;
+  final String id;
+  final String name, email, role;
   String? image;
 
   Team({

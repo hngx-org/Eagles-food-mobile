@@ -24,24 +24,50 @@ class TeamAndLunchProvider with ChangeNotifier {
   bool get isLoading => _isLoading;
   List<LeaderBoard> get leaderboard => _leaderboard;
 
-  Future<dynamic> getUsers() async {
-    const String url = 'user/all';
+  Future<dynamic> getMyTeam(page) async {
+    print('current page $page');
+    page ??= 1;
+    final String url = 'user/all?pageNumber=$page';
     try {
-      _my_team = [];
-      _everyone = [];
-      _isLoading = true;
+      if(page ==1 ){
+        _my_team = [];
+        _isLoading = true;
+      }
       final response = await Network.get(url);
-      var user = response["data"];
-      var my_team = user['org'];
-      var everyone = user['others'];
-      my_team.forEach((element) {
-        _my_team.add(Team.fromJson(element));
-      });
-      everyone.forEach((element) {
-        _everyone.add(Team.fromJson(element));
-      });
-      _isLoading = false;
-      notifyListeners();
+     if(response['success'] == true){
+       var user = response["data"];
+       print(user);
+       user.forEach((element) {
+         _my_team.add(Team.fromJson(element));
+       });
+       _isLoading = false;
+       notifyListeners();
+     }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<dynamic> getAllOthers(page) async {
+    print('current page $page');
+    page ??= 1;
+    print('current page $page');
+    final String url = 'user/others?pageNumber=$page';
+    print(url);
+    try {
+      if(page ==1 ){
+        _everyone = [];
+        _isLoading = true;
+      }
+      final response = await Network.get(url);
+     if(response['success'] == true){
+       var others = response["data"];
+       others.forEach((element) {
+         _everyone.add(Team.fromJson(element));
+       });
+       _isLoading = false;
+       notifyListeners();
+     }
     } catch (e) {
       print(e);
     }
@@ -72,13 +98,15 @@ class TeamAndLunchProvider with ChangeNotifier {
   }
 
 //  lunch history
-  Future<dynamic> getLunchHistory() async {
-    const String url = 'lunch/all';
+  Future<dynamic> getLunchHistory(page) async {
+    page ??= 1;
+    final String url = 'lunch/all?pageNumber=$page';
     try {
-      _lunchHistory = [];
+      if(page == 1){
+        _lunchHistory = [];
+      }
       final response = await Network.get(url);
       var lunchHistory = response["data"];
-      print(lunchHistory);
       lunchHistory.forEach((element) {
         _lunchHistory.add(Lunch.fromJson(element));
       });
@@ -110,11 +138,14 @@ class TeamAndLunchProvider with ChangeNotifier {
     }
   }
 
-  Future<dynamic> getLeaderBoard() async {
-    const String url = 'lunch/leaderboard';
+  Future<dynamic> getLeaderBoard(page) async {
+    page ??= 1;
+    final String url = 'lunch/leaderboard?pageNumber=$page';
     try {
-      _leaderboard = [];
-      _isLoading = true;
+      if(page ==1 ){
+        _leaderboard = [];
+        _isLoading = true;
+      }
       final response = await Network.get(url);
       var data = response["data"];
       print(data);
@@ -127,4 +158,6 @@ class TeamAndLunchProvider with ChangeNotifier {
       print(e);
     }
   }
+
+
 }

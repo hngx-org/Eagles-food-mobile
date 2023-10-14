@@ -26,12 +26,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<Team> my_team = [];
   List<Lunch> lunch_history = [];
+  int page = 1;
 
   @override
   void initState() {
     super.initState();
-    Provider.of<TeamAndLunchProvider>(context, listen: false).getLunchHistory();
-    Provider.of<TeamAndLunchProvider>(context, listen: false).getUsers();
+    Provider.of<TeamAndLunchProvider>(context, listen: false).getLunchHistory(page);
+    Provider.of<TeamAndLunchProvider>(context, listen: false).getMyTeam(page);
+    Provider.of<TeamAndLunchProvider>(context, listen: false).getAllOthers(page);
+    Provider.of<AuthProvider>(context, listen: false).getUserOrg();
+    Provider.of<AuthProvider>(context, listen: false).getUserLunchBalance();
   }
 
   @override

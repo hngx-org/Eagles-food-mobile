@@ -4,8 +4,8 @@ import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/screens/home/menu/nav_screen.dart';
 
 class WithdrawSuccessScreen extends StatelessWidget {
-  const WithdrawSuccessScreen();
-
+  const WithdrawSuccessScreen({ required this.amount});
+  final amount;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +36,7 @@ class WithdrawSuccessScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20.0),
                 child: Text(
-                  'Congratulations, you have withdrawn "numOfFreeLunch" Free Lunches. Click continue to proceed',
+                  'Congratulations, you have withdrawn $amount Free Lunches. Click continue to proceed',
                   style: Theme.of(context).textTheme.bodyLarge,
                   textAlign: TextAlign.center,
                 ),

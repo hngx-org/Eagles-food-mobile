@@ -10,11 +10,13 @@ class AuthProvider with ChangeNotifier {
   User? _user;
   bool? _isLoggedIn;
   bool _isLoading = false;
+  String? _userOrg;
   Organization? _organization;
 
   User? get user => _user;
   bool? get isLoggedIn => _isLoggedIn;
   bool get isLoading => _isLoading;
+  String? get userOrg => _userOrg;
 
   void updateUserLunch(String balance) {
     print("updating user lunch balance , ${_user?.lunchCreditBalance}");
@@ -32,11 +34,9 @@ class AuthProvider with ChangeNotifier {
   Future<dynamic> getUserProfile() async {
     const String url = 'user/profile';
     try {
-      _isLoading = true;
       final response = await Network.get(url);
       var user = response["data"];
       _user = User.fromJson(user);
-      _isLoggedIn = false;
       notifyListeners();
     } catch (e) {
       print(e);
@@ -82,7 +82,7 @@ class AuthProvider with ChangeNotifier {
       'address': userData['address'],
       'phone': userData['phone'],
       'password': userData['password'],
-      //'inviteCode':userData['inviteCode']
+      'inviteCode':userData['inviteCode']
     };
     try {
       final response =
@@ -195,9 +195,7 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  Future<dynamic> resetPassword(
-    Map<String, dynamic> userData,
-  ) async {
+  Future<dynamic> resetPassword(Map<String, dynamic> userData) async {
     const String url = 'auth/reset-password';
     final Map<String, dynamic> data = {
       'email': userData['email'],
@@ -217,9 +215,7 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  Future<dynamic> changePassword(
-    Map<String, dynamic> userData,
-  ) async {
+  Future<dynamic> changePassword(Map<String, dynamic> userData) async {
     const String url = 'auth/changePassword';
     final Map<String, dynamic> data = {
       'email': userData['email'],
@@ -236,6 +232,32 @@ class AuthProvider with ChangeNotifier {
       }
     } catch (error) {
       print(error);
+    }
+  }
+
+  Future<dynamic> getUserOrg() async {
+    const String url = 'user/organization';
+    try {
+      final response = await Network.get(url);
+      var org = response["data"];
+      _userOrg = org['Organization'];
+      _user?.orgName = org['Organization'];
+      _user?.orgId = org['Organization_Id'].toString();
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<dynamic> getUserLunchBalance() async {
+    const String url = 'lunch/lunch-balance';
+    try {
+      final response = await Network.get(url);
+      var lunchBalance = response["data"];
+      _user?.lunchCreditBalance = lunchBalance['balance'].toString();
+      notifyListeners();
+    } catch (e) {
+      print(e);
     }
   }
 
