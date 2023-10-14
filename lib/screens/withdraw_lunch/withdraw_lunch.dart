@@ -26,14 +26,6 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
   User? user;
   @override
   void initState() {
-    // SessionManager().getUser().then((userJson) {
-    //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-    //     setState(() {
-    //       widget.user ??= User.fromJson(userJson);
-    //     });
-    //   });
-    // });
-
     super.initState();
   }
 
@@ -238,7 +230,57 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
                               fontFamily: 'Poppins'),
                     ),
                   ),
-                ],
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                          'assets/images/withdraw_equal.png', height: 10,),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                        child: Text(
+                          "\$" '$convertedAmount',
+                          style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                              color: ColorUtils.Green,
+                            fontWeight: FontWeight.w900,
+                            fontFamily: 'Poppins'
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                      Text(
+                        'By Clicking confirm, points would be converted into your wallet as money. This process cannot be reversed as all points must be earned',
+                        softWrap: true,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: ColorUtils.Grey,
+                            fontWeight: FontWeight.w400
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 20.0),
+                        child: CustomButton(onPress: () async {
+                            if (amount > 0 ) {
+                              var balanceAmt = int.parse(user!.lunchCreditBalance as String) - amount;
+                              print(balanceAmt);
+                              Utils.loadingProgress(context);
+                              final response  = await Provider.of<TeamAndLunchProvider>(context, listen: false).withDrawLunch(amount, balanceAmt);
+                              Navigator.pop(context);
+                              if(response == true){
+                                Provider.of<AuthProvider>(context, listen: false).updateUserLunch(balanceAmt.toString());
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            WithdrawSuccessScreen(amount: amount)));
+                              }
+                          } else {
+                            Toasts.showToast(ColorUtils.Black, 'Enter number of lunch');
+
+                          }
+                        }, buttonText: "Withdraw lunch", buttonColor: ColorUtils.DeepPink, textColor: ColorUtils.White, isUppercase: true),
+                      ),
+                ]),
               ),
               Text(
                 'By Clicking confirm, points would be converted into your wallet as money. This process cannot be reversed as all points must be earned',

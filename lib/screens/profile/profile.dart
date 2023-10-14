@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hng_task3/components/custom_button.dart';
 import 'package:hng_task3/configs/colors.dart';
-import 'package:hng_task3/configs/sessions.dart';
 import 'package:hng_task3/models/user.dart';
 import 'package:hng_task3/providers/AuthProvider.dart';
-import 'package:hng_task3/screens/home/menu/nav_screen.dart';
-import 'package:hng_task3/screens/profile/change_password.dart';
-import 'package:hng_task3/screens/profile/edit_profile.dart';
+import 'package:hng_task3/screens/onboarding/auth/auth_home.dart';
+import 'package:hng_task3/screens/profile/settings.dart';
 import 'package:provider/provider.dart';
 
 class Profile extends StatefulWidget {
@@ -24,6 +21,14 @@ class _ProfileState extends State<Profile> {
   User? user;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    Provider.of<AuthProvider>(context, listen: false).getUserOrg();
+    Provider.of<AuthProvider>(context, listen: false).getUserProfile();
+    super.initState();
+  }
+
+  @override
   void dispose() {
     focusNode.dispose();
     super.dispose();
@@ -39,19 +44,27 @@ class _ProfileState extends State<Profile> {
         backgroundColor: ColorUtils.Green,
         automaticallyImplyLeading: false,
         centerTitle: true,
-        title: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: Text(
-              "Profile",
-              style: Theme.of(context)
-                  .textTheme
-                  .displayMedium
-                  ?.copyWith(fontWeight: FontWeight.w900, color: ColorUtils.White),
-            ),
-          ),
+        title: Text(
+          "Profile",
+          style: Theme.of(context)
+              .textTheme
+              .displayMedium
+              ?.copyWith(fontWeight: FontWeight.w900, color: ColorUtils.White),
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: IconButton(
+              onPressed: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Settings(),
+                    ));
+              },
+              icon: Icon( Icons.settings, color: ColorUtils.White,)
+          )),
+        ],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -123,16 +136,35 @@ class _ProfileState extends State<Profile> {
                         ),
                       ),
                       // Organization Name
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: Text(
-                          user?.orgName ?? 'Default Organization',
-                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            fontSize: 16,
-                            color: ColorUtils.White,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+
+                      Consumer<AuthProvider>(
+                        builder: (context, provider, child) {
+                          if (provider.userOrg == null) {
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Text(
+                                user!.orgName.toString(),
+                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                  fontSize: 16,
+                                  color: ColorUtils.White,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            );
+                          } else {
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Text(
+                                provider.userOrg.toString(),
+                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                  fontSize: 16,
+                                  color: ColorUtils.White,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            );
+                          }
+                        },
                       ),
                     ],
                   ),
@@ -260,63 +292,31 @@ class _ProfileState extends State<Profile> {
 
           TextButton(
             onPressed: (){
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => EditProfile(user: user,),
-                    ));
+              Provider.of<AuthProvider>(context, listen: false).logout();
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AuthHome(),
+                  ), (route) => false
+              );
               },
             child: Container(
+              alignment: Alignment.center,
               margin: const EdgeInsets.symmetric( horizontal: 10),
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: Theme.of(context).unselectedWidgetColor,
+                color: ColorUtils.Red,
               ),
-              child: Row(
-                  children: [
-                    Icon(Icons.edit, size: 20, color: ColorUtils.Green),
-                    Padding(
-                      padding: const  EdgeInsets.symmetric(horizontal: 10.0),
-                      child: Text("Edit Profile", style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18
-                      ),
-                    ))
-                  ]
+              child: Padding(
+                padding: const  EdgeInsets.symmetric(horizontal: 10.0),
+                child: Text("Logout", style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18
                 ),
+              )),
             ),
           ),
-          TextButton(
-            onPressed: (){
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ChangePassword(user: user),
-                    ));
-              },
-            child: Container(
-              margin: const EdgeInsets.symmetric( horizontal: 10),
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Theme.of(context).unselectedWidgetColor,
-              ),
-              child: Row(
-                    children: [
-                      Icon(Icons.password, size: 20, color:ColorUtils.Green),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Text("Change Password", style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18
-                        ),),
-                      )
-                    ]
-                ),
-            ),
-          ),
-
         ],
       ),
     );

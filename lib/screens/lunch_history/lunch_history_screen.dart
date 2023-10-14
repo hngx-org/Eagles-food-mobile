@@ -64,7 +64,7 @@ class _LunchHistoryScreenState extends State<LunchHistoryScreen> {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: AvailableLunchCard(
-                  availableLunch: widget.user.lunchCreditBalance,
+                  availableLunch: widget.user.lunchCreditBalance ,
                 ),
               ),
               const SizedBox(

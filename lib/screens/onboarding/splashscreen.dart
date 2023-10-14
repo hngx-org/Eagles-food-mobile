@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/sessions.dart';
+import 'package:hng_task3/providers/AuthProvider.dart';
 import 'package:hng_task3/screens/home/menu/nav_screen.dart';
 import 'package:hng_task3/screens/onboarding/onboarding_screen.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -15,13 +17,13 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    Provider.of<AuthProvider>(context, listen: false).getUserProfile();
     navigateBasedOnSession();
   }
 
   void navigateBasedOnSession() async {
     SessionManager ss = SessionManager();
     bool isLoggedIn = await ss.getLogin();
-
     Timer(const Duration(seconds: 3), () {
       Navigator.pushAndRemoveUntil(
         context,

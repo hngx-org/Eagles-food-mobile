@@ -61,7 +61,7 @@ class AvailableLunchCard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10.0),
                     child: Text(
-                      availableLunch,
+                      availableLunch ,
                       style: Theme.of(context)
                           .textTheme
                           .displayLarge

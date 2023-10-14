@@ -38,14 +38,13 @@ class _TeamListState extends State<TeamList> {
                 itemBuilder: (context, index) => const TeamShimmer()
             )
             :
-
-        widget.list.length == 0 ?
+        widget.list.isEmpty ?
         const Center(child: Text('No Team Members'))
             :
         ListView.builder(
                 shrinkWrap: true,
                 padding: const EdgeInsets.symmetric(vertical: 0),
-                physics: const BouncingScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: min(5, widget.list.length),
                 itemBuilder: (BuildContext context, int index) {
                   return SizedBox(
