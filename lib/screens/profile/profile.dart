@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
+import 'package:hng_task3/models/organization.dart';
 import 'package:hng_task3/models/user.dart';
 import 'package:hng_task3/providers/AuthProvider.dart';
 import 'package:hng_task3/screens/onboarding/auth/auth_home.dart';
@@ -170,82 +171,95 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
 
-                // Phone Number
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0, ),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Image.asset(
-                          "assets/icons/icon-call.png",
-                          height: 30,
-                          width: 30,
-                          fit: BoxFit.contain,
+                  // Phone Number
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20.0,
+                    ),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Image.asset(
+                            "assets/icons/icon-call.png",
+                            height: 30,
+                            width: 30,
+                            fit: BoxFit.contain,
+                          ),
                         ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Mobile Phone',
-                            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              color: ColorUtils.Grey,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Mobile Phone',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                    color: ColorUtils.Grey,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                             ),
-                          ),
-                          Text(
-                            "${user?.phone}",
-                            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
+                            Text(
+                              "${user?.phone}",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                // Email address
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Image.asset(
-                          "assets/icons/icon-email-green.png",
-                          height: 30,
-                          width: 30,
-                          fit: BoxFit.contain,
+                          ],
                         ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Email Address',
-                            style:
-                            Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              color: ColorUtils.Grey,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          Text(
-                            "${user?.email}",
-                            style:
-                            Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
+                  // Email address
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Image.asset(
+                            "assets/icons/icon-email-green.png",
+                            height: 30,
+                            width: 30,
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Email Address',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                    color: ColorUtils.Grey,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                            ),
+                            Text(
+                              "${user?.email}",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
 
                 // // Address
                 // Padding(
