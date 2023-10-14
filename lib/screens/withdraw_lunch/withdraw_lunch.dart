@@ -30,8 +30,9 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
 
   @override
   Widget build(BuildContext context) {
-    // var user = Provider.of<AuthProvider>(context, listen: false).user;
     user = Provider.of<AuthProvider>(context).user;
+    Provider.of<TeamAndLunchProvider>(context, listen: false)
+        .getLunchCreditBalance();
 
     return Scaffold(
         // ignore: deprecated_member_use
@@ -127,13 +128,8 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 15),
-                          child: Consumer(
-                            builder: (context,
-                                TeamAndLunchProvider lunchCreditProvider,
-                                child) {
-                              final lunchBalance =
-                                  context.watch<TeamAndLunchProvider>();
-                              lunchBalance.getLunchCreditBalance();
+                          child: Consumer<TeamAndLunchProvider>(
+                            builder: (context, lunchCreditProvider, child) {
                               return Text(
                                 lunchCreditProvider.lunchCreditBalance,
                                 softWrap: true,

@@ -5,6 +5,7 @@ ThemeData darkTheme = ThemeData(
   primaryColor: ColorUtils.Green,
   hintColor: ColorUtils.Yellow,
   unselectedWidgetColor: ColorUtils.LightGrey,
+  // ignore: deprecated_member_use
   backgroundColor: ColorUtils.Black,
   fontFamily: 'Stapel',
   splashFactory: NoSplash.splashFactory,
@@ -88,8 +89,5 @@ ThemeData darkTheme = ThemeData(
         fontStyle: FontStyle.normal,
         fontSize: 14,
         fontWeight: FontWeight.w500),
-
-
   ),
-
 );

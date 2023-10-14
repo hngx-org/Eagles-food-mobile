@@ -49,11 +49,11 @@ class _MenuScreenState extends State<MenuScreen> {
   Widget build(BuildContext context) {
     user ??= Provider.of<AuthProvider>(context).user;
     return Scaffold(
-
       body: SingleChildScrollView(
         child: Container(
           height: MediaQuery.of(context).size.height,
-          color: Colors.white,
+          // ignore: deprecated_member_use
+          color: Theme.of(context).backgroundColor,
           child: Padding(
             padding: const EdgeInsets.only(top: 50, left: 40, bottom: 70),
             child: Column(
@@ -94,13 +94,8 @@ class _MenuScreenState extends State<MenuScreen> {
                     children: [
                       Text(
                         "Main menu",
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium
-                            ?.copyWith(fontWeight: FontWeight.w900),
+                        style: Theme.of(context).textTheme.displayMedium,
                       ),
-                      // const Spacer(),
-
                       Padding(
                         padding: const EdgeInsets.only(right: 50.0),
                         child: IconButton(
@@ -123,17 +118,18 @@ class _MenuScreenState extends State<MenuScreen> {
                         Icons.home_filled,
                         color: widget.selectedItem == "home"
                             ? ColorUtils.Green
-                            : ColorUtils.Black.withOpacity(0.5),
+                            : ColorUtils.Grey,
                       ),
-                      title: Text(
-                        "home",
-                        softWrap: true,
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      title: Text("Home",
+                          softWrap: true,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium! /* .copyWith(
                               color: widget.selectedItem == "home"
                                   ? ColorUtils.Green
                                   : ColorUtils.Black,
-                            ),
-                      ),
+                            ), */
+                          ),
                     ),
                   ),
                   SizedBox(
@@ -148,17 +144,18 @@ class _MenuScreenState extends State<MenuScreen> {
                         Icons.send,
                         color: widget.selectedItem == "sendlunch"
                             ? ColorUtils.Green
-                            : ColorUtils.Black.withOpacity(0.5),
+                            : ColorUtils.Grey,
                       ),
-                      title: Text(
-                        "Send Lunch",
-                        softWrap: true,
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      title: Text("Send Lunch",
+                          softWrap: true,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium! /* .copyWith(
                               color: widget.selectedItem == "sendlunch"
                                   ? ColorUtils.Green
                                   : ColorUtils.Black,
-                            ),
-                      ),
+                            ), */
+                          ),
                     ),
                   ),
                   SizedBox(
@@ -173,17 +170,18 @@ class _MenuScreenState extends State<MenuScreen> {
                         Icons.receipt,
                         color: widget.selectedItem == "withdrawlunch"
                             ? ColorUtils.Green
-                            : ColorUtils.Black.withOpacity(0.5),
+                            : ColorUtils.Grey,
                       ),
-                      title: Text(
-                        "Withdraw Lunch",
-                        softWrap: true,
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      title: Text("Withdraw Lunch",
+                          softWrap: true,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium! /* .copyWith(
                               color: widget.selectedItem == "withdrawlunch"
                                   ? ColorUtils.Green
                                   : ColorUtils.Black,
-                            ),
-                      ),
+                            ), */
+                          ),
                     ),
                   ),
                   SizedBox(
@@ -198,17 +196,18 @@ class _MenuScreenState extends State<MenuScreen> {
                         Icons.person_outline,
                         color: widget.selectedItem == "profile"
                             ? ColorUtils.Green
-                            : ColorUtils.Black.withOpacity(0.5),
+                            : ColorUtils.Grey,
                       ),
-                      title: Text(
-                        "Profile",
-                        softWrap: true,
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      title: Text("Profile",
+                          softWrap: true,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium! /* .copyWith(
                               color: widget.selectedItem == "profile"
                                   ? ColorUtils.Green
                                   : ColorUtils.Black,
-                            ),
-                      ),
+                            ), */
+                          ),
                     ),
                   ),
                   SizedBox(
@@ -223,17 +222,18 @@ class _MenuScreenState extends State<MenuScreen> {
                         Icons.insert_invitation,
                         color: widget.selectedItem == "invitepage"
                             ? ColorUtils.Green
-                            : ColorUtils.Black.withOpacity(0.5),
+                            : ColorUtils.Grey,
                       ),
-                      title: Text(
-                        "Invites",
-                        softWrap: true,
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      title: Text("Invites",
+                          softWrap: true,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium! /* .copyWith(
                               color: widget.selectedItem == "invitepage"
                                   ? ColorUtils.Green
                                   : ColorUtils.Black,
-                            ),
-                      ),
+                            ), */
+                          ),
                     ),
                   ),
                   if (user?.isAdmin == "True")
@@ -249,20 +249,17 @@ class _MenuScreenState extends State<MenuScreen> {
                           Icons.manage_accounts_outlined,
                           color: widget.selectedItem == "manageinvites"
                               ? ColorUtils.Green
-                              : ColorUtils.Black.withOpacity(0.5),
+                              : ColorUtils.Grey,
                         ),
-                        title: Text(
-                          "Manage Invites",
-                          softWrap: true,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(
+                        title: Text("Manage Invites",
+                            softWrap: true,
+                            style: Theme.of(context).textTheme.bodyMedium!
+                            /* .copyWith(
                                 color: widget.selectedItem == "manageinvites"
                                     ? ColorUtils.Green
                                     : ColorUtils.Black,
-                              ),
-                        ),
+                              ), */
+                            ),
                       ),
                     ),
                   if (user?.isAdmin == "True")
@@ -278,20 +275,17 @@ class _MenuScreenState extends State<MenuScreen> {
                           Icons.send,
                           color: widget.selectedItem == "userjoinrequest"
                               ? ColorUtils.Green
-                              : ColorUtils.Black.withOpacity(0.5),
+                              : ColorUtils.Grey,
                         ),
-                        title: Text(
-                          "User Join Request",
-                          softWrap: true,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium!
-                              .copyWith(
+                        title: Text("User Join Request",
+                            softWrap: true,
+                            style: Theme.of(context).textTheme.bodyMedium!
+                            /*  .copyWith(
                                 color: widget.selectedItem == "userjoinrequest"
                                     ? ColorUtils.Green
                                     : ColorUtils.Black,
-                              ),
-                        ),
+                              ), */
+                            ),
                       ),
                     ),
                   SizedBox(
@@ -304,15 +298,16 @@ class _MenuScreenState extends State<MenuScreen> {
                       onTap: () => widget.selectPage("logout"),
                       leading:
                           Icon(Icons.power_settings_new, color: ColorUtils.Red),
-                      title: Text(
-                        "Logout",
-                        softWrap: true,
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      title: Text("Logout",
+                          softWrap: true,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium! /* .copyWith(
                               color: widget.selectedItem == "logout"
                                   ? ColorUtils.Green
                                   : ColorUtils.Black,
-                            ),
-                      ),
+                            ), */
+                          ),
                     ),
                   ),
                 ]),
@@ -346,7 +341,6 @@ class _MenuScreenState extends State<MenuScreen> {
       ),
     );
   }
-
 }
 
 class CurrentScreen extends StatelessWidget {
@@ -372,41 +366,41 @@ class CurrentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-        onWillPop: () async {
-          if (isDrawerOpen) {
-            closeDrawer();
-            return false;
-          } else {
-            return true;
-          }
-        },
-        child: GestureDetector(
-          onTap: closeDrawer,
-          child: AnimatedContainer(
-            transform: Matrix4.translationValues(xOffset, yOffset, 0)
-              ..scale(scaleFactor)
-              ..rotateZ(isDrawerOpen ? 24.999 : 0),
-            duration: const Duration(milliseconds: 350),
-            curve: Curves.easeIn,
-            decoration: BoxDecoration(
-              boxShadow: const [
-                BoxShadow(
-                  color: Color.fromARGB(239, 233, 232, 232),
-                  blurRadius: 5,
-                  offset: Offset(-30, 10), // Shadow position
-                ),
-              ],
-              borderRadius: BorderRadius.circular(25),
-            ),
-            child: AbsorbPointer(
-              absorbing: isDrawerOpen,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(isDrawerOpen ? 25 : 0),
-                child: getDrawerPage(openDrawer, item, context),
+      onWillPop: () async {
+        if (isDrawerOpen) {
+          closeDrawer();
+          return false;
+        } else {
+          return true;
+        }
+      },
+      child: GestureDetector(
+        onTap: closeDrawer,
+        child: AnimatedContainer(
+          transform: Matrix4.translationValues(xOffset, yOffset, 0)
+            ..scale(scaleFactor)
+            ..rotateZ(isDrawerOpen ? 24.999 : 0),
+          duration: const Duration(milliseconds: 350),
+          curve: Curves.easeIn,
+          decoration: BoxDecoration(
+            boxShadow: const [
+              BoxShadow(
+                color: Color.fromARGB(239, 233, 232, 232),
+                blurRadius: 5,
+                offset: Offset(-30, 10), // Shadow position
               ),
+            ],
+            borderRadius: BorderRadius.circular(25),
+          ),
+          child: AbsorbPointer(
+            absorbing: isDrawerOpen,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(isDrawerOpen ? 25 : 0),
+              child: getDrawerPage(openDrawer, item, context),
             ),
           ),
         ),
+      ),
     );
   }
 
@@ -420,7 +414,7 @@ class CurrentScreen extends StatelessWidget {
       case 1:
         return const SendLunchSearch();
       case 2:
-        return WithdrawLunch();
+        return const WithdrawLunch();
       case 3:
         return const Profile();
       case 4:
