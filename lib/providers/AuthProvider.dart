@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:hng_task3/configs/sessions.dart';
+import 'package:hng_task3/models/organization.dart';
 import 'package:hng_task3/models/user.dart';
 import 'package:hng_task3/network/network.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +10,7 @@ class AuthProvider with ChangeNotifier {
   User? _user;
   bool? _isLoggedIn;
   bool _isLoading = false;
+  Organization? _organization;
 
   User? get user => _user;
   bool? get isLoggedIn => _isLoggedIn;
@@ -20,7 +22,7 @@ class AuthProvider with ChangeNotifier {
     print("updated user lunch balance , ${_user?.lunchCreditBalance}");
   }
 
-  void updateUserOrg(org, orgId){
+  void updateUserOrg(org, orgId) {
     print('updating user org');
     _user?.orgName = org;
     _user?.orgId = orgId.toString();
@@ -273,6 +275,25 @@ class AuthProvider with ChangeNotifier {
         return true;
       } else {
         return false;
+      }
+    } catch (error) {
+      print(error);
+    }
+  }
+
+  Future<dynamic> userfetchOrganization() async {
+    const String url = 'user/organization';
+    try {
+      final response = await Network.get(url);
+      if (response['statusCode'] == 200) {
+        _organization = Organization.fromJson(jsonDecode(response.body));
+       debugPrint(_organization!.name);
+       debugPrint(_organization!.currencyCode);
+       debugPrint(_organization!.lunchPrice.toString());//
+        notifyListeners();
+        SessionManager ss = SessionManager();
+        ss.saveUser(_user!.toJson());
+        
       }
     } catch (error) {
       print(error);
