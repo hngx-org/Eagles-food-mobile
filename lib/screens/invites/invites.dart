@@ -42,6 +42,7 @@ class _InvitesState extends State<Invites> {
         .toList();
 
     return Scaffold(
+      // ignore: deprecated_member_use
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -113,35 +114,36 @@ class _InvitesState extends State<Invites> {
                 },
               ),
             ),
-            Text(
-              "Accept to Join a Team",
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.w500,
-                  color: ColorUtils.LightGrey
-              ),),
-            isLoading ? ListView.builder(
-                shrinkWrap: true,
-                padding: const EdgeInsets.symmetric(vertical: 10, ),
-                physics: const BouncingScrollPhysics(),
-                itemCount: 8,
-                itemBuilder: (context, index) => const InviteShimmer()
-            ) :
-              invites.isEmpty ?  Container(
-                padding: const EdgeInsets.symmetric(vertical: 100),
-                alignment: Alignment.center,
-                child: Text("You have no invites at this time",
-                  style: Theme.of(context).textTheme.bodyLarge,),
-              ) :
-            ListView.builder(
-              itemCount: filterdInvites.length,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              itemBuilder: (context, index) {
-                final item = filterdInvites[index];
-                return Invitations(invite: item,);
-              },
-            )
+            isLoading
+                ? ListView.builder(
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 10,
+                    ),
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: 8,
+                    itemBuilder: (context, index) => const InviteShimmer())
+                : invites.isEmpty
+                    ? Container(
+                        padding: const EdgeInsets.symmetric(vertical: 100),
+                        alignment: Alignment.center,
+                        child: Text(
+                          "You have no invites at this time",
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      )
+                    : ListView.builder(
+                        itemCount: filterdInvites.length,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        itemBuilder: (context, index) {
+                          final item = filterdInvites[index];
+                          return Invitations(
+                            invite: item,
+                          );
+                        },
+                      )
           ],
         ),
       ),
