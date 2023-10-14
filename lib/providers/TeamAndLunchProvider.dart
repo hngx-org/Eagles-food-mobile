@@ -7,8 +7,6 @@ import 'package:hng_task3/models/leaderboard.dart';
 import 'package:hng_task3/models/lunch.dart';
 import 'package:hng_task3/models/team.dart';
 import 'package:hng_task3/network/network.dart';
-import 'package:hng_task3/providers/AuthProvider.dart';
-import 'package:provider/provider.dart';
 
 import '../configs/colors.dart';
 import '../utils/toast.dart';
@@ -33,20 +31,20 @@ class TeamAndLunchProvider with ChangeNotifier {
     page ??= 1;
     final String url = 'user/all?pageNumber=$page';
     try {
-      if(page ==1 ){
+      if (page == 1) {
         _my_team = [];
         _isLoading = true;
       }
       final response = await Network.get(url);
-     if(response['success'] == true){
-       var user = response["data"];
-       print(user);
-       user.forEach((element) {
-         _my_team.add(Team.fromJson(element));
-       });
-       _isLoading = false;
-       notifyListeners();
-     }
+      if (response['success'] == true) {
+        var user = response["data"];
+        print(user);
+        user.forEach((element) {
+          _my_team.add(Team.fromJson(element));
+        });
+        _isLoading = false;
+        notifyListeners();
+      }
     } catch (e) {
       print(e);
     }
@@ -59,19 +57,19 @@ class TeamAndLunchProvider with ChangeNotifier {
     final String url = 'user/others?pageNumber=$page';
     print(url);
     try {
-      if(page ==1 ){
+      if (page == 1) {
         _everyone = [];
         _isLoading = true;
       }
       final response = await Network.get(url);
-     if(response['success'] == true){
-       var others = response["data"];
-       others.forEach((element) {
-         _everyone.add(Team.fromJson(element));
-       });
-       _isLoading = false;
-       notifyListeners();
-     }
+      if (response['success'] == true) {
+        var others = response["data"];
+        others.forEach((element) {
+          _everyone.add(Team.fromJson(element));
+        });
+        _isLoading = false;
+        notifyListeners();
+      }
     } catch (e) {
       print(e);
     }
@@ -106,7 +104,7 @@ class TeamAndLunchProvider with ChangeNotifier {
     page ??= 1;
     final String url = 'lunch/all?pageNumber=$page';
     try {
-      if(page == 1){
+      if (page == 1) {
         _lunchHistory = [];
       }
       final response = await Network.get(url);
@@ -146,7 +144,7 @@ class TeamAndLunchProvider with ChangeNotifier {
     page ??= 1;
     final String url = 'lunch/leaderboard?pageNumber=$page';
     try {
-      if(page ==1 ){
+      if (page == 1) {
         _leaderboard = [];
         _isLoading = true;
       }

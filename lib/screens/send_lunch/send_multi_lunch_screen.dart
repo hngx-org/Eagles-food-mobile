@@ -280,10 +280,12 @@ class _SendMultiLunchScreenState extends State<SendMultiLunchScreen> {
                                 ),
                               ),
                               hintText: "Enter 2nd member's email address",
-                              hintStyle: TextStyle(
-                                color: Theme.of(context).disabledColor,
-                                fontSize: 14,
-                              ),
+                              hintStyle: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.w400,
+                                  ),
                             ),
                             keyboardType: TextInputType.emailAddress,
                           ),
@@ -348,10 +350,12 @@ class _SendMultiLunchScreenState extends State<SendMultiLunchScreen> {
                                 ),
                               ),
                               hintText: "Enter 3rd member's email address",
-                              hintStyle: TextStyle(
-                                color: Theme.of(context).disabledColor,
-                                fontSize: 14,
-                              ),
+                              hintStyle: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.w400,
+                                  ),
                             ),
                             keyboardType: TextInputType.emailAddress,
                           ),
@@ -392,7 +396,9 @@ class _SendMultiLunchScreenState extends State<SendMultiLunchScreen> {
                                       fontWeight: FontWeight.w700,
                                       fontSize: 20),
                               onChanged: (value) {
-                                lunchData['quantity'] = value;
+                                setState(() {
+                                  lunchData['quantity'] = value;
+                                });
                               },
                               obscureText: false,
                               decoration: InputDecoration(
@@ -400,7 +406,9 @@ class _SendMultiLunchScreenState extends State<SendMultiLunchScreen> {
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 10.0, horizontal: 10),
                                   child: Text(
-                                    "Free Lunches",
+                                    lunchData['quantity'] == '1'
+                                        ? 'Free lunch'
+                                        : 'Free lunches',
                                     textAlign: TextAlign.center,
                                     style: Theme.of(context)
                                         .textTheme
@@ -530,7 +538,7 @@ class _SendMultiLunchScreenState extends State<SendMultiLunchScreen> {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 5.0),
                           child: Text(
-                            'By Clicking send lunch, you choose to reward recipient with the stipulated number of lunch',
+                            'By tapping "send lunch" below, you choose to reward recipient with the stipulated number of lunch',
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!

@@ -108,7 +108,7 @@ class SendLunchSuccess extends StatelessWidget {
                                 horizontal: 20, vertical: 10),
                             child: Center(
                               child: Text(
-                                "Congratulations, you have successfully sent $noOfLunches Free Lunches! Click continue to proceed",
+                                "Congratulations, you have successfully sent $noOfLunches ${noOfLunches == '1' ? 'free lunch' : 'free lunches'}! Tap continue to proceed",
                                 textAlign: TextAlign.center,
                                 style: Theme.of(context).textTheme.bodyLarge,
                               ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/components/custom_button.dart';
 import 'package:hng_task3/configs/colors.dart';
-import 'package:hng_task3/configs/sessions.dart';
 import 'package:hng_task3/models/user.dart';
 import 'package:hng_task3/providers/AuthProvider.dart';
 import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
@@ -35,11 +34,10 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
     user = Provider.of<AuthProvider>(context).user;
 
     return Scaffold(
-      // ignore: deprecated_member_use
-      backgroundColor: Theme.of(context).backgroundColor,
-      body: SingleChildScrollView(
-          child: Column(
-        children: [
+        // ignore: deprecated_member_use
+        backgroundColor: Theme.of(context).backgroundColor,
+        body: SingleChildScrollView(
+            child: Column(children: [
           Container(
             height: 270,
             padding: const EdgeInsets.only(top: 30),
@@ -153,81 +151,62 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
             ),
           ),
           Container(
-            width: double.infinity,
-            // ignore: deprecated_member_use
-            color: Theme.of(context).backgroundColor,
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Align(
-                alignment: Alignment.center,
-                child: Container(
-                  height: 6,
-                  width: 60,
-                  margin: const EdgeInsets.symmetric(vertical: 20),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFDDDDDD),
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(right: 20.0, bottom: 10),
-                child: Text('Convert Free Lunches to money',
-                    softWrap: true,
-                    style: Theme.of(context).textTheme.displaySmall),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                    color: ColorUtils.LightGreen,
-                    borderRadius: BorderRadius.circular(100)),
-                margin: const EdgeInsets.symmetric(vertical: 10.0),
-                child: TextFormField(
-                  textAlign: TextAlign.center,
-                  cursorColor: const Color(0xFF04764E),
-                  onChanged: (value) {
-                    setState(() {
-                      amount = int.parse(value);
-                      convertedAmount = int.parse(value) * 2.5;
-                    });
-                  },
-                  style: const TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 25,
-                      fontFamily: 'poppins'),
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 20),
-                      border: InputBorder.none,
-                      suffix: Text('Free Lunches',
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall
-                              ?.copyWith(color: ColorUtils.Green)),
-                      hintText: ''),
-                ),
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
+              width: double.infinity,
+              // ignore: deprecated_member_use
+              color: Theme.of(context).backgroundColor,
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Image.asset(
-                    'assets/images/withdraw_equal.png',
-                    height: 10,
+                  Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      height: 6,
+                      width: 60,
+                      margin: const EdgeInsets.symmetric(vertical: 20),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFDDDDDD),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Text(
-                      "\$" '$convertedAmount',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineLarge
-                          ?.copyWith(
-                              color: ColorUtils.Green,
-                              fontWeight: FontWeight.w900,
-                              fontFamily: 'Poppins'),
+                    padding: const EdgeInsets.only(right: 20.0, bottom: 10),
+                    child: Text('Convert Free Lunches to money',
+                        softWrap: true,
+                        style: Theme.of(context).textTheme.displaySmall),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: ColorUtils.LightGreen,
+                        borderRadius: BorderRadius.circular(100)),
+                    margin: const EdgeInsets.symmetric(vertical: 10.0),
+                    child: TextFormField(
+                      textAlign: TextAlign.center,
+                      cursorColor: const Color(0xFF04764E),
+                      onChanged: (value) {
+                        setState(() {
+                          amount = int.parse(value);
+                          convertedAmount = int.parse(value) * 2.5;
+                        });
+                      },
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 25,
+                          fontFamily: 'poppins'),
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 20),
+                          border: InputBorder.none,
+                          suffix: Text(
+                              amount == 1 ? 'Free lunch' : 'Free lunches',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(color: ColorUtils.Green)),
+                          hintText: ''),
                     ),
                   ),
                   Row(
@@ -235,100 +214,71 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
-                          'assets/images/withdraw_equal.png', height: 10,),
+                        'assets/images/withdraw_equal.png',
+                        height: 20,
+                        color: ColorUtils.Green,
+                      ),
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 10.0),
                         child: Text(
                           "\$" '$convertedAmount',
-                          style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                              color: ColorUtils.Green,
-                            fontWeight: FontWeight.w900,
-                            fontFamily: 'Poppins'
-                          ),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineLarge
+                              ?.copyWith(
+                                  color: ColorUtils.Green,
+                                  fontWeight: FontWeight.w900,
+                                  fontFamily: 'Poppins'),
                         ),
                       ),
                     ],
                   ),
-                      Text(
-                        'By Clicking confirm, points would be converted into your wallet as money. This process cannot be reversed as all points must be earned',
-                        softWrap: true,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: ColorUtils.Grey,
-                            fontWeight: FontWeight.w400
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 20.0),
-                        child: CustomButton(onPress: () async {
-                            if (amount > 0 ) {
-                              var balanceAmt = int.parse(user!.lunchCreditBalance as String) - amount;
-                              print(balanceAmt);
-                              Utils.loadingProgress(context);
-                              final response  = await Provider.of<TeamAndLunchProvider>(context, listen: false).withDrawLunch(amount, balanceAmt);
-                              Navigator.pop(context);
-                              if(response == true){
-                                Provider.of<AuthProvider>(context, listen: false).updateUserLunch(balanceAmt.toString());
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            WithdrawSuccessScreen(amount: amount)));
-                              }
+                  const SizedBox(height: 36),
+                  Text(
+                    'By tapping "withdraw lunch" below, points would be converted into your wallet as money. This process cannot be reversed as all points must be earned',
+                    softWrap: true,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: ColorUtils.Grey, fontWeight: FontWeight.w400),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20.0),
+                    child: CustomButton(
+                        onPress: () async {
+                          if (amount > 0) {
+                            var balanceAmt =
+                                int.parse(user!.lunchCreditBalance as String) -
+                                    amount;
+                            print(balanceAmt);
+                            Utils.loadingProgress(context);
+                            final response =
+                                await Provider.of<TeamAndLunchProvider>(context,
+                                        listen: false)
+                                    .withDrawLunch(amount, balanceAmt);
+                            if (!context.mounted) return;
+                            Navigator.pop(context);
+                            if (response == true) {
+                              Provider.of<AuthProvider>(context, listen: false)
+                                  .updateUserLunch(balanceAmt.toString());
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      WithdrawSuccessScreen(amount: amount),
+                                ),
+                              );
+                            }
                           } else {
-                            Toasts.showToast(ColorUtils.Black, 'Enter number of lunch');
-
+                            Toasts.showToast(
+                                ColorUtils.Black, 'Enter number of lunch');
                           }
-                        }, buttonText: "Withdraw lunch", buttonColor: ColorUtils.DeepPink, textColor: ColorUtils.White, isUppercase: true),
-                      ),
-                ]),
-              ),
-              Text(
-                'By Clicking confirm, points would be converted into your wallet as money. This process cannot be reversed as all points must be earned',
-                softWrap: true,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: ColorUtils.Grey, fontWeight: FontWeight.w400),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
-                child: CustomButton(
-                    onPress: () async {
-                      if (amount > 0) {
-                        var balanceAmt =
-                            int.parse(user!.lunchCreditBalance as String) -
-                                amount;
-                        print(balanceAmt);
-                        Utils.loadingProgress(context);
-                        final response =
-                            await Provider.of<TeamAndLunchProvider>(context,
-                                    listen: false)
-                                .withDrawLunch(amount, balanceAmt);
-                        if (!context.mounted) return;
-                        Navigator.pop(context);
-                        if (response == true) {
-                          Provider.of<AuthProvider>(context, listen: false)
-                              .updateUserLunch(balanceAmt.toString());
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  const WithdrawSuccessScreen(),
-                            ),
-                          );
-                        }
-                      } else {
-                        Toasts.showToast(
-                            ColorUtils.Black, 'Enter number of lunch');
-                      }
-                    },
-                    buttonText: "Withdraw lunch",
-                    buttonColor: ColorUtils.DeepPink,
-                    textColor: ColorUtils.White,
-                    isUppercase: true),
-              ),
-            ]),
-          ),
-        ],
-      )),
-    );
+                        },
+                        buttonText: "Withdraw lunch",
+                        buttonColor: ColorUtils.DeepPink,
+                        textColor: ColorUtils.White,
+                        isUppercase: true),
+                  ),
+                ],
+              )),
+        ])));
   }
 }
