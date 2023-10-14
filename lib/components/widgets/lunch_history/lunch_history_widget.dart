@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hng_task3/components/shimmers/lunchHistoryShimmer.dart';
 import 'package:hng_task3/components/widgets/common/lunch_history_item.dart';
 import 'package:hng_task3/configs/colors.dart';
-import 'package:hng_task3/configs/sessions.dart';
 import 'package:hng_task3/models/lunch.dart';
 import 'package:hng_task3/models/user.dart';
 import 'package:hng_task3/providers/AuthProvider.dart';
@@ -118,49 +117,54 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
             )
           ],
         ),
-        widget.history.isEmpty ? Expanded(
-          child: ListView.builder(
-              shrinkWrap: true,
-              padding: const EdgeInsets.symmetric(vertical: 0),
-              physics: const BouncingScrollPhysics(),
-              itemCount: 5,
-              itemBuilder: (context, index) => const LunchHistoryShimmer()
-          ),
-        ) : NotificationListener<ScrollEndNotification>(
-            onNotification: (scrollEnd) {
-              var metrics = scrollEnd.metrics;
-              if (metrics.atEdge) {
-                if (metrics.pixels == 0) {
-                } else {
-                  setState(() {
-                    end_reached = true;
-                    page ++;
-                  });
-                  Provider.of<TeamAndLunchProvider>(context, listen: false).getLunchHistory(page);
-                }
-              }
-              return true;
-            },
-          child: ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-            // itemCount: widget.history.length,
-            itemCount: widget.limit ==true && filteredHistory.length > 5 ? 5 : filteredHistory.length,
-            itemBuilder: (context, index) => Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: LaunchHistoryItem(
-                lunchHistory: filteredHistory[index],
-              ),
-            ),
-          ),
-        )
+        widget.history.isEmpty
+            ? Expanded(
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.symmetric(vertical: 0),
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: 5,
+                    itemBuilder: (context, index) =>
+                        const LunchHistoryShimmer()),
+              )
+            : NotificationListener<ScrollEndNotification>(
+                onNotification: (scrollEnd) {
+                  var metrics = scrollEnd.metrics;
+                  if (metrics.atEdge) {
+                    if (metrics.pixels == 0) {
+                    } else {
+                      setState(() {
+                        end_reached = true;
+                        page++;
+                      });
+                      Provider.of<TeamAndLunchProvider>(context, listen: false)
+                          .getLunchHistory(page);
+                    }
+                  }
+                  return true;
+                },
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                  // itemCount: widget.history.length,
+                  itemCount: widget.limit == true && filteredHistory.length > 5
+                      ? 5
+                      : filteredHistory.length,
+                  itemBuilder: (context, index) => Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    child: LaunchHistoryItem(
+                      lunchHistory: filteredHistory[index],
+                    ),
+                  ),
+                ),
+              )
       ],
     );
   }
 
   Future<void> _applyFilter() async {
-
     switch (selectedFilter) {
       case LunchHistoryFilters.All:
         filteredHistory = widget.history.toList();

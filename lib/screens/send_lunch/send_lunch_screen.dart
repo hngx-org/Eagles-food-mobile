@@ -147,7 +147,9 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                                   fontWeight: FontWeight.w700,
                                   fontSize: 20),
                           onChanged: (value) {
-                            lunchData['quantity'] = value;
+                            setState(() {
+                              lunchData['quantity'] = value;
+                            });
                           },
                           obscureText: false,
                           decoration: InputDecoration(
@@ -155,7 +157,9 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                               padding: const EdgeInsets.symmetric(
                                   vertical: 10.0, horizontal: 10),
                               child: Text(
-                                "Free Lunches",
+                                lunchData['quantity'] == '1'
+                                    ? 'Free lunch'
+                                    : 'Free lunches',
                                 textAlign: TextAlign.center,
                                 style: Theme.of(context)
                                     .textTheme
@@ -261,9 +265,9 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                         )),
 
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5.0),
+                      padding: const EdgeInsets.only(top: 16.0),
                       child: Text(
-                        'By Clicking send lunch, you choose to reward recipient with the stipulated number of lunch',
+                        'By tapping "send lunch" below, you choose to reward recipient with the stipulated number of lunch',
                         style: Theme.of(context)
                             .textTheme
                             .bodyMedium!
@@ -289,6 +293,7 @@ class _SendLunchScreenState extends State<SendLunchScreen> {
                               await Provider.of<TeamAndLunchProvider>(context,
                                       listen: false)
                                   .sendLunch(lunchData);
+                          if (!context.mounted) return;
                           Navigator.pop(context);
                           if (response == true) {
                             Provider.of<AuthProvider>(context, listen: false)

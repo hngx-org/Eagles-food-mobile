@@ -17,32 +17,34 @@ class TeamAndLunchProvider with ChangeNotifier {
   List<Lunch> _lunchHistory = [];
   bool _isLoading = false;
   List<LeaderBoard> _leaderboard = [];
+  String _lunchCreditBalance = '';
 
   List<Lunch> get lunchHistory => _lunchHistory;
   List<Team> get my_team => _my_team;
   List<Team> get everyone => _everyone;
   bool get isLoading => _isLoading;
   List<LeaderBoard> get leaderboard => _leaderboard;
+  String get lunchCreditBalance => _lunchCreditBalance;
 
   Future<dynamic> getMyTeam(page) async {
     print('current page $page');
     page ??= 1;
     final String url = 'user/all?pageNumber=$page';
     try {
-      if(page ==1 ){
+      if (page == 1) {
         _my_team = [];
         _isLoading = true;
       }
       final response = await Network.get(url);
-     if(response['success'] == true){
-       var user = response["data"];
-       print(user);
-       user.forEach((element) {
-         _my_team.add(Team.fromJson(element));
-       });
-       _isLoading = false;
-       notifyListeners();
-     }
+      if (response['success'] == true) {
+        var user = response["data"];
+        print(user);
+        user.forEach((element) {
+          _my_team.add(Team.fromJson(element));
+        });
+        _isLoading = false;
+        notifyListeners();
+      }
     } catch (e) {
       print(e);
     }
@@ -55,19 +57,19 @@ class TeamAndLunchProvider with ChangeNotifier {
     final String url = 'user/others?pageNumber=$page';
     print(url);
     try {
-      if(page ==1 ){
+      if (page == 1) {
         _everyone = [];
         _isLoading = true;
       }
       final response = await Network.get(url);
-     if(response['success'] == true){
-       var others = response["data"];
-       others.forEach((element) {
-         _everyone.add(Team.fromJson(element));
-       });
-       _isLoading = false;
-       notifyListeners();
-     }
+      if (response['success'] == true) {
+        var others = response["data"];
+        others.forEach((element) {
+          _everyone.add(Team.fromJson(element));
+        });
+        _isLoading = false;
+        notifyListeners();
+      }
     } catch (e) {
       print(e);
     }
@@ -102,7 +104,7 @@ class TeamAndLunchProvider with ChangeNotifier {
     page ??= 1;
     final String url = 'lunch/all?pageNumber=$page';
     try {
-      if(page == 1){
+      if (page == 1) {
         _lunchHistory = [];
       }
       final response = await Network.get(url);
@@ -142,7 +144,7 @@ class TeamAndLunchProvider with ChangeNotifier {
     page ??= 1;
     final String url = 'lunch/leaderboard?pageNumber=$page';
     try {
-      if(page ==1 ){
+      if (page == 1) {
         _leaderboard = [];
         _isLoading = true;
       }
@@ -159,5 +161,18 @@ class TeamAndLunchProvider with ChangeNotifier {
     }
   }
 
+  Future<dynamic> getLunchCreditBalance() async {
+    const String url = 'lunch/lunch-balance';
+    try {
+      final response = await Network.get(url);
+      var data = response["data"]["balance"];
+      _lunchCreditBalance = data.toString();
+      print('lunch credit balance: $_lunchCreditBalance');
 
+      notifyListeners();
+      return _lunchCreditBalance;
+    } catch (e) {
+      print(e);
+    }
+  }
 }
