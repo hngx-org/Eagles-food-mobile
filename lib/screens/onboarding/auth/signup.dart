@@ -34,6 +34,7 @@ class _SignupState extends State<Signup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        // ignore: deprecated_member_use
         backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -465,7 +466,7 @@ class _SignupState extends State<Signup> {
                             ],
                           ),
                         ),
-                        
+
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
                           child: Column(
@@ -476,7 +477,7 @@ class _SignupState extends State<Signup> {
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 5.0),
                                 child: Text(
-                                  "Invite Code",
+                                  "Invite Code (Optional)",
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyMedium
@@ -486,7 +487,6 @@ class _SignupState extends State<Signup> {
                                 ),
                               ),
                               TextFormField(
-
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyLarge
@@ -615,22 +615,22 @@ class _SignupState extends State<Signup> {
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
                           child: CustomButton(
                               onPress: () async {
-                                  Utils.loadingProgress(context);
-                                  final response =
-                                      await Provider.of<AuthProvider>(context,
-                                              listen: false)
-                                          .register(userData);
-                                  Navigator.pop(context);
-                                  if (response) {
-                                    Navigator.pushAndRemoveUntil(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const NavScreen()), (route)=> false);
-                                    Toasts.showToast(
-                                        ColorUtils.Green, 'Signup Successful');
-                                  }
-
+                                Utils.loadingProgress(context);
+                                final response =
+                                    await Provider.of<AuthProvider>(context,
+                                            listen: false)
+                                        .register(userData);
+                                Navigator.pop(context);
+                                if (response) {
+                                  Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const NavScreen()),
+                                      (route) => false);
+                                  Toasts.showToast(
+                                      ColorUtils.Green, 'Signup Successful');
+                                }
                               },
                               buttonText: "Sign Up",
                               buttonColor: ColorUtils.Green,

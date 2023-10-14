@@ -8,6 +8,7 @@ import 'package:hng_task3/providers/OrganizationProvider.dart';
 import 'package:provider/provider.dart';
 
 import '../../components/widgets/invites/invites.dart';
+
 class InviteRequest extends StatefulWidget {
   const InviteRequest({super.key});
 
@@ -48,11 +49,11 @@ class _InviteRequestState extends State<InviteRequest> {
                 style: Theme.of(context).textTheme.bodyLarge,
                 decoration: InputDecoration(
                   contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   hintText: 'Search for member',
                   filled: true,
                   fillColor:
-                  Theme.of(context).unselectedWidgetColor.withOpacity(0.2),
+                      Theme.of(context).unselectedWidgetColor.withOpacity(0.2),
                   hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: ColorUtils.LightGrey, fontWeight: FontWeight.w500),
                   suffixIcon: Icon(
@@ -90,36 +91,34 @@ class _InviteRequestState extends State<InviteRequest> {
                 },
               ),
             ),
-            Text(
-              "Accept to Join a Team",
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.w500,
-                  color: ColorUtils.LightGrey
-              ),),
-
-            isLoading ? ListView.builder(
-                shrinkWrap: true,
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                physics: const BouncingScrollPhysics(),
-                itemCount: 8,
-                itemBuilder: (context, index) => const InviteShimmer()
-            ) :
-            request.isEmpty ?  Container(
-              padding: const EdgeInsets.symmetric(vertical: 100),
-              alignment: Alignment.center,
-              child: Text("You have no request at this time",
-                style: Theme.of(context).textTheme.bodyLarge,),
-            ) :
-            ListView.builder(
-              itemCount: request.length,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              itemBuilder: (context, index) {
-                final item = request[index];
-                return Invitations(invite: item,);
-              },
-            )
+            isLoading
+                ? ListView.builder(
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: 8,
+                    itemBuilder: (context, index) => const InviteShimmer())
+                : request.isEmpty
+                    ? Container(
+                        padding: const EdgeInsets.symmetric(vertical: 100),
+                        alignment: Alignment.center,
+                        child: Text(
+                          "You have no request at this time",
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      )
+                    : ListView.builder(
+                        itemCount: request.length,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        itemBuilder: (context, index) {
+                          final item = request[index];
+                          return Invitations(
+                            invite: item,
+                          );
+                        },
+                      )
           ],
         ),
       ),
