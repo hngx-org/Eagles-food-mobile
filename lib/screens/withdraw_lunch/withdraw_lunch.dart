@@ -141,6 +141,9 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
                             builder: (context,
                                 TeamAndLunchProvider lunchCreditProvider,
                                 child) {
+                              final lunchBalance =
+                                  context.watch<TeamAndLunchProvider>();
+                              lunchBalance.getLunchCreditBalance();
                               return Text(
                                 lunchCreditProvider.lunchCreditBalance,
                                 softWrap: true,

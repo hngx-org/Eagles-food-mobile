@@ -135,12 +135,11 @@ class TeamAndLunchProvider with ChangeNotifier {
   Future<dynamic> getLunchCreditBalance() async {
     const String url = 'lunch/lunch-balance';
     try {
-      // _isLoading = true;
       final response = await Network.get(url);
       var data = response["data"]["balance"];
       _lunchCreditBalance = data.toString();
-      print(_lunchCreditBalance);
-      // _isLoading = false;
+      print('lunch credit balance: $_lunchCreditBalance');
+
       notifyListeners();
       return _lunchCreditBalance;
     } catch (e) {

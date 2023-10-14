@@ -32,8 +32,6 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     Provider.of<TeamAndLunchProvider>(context, listen: false).getLunchHistory();
     Provider.of<TeamAndLunchProvider>(context, listen: false).getUsers();
-    Provider.of<TeamAndLunchProvider>(context, listen: false)
-        .getLunchCreditBalance();
   }
 
   @override
