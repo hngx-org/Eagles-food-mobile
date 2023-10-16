@@ -11,8 +11,7 @@ class Utils {
         barrierColor: ColorUtils.Grey.withOpacity(0.4),
         builder: (context) {
           return Center(
-            child:
-            LoadingAnimationWidget.staggeredDotsWave(
+            child: LoadingAnimationWidget.staggeredDotsWave(
               color: ColorUtils.Green,
               size: 50,
             ),
@@ -37,12 +36,11 @@ class Utils {
     final currentTime = DateTime.now().hour;
 
     if (currentTime < 12) {
-      return '  Morning';
+      return 'Morning';
     } else if (currentTime < 17) {
       return 'Afternoon';
     } else {
       return 'Evening';
     }
   }
-  
 }

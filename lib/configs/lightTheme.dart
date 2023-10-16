@@ -5,6 +5,7 @@ ThemeData lightTheme = ThemeData(
   primaryColor: ColorUtils.Green,
   hintColor: ColorUtils.Yellow,
   unselectedWidgetColor: ColorUtils.LightGrey,
+  // ignore: deprecated_member_use
   backgroundColor: ColorUtils.White,
   fontFamily: 'Stapel',
   splashFactory: NoSplash.splashFactory,
@@ -46,7 +47,6 @@ ThemeData lightTheme = ThemeData(
         fontStyle: FontStyle.normal,
         fontWeight: FontWeight.w400,
         fontSize: 13),
-
 
     // main heading text
     displayLarge: TextStyle(
