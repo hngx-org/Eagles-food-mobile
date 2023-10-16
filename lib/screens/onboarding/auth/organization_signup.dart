@@ -19,9 +19,8 @@ class OrganisationSignUp extends StatefulWidget {
 }
 
 class _OrganisationSignUpState extends State<OrganisationSignUp> {
-
-   final userData = {
-    "orgName":'',
+  final userData = {
+    "orgName": '',
     "firstName": '',
     "lastName": '',
     "email": "",
@@ -35,9 +34,11 @@ class _OrganisationSignUpState extends State<OrganisationSignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       backgroundColor: Theme.of(context).backgroundColor,
+        // ignore: deprecated_member_use
+        backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
           automaticallyImplyLeading: false,
+          titleSpacing: 0,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -81,7 +82,7 @@ class _OrganisationSignUpState extends State<OrganisationSignUp> {
             ],
           ),
         ),
-       body: SizedBox(
+        body: SizedBox(
           height: double.infinity,
           width: double.infinity,
           child: SingleChildScrollView(
@@ -113,7 +114,7 @@ class _OrganisationSignUpState extends State<OrganisationSignUp> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                         Padding(
+                        Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -466,7 +467,7 @@ class _OrganisationSignUpState extends State<OrganisationSignUp> {
                             ],
                           ),
                         ),
-                           Padding(
+                        Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -531,7 +532,7 @@ class _OrganisationSignUpState extends State<OrganisationSignUp> {
                                   contentPadding: const EdgeInsets.symmetric(
                                       horizontal: 10),
                                 ),
-                                  keyboardType: TextInputType.number,
+                                keyboardType: TextInputType.number,
                               )
                             ],
                           ),
@@ -606,8 +607,8 @@ class _OrganisationSignUpState extends State<OrganisationSignUp> {
                             ],
                           ),
                         ),
-                       
-                         Padding(
+
+                        Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -703,7 +704,8 @@ class _OrganisationSignUpState extends State<OrganisationSignUp> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const NavScreen()), (route)=> false);
+                                                const NavScreen()),
+                                        (route) => false);
                                     Toasts.showToast(
                                         Colors.green, 'Signup Successful');
                                   }
@@ -733,7 +735,6 @@ class _OrganisationSignUpState extends State<OrganisationSignUp> {
               ],
             ),
           ),
-        )
-    );
+        ));
   }
 }
