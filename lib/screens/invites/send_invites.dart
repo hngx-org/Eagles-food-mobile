@@ -335,7 +335,8 @@ class _SendInvitesState extends State<SendInvites> {
                       },
                     ),
             ),
-          )
+          ),
+
         ],
       ),
     );

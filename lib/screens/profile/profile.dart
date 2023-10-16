@@ -6,6 +6,7 @@ import 'package:hng_task3/models/user.dart';
 import 'package:hng_task3/providers/AuthProvider.dart';
 import 'package:hng_task3/screens/onboarding/auth/auth_home.dart';
 import 'package:hng_task3/screens/profile/settings.dart';
+import 'package:hng_task3/utils/dialogs.dart';
 import 'package:provider/provider.dart';
 
 class Profile extends StatefulWidget {
@@ -316,68 +317,9 @@ class _ProfileState extends State<Profile> {
             ),
           ),
           TextButton(
-            onPressed: () {
-              Provider.of<AuthProvider>(context, listen: false).logout();
-              showCupertinoDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text(
-                        "LogOut",
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              color: ColorUtils.Grey,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                            ),
-                      ),
-                      content: Text(
-                        "Are you sure?",
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              color: ColorUtils.Grey,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                            ),
-                      ),
-                      actions: [
-                        GestureDetector(
-                            child: Text(
-                              "Cancel",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                    color: ColorUtils.Green,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                            ),
-                            onTap: () {
-                              Navigator.pop(context);
-                            }),
-                        GestureDetector(
-                          child: Text(
-                            "Logout",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                                  color: ColorUtils.Red,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                          ),
-                          onTap: () {
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => AuthHome()),
-                                (route) => false);
-                          },
-                        )
-                      ],
-                    );
-                  });
-            },
+            onPressed: (){
+              Dialogs.logoutDialog(context: context);
+              },
             child: Container(
               alignment: Alignment.center,
               margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -387,14 +329,13 @@ class _ProfileState extends State<Profile> {
                 color: ColorUtils.Red,
               ),
               child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Text(
-                    "Logout",
-                    style: Theme.of(context)
-                        .textTheme
-                        .displaySmall
-                        ?.copyWith(fontWeight: FontWeight.w600, fontSize: 18),
-                  )),
+                padding: const  EdgeInsets.symmetric(horizontal: 10.0),
+                child: Text("Logout", style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18,
+                  color: ColorUtils.White
+                ),
+              )),
             ),
           ),
         ],

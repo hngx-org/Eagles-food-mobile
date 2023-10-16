@@ -121,7 +121,7 @@ class _InvitesState extends State<Invites> {
                       vertical: 10,
                     ),
                     physics: const BouncingScrollPhysics(),
-                    itemCount: 8,
+                    itemCount: 5,
                     itemBuilder: (context, index) => const InviteShimmer())
                 : invites.isEmpty
                     ? Container(

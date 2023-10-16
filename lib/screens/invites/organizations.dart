@@ -1,4 +1,5 @@
 // list of organisations for people to request invite
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hng_task3/components/custom_button.dart';
 import 'package:hng_task3/components/shimmers/invitesShimmer.dart';
@@ -28,6 +29,8 @@ class _OrganizationsState extends State<Organizations> {
   bool end_reached = false;
   int page = 1;
 
+  bool isFetchingOrgs = false;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -39,6 +42,7 @@ class _OrganizationsState extends State<Organizations> {
   Widget build(BuildContext context) {
     list = Provider.of<OrganizationProvider>(context).organizations;
     isLoading = Provider.of<OrganizationProvider>(context).isLoading;
+    isFetchingOrgs = Provider.of<OrganizationProvider>(context).isFetchingOrgs;
 
     List<Organization> filtered = list
         .where((team) =>
@@ -141,8 +145,7 @@ class _OrganizationsState extends State<Organizations> {
             onNotification: (scrollEnd) {
               var metrics = scrollEnd.metrics;
               if (metrics.atEdge) {
-                if (metrics.pixels == 0) {
-                } else {
+                if (metrics.pixels != 0) {
                   setState(() {
                     end_reached = true;
                     page ++;
@@ -229,7 +232,16 @@ class _OrganizationsState extends State<Organizations> {
                 },
               ),
             ),
-          )
+          ),
+          if (isFetchingOrgs)
+            SizedBox(
+              width: 25,
+              height: 25,
+              child: CupertinoActivityIndicator(
+                color: ColorUtils.Blue,
+                radius: 15,
+              ),
+            )
         ],
       ),
     );

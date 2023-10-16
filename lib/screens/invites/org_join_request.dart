@@ -1,4 +1,5 @@
 // place where an organization can send request to people via their email
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hng_task3/components/custom_button.dart';
 import 'package:hng_task3/components/shimmers/invitesShimmer.dart';
@@ -24,6 +25,7 @@ class _OrgJoinRequestState extends State<OrgJoinRequest> {
 
   bool end_reached = false;
   int page = 1;
+  bool isFetchingUserJoinReq = false;
 
   @override
   initState() {
@@ -38,6 +40,7 @@ class _OrgJoinRequestState extends State<OrgJoinRequest> {
   Widget build(BuildContext context) {
     request = Provider.of<OrganizationProvider>(context).org_request;
     isLoading = Provider.of<OrganizationProvider>(context).isLoading;
+    isFetchingUserJoinReq = Provider.of<OrganizationProvider>(context).isFetchingUserJoinReq;
 
     List<OrgRequest> filterdInvites = request
         .where((request) =>
@@ -281,7 +284,16 @@ class _OrgJoinRequestState extends State<OrgJoinRequest> {
                           },
                         ),
                       ),
-                    )
+                    ),
+          if (isFetchingUserJoinReq)
+            SizedBox(
+              width: 25,
+              height: 25,
+              child: CupertinoActivityIndicator(
+                color: ColorUtils.Blue,
+                radius: 15,
+              ),
+            )
         ],
       ),
     );

@@ -18,6 +18,7 @@ class TeamAndLunchProvider with ChangeNotifier {
   bool _isLoading = false;
   List<LeaderBoard> _leaderboard = [];
   String _lunchCreditBalance = '';
+  bool _isFetchingLeaderboard = false;
 
   List<Lunch> get lunchHistory => _lunchHistory;
   List<Team> get my_team => _my_team;
@@ -25,6 +26,7 @@ class TeamAndLunchProvider with ChangeNotifier {
   bool get isLoading => _isLoading;
   List<LeaderBoard> get leaderboard => _leaderboard;
   String get lunchCreditBalance => _lunchCreditBalance;
+  bool get isFetchingLeaderboard => _isFetchingLeaderboard;
 
   Future<dynamic> getMyTeam(page) async {
     print('current page $page');
@@ -148,12 +150,16 @@ class TeamAndLunchProvider with ChangeNotifier {
         _leaderboard = [];
         _isLoading = true;
       }
+      if(_leaderboard.isNotEmpty){
+        _isFetchingLeaderboard = true;
+      }
       final response = await Network.get(url);
       var data = response["data"];
       print(data);
       data.forEach((element) {
         _leaderboard.add(LeaderBoard.fromJson(element));
       });
+      _isFetchingLeaderboard = false;
       _isLoading = false;
       notifyListeners();
     } catch (e) {
