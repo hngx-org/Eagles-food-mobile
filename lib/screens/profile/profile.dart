@@ -107,7 +107,8 @@ class _ProfileState extends State<Profile> {
                                       "assets/icons/man-avatar-icon.png"),
                                   fit: BoxFit.cover,
                                 ),
-                              ))
+                              ),
+                            )
                           : Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),
@@ -120,12 +121,29 @@ class _ProfileState extends State<Profile> {
                                   placeholder: const AssetImage(
                                       "assets/icons/man-avatar-icon.png"),
                                   image: NetworkImage(
-                                    user?.profilePic ?? '',
+                                    user?.profilePic ??
+                                        'assets/icons/man-avatar-icon.png',
                                   ),
                                   fit: BoxFit.cover,
                                   height: 130,
                                   width: 130,
                                   filterQuality: FilterQuality.high,
+                                  imageErrorBuilder:
+                                      (context, error, stackTrace) => Container(
+                                    width: 130,
+                                    height: 130,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          width: 3,
+                                          color: ColorUtils.LightGrey),
+                                      borderRadius: BorderRadius.circular(100),
+                                      image: const DecorationImage(
+                                        image: AssetImage(
+                                            "assets/icons/man-avatar-icon.png"),
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
