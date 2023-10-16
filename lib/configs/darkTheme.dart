@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
 
 ThemeData darkTheme = ThemeData(
+  brightness: Brightness.dark,
   primaryColor: ColorUtils.Green,
   hintColor: ColorUtils.Yellow,
   unselectedWidgetColor: ColorUtils.LightGrey,
@@ -10,7 +11,7 @@ ThemeData darkTheme = ThemeData(
   fontFamily: 'Stapel',
   splashFactory: NoSplash.splashFactory,
   buttonTheme: ButtonThemeData(
-    buttonColor: ColorUtils.Blue,
+    buttonColor: ColorUtils.Green,
     textTheme: ButtonTextTheme.primary,
     splashColor: Colors.transparent,
     highlightColor: Colors.transparent,
