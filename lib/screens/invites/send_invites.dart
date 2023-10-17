@@ -27,7 +27,8 @@ class _SendInvitesState extends State<SendInvites> {
   @override
   void initState() {
     // TODO: implement initState
-    Provider.of<TeamAndLunchProvider>(context, listen: false).getAllOthers(page);
+    Provider.of<TeamAndLunchProvider>(context, listen: false)
+        .getAllOthers(page);
     super.initState();
   }
 
@@ -45,10 +46,11 @@ class _SendInvitesState extends State<SendInvites> {
 
     List<Team> filtered = list
         .where((team) =>
-        team.name.toLowerCase().contains(_searchQuery.toLowerCase()))
+            team.name.toLowerCase().contains(_searchQuery.toLowerCase()))
         .toList();
 
     return Scaffold(
+      // ignore: deprecated_member_use
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -85,8 +87,7 @@ class _SendInvitesState extends State<SendInvites> {
       body: Column(
         children: [
           Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),
             child:
                 // Search bar
                 TextFormField(
@@ -161,24 +162,31 @@ class _SendInvitesState extends State<SendInvites> {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5.0),
-                  child: Text("Didn't find member on the list? Send a direct email", style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                    color: ColorUtils.White
-                  ),),
+                  child: Text(
+                    "Didn't find member on the list? Send a direct email",
+                    style: Theme.of(context)
+                        .textTheme
+                        .displaySmall
+                        ?.copyWith(color: ColorUtils.White),
+                  ),
                 ),
                 TextFormField(
                   controller: emailController,
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: ColorUtils.White
-                  ),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.copyWith(color: ColorUtils.White),
                   decoration: InputDecoration(
-                    contentPadding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 15),
                     hintText: 'Enter email',
                     filled: true,
-                    fillColor:
-                    Theme.of(context).unselectedWidgetColor.withOpacity(0.2),
+                    fillColor: Theme.of(context)
+                        .unselectedWidgetColor
+                        .withOpacity(0.2),
                     hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: ColorUtils.LightGrey, fontWeight: FontWeight.w500),
+                        color: ColorUtils.LightGrey,
+                        fontWeight: FontWeight.w500),
                     border: OutlineInputBorder(
                       borderSide: BorderSide(
                         width: 1,
@@ -204,7 +212,7 @@ class _SendInvitesState extends State<SendInvites> {
                   keyboardType: TextInputType.emailAddress,
                   onChanged: (value) {
                     setState(() {
-                        email = value;
+                      email = value;
                     });
                   },
                 ),
@@ -212,15 +220,17 @@ class _SendInvitesState extends State<SendInvites> {
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: CustomButton(
                     onPress: () async {
-                      dynamic data = {
-                        "email": email
-                      };
+                      dynamic data = {"email": email};
                       Utils.loadingProgress(context);
-                      final response = await  Provider.of<InvitesProvider>(context, listen: false).sendInvite(data);
+                      final response = await Provider.of<InvitesProvider>(
+                              context,
+                              listen: false)
+                          .sendInvite(data);
+                      if (!context.mounted) return;
                       Navigator.pop(context);
-                      if(response){
-                        setState((){
-                          email = '';
+                      if (response) {
+                        setState(() {
+                          emailController.text = '';
                         });
                         Toasts.showToast(ColorUtils.Green, "Invite sent");
                       }
@@ -229,7 +239,8 @@ class _SendInvitesState extends State<SendInvites> {
                     buttonColor: ColorUtils.Yellow,
                     fontSize: 15,
                     textColor: ColorUtils.White,
-                    padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 15, horizontal: 10),
                   ),
                 ),
               ],
@@ -237,105 +248,111 @@ class _SendInvitesState extends State<SendInvites> {
           ),
           isLoading
               ? Expanded(
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    padding: const EdgeInsets.symmetric(vertical: 0),
-                    physics: const BouncingScrollPhysics(),
-                    itemCount: 5,
-                    itemBuilder: (context, index) => const TeamShimmer()),
-              )
-              :
-          filtered.isEmpty ? Padding(
-            padding: const EdgeInsets.only(top: 20),
-            child: Text(
-              "No member found",
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.w500, color: ColorUtils.LightGrey),
-            ),
-          ) :
-          NotificationListener<ScrollEndNotification>(
-            onNotification: (scrollEnd) {
-              var metrics = scrollEnd.metrics;
-              if (metrics.atEdge) {
-                if (metrics.pixels == 0) {
-                } else {
-                  setState(() {
-                    end_reached = true;
-                    page ++;
-                  });
-                  Provider.of<TeamAndLunchProvider>(context, listen: false).getAllOthers(page);
-                }
-              }
-              return true;
-            },
-            child: Expanded(
-              child: ListView.builder(
-                      itemCount: filtered.length,
+                  child: ListView.builder(
                       shrinkWrap: true,
+                      padding: const EdgeInsets.symmetric(vertical: 0),
                       physics: const BouncingScrollPhysics(),
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 20),
-                      itemBuilder: (context, index) {
-                        final item = filtered[index];
-                        return SizedBox(
-                            width: double.infinity,
-                            child: ListTile(
-                              contentPadding: const EdgeInsets.all(0),
-                              leading: CircleAvatar(
-                                backgroundImage:
-                                    AssetImage(item.image.toString()),
-                              ),
-                              title: Text(
-                                item.name,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displayMedium
-                                    ?.copyWith(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w400),
-                              ),
-                              subtitle: Text(
-                                '${item.email}',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineSmall
-                                    ?.copyWith(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 11),
-                              ),
-                              trailing: Container(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 0),
-                                color: ColorUtils.Green,
-                                child: TextButton(
-                                  onPressed: () async {
-                                        dynamic data = {
-                                          "email": item.email
-                                        };
-                                        Utils.loadingProgress(context);
-                                       final response = await  Provider.of<InvitesProvider>(context, listen: false).sendInvite(data);
-                                        Navigator.pop(context);
-                                       if(response){
-                                          Toasts.showToast(Colors.green, "Invite sent");
-                                        }
-                                       },
-                                  child: Text(
-                                    'Invite',
+                      itemCount: 5,
+                      itemBuilder: (context, index) => const TeamShimmer()),
+                )
+              : filtered.isEmpty
+                  ? Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: Text(
+                        "No member found",
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            fontWeight: FontWeight.w500,
+                            color: ColorUtils.LightGrey),
+                      ),
+                    )
+                  : NotificationListener<ScrollEndNotification>(
+                      onNotification: (scrollEnd) {
+                        var metrics = scrollEnd.metrics;
+                        if (metrics.atEdge) {
+                          if (metrics.pixels == 0) {
+                          } else {
+                            setState(() {
+                              end_reached = true;
+                              page++;
+                            });
+                            Provider.of<TeamAndLunchProvider>(context,
+                                    listen: false)
+                                .getAllOthers(page);
+                          }
+                        }
+                        return true;
+                      },
+                      child: Expanded(
+                        child: ListView.builder(
+                          itemCount: filtered.length,
+                          shrinkWrap: true,
+                          physics: const BouncingScrollPhysics(),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 20),
+                          itemBuilder: (context, index) {
+                            final item = filtered[index];
+                            return SizedBox(
+                                width: double.infinity,
+                                child: ListTile(
+                                  contentPadding: const EdgeInsets.all(0),
+                                  leading: CircleAvatar(
+                                    backgroundImage:
+                                        AssetImage(item.image.toString()),
+                                  ),
+                                  title: Text(
+                                    item.name,
                                     style: Theme.of(context)
                                         .textTheme
-                                        .bodyLarge
+                                        .displayMedium
                                         ?.copyWith(
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 13,
-                                            color: Colors.white),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400),
                                   ),
-                                ),
-                              ),
-                            ));
-                      },
-                    ),
-            ),
-          )
+                                  subtitle: Text(
+                                    item.email,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall
+                                        ?.copyWith(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 11),
+                                  ),
+                                  trailing: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 0),
+                                    color: ColorUtils.Green,
+                                    child: TextButton(
+                                      onPressed: () async {
+                                        dynamic data = {"email": item.email};
+                                        Utils.loadingProgress(context);
+                                        final response =
+                                            await Provider.of<InvitesProvider>(
+                                                    context,
+                                                    listen: false)
+                                                .sendInvite(data);
+                                        Navigator.pop(context);
+                                        if (response) {
+                                          Toasts.showToast(
+                                              Colors.green, "Invite sent");
+                                        }
+                                      },
+                                      child: Text(
+                                        'Invite',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyLarge
+                                            ?.copyWith(
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 13,
+                                                color: Colors.white),
+                                      ),
+                                    ),
+                                  ),
+                                ));
+                          },
+                        ),
+                      ),
+                    )
         ],
       ),
     );

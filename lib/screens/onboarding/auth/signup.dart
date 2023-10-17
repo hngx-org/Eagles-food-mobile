@@ -38,6 +38,7 @@ class _SignupState extends State<Signup> {
         backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
           automaticallyImplyLeading: false,
+          titleSpacing: 0,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -68,7 +69,7 @@ class _SignupState extends State<Signup> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
                       child: Text(
-                        "Free Launch",
+                        "Free Lunch",
                         style: Theme.of(context)
                             .textTheme
                             .displayMedium

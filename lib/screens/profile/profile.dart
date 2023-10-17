@@ -41,6 +41,7 @@ class _ProfileState extends State<Profile> {
     user = Provider.of<AuthProvider>(context).user;
     print(user?.profilePic);
     return Scaffold(
+      // ignore: deprecated_member_use
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         backgroundColor: ColorUtils.Green,
@@ -61,7 +62,7 @@ class _ProfileState extends State<Profile> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Settings(),
+                          builder: (context) => const Settings(),
                         ));
                   },
                   icon: Icon(
@@ -94,7 +95,7 @@ class _ProfileState extends State<Profile> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      user?.profilePic == ''
+                      user?.profilePic == null
                           ? Container(
                               width: 130,
                               height: 130,
@@ -107,7 +108,8 @@ class _ProfileState extends State<Profile> {
                                       "assets/icons/man-avatar-icon.png"),
                                   fit: BoxFit.cover,
                                 ),
-                              ))
+                              ),
+                            )
                           : Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),
@@ -120,20 +122,40 @@ class _ProfileState extends State<Profile> {
                                   placeholder: const AssetImage(
                                       "assets/icons/man-avatar-icon.png"),
                                   image: NetworkImage(
-                                    user?.profilePic ?? '',
+                                    user?.profilePic ??
+                                        'assets/icons/man-avatar-icon.png',
                                   ),
                                   fit: BoxFit.cover,
                                   height: 130,
                                   width: 130,
                                   filterQuality: FilterQuality.high,
+                                  imageErrorBuilder:
+                                      (context, error, stackTrace) => Container(
+                                    width: 130,
+                                    height: 130,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          width: 3,
+                                          color: ColorUtils.LightGrey),
+                                      borderRadius: BorderRadius.circular(100),
+                                      image: const DecorationImage(
+                                        image: AssetImage(
+                                            "assets/icons/man-avatar-icon.png"),
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
                       // Name
+
                       Padding(
                         padding: const EdgeInsets.only(top: 10, bottom: 5),
                         child: Text(
-                          "${user?.firstName} ${user?.lastName}",
+                          user?.firstName == null && user?.lastName == null
+                              ? "Full Name"
+                              : "${user?.firstName} ${user?.lastName}",
                           style:
                               Theme.of(context).textTheme.bodyLarge!.copyWith(
                                     fontSize: 28,
@@ -146,37 +168,22 @@ class _ProfileState extends State<Profile> {
 
                       Consumer<AuthProvider>(
                         builder: (context, provider, child) {
-                          if (provider.userOrg == null) {
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text(
-                                user!.orgName.toString(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(
-                                      fontSize: 16,
-                                      color: ColorUtils.White,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                              ),
-                            );
-                          } else {
-                            return Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
-                              child: Text(
-                                provider.userOrg.toString(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(
-                                      fontSize: 16,
-                                      color: ColorUtils.White,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                              ),
-                            );
-                          }
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 10),
+                            child: Text(
+                              provider.userOrg == null
+                                  ? "Organization Name"
+                                  : provider.userOrg.toString(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                    fontSize: 16,
+                                    color: ColorUtils.White,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                          );
                         },
                       ),
                     ],
@@ -214,7 +221,9 @@ class _ProfileState extends State<Profile> {
                                 ),
                           ),
                           Text(
-                            "${user?.phone}",
+                            user?.phone == null
+                                ? "Phone Number"
+                                : "${user?.phone}",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!
@@ -258,7 +267,9 @@ class _ProfileState extends State<Profile> {
                                 ),
                           ),
                           Text(
-                            "${user?.email}",
+                            user?.email == null
+                                ? "Email Address"
+                                : "${user?.email}",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyMedium!
@@ -272,70 +283,31 @@ class _ProfileState extends State<Profile> {
                     ],
                   ),
                 ),
-
-                // // Address
-                // Padding(
-                //   padding: const EdgeInsets.only(top: 28, bottom: 35),
-                //   child: Row(
-                //     children: [
-                //       Padding(
-                //         padding: const EdgeInsets.all(16),
-                //         child: Image.asset(
-                //           "assets/icons/icon-location.png",
-                //           height: 30,
-                //           width: 30,
-                //           fit: BoxFit.contain,
-                //         ),
-                //       ),
-                //       Column(
-                //         crossAxisAlignment: CrossAxisAlignment.start,
-                //         children: [
-                //           Text(
-                //             'Address',
-                //             style:
-                //             Theme.of(context).textTheme.bodyMedium!.copyWith(
-                //               color: ColorUtils.Grey,
-                //               fontSize: 12,
-                //               fontWeight: FontWeight.w400,
-                //             ),
-                //           ),
-                //           Text(
-                //             '16th Avenue',
-                //             style:
-                //             Theme.of(context).textTheme.bodyMedium!.copyWith(
-                //               fontSize: 16,
-                //               fontWeight: FontWeight.w500,
-                //             ),
-                //           ),
-                //         ],
-                //       ),
-                //     ],
-                //   ),
-                // ),
               ],
             ),
           ),
           TextButton(
             onPressed: () {
               Provider.of<AuthProvider>(context, listen: false).logout();
-              showCupertinoDialog(
+              showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      actionsPadding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 20),
                       title: Text(
-                        "LogOut",
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              color: ColorUtils.Grey,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
+                        "Log Out",
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                              fontSize: 22,
                             ),
                       ),
                       content: Text(
                         "Are you sure?",
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              color: ColorUtils.Grey,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
+                              fontSize: 16,
                             ),
                       ),
                       actions: [
@@ -347,30 +319,38 @@ class _ProfileState extends State<Profile> {
                                   .bodyMedium!
                                   .copyWith(
                                     color: ColorUtils.Green,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400,
+                                    fontSize: 14,
                                   ),
                             ),
                             onTap: () {
                               Navigator.pop(context);
                             }),
                         GestureDetector(
-                          child: Text(
-                            "Logout",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                                  color: ColorUtils.Red,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                ),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 6),
+                            margin: const EdgeInsets.only(left: 8),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              // ignore: deprecated_member_use
+                              color: Theme.of(context).unselectedWidgetColor,
+                            ),
+                            child: Text(
+                              "Logout",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                    color: ColorUtils.Red,
+                                    fontSize: 14,
+                                  ),
+                            ),
                           ),
                           onTap: () {
                             Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => AuthHome()),
+                                    builder: (context) => const AuthHome()),
                                 (route) => false);
                           },
                         )
