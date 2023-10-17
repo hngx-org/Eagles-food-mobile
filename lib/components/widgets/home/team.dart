@@ -35,67 +35,73 @@ class _TeamListState extends State<TeamList> {
                 padding: const EdgeInsets.symmetric(vertical: 0),
                 physics: const BouncingScrollPhysics(),
                 itemCount: 5,
-                itemBuilder: (context, index) => const TeamShimmer()
-            )
-            :
-        widget.list.isEmpty ?
-        const Center(child: Text('No Team Members'))
-            :
-        ListView.builder(
-                shrinkWrap: true,
-                padding: const EdgeInsets.symmetric(vertical: 0),
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: min(5, widget.list.length),
-                itemBuilder: (BuildContext context, int index) {
-                  return SizedBox(
-                    width: double.infinity,
-                    child: ListTile(
-                        contentPadding: const EdgeInsets.all(0),
-                        leading: CircleAvatar(
-                          backgroundImage: AssetImage(widget.list[index].image),
-                        ),
-                        title: Text(
-                          widget.list[index].name,
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayMedium
-                              ?.copyWith(
-                                  fontSize: 16, fontWeight: FontWeight.w400),
-                        ),
-                        subtitle: Text(
-                          '${widget.list[index].email}',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineSmall
-                              ?.copyWith(
-                                  fontWeight: FontWeight.w500, fontSize: 11),
-                        ),
-                        trailing: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 4),
-                          color: ColorUtils.Yellow,
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: ((context) => SendLunchScreen(
-                                            receiver: widget.list[index],
-                                          ))));
-                            },
-                            child: Text(
-                              'Send Lunch',
+                itemBuilder: (context, index) => const TeamShimmer())
+            : widget.list.isEmpty
+                ? const Center(child: Text('No Team Members'))
+                : ListView.builder(
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.symmetric(vertical: 0),
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: min(5, widget.list.length),
+                    itemBuilder: (BuildContext context, int index) {
+                      return SizedBox(
+                        width: double.infinity,
+                        child: ListTile(
+                            contentPadding: const EdgeInsets.all(0),
+                            leading: CircleAvatar(
+                              backgroundImage:
+                                  AssetImage(widget.list[index].image),
+                            ),
+                            title: Text(
+                              widget.list[index].name,
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyLarge
+                                  .displayMedium
                                   ?.copyWith(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 13),
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400),
                             ),
-                          ),
-                        )),
-                  );
-                },
-              )
+                            subtitle: Text(
+                              '${widget.list[index].email}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineSmall
+                                  ?.copyWith(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 11),
+                            ),
+                            trailing: Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 4),
+                              // color: ColorUtils.Yellow,
+                              color: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? ColorUtils.Green
+                                  : ColorUtils.Yellow,
+                              child: TextButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: ((context) =>
+                                              SendLunchScreen(
+                                                receiver: widget.list[index],
+                                              ))));
+                                },
+                                child: Text(
+                                  'Send Lunch',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyLarge
+                                      ?.copyWith(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 13),
+                                ),
+                              ),
+                            )),
+                      );
+                    },
+                  )
       ],
     );
   }

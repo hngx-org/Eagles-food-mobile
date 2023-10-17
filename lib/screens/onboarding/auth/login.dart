@@ -29,9 +29,11 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // ignore: deprecated_member_use
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        titleSpacing: 0,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -268,13 +270,15 @@ class _LoginState extends State<Login> {
                                       await Provider.of<AuthProvider>(context,
                                               listen: false)
                                           .login(userData);
+                                  if (!context.mounted) return;
                                   Navigator.pop(context);
                                   if (response == true) {
                                     Navigator.pushAndRemoveUntil(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                NavScreen()), (route)=> false);
+                                                const NavScreen()),
+                                        (route) => false);
                                     Toasts.showToast(
                                         ColorUtils.Green, 'Login Successful');
                                   }
@@ -304,8 +308,8 @@ class _LoginState extends State<Login> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context)=>
-                                          const EnterEmail()));
+                                          builder: (context) =>
+                                              const EnterEmail()));
                                 },
                                 buttonText: "Reset Here",
                                 buttonColor: Colors.transparent,

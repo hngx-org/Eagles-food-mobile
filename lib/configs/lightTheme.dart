@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
 
 ThemeData lightTheme = ThemeData(
+  brightness: Brightness.light,
   primaryColor: ColorUtils.Green,
   hintColor: ColorUtils.Yellow,
   unselectedWidgetColor: ColorUtils.LightGrey,
@@ -10,12 +11,13 @@ ThemeData lightTheme = ThemeData(
   fontFamily: 'Stapel',
   splashFactory: NoSplash.splashFactory,
   buttonTheme: ButtonThemeData(
-    buttonColor: ColorUtils.Blue,
+    buttonColor: ColorUtils.Yellow,
     textTheme: ButtonTextTheme.primary,
     splashColor: Colors.transparent,
     highlightColor: Colors.transparent,
     padding: EdgeInsets.zero,
   ),
+
   appBarTheme: const AppBarTheme(
     color: Colors.transparent,
     elevation: 0,

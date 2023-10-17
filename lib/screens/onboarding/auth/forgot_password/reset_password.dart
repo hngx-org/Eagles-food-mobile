@@ -11,7 +11,8 @@ import '../../../../providers/AuthProvider.dart';
 import '../../../../utils/utils.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
-  const ResetPasswordScreen({super.key, required this.email, required this.otp});
+  const ResetPasswordScreen(
+      {super.key, required this.email, required this.otp});
   final String email;
   final String otp;
 
@@ -33,9 +34,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // ignore: deprecated_member_use
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        titleSpacing: 0,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -84,7 +87,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
           width: double.infinity,
           child: SingleChildScrollView(
             padding:
-            const EdgeInsets.only(right: 20, left: 20, top: 30, bottom: 20),
+                const EdgeInsets.only(right: 20, left: 20, top: 30, bottom: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -119,15 +122,15 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             children: [
                               Padding(
                                 padding:
-                                const EdgeInsets.symmetric(vertical: 10.0),
+                                    const EdgeInsets.symmetric(vertical: 10.0),
                                 child: Text(
                                   "New password",
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyMedium
                                       ?.copyWith(
-                                      color: ColorUtils.LightGrey,
-                                      fontSize: 16),
+                                          color: ColorUtils.LightGrey,
+                                          fontSize: 16),
                                 ),
                               ),
                               TextFormField(
@@ -142,9 +145,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                     .textTheme
                                     .bodyLarge
                                     ?.copyWith(
-                                    color: ColorUtils.Grey,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16),
+                                        color: ColorUtils.Grey,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16),
                                 onChanged: (value) {
                                   setState(() {
                                     userData['email'] = widget.email;
@@ -159,7 +162,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                       .textTheme
                                       .bodyMedium
                                       ?.copyWith(
-                                      color: ColorUtils.Grey, fontSize: 16),
+                                          color: ColorUtils.Grey, fontSize: 16),
                                   border: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                         width: 1.3,
@@ -205,15 +208,15 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                             children: [
                               Padding(
                                 padding:
-                                const EdgeInsets.symmetric(vertical: 10.0),
+                                    const EdgeInsets.symmetric(vertical: 10.0),
                                 child: Text(
                                   "Confirm new password",
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyMedium
                                       ?.copyWith(
-                                      color: ColorUtils.LightGrey,
-                                      fontSize: 16),
+                                          color: ColorUtils.LightGrey,
+                                          fontSize: 16),
                                 ),
                               ),
                               TextFormField(
@@ -231,9 +234,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                     .textTheme
                                     .bodyLarge
                                     ?.copyWith(
-                                    color: ColorUtils.Grey,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16),
+                                        color: ColorUtils.Grey,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16),
                                 obscureText: showPassword ? false : true,
                                 decoration: InputDecoration(
                                   filled: false,
@@ -241,7 +244,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                       .textTheme
                                       .bodyMedium
                                       ?.copyWith(
-                                      color: ColorUtils.Grey, fontSize: 16),
+                                          color: ColorUtils.Grey, fontSize: 16),
                                   border: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                         width: 1.3,
@@ -287,21 +290,27 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                                   print(userData['email']);
                                   Utils.loadingProgress(context);
                                   final response =
-                                  await Provider.of<AuthProvider>(context,
-                                      listen: false)
-                                      .resetPassword(userData);
-                                  if(response == true){
-                                  Navigator.pushAndRemoveUntil(
-                                      context, MaterialPageRoute(builder: (context)=>const Login()), (route) => false);
-                               Toasts.showToast(Colors.green, 'Password reset successful');
-                                }}
+                                      await Provider.of<AuthProvider>(context,
+                                              listen: false)
+                                          .resetPassword(userData);
+                                  if (response == true) {
+                                    if (!context.mounted) return;
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const Login()),
+                                        (route) => false);
+                                    Toasts.showToast(Colors.green,
+                                        'Password reset successful');
+                                  }
+                                }
                               },
                               buttonText: "Reset password",
                               buttonColor: ColorUtils.Green,
                               textColor: ColorUtils.White,
                               isUppercase: true),
                         ),
-
                       ],
                     ),
                   ),
