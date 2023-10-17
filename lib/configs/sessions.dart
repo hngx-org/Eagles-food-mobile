@@ -48,9 +48,49 @@ class SessionManager {
     prefs.setString("fcm_token", token);
   }
 
-  Future<String> getFcmTokens() async {
+  Future<void> setInitialFetchTeam(bool val) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString("fcm_token") ?? '';
+    prefs.setBool("initialFetchTeam", val);
+  }
+  Future<bool> getInitialFetchTeam() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool("initialFetchTeam") ?? true;
+  }
+
+  Future<void> setInitialFetchOthers(bool val) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool("initialFetchOthers", val);
+  }
+  Future<bool> getInitialFetchOthers() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool("initialFetchOthers") ?? true;
+  }
+
+  Future<void> setInitialFetchLunchHistory(bool val) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool("initialFetchLunchHistory", val);
+  }
+  Future<bool> getInitialFetchLunchHistory() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool("initialFetchLunchHistory") ?? true;
+  }
+
+  Future<void> setInitialFetchLeaderboard(bool val) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool("initialFetchLeaderboard", val);
+  }
+  Future<bool> getInitialFetchLeaderboard() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool("initialFetchLeaderboard") ?? true;
+  }
+
+  Future<void> setInitialFetchOrg(bool val) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool("initialFetchOrg", val);
+  }
+  Future<bool> getInitialFetchOrg() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool("initialFetchOrg") ?? true;
   }
 
   Future<void> setFirstTime(bool val) async {
@@ -68,6 +108,10 @@ class SessionManager {
     prefs.setBool("isLoggedIn", false);
     prefs.setString('token', '');
     prefs.setString('user', '');
+    prefs.remove("fcm_token");
+    prefs.remove("initialFetchTeam");
+    prefs.remove("initialFetchOthers");
+    prefs.remove("initialFetchLunchHistory");
   }
 
   void removeUser() async {
@@ -75,5 +119,6 @@ class SessionManager {
     prefs.remove("user");
     prefs.remove("token");
     prefs.setBool("isLoggedIn", false);
+
   }
 }

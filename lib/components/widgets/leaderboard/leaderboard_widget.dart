@@ -24,19 +24,24 @@ class LeaderBoardWidget extends StatelessWidget {
                   item.name,
                   style: Theme.of(context).textTheme.displayMedium?.copyWith(
                     fontWeight: FontWeight.w500,
+                    color: index == 0 || index == 1 || index == 2 ? ColorUtils.White : ColorUtils.Grey,
                     fontSize: 18
                   ),
                 ),
                 Text(
                   item.email,
-                  style: Theme.of(context).textTheme.bodySmall
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: index == 0 || index == 1 || index == 2 ? ColorUtils.White : ColorUtils.Grey,
+                  )
                 ),
               ],
             ),
           ),
           Text(
             item.quantity.toString(),
-            style: Theme.of(context).textTheme.displayLarge
+            style: Theme.of(context).textTheme.displayLarge?.copyWith(
+              color: index == 0 || index == 1 || index == 2 ? ColorUtils.White : ColorUtils.Grey,
+            ),
           ),
         ],
       ),

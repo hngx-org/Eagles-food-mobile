@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
-import 'package:hng_task3/models/organization.dart';
 import 'package:hng_task3/models/user.dart';
 import 'package:hng_task3/providers/AuthProvider.dart';
-import 'package:hng_task3/screens/onboarding/auth/auth_home.dart';
 import 'package:hng_task3/screens/profile/settings.dart';
+import 'package:hng_task3/utils/dialogs.dart';
 import 'package:provider/provider.dart';
 
 class Profile extends StatefulWidget {
@@ -287,77 +286,9 @@ class _ProfileState extends State<Profile> {
             ),
           ),
           TextButton(
-            onPressed: () {
-              Provider.of<AuthProvider>(context, listen: false).logout();
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      actionsPadding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 20),
-                      title: Text(
-                        "Log Out",
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                              fontSize: 22,
-                            ),
-                      ),
-                      content: Text(
-                        "Are you sure?",
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              fontSize: 16,
-                            ),
-                      ),
-                      actions: [
-                        GestureDetector(
-                            child: Text(
-                              "Cancel",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                    color: ColorUtils.Green,
-                                    fontSize: 14,
-                                  ),
-                            ),
-                            onTap: () {
-                              Navigator.pop(context);
-                            }),
-                        GestureDetector(
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 6),
-                            margin: const EdgeInsets.only(left: 8),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16),
-                              // ignore: deprecated_member_use
-                              color: Theme.of(context).unselectedWidgetColor,
-                            ),
-                            child: Text(
-                              "Logout",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                    color: ColorUtils.Red,
-                                    fontSize: 14,
-                                  ),
-                            ),
-                          ),
-                          onTap: () {
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const AuthHome()),
-                                (route) => false);
-                          },
-                        )
-                      ],
-                    );
-                  });
-            },
+            onPressed: (){
+              Dialogs.logoutDialog(context: context);
+              },
             child: Container(
               alignment: Alignment.center,
               margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -367,14 +298,13 @@ class _ProfileState extends State<Profile> {
                 color: ColorUtils.Red,
               ),
               child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Text(
-                    "Logout",
-                    style: Theme.of(context)
-                        .textTheme
-                        .displaySmall
-                        ?.copyWith(fontWeight: FontWeight.w600, fontSize: 18),
-                  )),
+                padding: const  EdgeInsets.symmetric(horizontal: 10.0),
+                child: Text("Logout", style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18,
+                  color: ColorUtils.White
+                ),
+              )),
             ),
           ),
         ],

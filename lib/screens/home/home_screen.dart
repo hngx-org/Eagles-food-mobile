@@ -3,6 +3,7 @@ import 'package:hng_task3/components/custom_button.dart';
 import 'package:hng_task3/components/widgets/home/team.dart';
 import 'package:hng_task3/components/widgets/lunch_history/lunch_history_widget.dart';
 import 'package:hng_task3/configs/colors.dart';
+import 'package:hng_task3/configs/sessions.dart';
 import 'package:hng_task3/models/lunch.dart';
 import 'package:hng_task3/models/team.dart';
 import 'package:hng_task3/providers/AuthProvider.dart';
@@ -20,24 +21,51 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   bool isLoading = false;
   var user;
 
   List<Team> my_team = [];
   List<Lunch> lunch_history = [];
   int page = 1;
+  bool initialFetchTeam  = false;
+  bool initialFetchOthers = false;
+  bool initialFetchLunch = false;
 
   @override
   void initState() {
     super.initState();
-    Provider.of<TeamAndLunchProvider>(context, listen: false)
-        .getLunchHistory(page);
-    Provider.of<TeamAndLunchProvider>(context, listen: false).getMyTeam(page);
-    Provider.of<TeamAndLunchProvider>(context, listen: false)
-        .getAllOthers(page);
+    getFetchHistory();
+    WidgetsBinding.instance?.addObserver(this);
     Provider.of<AuthProvider>(context, listen: false).getUserOrg();
     Provider.of<AuthProvider>(context, listen: false).getUserLunchBalance();
+  }
+  @override
+  void dispose() {
+    WidgetsBinding.instance?.removeObserver(this);
+    super.dispose();
+  }
+
+  Future<dynamic> getFetchHistory () async {
+    SessionManager ss = SessionManager();
+    initialFetchTeam = await ss.getInitialFetchTeam();
+    initialFetchOthers = await ss.getInitialFetchOthers();
+    initialFetchLunch = await ss.getInitialFetchLunchHistory();
+
+    if (initialFetchLunch) Provider.of<TeamAndLunchProvider>(context, listen: false).getLunchHistory(page);
+    if (initialFetchTeam)  Provider.of<TeamAndLunchProvider>(context, listen: false).getMyTeam(page);
+    if (initialFetchOthers) Provider.of<TeamAndLunchProvider>(context, listen: false).getAllOthers(page);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.paused) {
+      SessionManager ss = SessionManager();
+      ss.setInitialFetchLunchHistory(true);
+      ss.setInitialFetchOthers(true);
+      ss.setInitialFetchTeam(true);
+    }
   }
 
   @override
@@ -49,188 +77,207 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
         // ignore: deprecated_member_use
         backgroundColor: Theme.of(context).backgroundColor,
-        body: SingleChildScrollView(
-          padding: const EdgeInsets.only(
-            top: 50,
-            right: 20,
-            left: 20,
-          ),
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                                text: 'Good ',
-                                style: Theme.of(context).textTheme.bodyLarge),
-                            TextSpan(
-                              text: Utils.getTimeOfDay(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyLarge
-                                  ?.copyWith(
-                                      fontWeight: FontWeight
-                                          .w700), // Apply the style only to 'Morning'
-                            ),
-                          ],
+        body: RefreshIndicator(
+          displacement: 50,
+          backgroundColor: ColorUtils.Green,
+          color: ColorUtils.White,
+          strokeWidth: 3,
+          triggerMode: RefreshIndicatorTriggerMode.onEdge,
+          onRefresh: () async {
+             Provider.of<TeamAndLunchProvider>(context, listen: false).getLunchHistory(1);
+             Provider.of<TeamAndLunchProvider>(context, listen: false).getMyTeam(1);
+             Provider.of<TeamAndLunchProvider>(context, listen: false).getAllOthers(1);
+             setState(() {
+               isLoading = true;
+             });
+          },
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.only(
+              top: 50,
+              right: 20,
+              left: 20,
+            ),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                  text: 'Good ',
+                                  style: Theme.of(context).textTheme.bodyLarge),
+                              TextSpan(
+                                text: Utils.getTimeOfDay(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.copyWith(
+                                        fontWeight: FontWeight
+                                            .w700), // Apply the style only to 'Morning'
+                              ),
+                            ],
+                          ),
+                        ),
+                        Text(
+                          user?.firstName ?? '',
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(),
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
+                    IconButton(
+                      icon: Image.asset(
+                        'assets/icons/Frame 1.png',
+                      ),
+                      onPressed: widget.openDrawer,
+                    )
+                  ],
+                ),
+
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SendLunchSearch()));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    child: TextFormField(
+                      style: Theme.of(context).textTheme.bodyLarge,
+                      decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 20),
+                        hintText: 'Search for member',
+                        filled: true,
+                        fillColor: Theme.of(context)
+                            .unselectedWidgetColor
+                            .withOpacity(0.2),
+                        hintStyle: Theme.of(context)
+                            .textTheme
+                            .bodyLarge
+                            ?.copyWith(
+                                color: ColorUtils.LightGrey,
+                                fontWeight: FontWeight.w500),
+                        suffixIcon: Icon(
+                          Icons.search,
+                          color: ColorUtils.LightGrey,
+                          size: 30,
+                        ),
+                        enabled: false,
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            width: 1,
+                            color: ColorUtils.LightGrey,
+                          ),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(30)),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            width: 1,
+                            color: ColorUtils.LightGrey,
+                          ),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(30)),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            width: 1,
+                            color: ColorUtils.LightGrey,
+                          ),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(50)),
                         ),
                       ),
-                      Text(
-                        user?.firstName ?? '',
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium
-                            ?.copyWith(),
+                      onChanged: (value) {},
+                    ),
+                  ),
+                ),
+
+                Container(
+                  margin: const EdgeInsets.symmetric(vertical: 15),
+                  decoration: BoxDecoration(
+                    color: ColorUtils.Green,
+                    image: const DecorationImage(
+                      image: AssetImage("assets/images/withdrawal-bg.png"),
+                      fit: BoxFit.cover,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: ColorUtils.Yellow,
+                        spreadRadius: 1.0,
+                        offset: const Offset(7, 7.0),
                       ),
                     ],
                   ),
-                  const Spacer(),
-                  IconButton(
-                    icon: Image.asset(
-                      'assets/icons/Frame 1.png',
-                    ),
-                    onPressed: widget.openDrawer,
-                  )
-                ],
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SendLunchSearch()));
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 15),
-                  child: TextFormField(
-                    style: Theme.of(context).textTheme.bodyLarge,
-                    decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 20),
-                      hintText: 'Search for member',
-                      filled: true,
-                      fillColor: Theme.of(context)
-                          .unselectedWidgetColor
-                          .withOpacity(0.2),
-                      hintStyle: Theme.of(context)
-                          .textTheme
-                          .bodyLarge
-                          ?.copyWith(
-                              color: ColorUtils.LightGrey,
-                              fontWeight: FontWeight.w500),
-                      suffixIcon: Icon(
-                        Icons.search,
-                        color: ColorUtils.LightGrey,
-                        size: 30,
-                      ),
-                      enabled: false,
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          width: 1,
-                          color: ColorUtils.LightGrey,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Expanded(
+                        child: CustomButton(
+                          onPress: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const WithdrawLunch()));
+                          },
+                          buttonText: "Withdraw Lunch",
+                          buttonColor: ColorUtils.DeepPink,
+                          fontSize: 13,
+                          textColor: ColorUtils.Black,
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 10),
                         ),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(30)),
                       ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          width: 1,
-                          color: ColorUtils.LightGrey,
+                      const SizedBox(
+                        width: 10.0,
+                      ),
+                      Expanded(
+                        child: CustomButton(
+                          onPress: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const SendLunchSearch()));
+                          },
+                          buttonText: "Send Lunch",
+                          buttonColor: ColorUtils.Yellow,
+                          fontSize: 13,
+                          textColor: ColorUtils.Black,
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 10),
                         ),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(30)),
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          width: 1,
-                          color: ColorUtils.LightGrey,
-                        ),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(50)),
-                      ),
-                    ),
-                    onChanged: (value) {},
+                    ],
                   ),
                 ),
-              ),
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 15),
-                decoration: BoxDecoration(
-                  color: ColorUtils.Green,
-                  image: const DecorationImage(
-                    image: AssetImage("assets/images/withdrawal-bg.png"),
-                    fit: BoxFit.cover,
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: ColorUtils.Yellow,
-                      spreadRadius: 1.0,
-                      offset: const Offset(7, 7.0),
-                    ),
-                  ],
-                ),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Expanded(
-                      child: CustomButton(
-                        onPress: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const WithdrawLunch()));
-                        },
-                        buttonText: "Withdraw Lunch",
-                        buttonColor: ColorUtils.DeepPink,
-                        fontSize: 13,
-                        textColor: ColorUtils.Black,
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 15, horizontal: 10),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 10.0,
-                    ),
-                    Expanded(
-                      child: CustomButton(
-                        onPress: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const SendLunchSearch()));
-                        },
-                        buttonText: "Send Lunch",
-                        buttonColor: ColorUtils.Yellow,
-                        fontSize: 13,
-                        textColor: ColorUtils.Black,
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 15, horizontal: 10),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0),
-                child: TeamList(list: my_team),
-              ),
-              if (lunch_history.isNotEmpty)
+
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
-                  child: LunchHistoryWidget(
-                    limit: true,
-                    history: lunch_history,
-                  ),
-                )
-            ],
+                  child: TeamList(list: my_team),
+                ),
+
+                if (lunch_history.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 10.0),
+                    child: LunchHistoryWidget(
+                      limit: true,
+                      history: lunch_history,
+                    ),
+                  )
+              ],
+            ),
           ),
         ));
   }

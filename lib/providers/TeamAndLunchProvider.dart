@@ -18,6 +18,7 @@ class TeamAndLunchProvider with ChangeNotifier {
   bool _isLoading = false;
   List<LeaderBoard> _leaderboard = [];
   String _lunchCreditBalance = '';
+  bool _isFetchingLeaderboard = false;
 
   List<Lunch> get lunchHistory => _lunchHistory;
   List<Team> get my_team => _my_team;
@@ -25,6 +26,7 @@ class TeamAndLunchProvider with ChangeNotifier {
   bool get isLoading => _isLoading;
   List<LeaderBoard> get leaderboard => _leaderboard;
   String get lunchCreditBalance => _lunchCreditBalance;
+  bool get isFetchingLeaderboard => _isFetchingLeaderboard;
 
   Future<dynamic> getMyTeam(page) async {
     print('current page $page');
@@ -42,6 +44,7 @@ class TeamAndLunchProvider with ChangeNotifier {
         user.forEach((element) {
           _my_team.add(Team.fromJson(element));
         });
+        SessionManager().setInitialFetchTeam(false);
         _isLoading = false;
         notifyListeners();
       }
@@ -67,6 +70,7 @@ class TeamAndLunchProvider with ChangeNotifier {
         others.forEach((element) {
           _everyone.add(Team.fromJson(element));
         });
+        SessionManager().setInitialFetchOthers(false);
         _isLoading = false;
         notifyListeners();
       }
@@ -112,6 +116,7 @@ class TeamAndLunchProvider with ChangeNotifier {
       lunchHistory.forEach((element) {
         _lunchHistory.add(Lunch.fromJson(element));
       });
+      SessionManager().setInitialFetchLunchHistory(false);
       notifyListeners();
     } catch (e) {
       print(e);
@@ -141,6 +146,7 @@ class TeamAndLunchProvider with ChangeNotifier {
   }
 
   Future<dynamic> getLeaderBoard(page) async {
+    print('current page $page');
     page ??= 1;
     final String url = 'lunch/leaderboard?pageNumber=$page';
     try {
@@ -148,12 +154,17 @@ class TeamAndLunchProvider with ChangeNotifier {
         _leaderboard = [];
         _isLoading = true;
       }
+      if(_leaderboard.isNotEmpty){
+        _isFetchingLeaderboard = true;
+      }
       final response = await Network.get(url);
       var data = response["data"];
       print(data);
       data.forEach((element) {
         _leaderboard.add(LeaderBoard.fromJson(element));
       });
+      SessionManager().setInitialFetchLeaderboard(false);
+      _isFetchingLeaderboard = false;
       _isLoading = false;
       notifyListeners();
     } catch (e) {

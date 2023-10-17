@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:hng_task3/configs/sessions.dart';
 import 'package:hng_task3/models/org_request.dart';
 import 'package:hng_task3/models/organization.dart';
 import 'package:hng_task3/network/network.dart';
@@ -10,11 +11,15 @@ class OrganizationProvider with ChangeNotifier{
   List<Organization> _organizations = [];
   bool _isLoading = false;
   List<OrgRequest> _org_request = [];
+  bool _isFetchingOrgs = false;
+  bool _isFetchingUserJoinReq = false;
 
 
   List<Organization> get organizations  => _organizations;
   bool get isLoading => _isLoading;
   List<OrgRequest> get org_request => _org_request;
+  bool get isFetchingOrgs => _isFetchingOrgs;
+  bool get isFetchingUserJoinReq => _isFetchingUserJoinReq;
 
   Future<dynamic> getOrganizations(page) async {
     page??= 1;
@@ -24,13 +29,16 @@ class OrganizationProvider with ChangeNotifier{
         _organizations = [];
         _isLoading = true;
       }
+      if(_organizations.isNotEmpty){
+        _isFetchingOrgs = true;
+      }
       final response = await Network.get(url);
       var data = response["data"];
-      print(data);
       data.forEach((element) {
         _organizations.add(Organization.fromJson(element));
       });
-      print(_organizations);
+      SessionManager().setInitialFetchOrg(false);
+      _isFetchingOrgs = false;
       _isLoading = false;
       notifyListeners();
       notifyListeners();
@@ -47,11 +55,15 @@ class OrganizationProvider with ChangeNotifier{
         _org_request = [];
         _isLoading = true;
       }
+      if(_org_request.isNotEmpty){
+        _isFetchingUserJoinReq = true;
+      }
       final response = await Network.get(url);
       var data = response["data"];
       data.forEach((element) {
         _org_request.add(OrgRequest.fromJson(element));
       });
+      _isFetchingUserJoinReq = false;
       _isLoading = false;
       notifyListeners();
     }catch(e){
