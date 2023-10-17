@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/models/organization.dart';
@@ -61,7 +62,7 @@ class _ProfileState extends State<Profile> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const Settings(),
+                          builder: (context) => Settings(),
                         ));
                   },
                   icon: Icon(
@@ -288,12 +289,65 @@ class _ProfileState extends State<Profile> {
           TextButton(
             onPressed: () {
               Provider.of<AuthProvider>(context, listen: false).logout();
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const AuthHome(),
-                  ),
-                  (route) => false);
+              showCupertinoDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text(
+                        "LogOut",
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              color: ColorUtils.Grey,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                            ),
+                      ),
+                      content: Text(
+                        "Are you sure?",
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              color: ColorUtils.Grey,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                            ),
+                      ),
+                      actions: [
+                        GestureDetector(
+                            child: Text(
+                              "Cancel",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                    color: ColorUtils.Green,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                            ),
+                            onTap: () {
+                              Navigator.pop(context);
+                            }),
+                        GestureDetector(
+                          child: Text(
+                            "Logout",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                  color: ColorUtils.Red,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                          ),
+                          onTap: () {
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AuthHome()),
+                                (route) => false);
+                          },
+                        )
+                      ],
+                    );
+                  });
             },
             child: Container(
               alignment: Alignment.center,
