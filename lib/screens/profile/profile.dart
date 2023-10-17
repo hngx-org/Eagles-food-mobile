@@ -62,7 +62,7 @@ class _ProfileState extends State<Profile> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Settings(),
+                          builder: (context) => const Settings(),
                         ));
                   },
                   icon: Icon(
@@ -289,24 +289,25 @@ class _ProfileState extends State<Profile> {
           TextButton(
             onPressed: () {
               Provider.of<AuthProvider>(context, listen: false).logout();
-              showCupertinoDialog(
+              showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      actionsPadding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 20),
                       title: Text(
-                        "LogOut",
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              color: ColorUtils.Grey,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
+                        "Log Out",
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                              fontSize: 22,
                             ),
                       ),
                       content: Text(
                         "Are you sure?",
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              color: ColorUtils.Grey,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
+                              fontSize: 16,
                             ),
                       ),
                       actions: [
@@ -318,30 +319,38 @@ class _ProfileState extends State<Profile> {
                                   .bodyMedium!
                                   .copyWith(
                                     color: ColorUtils.Green,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400,
+                                    fontSize: 14,
                                   ),
                             ),
                             onTap: () {
                               Navigator.pop(context);
                             }),
                         GestureDetector(
-                          child: Text(
-                            "Logout",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                                  color: ColorUtils.Red,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                ),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 6),
+                            margin: const EdgeInsets.only(left: 8),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              // ignore: deprecated_member_use
+                              color: Theme.of(context).unselectedWidgetColor,
+                            ),
+                            child: Text(
+                              "Logout",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                    color: ColorUtils.Red,
+                                    fontSize: 14,
+                                  ),
+                            ),
                           ),
                           onTap: () {
                             Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => AuthHome()),
+                                    builder: (context) => const AuthHome()),
                                 (route) => false);
                           },
                         )
