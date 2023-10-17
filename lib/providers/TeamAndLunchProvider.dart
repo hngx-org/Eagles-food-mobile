@@ -44,6 +44,7 @@ class TeamAndLunchProvider with ChangeNotifier {
         user.forEach((element) {
           _my_team.add(Team.fromJson(element));
         });
+        SessionManager().setInitialFetchTeam(false);
         _isLoading = false;
         notifyListeners();
       }
@@ -69,6 +70,7 @@ class TeamAndLunchProvider with ChangeNotifier {
         others.forEach((element) {
           _everyone.add(Team.fromJson(element));
         });
+        SessionManager().setInitialFetchOthers(false);
         _isLoading = false;
         notifyListeners();
       }
@@ -114,6 +116,7 @@ class TeamAndLunchProvider with ChangeNotifier {
       lunchHistory.forEach((element) {
         _lunchHistory.add(Lunch.fromJson(element));
       });
+      SessionManager().setInitialFetchLunchHistory(false);
       notifyListeners();
     } catch (e) {
       print(e);
@@ -143,6 +146,7 @@ class TeamAndLunchProvider with ChangeNotifier {
   }
 
   Future<dynamic> getLeaderBoard(page) async {
+    print('current page $page');
     page ??= 1;
     final String url = 'lunch/leaderboard?pageNumber=$page';
     try {
@@ -159,6 +163,7 @@ class TeamAndLunchProvider with ChangeNotifier {
       data.forEach((element) {
         _leaderboard.add(LeaderBoard.fromJson(element));
       });
+      SessionManager().setInitialFetchLeaderboard(false);
       _isFetchingLeaderboard = false;
       _isLoading = false;
       notifyListeners();

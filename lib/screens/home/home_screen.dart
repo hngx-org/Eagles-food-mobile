@@ -3,6 +3,7 @@ import 'package:hng_task3/components/custom_button.dart';
 import 'package:hng_task3/components/widgets/home/team.dart';
 import 'package:hng_task3/components/widgets/lunch_history/lunch_history_widget.dart';
 import 'package:hng_task3/configs/colors.dart';
+import 'package:hng_task3/configs/sessions.dart';
 import 'package:hng_task3/models/lunch.dart';
 import 'package:hng_task3/models/team.dart';
 import 'package:hng_task3/providers/AuthProvider.dart';
@@ -20,26 +21,50 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   bool isLoading = false;
   var user;
 
   List<Team> my_team = [];
   List<Lunch> lunch_history = [];
   int page = 1;
-  bool isFirstTime = false;
+  bool initialFetchTeam  = false;
+  bool initialFetchOthers = false;
+  bool initialFetchLunch = false;
 
   @override
   void initState() {
     super.initState();
-    isFirstTime = true;
-    print("init state run");
-    if(isFirstTime){
-      Provider.of<TeamAndLunchProvider>(context, listen: false).getLunchHistory(page);
-      Provider.of<TeamAndLunchProvider>(context, listen: false).getMyTeam(page);
-      Provider.of<TeamAndLunchProvider>(context, listen: false).getAllOthers(page);
-      Provider.of<AuthProvider>(context, listen: false).getUserOrg();
-      Provider.of<AuthProvider>(context, listen: false).getUserLunchBalance();
+    getFetchHistory();
+    WidgetsBinding.instance?.addObserver(this);
+    Provider.of<AuthProvider>(context, listen: false).getUserOrg();
+    Provider.of<AuthProvider>(context, listen: false).getUserLunchBalance();
+  }
+  @override
+  void dispose() {
+    WidgetsBinding.instance?.removeObserver(this);
+    super.dispose();
+  }
+
+  Future<dynamic> getFetchHistory () async {
+    SessionManager ss = SessionManager();
+    initialFetchTeam = await ss.getInitialFetchTeam();
+    initialFetchOthers = await ss.getInitialFetchOthers();
+    initialFetchLunch = await ss.getInitialFetchLunchHistory();
+
+    if (initialFetchLunch) Provider.of<TeamAndLunchProvider>(context, listen: false).getLunchHistory(page);
+    if (initialFetchTeam)  Provider.of<TeamAndLunchProvider>(context, listen: false).getMyTeam(page);
+    if (initialFetchOthers) Provider.of<TeamAndLunchProvider>(context, listen: false).getAllOthers(page);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.paused) {
+      SessionManager ss = SessionManager();
+      ss.setInitialFetchLunchHistory(true);
+      ss.setInitialFetchOthers(true);
+      ss.setInitialFetchTeam(true);
     }
   }
 
@@ -53,13 +78,18 @@ class _HomeScreenState extends State<HomeScreen> {
         // ignore: deprecated_member_use
         backgroundColor: Theme.of(context).backgroundColor,
         body: RefreshIndicator(
-          displacement: 250,
-          backgroundColor: Colors.yellow,
-          color: Colors.red,
+          displacement: 50,
+          backgroundColor: ColorUtils.Green,
+          color: ColorUtils.White,
           strokeWidth: 3,
           triggerMode: RefreshIndicatorTriggerMode.onEdge,
           onRefresh: () async {
-
+             Provider.of<TeamAndLunchProvider>(context, listen: false).getLunchHistory(1);
+             Provider.of<TeamAndLunchProvider>(context, listen: false).getMyTeam(1);
+             Provider.of<TeamAndLunchProvider>(context, listen: false).getAllOthers(1);
+             setState(() {
+               isLoading = true;
+             });
           },
           child: SingleChildScrollView(
             padding: const EdgeInsets.only(

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:hng_task3/configs/sessions.dart';
 import 'package:hng_task3/models/org_request.dart';
 import 'package:hng_task3/models/organization.dart';
 import 'package:hng_task3/network/network.dart';
@@ -36,6 +37,7 @@ class OrganizationProvider with ChangeNotifier{
       data.forEach((element) {
         _organizations.add(Organization.fromJson(element));
       });
+      SessionManager().setInitialFetchOrg(false);
       _isFetchingOrgs = false;
       _isLoading = false;
       notifyListeners();

@@ -21,9 +21,9 @@ class Dialogs {
                 width: double.infinity,
                 margin: const EdgeInsets.symmetric(horizontal: 15),
                 padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(
+                decoration: BoxDecoration(
+                    color: Theme.of(context).backgroundColor,
+                    borderRadius: const BorderRadius.all(
                         Radius.circular(10)
                     )
                 ),
@@ -55,9 +55,9 @@ class Dialogs {
                                     Navigator.pop(context);
                                   },
                                   buttonText: "Cancel",
-                                  buttonColor: ColorUtils.LightGrey,
+                                  buttonColor: ColorUtils.Grey,
                                   fontSize: 13,
-                                  textColor: ColorUtils.Black,
+                                  textColor: ColorUtils.White,
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 15, horizontal: 10),
                                 ),

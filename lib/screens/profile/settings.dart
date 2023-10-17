@@ -50,11 +50,7 @@ class _SettingsState extends State<Settings> {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: Text(
          "Personalise your account settings",
-          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-            fontSize: 22,
-            color: ColorUtils.White,
-            fontWeight: FontWeight.bold,
-          ),
+          style: Theme.of(context).textTheme.displaySmall,
         )),
             TextButton(
               onPressed: (){

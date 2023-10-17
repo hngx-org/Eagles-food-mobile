@@ -68,7 +68,7 @@ class _OrgJoinRequestState extends State<OrgJoinRequest> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 15),
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
             child: TextFormField(
               controller: searchController,
               style: Theme.of(context).textTheme.bodyLarge,
@@ -120,7 +120,7 @@ class _OrgJoinRequestState extends State<OrgJoinRequest> {
               ? Expanded(
                   child: ListView.builder(
                       shrinkWrap: true,
-                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                       physics: const BouncingScrollPhysics(),
                       itemCount: 5,
                       itemBuilder: (context, index) => const InviteShimmer()),
@@ -156,7 +156,7 @@ class _OrgJoinRequestState extends State<OrgJoinRequest> {
                           itemCount: request.length,
                           shrinkWrap: true,
                           physics: const BouncingScrollPhysics(),
-                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                           itemBuilder: (context, index) {
                             final item = request[index];
                             return Container(

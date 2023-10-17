@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
-import 'package:hng_task3/models/organization.dart';
 import 'package:hng_task3/models/user.dart';
 import 'package:hng_task3/providers/AuthProvider.dart';
-import 'package:hng_task3/screens/onboarding/auth/auth_home.dart';
 import 'package:hng_task3/screens/profile/settings.dart';
 import 'package:hng_task3/utils/dialogs.dart';
 import 'package:provider/provider.dart';
