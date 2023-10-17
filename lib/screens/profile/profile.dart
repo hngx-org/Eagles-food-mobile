@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/models/organization.dart';
@@ -54,17 +55,19 @@ class _ProfileState extends State<Profile> {
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: IconButton(
-              onPressed: (){
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Settings(),
-                    ));
-              },
-              icon: Icon( Icons.settings, color: ColorUtils.White,)
-          )),
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Settings(),
+                        ));
+                  },
+                  icon: Icon(
+                    Icons.settings,
+                    color: ColorUtils.White,
+                  ))),
         ],
       ),
       body: Column(
@@ -82,7 +85,7 @@ class _ProfileState extends State<Profile> {
                   width: double.infinity,
                   margin: const EdgeInsets.only(bottom: 20),
                   decoration: const BoxDecoration(
-                    image:  DecorationImage(
+                    image: DecorationImage(
                       image: AssetImage("assets/images/withdrawal-bg.png"),
                       fit: BoxFit.cover,
                     ),
@@ -91,49 +94,52 @@ class _ProfileState extends State<Profile> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      user?.profilePic == '' ? Container(
-                      width: 130,
-                      height: 130,
-                      decoration:BoxDecoration(
-                        border: Border.all(
-                            width: 3,
-                            color: ColorUtils.LightGrey
-                        ),
-                        borderRadius: BorderRadius.circular(100),
-                        image : const DecorationImage(
-                          image: AssetImage("assets/icons/man-avatar-icon.png"),
-                          fit: BoxFit.cover,
-                        ),
-                      )) : Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(100),
-                              border: Border.all(
-                                  width: 3,
-                                  color: ColorUtils.LightGrey
+                      user?.profilePic == ''
+                          ? Container(
+                              width: 130,
+                              height: 130,
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                    width: 3, color: ColorUtils.LightGrey),
+                                borderRadius: BorderRadius.circular(100),
+                                image: const DecorationImage(
+                                  image: AssetImage(
+                                      "assets/icons/man-avatar-icon.png"),
+                                  fit: BoxFit.cover,
+                                ),
+                              ))
+                          : Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                border: Border.all(
+                                    width: 3, color: ColorUtils.LightGrey),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: FadeInImage(
+                                  placeholder: const AssetImage(
+                                      "assets/icons/man-avatar-icon.png"),
+                                  image: NetworkImage(
+                                    user?.profilePic ?? '',
+                                  ),
+                                  fit: BoxFit.cover,
+                                  height: 130,
+                                  width: 130,
+                                  filterQuality: FilterQuality.high,
+                                ),
                               ),
                             ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                            child: FadeInImage(
-                              placeholder: const AssetImage("assets/icons/man-avatar-icon.png"),
-                              image: NetworkImage(user?.profilePic ?? '',),
-                              fit: BoxFit.cover,
-                              height: 130,
-                              width: 130,
-                              filterQuality: FilterQuality.high,
-                            ),
-                          ),
-                      ),
                       // Name
                       Padding(
                         padding: const EdgeInsets.only(top: 10, bottom: 5),
                         child: Text(
                           "${user?.firstName} ${user?.lastName}",
-                          style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                            fontSize: 28,
-                            color: ColorUtils.White,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.bodyLarge!.copyWith(
+                                    fontSize: 28,
+                                    color: ColorUtils.White,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                         ),
                       ),
                       // Organization Name
@@ -145,11 +151,14 @@ class _ProfileState extends State<Profile> {
                               padding: const EdgeInsets.only(bottom: 10),
                               child: Text(
                                 user!.orgName.toString(),
-                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                  fontSize: 16,
-                                  color: ColorUtils.White,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(
+                                      fontSize: 16,
+                                      color: ColorUtils.White,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                               ),
                             );
                           } else {
@@ -157,11 +166,14 @@ class _ProfileState extends State<Profile> {
                               padding: const EdgeInsets.only(bottom: 10),
                               child: Text(
                                 provider.userOrg.toString(),
-                                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                  fontSize: 16,
-                                  color: ColorUtils.White,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(
+                                      fontSize: 16,
+                                      color: ColorUtils.White,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                               ),
                             );
                           }
@@ -171,95 +183,95 @@ class _ProfileState extends State<Profile> {
                   ),
                 ),
 
-                  // Phone Number
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20.0,
-                    ),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: Image.asset(
-                            "assets/icons/icon-call.png",
-                            height: 30,
-                            width: 30,
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Mobile Phone',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                    color: ColorUtils.Grey,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                            ),
-                            Text(
-                              "${user?.phone}",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                // Phone Number
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20.0,
                   ),
-                  // Email address
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 10),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: Image.asset(
-                            "assets/icons/icon-email-green.png",
-                            height: 30,
-                            width: 30,
-                            fit: BoxFit.contain,
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Image.asset(
+                          "assets/icons/icon-call.png",
+                          height: 30,
+                          width: 30,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Mobile Phone',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                  color: ColorUtils.Grey,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                ),
                           ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Email Address',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                    color: ColorUtils.Grey,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                            ),
-                            Text(
-                              "${user?.email}",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                          Text(
+                            "${user?.phone}",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
+                ),
+                // Email address
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Image.asset(
+                          "assets/icons/icon-email-green.png",
+                          height: 30,
+                          width: 30,
+                          fit: BoxFit.contain,
+                        ),
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Email Address',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                  color: ColorUtils.Grey,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                          ),
+                          Text(
+                            "${user?.email}",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
 
                 // // Address
                 // Padding(
@@ -303,32 +315,86 @@ class _ProfileState extends State<Profile> {
               ],
             ),
           ),
-
           TextButton(
-            onPressed: (){
+            onPressed: () {
               Provider.of<AuthProvider>(context, listen: false).logout();
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const AuthHome(),
-                  ), (route) => false
-              );
-              },
+              showCupertinoDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text(
+                        "LogOut",
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              color: ColorUtils.Grey,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                            ),
+                      ),
+                      content: Text(
+                        "Are you sure?",
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              color: ColorUtils.Grey,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                            ),
+                      ),
+                      actions: [
+                        GestureDetector(
+                            child: Text(
+                              "Cancel",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                    color: ColorUtils.Green,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                            ),
+                            onTap: () {
+                              Navigator.pop(context);
+                            }),
+                        GestureDetector(
+                          child: Text(
+                            "Logout",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                  color: ColorUtils.Red,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                          ),
+                          onTap: () {
+                            Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AuthHome()),
+                                (route) => false);
+                          },
+                        )
+                      ],
+                    );
+                  });
+            },
             child: Container(
               alignment: Alignment.center,
-              margin: const EdgeInsets.symmetric( horizontal: 10),
+              margin: const EdgeInsets.symmetric(horizontal: 10),
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: ColorUtils.Red,
               ),
               child: Padding(
-                padding: const  EdgeInsets.symmetric(horizontal: 10.0),
-                child: Text("Logout", style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 18
-                ),
-              )),
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Text(
+                    "Logout",
+                    style: Theme.of(context)
+                        .textTheme
+                        .displaySmall
+                        ?.copyWith(fontWeight: FontWeight.w600, fontSize: 18),
+                  )),
             ),
           ),
         ],

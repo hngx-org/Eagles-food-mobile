@@ -32,7 +32,6 @@ class _AuthHomeState extends State<AuthHome> {
                   child: Text("Free Launch",
                   style: Theme.of(context).textTheme.displayLarge,),
                 ),
-
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: Text("Reward Employees with Lunch",

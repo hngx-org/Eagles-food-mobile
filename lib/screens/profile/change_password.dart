@@ -1,4 +1,7 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
+import 'package:hng_task3/screens/profile/profile.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/mdi.dart';
 import 'package:provider/provider.dart';
@@ -281,6 +284,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                                   Navigator.pop(context);
                                   if(response == true){
                                     Toasts.showToast(Colors.green, 'Password updated successfully');
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=> const Profile()));
                                   }}
                               },
                               buttonText: "Change password",
