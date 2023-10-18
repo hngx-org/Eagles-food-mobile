@@ -7,6 +7,9 @@ import 'package:hng_task3/screens/profile/settings.dart';
 import 'package:hng_task3/utils/dialogs.dart';
 import 'package:provider/provider.dart';
 
+import '../../providers/OrganizationProvider.dart';
+import '../home/home_screen.dart';
+
 class Profile extends StatefulWidget {
   const Profile({super.key});
 
@@ -18,8 +21,8 @@ class _ProfileState extends State<Profile> {
   String selectedEmployee = '';
   FocusNode focusNode = FocusNode();
 
-  bool isLoading = false;
   User? user;
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -38,6 +41,7 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     user = Provider.of<AuthProvider>(context).user;
+
     print(user?.profilePic);
     return Scaffold(
       // ignore: deprecated_member_use
@@ -286,9 +290,104 @@ class _ProfileState extends State<Profile> {
             ),
           ),
           TextButton(
-            onPressed: (){
-              Dialogs.logoutDialog(context: context);
-              },
+            onPressed: () {
+              Provider.of<AuthProvider>(context, listen: false).logout();
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      actionsPadding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 20),
+                      title: Text(
+                        "Leave Organization",
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                              fontSize: 22,
+                            ),
+                      ),
+                      content: Text(
+                        "Are you sure you want to leave your current organization?",
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              fontSize: 16,
+                            ),
+                      ),
+                      actions: [
+                        GestureDetector(
+                            child: Text(
+                              "Cancel",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                    color: ColorUtils.Green,
+                                    fontSize: 14,
+                                  ),
+                            ),
+                            onTap: () {
+                              Navigator.pop(context);
+                            }),
+                        GestureDetector(
+                          onTap: () async {
+                            setState(() {
+                              isLoading = true;
+                            });
+                            final response =
+                                await Provider.of<OrganizationProvider>(context,
+                                        listen: false)
+                                    .leaveOrg();
+                            print('Response: $response');
+                            if (!context.mounted) return;
+                            if (response == true) {
+                              setState(() {
+                                isLoading = false;
+                              });
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const HomeScreen(),
+                                ),
+                              );
+                            } else if (response == false) {
+                              setState(() {
+                                isLoading = false;
+                              });
+                            }
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 6),
+                            margin: const EdgeInsets.only(left: 8),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              // ignore: deprecated_member_use
+                              color: Theme.of(context).unselectedWidgetColor,
+                            ),
+                            child: isLoading == true
+                                ? SizedBox(
+                                    height: 20,
+                                    width: 20,
+                                    child: CircularProgressIndicator(
+                                      color: ColorUtils.Black,
+                                    ),
+                                  )
+                                : Text(
+                                    "Yes",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(
+                                          color: ColorUtils.Red,
+                                          fontSize: 14,
+                                        ),
+                                  ),
+                          ),
+                        )
+                      ],
+                    );
+                  });
+            },
             child: Container(
               alignment: Alignment.center,
               margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -298,13 +397,37 @@ class _ProfileState extends State<Profile> {
                 color: ColorUtils.Red,
               ),
               child: Padding(
-                padding: const  EdgeInsets.symmetric(horizontal: 10.0),
-                child: Text("Logout", style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 18,
-                  color: ColorUtils.White
-                ),
-              )),
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Text(
+                    "Leave Organization",
+                    style: Theme.of(context)
+                        .textTheme
+                        .displaySmall
+                        ?.copyWith(fontWeight: FontWeight.w600, fontSize: 18),
+                  )),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              Dialogs.logoutDialog(context: context);
+            },
+            child: Container(
+              alignment: Alignment.center,
+              margin: const EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: ColorUtils.Red,
+              ),
+              child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Text(
+                    "Logout",
+                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                        color: ColorUtils.White),
+                  )),
             ),
           ),
         ],
