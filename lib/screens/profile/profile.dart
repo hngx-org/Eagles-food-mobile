@@ -289,104 +289,10 @@ class _ProfileState extends State<Profile> {
               ],
             ),
           ),
-          TextButton(
+
+          if(user?.orgName != '')TextButton(
             onPressed: () {
-              Provider.of<AuthProvider>(context, listen: false).logout();
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      actionsPadding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 20),
-                      title: Text(
-                        "Leave Organization",
-                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                              fontSize: 22,
-                            ),
-                      ),
-                      content: Text(
-                        "Are you sure you want to leave your current organization?",
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              fontSize: 16,
-                            ),
-                      ),
-                      actions: [
-                        GestureDetector(
-                            child: Text(
-                              "Cancel",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                    color: ColorUtils.Green,
-                                    fontSize: 14,
-                                  ),
-                            ),
-                            onTap: () {
-                              Navigator.pop(context);
-                            }),
-                        GestureDetector(
-                          onTap: () async {
-                            setState(() {
-                              isLoading = true;
-                            });
-                            final response =
-                                await Provider.of<OrganizationProvider>(context,
-                                        listen: false)
-                                    .leaveOrg();
-                            print('Response: $response');
-                            if (!context.mounted) return;
-                            if (response == true) {
-                              setState(() {
-                                isLoading = false;
-                              });
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const HomeScreen(),
-                                ),
-                              );
-                            } else if (response == false) {
-                              setState(() {
-                                isLoading = false;
-                              });
-                            }
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 6),
-                            margin: const EdgeInsets.only(left: 8),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16),
-                              // ignore: deprecated_member_use
-                              color: Theme.of(context).unselectedWidgetColor,
-                            ),
-                            child: isLoading == true
-                                ? SizedBox(
-                                    height: 20,
-                                    width: 20,
-                                    child: CircularProgressIndicator(
-                                      color: ColorUtils.Black,
-                                    ),
-                                  )
-                                : Text(
-                                    "Yes",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(
-                                          color: ColorUtils.Red,
-                                          fontSize: 14,
-                                        ),
-                                  ),
-                          ),
-                        )
-                      ],
-                    );
-                  });
+              Dialogs.leaveOrgDialog(context: context);
             },
             child: Container(
               alignment: Alignment.center,
@@ -399,11 +305,11 @@ class _ProfileState extends State<Profile> {
               child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: Text(
-                    "Leave Organization",
-                    style: Theme.of(context)
-                        .textTheme
-                        .displaySmall
-                        ?.copyWith(fontWeight: FontWeight.w600, fontSize: 18),
+                    "Leave Org",
+                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                        color: ColorUtils.White),
                   )),
             ),
           ),
