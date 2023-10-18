@@ -74,17 +74,20 @@ class _SendLunchSearchState extends State<SendLunchSearch> {
             Padding(
               padding: const EdgeInsets.only(right: 6),
               child: InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const SendMultiLunchScreen(),
-                      ),
-                    );
-                  },
-                  child: const Icon(
-                    Icons.add,
-                    size: 30,
-                  )),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const SendMultiLunchScreen(),
+                    ),
+                  );
+                },
+                child: Icon(Icons.add, size: 35,
+                  color: Theme.of(context).brightness ==
+                      Brightness.dark
+                      ? ColorUtils.Green
+                      : ColorUtils.Black,
+                )
+              ),
             ),
           ],
         ),
