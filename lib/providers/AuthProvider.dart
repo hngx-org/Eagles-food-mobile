@@ -13,6 +13,7 @@ class AuthProvider with ChangeNotifier {
   String? _userOrg;
   Organization? _organization;
 
+
   User? get user => _user;
   bool? get isLoggedIn => _isLoggedIn;
   bool get isLoading => _isLoading;
@@ -321,4 +322,5 @@ class AuthProvider with ChangeNotifier {
       print(error);
     }
   }
+
 }

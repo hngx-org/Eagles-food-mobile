@@ -18,7 +18,7 @@ class _TeamListState extends State<TeamList> {
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
-    isLoading = Provider.of<TeamAndLunchProvider>(context).isLoading;
+    isLoading = Provider.of<TeamAndLunchProvider>(context).isLoadingTeam;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/components/widgets/send_lunch/navigationwidget.dart';
 import 'package:hng_task3/configs/colors.dart';
+import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
 import 'package:hng_task3/screens/home/menu/nav_screen.dart';
+import 'package:provider/provider.dart';
 
 import 'send_multi_lunch_screen.dart';
 
@@ -129,8 +131,8 @@ class _SendLunchSearchState extends State<SendLunchSearch> {
                 ),
               ),
               onChanged: (value) {
-                setState(() {
-                  _searchQuery = value;
+                Future.delayed(const Duration(seconds: 1), () {
+                  Provider.of<TeamAndLunchProvider>(context, listen: false).searchUsersByName(value);
                 });
               },
             ),

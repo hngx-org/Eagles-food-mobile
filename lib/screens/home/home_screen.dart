@@ -35,8 +35,11 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    getFetchHistory();
+    print("init state ran");
     WidgetsBinding.instance?.addObserver(this);
+    Provider.of<TeamAndLunchProvider>(context, listen: false).getLunchHistory(page, 'initstate');
+    Provider.of<TeamAndLunchProvider>(context, listen: false).getMyTeam(1, 'initstate');
+    Provider.of<TeamAndLunchProvider>(context, listen: false).getAllOthers(page);
     Provider.of<AuthProvider>(context, listen: false).getUserOrg();
     Provider.of<AuthProvider>(context, listen: false).getUserLunchBalance();
   }
@@ -44,17 +47,6 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   void dispose() {
     WidgetsBinding.instance?.removeObserver(this);
     super.dispose();
-  }
-
-  Future<dynamic> getFetchHistory () async {
-    SessionManager ss = SessionManager();
-    initialFetchTeam = await ss.getInitialFetchTeam();
-    initialFetchOthers = await ss.getInitialFetchOthers();
-    initialFetchLunch = await ss.getInitialFetchLunchHistory();
-
-    if (initialFetchLunch) Provider.of<TeamAndLunchProvider>(context, listen: false).getLunchHistory(page);
-    if (initialFetchTeam)  Provider.of<TeamAndLunchProvider>(context, listen: false).getMyTeam(page);
-    if (initialFetchOthers) Provider.of<TeamAndLunchProvider>(context, listen: false).getAllOthers(page);
   }
 
   @override
@@ -65,11 +57,14 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
       ss.setInitialFetchLunchHistory(true);
       ss.setInitialFetchOthers(true);
       ss.setInitialFetchTeam(true);
+      ss.setInitialFetchLeaderboard(true);
+      ss.setInitialFetchOrg(true);
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    print('build method run');
     my_team = Provider.of<TeamAndLunchProvider>(context).my_team;
     lunch_history = Provider.of<TeamAndLunchProvider>(context).lunchHistory;
     user = Provider.of<AuthProvider>(context).user;
@@ -84,8 +79,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
           strokeWidth: 3,
           triggerMode: RefreshIndicatorTriggerMode.onEdge,
           onRefresh: () async {
-             Provider.of<TeamAndLunchProvider>(context, listen: false).getLunchHistory(1);
-             Provider.of<TeamAndLunchProvider>(context, listen: false).getMyTeam(1);
+             Provider.of<TeamAndLunchProvider>(context, listen: false).getLunchHistory(1, 'refresh');
+             Provider.of<TeamAndLunchProvider>(context, listen: false).getMyTeam(1, 'refresh');
              Provider.of<TeamAndLunchProvider>(context, listen: false).getAllOthers(1);
              setState(() {
                isLoading = true;
