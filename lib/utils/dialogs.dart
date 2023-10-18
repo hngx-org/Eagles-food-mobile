@@ -22,6 +22,7 @@ class Dialogs {
                 margin: const EdgeInsets.symmetric(horizontal: 15),
                 padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                 decoration: BoxDecoration(
+                    // ignore: deprecated_member_use
                     color: Theme.of(context).backgroundColor,
                     borderRadius: const BorderRadius.all(
                         Radius.circular(10)

@@ -6,59 +6,59 @@ import 'package:hng_task3/models/org_request.dart';
 import 'package:hng_task3/models/organization.dart';
 import 'package:hng_task3/network/network.dart';
 
-class OrganizationProvider with ChangeNotifier{
-
+class OrganizationProvider with ChangeNotifier {
   List<Organization> _organizations = [];
   bool _isLoading = false;
   List<OrgRequest> _org_request = [];
   bool _isFetchingOrgs = false;
   bool _isFetchingUserJoinReq = false;
 
-
-  List<Organization> get organizations  => _organizations;
+  List<Organization> get organizations => _organizations;
   bool get isLoading => _isLoading;
   List<OrgRequest> get org_request => _org_request;
   bool get isFetchingOrgs => _isFetchingOrgs;
   bool get isFetchingUserJoinReq => _isFetchingUserJoinReq;
 
-  Future<dynamic> getOrganizations({ required int page, required String process}) async {
+  Future<dynamic> getOrganizations(
+      {required int page, required String process}) async {
     SessionManager ss = SessionManager();
     var initialFetchOrg = await ss.getInitialFetchOrg();
     print('initial fetch org $initialFetchOrg');
-    page??= 1;
+    page ??= 1;
     final String url = 'organization/all?pageNumber=$page';
-      try{
-        if(page ==1 || initialFetchOrg) {
-          _organizations = [];
-          _isLoading = true;
-        }
-        if(_organizations.isNotEmpty){
-          _isFetchingOrgs = true;
-        }
-        final response = await Network.get(url);
-        var data = response["data"];
-        data.forEach((element) {
-          _organizations.add(Organization.fromJson(element));
-        });
-        SessionManager().setInitialFetchOrg(false);
-        _isFetchingOrgs = false;
-        _isLoading = false;
-        notifyListeners();
-        notifyListeners();
-      }catch(e){
-        print(e);
+    try {
+      if (page == 1 || initialFetchOrg) {
+        _organizations = [];
+        _isLoading = true;
       }
+      if (_organizations.isNotEmpty) {
+        _isFetchingOrgs = true;
+      }
+      final response = await Network.get(url);
+      var data = response["data"];
+      data.forEach((element) {
+        _organizations.add(Organization.fromJson(element));
+      });
+      SessionManager().setInitialFetchOrg(false);
+      _isFetchingOrgs = false;
+      _isLoading = false;
+      notifyListeners();
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<dynamic> getUserJoinRequest(page) async {
-    page??=1;
-    final String url = 'organization/organizationinviterequest?pageNumber=$page';
-    try{
-      if(page ==1 ) {
+    page ??= 1;
+    final String url =
+        'organization/organizationinviterequest?pageNumber=$page';
+    try {
+      if (page == 1) {
         _org_request = [];
         _isLoading = true;
       }
-      if(_org_request.isNotEmpty){
+      if (_org_request.isNotEmpty) {
         _isFetchingUserJoinReq = true;
       }
       final response = await Network.get(url);
@@ -69,22 +69,26 @@ class OrganizationProvider with ChangeNotifier{
       _isFetchingUserJoinReq = false;
       _isLoading = false;
       notifyListeners();
-    }catch(e){
+    } catch (e) {
+      _isLoading = false;
+      notifyListeners();
       print(e);
     }
   }
 
   Future<dynamic> requestToJoinOrg(int orgId) async {
     final String url = 'user/requesttojoinOrg/$orgId';
-    try{
+    try {
       _isLoading = true;
       final response = await Network.post(endpoint: url);
-      if(response['success'] == true) {
+      if (response['success'] == true) {
         _isLoading = false;
         notifyListeners();
         return true;
       }
-    }catch(e){
+    } catch (e) {
+      _isLoading = false;
+      notifyListeners();
       print(e);
     }
   }
@@ -92,29 +96,55 @@ class OrganizationProvider with ChangeNotifier{
   Future<dynamic> toggleJoinRequest(Map<String, dynamic> data) async {
     const String url = 'organization/toggleinvite';
     print(data);
-    try{
+    try {
       _isLoading = true;
-      final response = await Network.post(endpoint: url, data: jsonEncode(data));
+      final response =
+          await Network.post(endpoint: url, data: jsonEncode(data));
       print(response);
-      if(response['success'] == true) {
-        List<OrgRequest> _updatedList = [];
-        _org_request.forEach((element) {
-            if(element.id != data['inviteId']){
-              _updatedList.add(element);
-            }
-        });
-        _org_request = _updatedList;
+      if (response['success'] == true) {
+        List<OrgRequest> updatedList = [];
+        for (var element in _org_request) {
+          if (element.id != data['inviteId']) {
+            updatedList.add(element);
+          }
+        }
+        _org_request = updatedList;
         notifyListeners();
         _isLoading = false;
         notifyListeners();
         return true;
-      }else{
+      } else {
+        _isLoading = false;
+        notifyListeners();
         return false;
       }
-    }catch(e){
+    } catch (e) {
+      _isLoading = false;
+      notifyListeners();
       print(e);
     }
   }
 
-
+  Future<dynamic> leaveOrg() async {
+    const String url = 'organization/leave';
+    try {
+      _isLoading = true;
+      notifyListeners();
+      final response = await Network.get(url);
+      print('Response in OrganizationProvider: $response');
+      if (response['statusCode'] == 200) {
+        _isLoading = false;
+        notifyListeners();
+        return true;
+      } else {
+        _isLoading = false;
+        notifyListeners();
+        return false;
+      }
+    } catch (e) {
+      _isLoading = false;
+      notifyListeners();
+      print('Error: $e');
+    }
+  }
 }
