@@ -127,24 +127,16 @@ class OrganizationProvider with ChangeNotifier {
 
   Future<dynamic> leaveOrg() async {
     const String url = 'organization/leave';
-    try {
-      _isLoading = true;
-      notifyListeners();
+    try{
       final response = await Network.get(url);
-      print('Response in OrganizationProvider: $response');
-      if (response['statusCode'] == 200) {
-        _isLoading = false;
+      if(response['statusCode'] == 200 ){
         notifyListeners();
         return true;
-      } else {
-        _isLoading = false;
-        notifyListeners();
+      }else{
         return false;
       }
-    } catch (e) {
-      _isLoading = false;
-      notifyListeners();
-      print('Error: $e');
+    }catch(e){
+      print(e);
     }
   }
 }
