@@ -275,6 +275,9 @@ class _ChangePasswordState extends State<ChangePassword> {
                           padding: const EdgeInsets.symmetric(vertical: 10.0),
                           child: CustomButton(
                               onPress: () async {
+                                FocusManager.instance.primaryFocus
+                                    ?.unfocus(); // dismiss keyboard
+
                                 if (_formKey.currentState!.validate()) {
                                   userData["email"] = widget.user.email;
                                   print(userData['email']);
@@ -285,10 +288,13 @@ class _ChangePasswordState extends State<ChangePassword> {
                                               listen: false)
                                           .changePassword(userData);
                                   Navigator.pop(context);
-                                  if(response == true){
-                                    Toasts.showToast(Colors.green, 'Password updated successfully');
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=> const Profile()));
-                                  }}
+                                  if (response == true) {
+                                    Toasts.showToast(Colors.green,
+                                        'Password updated successfully');
+                                    Navigator.pop(context);
+                                    Navigator.pop(context);
+                                  }
+                                }
                               },
                               buttonText: "Change password",
                               buttonColor: ColorUtils.Green,

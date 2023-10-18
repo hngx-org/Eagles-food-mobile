@@ -22,6 +22,7 @@ class _ProfileState extends State<Profile> {
   FocusNode focusNode = FocusNode();
 
   User? user;
+  String? orgName;
   bool isLoading = false;
 
   @override
@@ -41,6 +42,7 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     user = Provider.of<AuthProvider>(context).user;
+    orgName = Provider.of<AuthProvider>(context).userOrg;
 
     print(user?.profilePic);
     return Scaffold(
@@ -174,8 +176,8 @@ class _ProfileState extends State<Profile> {
                           return Padding(
                             padding: const EdgeInsets.only(bottom: 10),
                             child: Text(
-                              provider.userOrg == null
-                                  ? "Organization Name"
+                              provider.userOrg == ''
+                                  ? "Default Organization"
                                   : provider.userOrg.toString(),
                               style: Theme.of(context)
                                   .textTheme
@@ -289,30 +291,31 @@ class _ProfileState extends State<Profile> {
               ],
             ),
           ),
-
-          if(user?.orgName != '' || false)TextButton(
-            onPressed: () {
-              Dialogs.leaveOrgDialog(context: context);
-            },
-            child: Container(
-              alignment: Alignment.center,
-              margin: const EdgeInsets.symmetric(horizontal: 10),
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: ColorUtils.Red,
+          if (orgName != '' || false)
+            TextButton(
+              onPressed: () {
+                Dialogs.leaveOrgDialog(context: context);
+              },
+              child: Container(
+                alignment: Alignment.center,
+                margin: const EdgeInsets.symmetric(horizontal: 10),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: ColorUtils.Red,
+                ),
+                child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Text(
+                      "Leave Org",
+                      style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                          color: ColorUtils.White),
+                    )),
               ),
-              child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Text(
-                    "Leave Org",
-                    style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                        color: ColorUtils.White),
-                  )),
             ),
-          ),
           TextButton(
             onPressed: () {
               Dialogs.logoutDialog(context: context);
