@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hng_task3/components/widgets/send_lunch/navigationwidget.dart';
 import 'package:hng_task3/configs/colors.dart';
+import 'package:hng_task3/models/user.dart';
+import 'package:hng_task3/providers/AuthProvider.dart';
 import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
 import 'package:hng_task3/screens/home/menu/nav_screen.dart';
 import 'package:provider/provider.dart';
@@ -46,8 +48,8 @@ class _SendLunchSearchState extends State<SendLunchSearch> {
               onPressed: () {
                 Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => const NavScreen()), (route)=>false);
+                    MaterialPageRoute(builder: (context) => const NavScreen()),
+                    (route) => false);
               },
               style: TextButton.styleFrom(
                 padding: EdgeInsets.zero,
@@ -143,10 +145,35 @@ class _SendLunchSearchState extends State<SendLunchSearch> {
             ),
           ),
           Expanded(
-            child: NavigationScreenWidget(
-              search: _searchQuery,
-            ),
-          ),
+              //child: NavigationScreenWidget(
+              // search: _searchQuery,
+              // ),
+
+              child: FutureBuilder<User?>(
+                  future: _searchQuery.contains('@')
+                      ? Provider.of<AuthProvider>(context)
+                          .searchUserByEmail(_searchQuery)
+                     : Provider.of<AuthProvider>(context)
+                         .searchUserByName(_searchQuery),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return (const Center(child: CircularProgressIndicator()));
+                   } else if(snapshot.data == null){
+                    return Container();
+                   }
+                   else if (snapshot.hasError) {
+                      return Center(child: Text('Error: ${snapshot.error}'));
+                   } else if (snapshot.hasData && snapshot.data != null) {
+                      return ListTile(
+                        title: Text(snapshot.data!.firstName ?? ''),
+                       subtitle: Text(snapshot.data!.email ?? ''),
+                     );
+                   } else {
+                     return const Center(child: Text('No results found.'));
+                   }
+                  })
+                  
+                  ),
         ],
       ),
     );
