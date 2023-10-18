@@ -39,7 +39,7 @@ class _MyTeamSearchState extends State<MyTeamSearch> {
                       page++;
                     });
                     Provider.of<TeamAndLunchProvider>(context, listen: false)
-                        .getMyTeam(page);
+                        .getMyTeam(page, '');
                   }
                 }
                 return true;

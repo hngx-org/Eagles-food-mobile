@@ -25,7 +25,7 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> with WidgetsBindi
   @override
   void initState() {
     // TODO: implement initState
-    getLeaderboard();
+    Provider.of<TeamAndLunchProvider>(context, listen: false).getLeaderBoard(page);
     super.initState();
   }
 
@@ -35,13 +35,6 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> with WidgetsBindi
   bool isLoading = false;
   bool isFetchingLeaderboard = false;
   int page = 1;
-  bool initialFetchLearboard = false;
-
-  Future<dynamic> getLeaderboard() async {
-    SessionManager ss = SessionManager();
-    initialFetchLearboard = await ss.getInitialFetchLeaderboard();
-    if (initialFetchLearboard) Provider.of<TeamAndLunchProvider>(context, listen: false).getLeaderBoard(page);
-  }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {

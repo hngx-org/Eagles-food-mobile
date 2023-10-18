@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hng_task3/components/custom_button.dart';
 import 'package:hng_task3/components/shimmers/teamShimmer.dart';
@@ -35,6 +36,7 @@ class _SendInvitesState extends State<SendInvites> {
   List<Team> filtered = [];
   List<Team> list = [];
   bool isLoading = false;
+  bool isFetchingOthers = false;
 
   bool end_reached = false;
   int page = 1;
@@ -43,6 +45,8 @@ class _SendInvitesState extends State<SendInvites> {
   Widget build(BuildContext context) {
     list = Provider.of<TeamAndLunchProvider>(context).everyone;
     isLoading = Provider.of<TeamAndLunchProvider>(context).isLoading;
+    isFetchingOthers = Provider.of<TeamAndLunchProvider>(context).isFetchingOthers;
+
 
     List<Team> filtered = list
         .where((team) =>
@@ -352,7 +356,16 @@ class _SendInvitesState extends State<SendInvites> {
                           },
                         ),
                       ),
-                    )
+                    ),
+          if (isFetchingOthers)
+            SizedBox(
+              width: 25,
+              height: 25,
+              child: CupertinoActivityIndicator(
+                color: ColorUtils.Blue,
+                radius: 15,
+              ),
+            )
         ],
       ),
     );

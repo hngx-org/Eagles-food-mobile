@@ -112,6 +112,9 @@ class SessionManager {
     prefs.remove("initialFetchTeam");
     prefs.remove("initialFetchOthers");
     prefs.remove("initialFetchLunchHistory");
+    prefs.remove("initialFetchLeaderboard");
+    prefs.remove("initialFetchOrg");
+
   }
 
   void removeUser() async {

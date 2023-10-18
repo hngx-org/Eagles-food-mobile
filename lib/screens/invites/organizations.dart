@@ -36,7 +36,7 @@ class _OrganizationsState extends State<Organizations> with WidgetsBindingObserv
   @override
   void initState() {
     // TODO: implement initState
-    getFetchHistory();
+    Provider.of<OrganizationProvider>(context, listen: false).getOrganizations(page: page, process: 'initial');
     super.initState();
   }
 
@@ -47,12 +47,6 @@ class _OrganizationsState extends State<Organizations> with WidgetsBindingObserv
   }
 
   bool initialFetchOrg = false;
-
-  Future<dynamic> getFetchHistory () async {
-    SessionManager ss = SessionManager();
-    initialFetchOrg = await ss.getInitialFetchOrg();
-    if (initialFetchOrg) Provider.of<OrganizationProvider>(context, listen: false).getOrganizations(page);
-  }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
@@ -97,7 +91,7 @@ class _OrganizationsState extends State<Organizations> with WidgetsBindingObserv
         strokeWidth: 3,
         triggerMode: RefreshIndicatorTriggerMode.onEdge,
         onRefresh: () async {
-          Provider.of<OrganizationProvider>(context, listen: false).getOrganizations(1);
+          Provider.of<OrganizationProvider>(context, listen: false).getOrganizations(page: 1, process: 'refresh');
           setState(() {
             isLoading = true;
           });
@@ -188,7 +182,7 @@ class _OrganizationsState extends State<Organizations> with WidgetsBindingObserv
                       end_reached = true;
                       page ++;
                     });
-                    Provider.of<OrganizationProvider>(context, listen: false).getOrganizations(page);
+                    Provider.of<OrganizationProvider>(context, listen: false).getOrganizations(page: page, process: 'refresh');
                   }
                 }
                 return true;

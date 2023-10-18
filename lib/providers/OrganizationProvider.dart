@@ -21,30 +21,33 @@ class OrganizationProvider with ChangeNotifier{
   bool get isFetchingOrgs => _isFetchingOrgs;
   bool get isFetchingUserJoinReq => _isFetchingUserJoinReq;
 
-  Future<dynamic> getOrganizations(page) async {
+  Future<dynamic> getOrganizations({ required int page, required String process}) async {
+    SessionManager ss = SessionManager();
+    var initialFetchOrg = await ss.getInitialFetchOrg();
+    print('initial fetch org $initialFetchOrg');
     page??= 1;
     final String url = 'organization/all?pageNumber=$page';
-    try{
-      if(page ==1 ) {
-        _organizations = [];
-        _isLoading = true;
+      try{
+        if(page ==1 || initialFetchOrg) {
+          _organizations = [];
+          _isLoading = true;
+        }
+        if(_organizations.isNotEmpty){
+          _isFetchingOrgs = true;
+        }
+        final response = await Network.get(url);
+        var data = response["data"];
+        data.forEach((element) {
+          _organizations.add(Organization.fromJson(element));
+        });
+        SessionManager().setInitialFetchOrg(false);
+        _isFetchingOrgs = false;
+        _isLoading = false;
+        notifyListeners();
+        notifyListeners();
+      }catch(e){
+        print(e);
       }
-      if(_organizations.isNotEmpty){
-        _isFetchingOrgs = true;
-      }
-      final response = await Network.get(url);
-      var data = response["data"];
-      data.forEach((element) {
-        _organizations.add(Organization.fromJson(element));
-      });
-      SessionManager().setInitialFetchOrg(false);
-      _isFetchingOrgs = false;
-      _isLoading = false;
-      notifyListeners();
-      notifyListeners();
-    }catch(e){
-      print(e);
-    }
   }
 
   Future<dynamic> getUserJoinRequest(page) async {
