@@ -121,9 +121,9 @@ class _WithdrawLunchState extends State<WithdrawLunch> {
                                 .textTheme
                                 .displaySmall!
                                 .copyWith(
-                                    // fontSize: 20,
+                                    fontSize: 25,
                                     color: ColorUtils.White,
-                                    fontWeight: FontWeight.w400),
+                                    fontWeight: FontWeight.w500),
                           ),
                         ),
                         Padding(

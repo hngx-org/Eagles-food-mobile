@@ -79,7 +79,12 @@ class _SendLunchSearchState extends State<SendLunchSearch> {
                     ),
                   );
                 },
-                child: Icon(Icons.add, size: 30,)
+                child: Icon(Icons.add, size: 35,
+                  color: Theme.of(context).brightness ==
+                      Brightness.dark
+                      ? ColorUtils.Green
+                      : ColorUtils.Black,
+                )
               ),
             ),
           ],

@@ -290,7 +290,7 @@ class _ProfileState extends State<Profile> {
             ),
           ),
 
-          if(user?.orgName != '')TextButton(
+          if(user?.orgName != '' || false)TextButton(
             onPressed: () {
               Dialogs.leaveOrgDialog(context: context);
             },
