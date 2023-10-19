@@ -24,6 +24,8 @@ class TeamAndLunchProvider with ChangeNotifier {
   bool _isFetchingLeaderboard = false;
   bool _isFetchingLunchHistory = false;
 
+  List<Team>? _searchedUsers;
+
   List<Lunch> get lunchHistory => _lunchHistory;
   List<Team> get my_team => _my_team;
   List<Team> get everyone => _everyone;
@@ -36,17 +38,19 @@ class TeamAndLunchProvider with ChangeNotifier {
   bool get isFetchingLeaderboard => _isFetchingLeaderboard;
   bool get isFetchingLunchHistory => _isFetchingLunchHistory;
 
+  List<Team>? get searchedUsers => _searchedUsers;
+
   SessionManager ss = SessionManager();
 
-  Future<dynamic> getMyTeam(int page,  String process) async {
+  Future<dynamic> getMyTeam(int page, String process) async {
     print('current page $page');
     var initialFetchTeam = await ss.getInitialFetchTeam();
     page ??= 1;
     final String url = 'user/all?pageNumber=$page';
     if (initialFetchTeam || process == 'refresh') {
       try {
-           _my_team = [];
-           _isLoadingTeam = true;
+        _my_team = [];
+        _isLoadingTeam = true;
         final response = await Network.get(url);
         if (response['success'] == true) {
           var user = response["data"];
@@ -70,29 +74,28 @@ class TeamAndLunchProvider with ChangeNotifier {
     print('current page $page');
     final String url = 'user/others?pageNumber=$page';
     print(url);
-      try {
-        var initialFetchOthers = await ss.getInitialFetchOthers();
-        if (page == 1 || initialFetchOthers ) {
-          _everyone = [];
-
-        }
-        if(_everyone.isNotEmpty){
-          _isFetchingOthers = true;
-        }
-        final response = await Network.get(url);
-        if (response['success'] == true) {
-          var others = response["data"];
-          others.forEach((element) {
-            _everyone.add(Team.fromJson(element));
-          });
-          ss.setInitialFetchOthers(false);
-          _isLoadingOthers = false;
-          _isFetchingOthers = false;
-          notifyListeners();
-        }
-      } catch (e) {
-        print(e);
+    try {
+      var initialFetchOthers = await ss.getInitialFetchOthers();
+      if (page == 1 || initialFetchOthers) {
+        _everyone = [];
       }
+      if (_everyone.isNotEmpty) {
+        _isFetchingOthers = true;
+      }
+      final response = await Network.get(url);
+      if (response['success'] == true) {
+        var others = response["data"];
+        others.forEach((element) {
+          _everyone.add(Team.fromJson(element));
+        });
+        ss.setInitialFetchOthers(false);
+        _isLoadingOthers = false;
+        _isFetchingOthers = false;
+        notifyListeners();
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
 //  send lunch
@@ -125,26 +128,24 @@ class TeamAndLunchProvider with ChangeNotifier {
     var initialFetchLunch = await ss.getInitialFetchLunchHistory();
     page ??= 1;
     final String url = 'lunch/all?pageNumber=$page';
-      try {
-        if (page == 1 || process == 'refresh' || initialFetchLunch) {
-          _lunchHistory = [];
-        }
-        if(_lunchHistory.isNotEmpty){
-          _isFetchingLunchHistory = true;
-          notifyListeners();
-        }
-        final response = await Network.get(url);
-        var lunchHistory = response["data"];
-        lunchHistory.forEach((element) {
-          _lunchHistory.add(Lunch.fromJson(element));
-        });
-        ss.setInitialFetchLunchHistory(false);
-        notifyListeners();
-      } catch (e) {
-        print(e);
+    try {
+      if (page == 1 || process == 'refresh' || initialFetchLunch) {
+        _lunchHistory = [];
       }
-
-
+      if (_lunchHistory.isNotEmpty) {
+        _isFetchingLunchHistory = true;
+        notifyListeners();
+      }
+      final response = await Network.get(url);
+      var lunchHistory = response["data"];
+      lunchHistory.forEach((element) {
+        _lunchHistory.add(Lunch.fromJson(element));
+      });
+      ss.setInitialFetchLunchHistory(false);
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
   }
 
 //  withdraw lunch
@@ -173,29 +174,29 @@ class TeamAndLunchProvider with ChangeNotifier {
     print('current page $page');
     page ??= 1;
     final String url = 'lunch/leaderboard?pageNumber=$page';
-      try {
-        var initialFetchLearderboard = await ss.getInitialFetchLeaderboard();
-        if(page == 1 || initialFetchLearderboard){
-          _leaderboard = [];
-          _isLoading = true;
-        }
-
-        if(_leaderboard.isNotEmpty){
-          _isFetchingLeaderboard = true;
-        }
-        final response = await Network.get(url);
-        var data = response["data"];
-        print(data);
-        data.forEach((element) {
-          _leaderboard.add(LeaderBoard.fromJson(element));
-        });
-        ss.setInitialFetchLeaderboard(false);
-        _isFetchingLeaderboard = false;
-        _isLoading = false;
-        notifyListeners();
-      } catch (e) {
-        print(e);
+    try {
+      var initialFetchLearderboard = await ss.getInitialFetchLeaderboard();
+      if (page == 1 || initialFetchLearderboard) {
+        _leaderboard = [];
+        _isLoading = true;
       }
+
+      if (_leaderboard.isNotEmpty) {
+        _isFetchingLeaderboard = true;
+      }
+      final response = await Network.get(url);
+      var data = response["data"];
+      print(data);
+      data.forEach((element) {
+        _leaderboard.add(LeaderBoard.fromJson(element));
+      });
+      ss.setInitialFetchLeaderboard(false);
+      _isFetchingLeaderboard = false;
+      _isLoading = false;
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<dynamic> getLunchCreditBalance() async {
@@ -213,7 +214,7 @@ class TeamAndLunchProvider with ChangeNotifier {
     }
   }
 
-  Future<dynamic> searchUsersByName(String name) async {
+/*   Future<dynamic> searchUsersByName(String name) async {
     final String url = 'user/searchname?name=$name';
     try {
       _everyone = [];
@@ -226,6 +227,55 @@ class TeamAndLunchProvider with ChangeNotifier {
           _everyone.add(Team.fromJson(element));
           _my_team.add(Team.fromJson(element));
         });
+        _isLoading = false;
+        notifyListeners();
+      }
+    } catch (error) {
+      print(error);
+    }
+  } */
+
+  Future<dynamic> searchUsersByName(String name) async {
+    final String url = 'user/searchname/$name';
+    try {
+      _searchedUsers = [];
+      _isLoading = true;
+      final response = await Network.get(url);
+      if (response['statusCode'] == 200) {
+        List<dynamic> data = response["data"];
+        print('searched users from backend: $data');
+        final result = data.map((element) => Team.fromJson(element)).toList();
+        _searchedUsers = result;
+        print('result: $result');
+        print('searched users: $_searchedUsers');
+        _isLoading = false;
+        notifyListeners();
+      } else {
+        _isLoading = false;
+        notifyListeners();
+      }
+    } catch (error) {
+      print(error);
+    }
+  }
+
+  Future<dynamic> searchUsersByEmail(String email) async {
+    final String url = 'user/search/$email';
+    try {
+      _searchedUsers = [];
+      _isLoading = true;
+      final response = await Network.get(url);
+      if (response['statusCode'] == 200) {
+        var data = response["data"];
+        print('searched user from backend: $data');
+        final result = Team.fromJson(data);
+
+        _searchedUsers = [result];
+        print('result: $result');
+        print('searched user: $_searchedUsers');
+        _isLoading = false;
+        notifyListeners();
+      } else {
         _isLoading = false;
         notifyListeners();
       }

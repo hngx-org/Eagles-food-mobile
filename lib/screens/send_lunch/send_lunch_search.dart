@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hng_task3/components/widgets/send_lunch/everyone_search.dart';
 import 'package:hng_task3/components/widgets/send_lunch/navigationwidget.dart';
 import 'package:hng_task3/configs/colors.dart';
 import 'package:hng_task3/models/user.dart';
@@ -7,6 +8,8 @@ import 'package:hng_task3/providers/TeamAndLunchProvider.dart';
 import 'package:hng_task3/screens/home/menu/nav_screen.dart';
 import 'package:provider/provider.dart';
 
+import '../../components/widgets/send_lunch/searched_users.dart';
+import '../../models/team.dart';
 import 'send_multi_lunch_screen.dart';
 
 class SendLunchSearch extends StatefulWidget {
@@ -17,20 +20,21 @@ class SendLunchSearch extends StatefulWidget {
 }
 
 class _SendLunchSearchState extends State<SendLunchSearch> {
-  FocusNode myFocusNode = FocusNode();
+  FocusNode searchFocusNode = FocusNode();
   TextEditingController searchController = TextEditingController();
-  String _searchQuery = '';
+
+  String _query = '';
+  bool _isSearching = false;
 
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero, () {
-      FocusScope.of(context).requestFocus(myFocusNode);
-    });
   }
 
   @override
   Widget build(BuildContext context) {
+    List<Team>? searchedUsers =
+        Provider.of<TeamAndLunchProvider>(context, listen: true).searchedUsers;
     return Scaffold(
       // ignore: deprecated_member_use
       backgroundColor: Theme.of(context).backgroundColor,
@@ -74,20 +78,20 @@ class _SendLunchSearchState extends State<SendLunchSearch> {
             Padding(
               padding: const EdgeInsets.only(right: 6),
               child: InkWell(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const SendMultiLunchScreen(),
-                    ),
-                  );
-                },
-                child: Icon(Icons.add, size: 35,
-                  color: Theme.of(context).brightness ==
-                      Brightness.dark
-                      ? ColorUtils.Green
-                      : ColorUtils.Black,
-                )
-              ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const SendMultiLunchScreen(),
+                      ),
+                    );
+                  },
+                  child: Icon(
+                    Icons.add,
+                    size: 35,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? ColorUtils.Green
+                        : ColorUtils.Black,
+                  )),
             ),
           ],
         ),
@@ -98,8 +102,27 @@ class _SendLunchSearchState extends State<SendLunchSearch> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
             child: TextFormField(
-              focusNode: myFocusNode,
               controller: searchController,
+              onChanged: (value) async {
+                setState(() {
+                  _query = value;
+                  _isSearching = true;
+                });
+                if (value.contains('@')) {
+                  await Provider.of<TeamAndLunchProvider>(context,
+                          listen: false)
+                      .searchUsersByEmail(_query);
+                  setState(() {
+                    _isSearching = false;
+                  });
+                  return;
+                }
+                await Provider.of<TeamAndLunchProvider>(context, listen: false)
+                    .searchUsersByName(_query);
+                setState(() {
+                  _isSearching = false;
+                });
+              },
               style: Theme.of(context).textTheme.bodyLarge,
               decoration: InputDecoration(
                 contentPadding:
@@ -110,11 +133,26 @@ class _SendLunchSearchState extends State<SendLunchSearch> {
                     Theme.of(context).unselectedWidgetColor.withOpacity(0.2),
                 hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: ColorUtils.LightGrey, fontWeight: FontWeight.w500),
-                suffixIcon: Icon(
-                  Icons.search,
-                  color: ColorUtils.LightGrey,
-                  size: 30,
-                ),
+                suffixIcon: _query != ''
+                    ? InkWell(
+                        onTap: () {
+                          FocusManager.instance.primaryFocus?.unfocus();
+                          setState(() {
+                            searchController.clear();
+                            _query = '';
+                          });
+                        },
+                        child: Icon(
+                          Icons.close,
+                          color: ColorUtils.LightGrey,
+                          size: 30,
+                        ),
+                      )
+                    : Icon(
+                        Icons.search,
+                        color: ColorUtils.LightGrey,
+                        size: 30,
+                      ),
                 border: OutlineInputBorder(
                   borderSide: BorderSide(
                     width: 1,
@@ -134,46 +172,19 @@ class _SendLunchSearchState extends State<SendLunchSearch> {
                     width: 1,
                     color: ColorUtils.LightGrey,
                   ),
-                  borderRadius: const BorderRadius.all(Radius.circular(50)),
+                  borderRadius: const BorderRadius.all(Radius.circular(30)),
                 ),
               ),
-              onChanged: (value) {
-                Future.delayed(const Duration(seconds: 1), () {
-                  Provider.of<TeamAndLunchProvider>(context, listen: false).searchUsersByName(value);
-                });
-              },
             ),
           ),
-          Expanded(
-              //child: NavigationScreenWidget(
-              // search: _searchQuery,
-              // ),
-
-              child: FutureBuilder<User?>(
-                  future: _searchQuery.contains('@')
-                      ? Provider.of<AuthProvider>(context)
-                          .searchUserByEmail(_searchQuery)
-                     : Provider.of<AuthProvider>(context)
-                         .searchUserByName(_searchQuery),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return (const Center(child: CircularProgressIndicator()));
-                   } else if(snapshot.data == null){
-                    return Container();
-                   }
-                   else if (snapshot.hasError) {
-                      return Center(child: Text('Error: ${snapshot.error}'));
-                   } else if (snapshot.hasData && snapshot.data != null) {
-                      return ListTile(
-                        title: Text(snapshot.data!.firstName ?? ''),
-                       subtitle: Text(snapshot.data!.email ?? ''),
-                     );
-                   } else {
-                     return const Center(child: Text('No results found.'));
-                   }
-                  })
-                  
-                  ),
+          _query != ''
+              ? SearchedUsers(
+                  list: searchedUsers,
+                  isLoading: _isSearching,
+                )
+              : const Expanded(
+                  child: NavigationScreenWidget(),
+                ),
         ],
       ),
     );

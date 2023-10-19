@@ -12,6 +12,7 @@ import 'package:hng_task3/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 import '../../utils/toast.dart';
+
 class Organizations extends StatefulWidget {
   const Organizations({super.key});
 
@@ -19,7 +20,8 @@ class Organizations extends StatefulWidget {
   State<Organizations> createState() => _OrganizationsState();
 }
 
-class _OrganizationsState extends State<Organizations> with WidgetsBindingObserver {
+class _OrganizationsState extends State<Organizations>
+    with WidgetsBindingObserver {
   TextEditingController searchController = TextEditingController();
   String _searchQuery = '';
 
@@ -36,13 +38,14 @@ class _OrganizationsState extends State<Organizations> with WidgetsBindingObserv
   @override
   void initState() {
     // TODO: implement initState
-    Provider.of<OrganizationProvider>(context, listen: false).getOrganizations(page: page, process: 'initial');
+    Provider.of<OrganizationProvider>(context, listen: false)
+        .getOrganizations(page: page, process: 'initial');
     super.initState();
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
@@ -65,10 +68,11 @@ class _OrganizationsState extends State<Organizations> with WidgetsBindingObserv
 
     List<Organization> filtered = list
         .where((team) =>
-        team.name.toLowerCase().contains(_searchQuery.toLowerCase()))
+            team.name.toLowerCase().contains(_searchQuery.toLowerCase()))
         .toList();
 
     return Scaffold(
+      // ignore: deprecated_member_use
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -91,7 +95,8 @@ class _OrganizationsState extends State<Organizations> with WidgetsBindingObserv
         strokeWidth: 3,
         triggerMode: RefreshIndicatorTriggerMode.onEdge,
         onRefresh: () async {
-          Provider.of<OrganizationProvider>(context, listen: false).getOrganizations(page: 1, process: 'refresh');
+          Provider.of<OrganizationProvider>(context, listen: false)
+              .getOrganizations(page: 1, process: 'refresh');
           setState(() {
             isLoading = true;
           });
@@ -100,19 +105,19 @@ class _OrganizationsState extends State<Organizations> with WidgetsBindingObserv
           children: [
             Padding(
               padding:
-              const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),
               child:
-              // Search bar
-              TextFormField(
+                  // Search bar
+                  TextFormField(
                 controller: searchController,
                 style: Theme.of(context).textTheme.bodyLarge,
                 decoration: InputDecoration(
                   contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   hintText: 'Search for organization',
                   filled: true,
                   fillColor:
-                  Theme.of(context).unselectedWidgetColor.withOpacity(0.2),
+                      Theme.of(context).unselectedWidgetColor.withOpacity(0.2),
                   hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: ColorUtils.LightGrey, fontWeight: FontWeight.w500),
                   suffixIcon: Icon(
@@ -149,7 +154,6 @@ class _OrganizationsState extends State<Organizations> with WidgetsBindingObserv
                 },
               ),
             ),
-
             Text(
               "Request to join an organisation",
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -157,120 +161,144 @@ class _OrganizationsState extends State<Organizations> with WidgetsBindingObserv
             ),
             isLoading
                 ? Expanded(
-                  child: ListView.builder(
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 15),
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: 5,
-                  itemBuilder: (context, index) => const InviteShimmer()),
-                )
-                :
-            filtered.isEmpty ? Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Text(
-                "No organisation found",
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontWeight: FontWeight.w500, color: ColorUtils.LightGrey),
-              ),
-            ) :
-            NotificationListener<ScrollEndNotification>(
-              onNotification: (scrollEnd) {
-                var metrics = scrollEnd.metrics;
-                if (metrics.atEdge) {
-                  if (metrics.pixels != 0) {
-                    setState(() {
-                      end_reached = true;
-                      page ++;
-                    });
-                    Provider.of<OrganizationProvider>(context, listen: false).getOrganizations(page: page, process: 'refresh');
-                  }
-                }
-                return true;
-              },
-              child: Expanded(
-                child: ListView.builder(
-                  itemCount: filtered.length,
-                  shrinkWrap: true,
-                  physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 10, horizontal: 20),
-                  itemBuilder: (context, index) {
-                    final item = filtered[index];
-                    return Container(
-                      padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10),
-                      margin: const EdgeInsets.symmetric(vertical: 5),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(
-                            width: 1,
-                            color: ColorUtils.LightGrey
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 0, horizontal: 15),
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: 5,
+                        itemBuilder: (context, index) => const InviteShimmer()),
+                  )
+                : filtered.isEmpty
+                    ? Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: Text(
+                          "No organisation found",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(
+                                  fontWeight: FontWeight.w500,
+                                  color: ColorUtils.LightGrey),
                         ),
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(item.name,
-                                  overflow: TextOverflow.ellipsis,
-                                  softWrap: true,
-                                  style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w700
-                                  ),
+                      )
+                    : NotificationListener<ScrollEndNotification>(
+                        onNotification: (scrollEnd) {
+                          var metrics = scrollEnd.metrics;
+                          if (metrics.atEdge) {
+                            if (metrics.pixels != 0) {
+                              setState(() {
+                                end_reached = true;
+                                page++;
+                              });
+                              Provider.of<OrganizationProvider>(context,
+                                      listen: false)
+                                  .getOrganizations(
+                                      page: page, process: 'refresh');
+                            }
+                          }
+                          return true;
+                        },
+                        child: Expanded(
+                          child: ListView.builder(
+                            itemCount: filtered.length,
+                            shrinkWrap: true,
+                            physics: const BouncingScrollPhysics(),
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 20),
+                            itemBuilder: (context, index) {
+                              final item = filtered[index];
+                              return Container(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 20.0, horizontal: 10),
+                                margin: const EdgeInsets.symmetric(vertical: 5),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(
+                                      width: 1, color: ColorUtils.LightGrey),
                                 ),
-                                Row(
+                                child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text(
-                                      "Lunch price: ${item.currencyCode} ${item.lunchPrice}",
-                                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                          color: ColorUtils.Green,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            item.name,
+                                            overflow: TextOverflow.ellipsis,
+                                            softWrap: true,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .displaySmall
+                                                ?.copyWith(
+                                                    fontSize: 18,
+                                                    fontWeight:
+                                                        FontWeight.w700),
+                                          ),
+                                          Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "Lunch price: ${item.currencyCode} ${item.lunchPrice}",
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyLarge
+                                                    ?.copyWith(
+                                                        color: ColorUtils.Green,
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w500),
+                                              ),
+                                            ],
+                                          )
+                                        ],
                                       ),
                                     ),
-
+                                    CustomButton(
+                                      onPress: () async {
+                                        Utils.loadingProgress(context);
+                                        final response = await Provider.of<
+                                                    OrganizationProvider>(
+                                                context,
+                                                listen: false)
+                                            .requestToJoinOrg(item.id);
+                                        if (!context.mounted) return;
+                                        Navigator.pop(context);
+                                        if (response) {
+                                          Toasts.showToast(ColorUtils.Green,
+                                              "Request sent successfully");
+                                        }
+                                      },
+                                      buttonText: "Request To Join",
+                                      buttonColor: ColorUtils.Green,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                      fontFamily: 'Poppins',
+                                      textColor: ColorUtils.White,
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 12, horizontal: 10),
+                                    ),
                                   ],
-                                )
-                              ],
-                            ),
-                          ),
-
-                          CustomButton(
-                            onPress: ()  async {
-                              Utils.loadingProgress(context);
-                              final response = await Provider.of<OrganizationProvider>(context, listen: false).requestToJoinOrg(item.id);
-                              Navigator.pop(context);
-                              if(response){
-                                Toasts.showToast(ColorUtils.Green, "Request sent successfully");
-                              }
+                                ),
+                              );
                             },
-                            buttonText: "Request To Join",
-                            buttonColor: ColorUtils.Green,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: 'Poppins',
-                            textColor: ColorUtils.White,
-                            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
                           ),
-                        ],
+                        ),
                       ),
-                    );
-                  },
-                ),
-              ),
-            ),
             if (isFetchingOrgs)
-              SizedBox(
+              Container(
+                padding: const EdgeInsets.only(bottom: 24),
                 width: 25,
                 height: 25,
                 child: CupertinoActivityIndicator(
-                  color: ColorUtils.Blue,
+                  color: ColorUtils.Green,
                   radius: 15,
                 ),
               )

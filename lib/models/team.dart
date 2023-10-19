@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 class Team {
   final String id;
   final String name, email, role;
@@ -28,4 +29,8 @@ class Team {
         "role": role,
         "profile_picture": image ?? "assets/images/team-1.png",
       };
+
+  @override
+  String toString() =>
+      'Team(id: $id, name: $name, email: $email, role: $role, image: $image)';
 }
