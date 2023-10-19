@@ -20,15 +20,15 @@ class _MyTeamSearchState extends State<MyTeamSearch> {
   int page = 1;
   bool isFetchingTeam = false;
 
-
   @override
   Widget build(BuildContext context) {
-    isFetchingTeam = Provider.of<TeamAndLunchProvider>(context, listen: false).isFetchingTeam;
+    isFetchingTeam = Provider.of<TeamAndLunchProvider>(context, listen: false)
+        .isFetchingTeam;
     return Column(
       children: [
         widget.list.isEmpty
             ? ListView.builder(
-                shrinkWrap: true,
+                shrinkWrap: false,
                 padding: const EdgeInsets.symmetric(vertical: 0),
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: 5,
@@ -51,6 +51,7 @@ class _MyTeamSearchState extends State<MyTeamSearch> {
                 },
                 child: Expanded(
                   child: ListView.builder(
+                    physics: const BouncingScrollPhysics(),
                     itemCount: widget.list.length,
                     padding: const EdgeInsets.symmetric(
                         vertical: 10, horizontal: 20),
@@ -115,11 +116,10 @@ class _MyTeamSearchState extends State<MyTeamSearch> {
                   ),
                 ),
               ),
-
-        if(isFetchingTeam)
+        if (isFetchingTeam)
           SizedBox(
-            width: 25,
-            height: 25,
+            width: 30,
+            height: 30,
             child: CupertinoActivityIndicator(
               color: ColorUtils.Green,
               radius: 15,

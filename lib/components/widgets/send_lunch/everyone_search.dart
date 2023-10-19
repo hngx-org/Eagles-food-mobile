@@ -21,12 +21,13 @@ class _EveryoneSearchState extends State<EveryoneSearch> {
 
   @override
   Widget build(BuildContext context) {
-    isFetchingOthers = Provider.of<TeamAndLunchProvider>(context, listen: false).isFetchingOthers;
+    isFetchingOthers = Provider.of<TeamAndLunchProvider>(context, listen: false)
+        .isFetchingOthers;
     return Column(
       children: [
         widget.list.isEmpty
             ? ListView.builder(
-                shrinkWrap: true,
+                shrinkWrap: false,
                 padding: const EdgeInsets.symmetric(vertical: 0),
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: 5,
@@ -49,6 +50,7 @@ class _EveryoneSearchState extends State<EveryoneSearch> {
                 },
                 child: Expanded(
                   child: ListView.builder(
+                    physics: const BouncingScrollPhysics(),
                     itemCount: widget.list.length,
                     padding: const EdgeInsets.symmetric(
                         vertical: 10, horizontal: 20),
@@ -113,10 +115,10 @@ class _EveryoneSearchState extends State<EveryoneSearch> {
                   ),
                 ),
               ),
-        if(isFetchingOthers)
+        if (isFetchingOthers)
           SizedBox(
-            width: 25,
-            height: 25,
+            width: 30,
+            height: 30,
             child: CupertinoActivityIndicator(
               color: ColorUtils.Green,
               radius: 15,

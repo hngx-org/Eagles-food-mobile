@@ -18,14 +18,16 @@ class LeaderBoardScreen extends StatefulWidget {
   State<LeaderBoardScreen> createState() => _LeaderBoardScreenState();
 }
 
-class _LeaderBoardScreenState extends State<LeaderBoardScreen> with WidgetsBindingObserver {
+class _LeaderBoardScreenState extends State<LeaderBoardScreen>
+    with WidgetsBindingObserver {
   TextEditingController searchController = TextEditingController();
   String _searchQuery = '';
 
   @override
   void initState() {
     // TODO: implement initState
-    Provider.of<TeamAndLunchProvider>(context, listen: false).getLeaderBoard(page);
+    Provider.of<TeamAndLunchProvider>(context, listen: false)
+        .getLeaderBoard(page);
     super.initState();
   }
 
@@ -50,7 +52,8 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> with WidgetsBindi
     leaderboard = Provider.of<TeamAndLunchProvider>(context).leaderboard;
     isLoading = Provider.of<TeamAndLunchProvider>(context).isLoading;
     leaderboard.sort((a, b) => b.quantity.compareTo(a.quantity));
-    isFetchingLeaderboard = Provider.of<TeamAndLunchProvider>(context).isFetchingLeaderboard;
+    isFetchingLeaderboard =
+        Provider.of<TeamAndLunchProvider>(context).isFetchingLeaderboard;
 
     List<LeaderBoard> filtered = leaderboard
         .where((team) =>
@@ -58,6 +61,7 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> with WidgetsBindi
         .toList();
 
     return Scaffold(
+      // ignore: deprecated_member_use
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -89,7 +93,8 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> with WidgetsBindi
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),
               child:
                   // Search bar
                   TextFormField(
@@ -154,16 +159,19 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> with WidgetsBindi
                         padding: const EdgeInsets.only(top: 20),
                         child: Text(
                           "Leaderboard Empty, Be the first to send a lunch",
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              fontWeight: FontWeight.w500,
-                              color: ColorUtils.LightGrey),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(
+                                  fontWeight: FontWeight.w500,
+                                  color: ColorUtils.LightGrey),
                         ),
                       )
                     : NotificationListener<ScrollEndNotification>(
                         onNotification: (scrollEnd) {
                           var metrics = scrollEnd.metrics;
                           if (metrics.atEdge) {
-                            if(metrics.pixels != 0) {
+                            if (metrics.pixels != 0) {
                               setState(() {
                                 page++;
                               });
@@ -183,21 +191,21 @@ class _LeaderBoardScreenState extends State<LeaderBoardScreen> with WidgetsBindi
                                 vertical: 10, horizontal: 20),
                             itemBuilder: (context, index) {
                               final item = filtered[index];
-                              return LeaderBoardWidget(item: item, index: index);
+                              return LeaderBoardWidget(
+                                  item: item, index: index);
                             },
                           ),
                         ),
                       ),
-
-                    if (isFetchingLeaderboard)
-                      SizedBox(
-                        width: 25,
-                        height: 25,
-                        child: CupertinoActivityIndicator(
-                          color: ColorUtils.Green,
-                          radius: 15,
-                        ),
-                      )
+            if (isFetchingLeaderboard)
+              SizedBox(
+                width: 35,
+                height: 35,
+                child: CupertinoActivityIndicator(
+                  color: ColorUtils.Green,
+                  radius: 15,
+                ),
+              )
           ],
         ),
       ),
