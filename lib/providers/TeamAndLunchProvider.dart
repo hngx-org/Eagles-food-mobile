@@ -134,20 +134,24 @@ class TeamAndLunchProvider with ChangeNotifier {
     page ??= 1;
     final String url = 'lunch/all?pageNumber=$page';
     try {
-      if (page == 1 || process == 'refresh' || initialFetchLunch) {
+
+      if (process == 'refresh' || initialFetchLunch) {
         _lunchHistory = [];
         _isLoadingHistory = true;
       }
-      if (_lunchHistory.isNotEmpty) {
+
+      if (_lunchHistory.isNotEmpty || process == 'loading') {
         _isFetchingLunchHistory = true;
         notifyListeners();
       }
       final response = await Network.get(url);
       var lunchHistory = response["data"];
+      print(lunchHistory);
       lunchHistory.forEach((element) {
         _lunchHistory.add(Lunch.fromJson(element));
       });
       _isLoadingHistory = false;
+      _isFetchingLunchHistory = false;
       ss.setInitialFetchLunchHistory(false);
       notifyListeners();
     } catch (e) {
