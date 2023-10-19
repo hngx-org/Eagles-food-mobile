@@ -58,25 +58,27 @@ class _LunchHistoryScreenState extends State<LunchHistoryScreen> {
         ),
       ),
       body: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: AvailableLunchCard(
-                availableLunch: widget.user.lunchCreditBalance ,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: AvailableLunchCard(
+                  availableLunch: widget.user.lunchCreditBalance ,
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: LunchHistoryWidget(
-                limit: false,
-                history: widget.history,
+              const SizedBox(
+                height: 30,
               ),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: LunchHistoryWidget(
+                  limit: false,
+                  history: widget.history,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

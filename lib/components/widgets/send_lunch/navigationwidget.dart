@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hng_task3/components/widgets/send_lunch/everyone_search.dart';
 import 'package:hng_task3/components/widgets/send_lunch/my_team_search.dart';
@@ -36,6 +37,7 @@ class _NavigationScreenState extends State<NavigationScreenWidget>
     var myTeam = Provider.of<TeamAndLunchProvider>(context).my_team;
     var everyone = Provider.of<TeamAndLunchProvider>(context).everyone;
 
+
     return DefaultTabController(
       length: 2,
       child: Column(
@@ -67,6 +69,9 @@ class _NavigationScreenState extends State<NavigationScreenWidget>
               ],
             ),
           ),
+
+
+
         ],
       ),
     );

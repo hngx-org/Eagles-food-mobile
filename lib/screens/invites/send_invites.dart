@@ -362,7 +362,7 @@ class _SendInvitesState extends State<SendInvites> {
               width: 25,
               height: 25,
               child: CupertinoActivityIndicator(
-                color: ColorUtils.Blue,
+                color: ColorUtils.Green,
                 radius: 15,
               ),
             )

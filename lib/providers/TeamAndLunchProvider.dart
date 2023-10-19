@@ -23,6 +23,8 @@ class TeamAndLunchProvider with ChangeNotifier {
   String _lunchCreditBalance = '';
   bool _isFetchingLeaderboard = false;
   bool _isFetchingLunchHistory = false;
+  bool _isFetchingTeam = false;
+  bool _isLoadingHistory = false;
 
   List<Team>? _searchedUsers;
 
@@ -37,29 +39,35 @@ class TeamAndLunchProvider with ChangeNotifier {
   String get lunchCreditBalance => _lunchCreditBalance;
   bool get isFetchingLeaderboard => _isFetchingLeaderboard;
   bool get isFetchingLunchHistory => _isFetchingLunchHistory;
+  bool get isFetchingTeam => _isFetchingTeam;
+  bool get isLoadingHistory => _isLoadingHistory;
 
   List<Team>? get searchedUsers => _searchedUsers;
 
   SessionManager ss = SessionManager();
 
   Future<dynamic> getMyTeam(int page, String process) async {
-    print('current page $page');
     var initialFetchTeam = await ss.getInitialFetchTeam();
     page ??= 1;
     final String url = 'user/all?pageNumber=$page';
-    if (initialFetchTeam || process == 'refresh') {
+    if (initialFetchTeam || process == 'refresh' || process == 'loading') {
       try {
-        _my_team = [];
-        _isLoadingTeam = true;
+        if(process != 'loading'){
+          _my_team = [];
+          _isLoadingTeam = true;
+        }
+        if(_my_team.isNotEmpty){
+          _isFetchingTeam = true;
+        }
         final response = await Network.get(url);
         if (response['success'] == true) {
           var user = response["data"];
-          print(user);
           user.forEach((element) {
             _my_team.add(Team.fromJson(element));
           });
           ss.setInitialFetchTeam(false);
           _isLoadingTeam = false;
+          _isFetchingTeam = false;
           notifyListeners();
         }
       } catch (e) {
@@ -69,11 +77,8 @@ class TeamAndLunchProvider with ChangeNotifier {
   }
 
   Future<dynamic> getAllOthers(page) async {
-    print('current page $page');
     page ??= 1;
-    print('current page $page');
     final String url = 'user/others?pageNumber=$page';
-    print(url);
     try {
       var initialFetchOthers = await ss.getInitialFetchOthers();
       if (page == 1 || initialFetchOthers) {
@@ -131,6 +136,7 @@ class TeamAndLunchProvider with ChangeNotifier {
     try {
       if (page == 1 || process == 'refresh' || initialFetchLunch) {
         _lunchHistory = [];
+        _isLoadingHistory = true;
       }
       if (_lunchHistory.isNotEmpty) {
         _isFetchingLunchHistory = true;
@@ -141,6 +147,7 @@ class TeamAndLunchProvider with ChangeNotifier {
       lunchHistory.forEach((element) {
         _lunchHistory.add(Lunch.fromJson(element));
       });
+      _isLoadingHistory = false;
       ss.setInitialFetchLunchHistory(false);
       notifyListeners();
     } catch (e) {
@@ -214,27 +221,6 @@ class TeamAndLunchProvider with ChangeNotifier {
     }
   }
 
-/*   Future<dynamic> searchUsersByName(String name) async {
-    final String url = 'user/searchname?name=$name';
-    try {
-      _everyone = [];
-      _my_team = [];
-      _isLoading = true;
-      final response = await Network.get(url);
-      if (response['statusCode'] == 200) {
-        var data = response["data"];
-        data.foreach((element) {
-          _everyone.add(Team.fromJson(element));
-          _my_team.add(Team.fromJson(element));
-        });
-        _isLoading = false;
-        notifyListeners();
-      }
-    } catch (error) {
-      print(error);
-    }
-  } */
-
   Future<dynamic> searchUsersByName(String name) async {
     final String url = 'user/searchname/$name';
     try {
@@ -243,11 +229,8 @@ class TeamAndLunchProvider with ChangeNotifier {
       final response = await Network.get(url);
       if (response['statusCode'] == 200) {
         List<dynamic> data = response["data"];
-        print('searched users from backend: $data');
         final result = data.map((element) => Team.fromJson(element)).toList();
         _searchedUsers = result;
-        print('result: $result');
-        print('searched users: $_searchedUsers');
         _isLoading = false;
         notifyListeners();
       } else {
@@ -267,12 +250,8 @@ class TeamAndLunchProvider with ChangeNotifier {
       final response = await Network.get(url);
       if (response['statusCode'] == 200) {
         var data = response["data"];
-        print('searched user from backend: $data');
         final result = Team.fromJson(data);
-
         _searchedUsers = [result];
-        print('result: $result');
-        print('searched user: $_searchedUsers');
         _isLoading = false;
         notifyListeners();
       } else {
