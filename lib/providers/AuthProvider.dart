@@ -82,7 +82,7 @@ class AuthProvider with ChangeNotifier {
       'address': userData['address'],
       'phone': userData['phone'],
       'password': userData['password'],
-      'inviteCode':userData['inviteCode']
+      'inviteCode': userData['inviteCode']
     };
     try {
       final response =
@@ -309,16 +309,41 @@ class AuthProvider with ChangeNotifier {
       final response = await Network.get(url);
       if (response['statusCode'] == 200) {
         _organization = Organization.fromJson(jsonDecode(response.body));
-       debugPrint(_organization!.name);
-       debugPrint(_organization!.currencyCode);
-       debugPrint(_organization!.lunchPrice.toString());//
+        debugPrint(_organization!.name);
+        debugPrint(_organization!.currencyCode);
+        debugPrint(_organization!.lunchPrice.toString()); //
         notifyListeners();
         SessionManager ss = SessionManager();
         ss.saveUser(_user!.toJson());
-        
       }
     } catch (error) {
       print(error);
     }
+  }
+
+  Future<User> searchUserByEmail(String email) async {
+     String url = 'user/search/$email';
+     try {
+      final response = await Network.get(url);
+      var user = response["data"];
+      _user = User.fromJson(user);
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
+     return _user!;
+  }
+
+   Future<User?> searchUserByName(String firstName) async {
+     String url = 'user/searchname/$firstName';
+     try {
+      final response = await Network.get(url);
+      var user = response["data"];
+      _user = User.fromJson(user);
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
+     return _user!;
   }
 }

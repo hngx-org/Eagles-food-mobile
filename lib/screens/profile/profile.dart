@@ -61,7 +61,7 @@ class _ProfileState extends State<Profile> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Settings(),
+                          builder: (context) => const Settings(),
                         ));
                   },
                   icon: Icon(
@@ -321,25 +321,23 @@ class _ProfileState extends State<Profile> {
               showCupertinoDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text(
-                        "LogOut",
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    return  Dialog(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children:[
+                           Text("Log out of Free Lunch?",
+                           style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                               color: ColorUtils.Grey,
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
                             ),
-                      ),
-                      content: Text(
-                        "Are you sure?",
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              color: ColorUtils.Grey,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                            ),
-                      ),
-                      actions: [
-                        GestureDetector(
+  
+                           ),
+                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children:[
+                                  GestureDetector(
                             child: Text(
                               "Cancel",
                               style: Theme.of(context)
@@ -354,7 +352,7 @@ class _ProfileState extends State<Profile> {
                             onTap: () {
                               Navigator.pop(context);
                             }),
-                        GestureDetector(
+                              GestureDetector(
                           child: Text(
                             "Logout",
                             style: Theme.of(context)
@@ -374,7 +372,10 @@ class _ProfileState extends State<Profile> {
                                 (route) => false);
                           },
                         )
-                      ],
+                            ]
+                           ),
+                        ]
+                      ),
                     );
                   });
             },
