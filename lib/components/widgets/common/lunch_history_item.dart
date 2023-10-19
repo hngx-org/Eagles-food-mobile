@@ -40,17 +40,17 @@ class _LaunchHistoryItemState extends State<LaunchHistoryItem> {
             Expanded(
               child: DynamicColorText(
                   text: widget.lunchHistory.note.toUpperCase(),
-                  dynamicColor: isReceived == 'Lunch received' ? ColorUtils.Green :  isReceived == 'Lunch sent' ?  Colors.red : ColorUtils.Yellow),
+                  dynamicColor: isReceived == 'received' ? ColorUtils.Green :  isReceived == 'sent' ?  Colors.red : ColorUtils.Yellow),
             ),
             const SizedBox(
               width: 35,
             ),
             Text(
-              "${isReceived == 'Lunch received' ? "+" : isReceived == 'Lunch sent' ? "-" : ''} ${widget.lunchHistory.quantity.toString()}",
+              "${isReceived == 'received' ? "+" : isReceived == 'sent' ? "-" : ''} ${widget.lunchHistory.quantity.toString()}",
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
-                  color: isReceived == 'Lunch received' ? ColorUtils.Green :  isReceived == 'Lunch sent' ?  Colors.red : ColorUtils.Yellow ),
+                  color: isReceived == 'received' ? ColorUtils.Green :  isReceived == 'sent' ?  Colors.red : ColorUtils.Yellow ),
             ),
           ],
         ),
@@ -87,7 +87,7 @@ class _LaunchHistoryItemState extends State<LaunchHistoryItem> {
             Expanded(
               flex: 1,
               child: Text(
-                "${isReceived == 'received' ? "Received Free" : isReceived == 'sent' ?  "Sent Free" : 'Withdrawn' } Lunch",
+                "${isReceived == 'received' ? "Received" : isReceived == 'sent' ?  "Sent" : 'Withdrawn' } Lunch",
                 textAlign: TextAlign.right,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     fontSize: 14,
