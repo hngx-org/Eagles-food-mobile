@@ -31,6 +31,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   bool initialFetchTeam  = false;
   bool initialFetchOthers = false;
   bool initialFetchLunch = false;
+  String? orgName = '';
 
   @override
   void initState() {
@@ -68,6 +69,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     my_team = Provider.of<TeamAndLunchProvider>(context).my_team;
     lunch_history = Provider.of<TeamAndLunchProvider>(context).lunchHistory;
     user = Provider.of<AuthProvider>(context).user;
+    orgName = Provider.of<AuthProvider>(context).userOrg;
+
 
     return Scaffold(
         // ignore: deprecated_member_use
@@ -218,7 +221,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Expanded(
+                      if (orgName != '' || false) Expanded(
                         child: CustomButton(
                           onPress: () {
                             Navigator.push(

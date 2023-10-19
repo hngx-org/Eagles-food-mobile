@@ -6,9 +6,10 @@ import 'package:hng_task3/models/lunch.dart';
 import 'package:hng_task3/utils/lunch_extension.dart';
 
 class LaunchHistoryItem extends StatefulWidget {
-  const LaunchHistoryItem({Key? key, required this.lunchHistory})
+  const LaunchHistoryItem({Key? key, required this.lunchHistory, this.user})
       : super(key: key);
 
+  final user;
   final Lunch lunchHistory;
 
   @override
@@ -16,23 +17,35 @@ class LaunchHistoryItem extends StatefulWidget {
 }
 
 class _LaunchHistoryItemState extends State<LaunchHistoryItem> {
-  var user;
-  String isReceived = '';
+
+
+  String isLunchReceived() {
+    if(widget.lunchHistory.senderId.toString() == widget.user.id.toString() && widget.lunchHistory.note != 'Lunch Withdrawal' ){
+      return 'sent';
+    }else if(widget.lunchHistory.senderId.toString() != widget.user.id.toString() && widget.lunchHistory.note != 'Lunch Withdrawal'){
+      return 'received';
+    }else{
+      return 'withdrawn';
+    }
+  }
 
   @override
   void initState() {
-    widget.lunchHistory.isReceived().then((received) {
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        setState(() {
-          isReceived = received;
-        });
-      });
-    });
+    // widget.lunchHistory.isLunchReceived()().then((received) {
+    //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    //     setState(() {
+    //       isReceived = received;
+    //     });
+    //   });
+    // });
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+
+    print("${widget.lunchHistory.senderId}, ${widget.user.id} , ${widget.lunchHistory.note}");
     return Column(
       children: [
         Row(
@@ -40,17 +53,17 @@ class _LaunchHistoryItemState extends State<LaunchHistoryItem> {
             Expanded(
               child: DynamicColorText(
                   text: widget.lunchHistory.note.toUpperCase(),
-                  dynamicColor: isReceived == 'received' ? ColorUtils.Green :  isReceived == 'sent' ?  Colors.red : ColorUtils.Yellow),
+                  dynamicColor: isLunchReceived() == 'received' ? ColorUtils.Green :  isLunchReceived() == 'sent' ?  Colors.red : ColorUtils.Yellow),
             ),
             const SizedBox(
               width: 35,
             ),
             Text(
-              "${isReceived == 'received' ? "+" : isReceived == 'sent' ? "-" : ''} ${widget.lunchHistory.quantity.toString()}",
+              "${isLunchReceived() == 'received' ? "+" : isLunchReceived() == 'sent' ? "-" : ''} ${widget.lunchHistory.quantity.toString()}",
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
-                  color: isReceived == 'received' ? ColorUtils.Green :  isReceived == 'sent' ?  Colors.red : ColorUtils.Yellow ),
+                  color: isLunchReceived() == 'received' ? ColorUtils.Green :  isLunchReceived() == 'sent' ?  Colors.red : ColorUtils.Yellow ),
             ),
           ],
         ),
@@ -87,7 +100,7 @@ class _LaunchHistoryItemState extends State<LaunchHistoryItem> {
             Expanded(
               flex: 1,
               child: Text(
-                "${isReceived == 'received' ? "Received" : isReceived == 'sent' ?  "Sent" : 'Withdrawn' } Lunch",
+                "${isLunchReceived() == 'received' ? "Received" : isLunchReceived() == 'sent' ?  "Sent" : 'Withdrawn' } Lunch",
                 textAlign: TextAlign.right,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     fontSize: 14,
@@ -102,7 +115,7 @@ class _LaunchHistoryItemState extends State<LaunchHistoryItem> {
   }
 
   String _getSubTittle() {
-    var subtittle = isReceived == 'received'
+    var subtittle = isLunchReceived() == 'received'
         ? "From ${widget.lunchHistory.senderName}"
         : "To ${widget.lunchHistory.receiverName}";
 

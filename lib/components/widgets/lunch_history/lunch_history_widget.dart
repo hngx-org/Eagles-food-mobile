@@ -47,9 +47,10 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
     user = Provider.of<AuthProvider>(context).user;
     isFetchingLunchHistory = Provider.of<TeamAndLunchProvider>(context).isFetchingLunchHistory;
     isLoadingHistory = Provider.of<TeamAndLunchProvider>(context).isLoadingHistory;
+
     return SingleChildScrollView(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -152,7 +153,7 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
                           page ++;
                         });
                         Provider.of<TeamAndLunchProvider>(context, listen: false)
-                            .getLunchHistory(page, '');
+                            .getLunchHistory(page, 'loading');
                       }
                     }
                     return true;
@@ -169,13 +170,14 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
                     itemBuilder: (context, index) => Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: LaunchHistoryItem(
+                        user: user,
                         lunchHistory: filteredHistory[index],
                       ),
                     ),
                   ),
                 ),
 
-          if (isFetchingLunchHistory)
+          if (isFetchingLunchHistory && widget.limit != true)
             SizedBox(
               width: 25,
               height: 25,
@@ -197,19 +199,19 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
 
       case LunchHistoryFilters.Received:
         filteredHistory = widget.history
-            .where((element) => element.lunchStatus == 1)
+            .where((element) => element.senderId.toString() != user?.id.toString())
             .toList();
         break;
 
       case LunchHistoryFilters.Sent:
         filteredHistory = widget.history
-            .where((element) => element.lunchStatus == 0)
+            .where((element) => element.senderId.toString() == user?.id.toString() && element.note != 'Lunch Withdrawal' )
             .toList();
         break;
 
       case LunchHistoryFilters.Withdrawal:
         filteredHistory = widget.history
-            .where((element) => element.lunchStatus == 2)
+            .where((element) => element.senderId.toString() == user?.id.toString() && element.note == 'Lunch Withdrawal' )
             .toList();
         break;
     }
