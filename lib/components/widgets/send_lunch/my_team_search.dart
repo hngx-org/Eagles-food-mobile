@@ -15,7 +15,6 @@ class MyTeamSearch extends StatefulWidget {
 }
 
 class _MyTeamSearchState extends State<MyTeamSearch> {
-
   bool end_reached = false;
   int page = 1;
 
@@ -30,24 +29,26 @@ class _MyTeamSearchState extends State<MyTeamSearch> {
               itemCount: 5,
               itemBuilder: (context, index) => const TeamShimmer())
           : NotificationListener<ScrollEndNotification>(
-            onNotification: (scrollEnd) {
-              var metrics = scrollEnd.metrics;
+              onNotification: (scrollEnd) {
+                var metrics = scrollEnd.metrics;
                 if (metrics.atEdge) {
                   if (metrics.pixels == 0) {
                   } else {
                     setState(() {
                       end_reached = true;
-                      page ++;
+                      page++;
                     });
-                    Provider.of<TeamAndLunchProvider>(context, listen: false).getMyTeam(page);
+                    Provider.of<TeamAndLunchProvider>(context, listen: false)
+                        .getMyTeam(page, '');
                   }
                 }
                 return true;
               },
-            child: Expanded(
-              child: ListView.builder(
+              child: Expanded(
+                child: ListView.builder(
                   itemCount: widget.list.length,
-                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                   itemBuilder: (context, index) {
                     final item = widget.list[index];
                     return SizedBox(
@@ -75,7 +76,10 @@ class _MyTeamSearchState extends State<MyTeamSearch> {
                           ),
                           trailing: Container(
                             padding: const EdgeInsets.symmetric(horizontal: 4),
-                            color: ColorUtils.Yellow,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? ColorUtils.Green
+                                    : ColorUtils.Yellow,
                             child: TextButton(
                               onPressed: () {
                                 Navigator.push(
@@ -91,15 +95,16 @@ class _MyTeamSearchState extends State<MyTeamSearch> {
                                     .textTheme
                                     .bodyLarge
                                     ?.copyWith(
-                                        fontWeight: FontWeight.w700, fontSize: 13),
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 13),
                               ),
                             ),
                           ),
                         ));
                   },
                 ),
-            ),
-          );
+              ),
+            );
     } else {
       return ListTile(
         title: Text(

@@ -39,7 +39,8 @@ class _EditProfileState extends State<EditProfile> {
 
   Future<String> pickImage() async {
     final picker = ImagePicker();
-    final XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    final XFile? pickedFile =
+        await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile == null) {
       return "";
     }
@@ -55,10 +56,11 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
+        // ignore: deprecated_member_use
         backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBar(
+          titleSpacing: 0,
           automaticallyImplyLeading: false,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -83,8 +85,8 @@ class _EditProfileState extends State<EditProfile> {
                   children: [
                     Image.asset(
                       "assets/logo/logo_green.png",
-                      height: 50,
-                      width: 50,
+                      height: 40,
+                      width: 40,
                       fit: BoxFit.contain,
                     ),
                     Padding(
@@ -135,57 +137,73 @@ class _EditProfileState extends State<EditProfile> {
                           children: [
                             Center(
                               child: GestureDetector(
-                                onTap: (){pickImage();},
-                                child:  image !=null ? Container(
-                                    margin: const EdgeInsets.only(top: 16),
-                                    width: 130,
-                                    height: 130,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(100),
-                                    ),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(100),
-                                      child: Image.file(
-                                        image!,
-                                        fit: BoxFit.cover,height: 100,width: 100,),
-                                    ),
-                                  ):
-                                  Container(
-                                    width: 130,
-                                    height: 130,
-                                    decoration:BoxDecoration(
-                                      border: Border.all(
-                                        width: 3,
-                                        color: ColorUtils.LightGrey
+                                onTap: () {
+                                  pickImage();
+                                },
+                                child: image != null
+                                    ? Container(
+                                        margin: const EdgeInsets.only(top: 16),
+                                        width: 130,
+                                        height: 130,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(100),
+                                        ),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(100),
+                                          child: Image.file(
+                                            image!,
+                                            fit: BoxFit.cover,
+                                            height: 100,
+                                            width: 100,
+                                          ),
+                                        ),
+                                      )
+                                    : Container(
+                                        width: 130,
+                                        height: 130,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              width: 3,
+                                              color: ColorUtils.LightGrey),
+                                          borderRadius:
+                                              BorderRadius.circular(100),
+                                          image: DecorationImage(
+                                            image: widget.user?.profilePic == ''
+                                                ? const AssetImage(
+                                                    "assets/icons/man-avatar-icon.png")
+                                                : NetworkImage(
+                                                        widget.user?.profilePic)
+                                                    as ImageProvider,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(100),
+                                            color: ColorUtils.LightGrey
+                                                .withOpacity(0.2),
+                                          ),
+                                          child: const Icon(Icons.add_a_photo,
+                                              color: Colors.white, size: 30),
+                                        ),
                                       ),
-                                      borderRadius: BorderRadius.circular(100),
-                                      image : DecorationImage(
-                                        image: widget.user?.profilePic == '' ? AssetImage("assets/icons/man-avatar-icon.png") : NetworkImage(widget.user?.profilePic) as ImageProvider,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                    child: Container(
-                                      alignment:Alignment.center,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(100),
-                                        color: ColorUtils.LightGrey.withOpacity(0.2),
-                                      ),
-                                      child: const Icon(Icons.add_a_photo, color: Colors.white, size: 30),
-                                    ),
-                                    ),
-                                  ),
                               ),
+                            ),
                             Padding(
                               padding:
-                              const EdgeInsets.symmetric(vertical: 5.0),
+                                  const EdgeInsets.symmetric(vertical: 5.0),
                               child: Text(
                                 "First Name",
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium
                                     ?.copyWith(
-                                    color: ColorUtils.LightGrey,
-                                    fontSize: 16),
+                                        color: ColorUtils.LightGrey,
+                                        fontSize: 16),
                               ),
                             ),
                             TextFormField(
@@ -193,13 +211,13 @@ class _EditProfileState extends State<EditProfile> {
                                   .textTheme
                                   .bodyLarge
                                   ?.copyWith(
-                                  color: ColorUtils.Grey,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16),
+                                      color: ColorUtils.Grey,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16),
                               onChanged: (value) {
-                                value.isNotEmpty?
-                                userData['firstName'] = value:
-                                '';
+                                value.isNotEmpty
+                                    ? userData['firstName'] = value
+                                    : '';
                               },
                               initialValue: widget.user.firstName,
                               obscureText: false,
@@ -209,7 +227,7 @@ class _EditProfileState extends State<EditProfile> {
                                     .textTheme
                                     .bodyMedium
                                     ?.copyWith(
-                                    color: ColorUtils.Grey, fontSize: 16),
+                                        color: ColorUtils.Grey, fontSize: 16),
                                 hintText: '',
                                 border: UnderlineInputBorder(
                                   borderSide: BorderSide(
@@ -229,8 +247,8 @@ class _EditProfileState extends State<EditProfile> {
                                       color: ColorUtils
                                           .Green), // Color of the border
                                 ),
-                                contentPadding: const EdgeInsets.symmetric(
-                                    horizontal: 10),
+                                contentPadding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
                               ),
                               keyboardType: TextInputType.text,
                             )
@@ -245,15 +263,15 @@ class _EditProfileState extends State<EditProfile> {
                           children: [
                             Padding(
                               padding:
-                              const EdgeInsets.symmetric(vertical: 5.0),
+                                  const EdgeInsets.symmetric(vertical: 5.0),
                               child: Text(
                                 "Last Name",
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium
                                     ?.copyWith(
-                                    color: ColorUtils.LightGrey,
-                                    fontSize: 16),
+                                        color: ColorUtils.LightGrey,
+                                        fontSize: 16),
                               ),
                             ),
                             TextFormField(
@@ -261,9 +279,9 @@ class _EditProfileState extends State<EditProfile> {
                                   .textTheme
                                   .bodyLarge
                                   ?.copyWith(
-                                  color: ColorUtils.Grey,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16),
+                                      color: ColorUtils.Grey,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16),
                               onChanged: (value) {
                                 userData['lastName'] = value;
                               },
@@ -275,7 +293,7 @@ class _EditProfileState extends State<EditProfile> {
                                     .textTheme
                                     .bodyMedium
                                     ?.copyWith(
-                                    color: ColorUtils.Grey, fontSize: 16),
+                                        color: ColorUtils.Grey, fontSize: 16),
                                 hintText: '',
                                 border: UnderlineInputBorder(
                                   borderSide: BorderSide(
@@ -311,15 +329,15 @@ class _EditProfileState extends State<EditProfile> {
                           children: [
                             Padding(
                               padding:
-                              const EdgeInsets.symmetric(vertical: 5.0),
+                                  const EdgeInsets.symmetric(vertical: 5.0),
                               child: Text(
                                 "Email",
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium
                                     ?.copyWith(
-                                    color: ColorUtils.LightGrey,
-                                    fontSize: 16),
+                                        color: ColorUtils.LightGrey,
+                                        fontSize: 16),
                               ),
                             ),
                             TextFormField(
@@ -333,9 +351,9 @@ class _EditProfileState extends State<EditProfile> {
                                   .textTheme
                                   .bodyLarge
                                   ?.copyWith(
-                                  color: ColorUtils.Grey,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16),
+                                      color: ColorUtils.Grey,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16),
                               onChanged: (value) {
                                 userData['email'] = value;
                               },
@@ -349,7 +367,7 @@ class _EditProfileState extends State<EditProfile> {
                                     .textTheme
                                     .bodyMedium
                                     ?.copyWith(
-                                    color: ColorUtils.Grey, fontSize: 16),
+                                        color: ColorUtils.Grey, fontSize: 16),
                                 hintText: '',
                                 border: UnderlineInputBorder(
                                   borderSide: BorderSide(
@@ -369,14 +387,13 @@ class _EditProfileState extends State<EditProfile> {
                                       color: ColorUtils
                                           .Green), // Color of the border
                                 ),
-                                contentPadding: const EdgeInsets.symmetric(
-                                    horizontal: 10),
+                                contentPadding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
                               ),
                             )
                           ],
                         ),
                       ),
-
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10.0),
                         child: Column(
@@ -385,15 +402,15 @@ class _EditProfileState extends State<EditProfile> {
                           children: [
                             Padding(
                               padding:
-                              const EdgeInsets.symmetric(vertical: 5.0),
+                                  const EdgeInsets.symmetric(vertical: 5.0),
                               child: Text(
                                 "Phone",
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium
                                     ?.copyWith(
-                                    color: ColorUtils.LightGrey,
-                                    fontSize: 16),
+                                        color: ColorUtils.LightGrey,
+                                        fontSize: 16),
                               ),
                             ),
                             TextFormField(
@@ -401,9 +418,9 @@ class _EditProfileState extends State<EditProfile> {
                                   .textTheme
                                   .bodyLarge
                                   ?.copyWith(
-                                  color: ColorUtils.Grey,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16),
+                                      color: ColorUtils.Grey,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16),
                               onChanged: (value) {
                                 userData['phone'] = value;
                               },
@@ -415,7 +432,7 @@ class _EditProfileState extends State<EditProfile> {
                                     .textTheme
                                     .bodyMedium
                                     ?.copyWith(
-                                    color: ColorUtils.Grey, fontSize: 16),
+                                        color: ColorUtils.Grey, fontSize: 16),
                                 hintText: '',
                                 border: UnderlineInputBorder(
                                   borderSide: BorderSide(
@@ -435,8 +452,8 @@ class _EditProfileState extends State<EditProfile> {
                                       color: ColorUtils
                                           .Green), // Color of the border
                                 ),
-                                contentPadding: const EdgeInsets.symmetric(
-                                    horizontal: 10),
+                                contentPadding:
+                                    const EdgeInsets.symmetric(horizontal: 10),
                               ),
                               keyboardType: TextInputType.number,
                             )
@@ -449,22 +466,27 @@ class _EditProfileState extends State<EditProfile> {
                             onPress: () async {
                               if (_formKey.currentState!.validate()) {
                                 Utils.loadingProgress(context);
-                                dynamic data  = {
-                                  "email": userData['email'] ?? widget.user.email,
-                                  "lastName": userData['lastName'] ?? widget.user.lastName,
-                                  "firstName": userData['firstName'] ?? widget.user.firstName,
-                                  "phone": userData['phone'] ?? widget.user.phone,
-                                  "photo": userData['profilePic'] ?? widget.user.profilePic,
+                                dynamic data = {
+                                  "email":
+                                      userData['email'] ?? widget.user.email,
+                                  "lastName": userData['lastName'] ??
+                                      widget.user.lastName,
+                                  "firstName": userData['firstName'] ??
+                                      widget.user.firstName,
+                                  "phone":
+                                      userData['phone'] ?? widget.user.phone,
+                                  "photo": userData['profilePic'] ??
+                                      widget.user.profilePic,
                                 };
                                 final response =
-                                await Provider.of<AuthProvider>(context,
-                                    listen: false)
-                                    .updateProfile(data);
+                                    await Provider.of<AuthProvider>(context,
+                                            listen: false)
+                                        .updateProfile(data);
                                 Navigator.pop(context);
                                 if (response == true) {
                                   Navigator.pop(context);
-                                  Toasts.showToast(
-                                      ColorUtils.Green, 'Profile updated successfully');
+                                  Toasts.showToast(ColorUtils.Green,
+                                      'Profile updated successfully');
                                 }
                               }
                             },

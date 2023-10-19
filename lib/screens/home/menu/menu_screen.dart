@@ -35,13 +35,13 @@ class _MenuScreenState extends State<MenuScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    SessionManager().getUser().then((userJson) {
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        setState(() {
-          user = User.fromJson(userJson);
-        });
-      });
-    });
+    // SessionManager().getUser().then((userJson) {
+    //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    //     setState(() {
+    //       user = User.fromJson(userJson);
+    //     });
+    //   });
+    // });
     super.initState();
   }
 

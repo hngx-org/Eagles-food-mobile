@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hng_task3/components/shimmers/lunchHistoryShimmer.dart';
 import 'package:hng_task3/components/widgets/common/lunch_history_item.dart';
@@ -29,6 +30,7 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
 
   bool end_reached = false;
   int page = 1;
+  bool isFetchingLunchHistory = false;
 
   @override
   void initState() {
@@ -41,6 +43,8 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
   @override
   Widget build(BuildContext context) {
     user = Provider.of<AuthProvider>(context).user;
+    isFetchingLunchHistory =
+        Provider.of<TeamAndLunchProvider>(context).isFetchingLunchHistory;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -122,7 +126,7 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
                 child: ListView.builder(
                     shrinkWrap: true,
                     padding: const EdgeInsets.symmetric(vertical: 0),
-                    physics: const BouncingScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     itemCount: 5,
                     itemBuilder: (context, index) =>
                         const LunchHistoryShimmer()),
@@ -131,21 +135,20 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
                 onNotification: (scrollEnd) {
                   var metrics = scrollEnd.metrics;
                   if (metrics.atEdge) {
-                    if (metrics.pixels == 0) {
-                    } else {
+                    if (metrics.pixels != 0) {
                       setState(() {
                         end_reached = true;
-                        page++;
+                        page ++;
                       });
                       Provider.of<TeamAndLunchProvider>(context, listen: false)
-                          .getLunchHistory(page);
+                          .getLunchHistory(page, '');
                     }
                   }
                   return true;
                 },
                 child: ListView.builder(
                   shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
+                  physics: widget.limit == true ? const NeverScrollableScrollPhysics() : const BouncingScrollPhysics(),
                   padding:
                       const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
                   // itemCount: widget.history.length,
@@ -159,7 +162,16 @@ class _LunchHistoryWidgetState extends State<LunchHistoryWidget> {
                     ),
                   ),
                 ),
-              )
+              ),
+        if (isFetchingLunchHistory)
+          SizedBox(
+            width: 25,
+            height: 25,
+            child: CupertinoActivityIndicator(
+              color: ColorUtils.Blue,
+              radius: 15,
+            ),
+          )
       ],
     );
   }

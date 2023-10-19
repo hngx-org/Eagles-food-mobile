@@ -11,6 +11,7 @@ import '../../configs/colors.dart';
 import '../../providers/AuthProvider.dart';
 import '../../utils/toast.dart';
 import '../../utils/utils.dart';
+
 class ChangePassword extends StatefulWidget {
   const ChangePassword({super.key, this.user});
   final user;
@@ -31,9 +32,11 @@ class _ChangePasswordState extends State<ChangePassword> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // ignore: deprecated_member_use
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        titleSpacing: 0,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -57,8 +60,8 @@ class _ChangePasswordState extends State<ChangePassword> {
                 children: [
                   Image.asset(
                     "assets/logo/logo_green.png",
-                    height: 50,
-                    width: 50,
+                    height: 40,
+                    width: 40,
                     fit: BoxFit.contain,
                   ),
                   Padding(
@@ -82,7 +85,7 @@ class _ChangePasswordState extends State<ChangePassword> {
           width: double.infinity,
           child: SingleChildScrollView(
             padding:
-            const EdgeInsets.only(right: 20, left: 20, top: 30, bottom: 20),
+                const EdgeInsets.only(right: 20, left: 20, top: 30, bottom: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -113,15 +116,15 @@ class _ChangePasswordState extends State<ChangePassword> {
                             children: [
                               Padding(
                                 padding:
-                                const EdgeInsets.symmetric(vertical: 10.0),
+                                    const EdgeInsets.symmetric(vertical: 10.0),
                                 child: Text(
                                   "Current password",
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyMedium
                                       ?.copyWith(
-                                      color: ColorUtils.LightGrey,
-                                      fontSize: 16),
+                                          color: ColorUtils.LightGrey,
+                                          fontSize: 16),
                                 ),
                               ),
                               TextFormField(
@@ -132,16 +135,16 @@ class _ChangePasswordState extends State<ChangePassword> {
                                   }
                                   return null;
                                 },
-                                onChanged: (value){
+                                onChanged: (value) {
                                   userData['oldPassword'] = value;
                                 },
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyLarge
                                     ?.copyWith(
-                                    color: ColorUtils.Grey,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16),
+                                        color: ColorUtils.Grey,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16),
                                 obscureText: showOldPassword ? false : true,
                                 decoration: InputDecoration(
                                   filled: false,
@@ -149,7 +152,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                                       .textTheme
                                       .bodyMedium
                                       ?.copyWith(
-                                      color: ColorUtils.Grey, fontSize: 16),
+                                          color: ColorUtils.Grey, fontSize: 16),
                                   border: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                         width: 1.3,
@@ -195,15 +198,15 @@ class _ChangePasswordState extends State<ChangePassword> {
                             children: [
                               Padding(
                                 padding:
-                                const EdgeInsets.symmetric(vertical: 10.0),
+                                    const EdgeInsets.symmetric(vertical: 10.0),
                                 child: Text(
                                   "Enter new password",
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyMedium
                                       ?.copyWith(
-                                      color: ColorUtils.LightGrey,
-                                      fontSize: 16),
+                                          color: ColorUtils.LightGrey,
+                                          fontSize: 16),
                                 ),
                               ),
                               TextFormField(
@@ -213,16 +216,16 @@ class _ChangePasswordState extends State<ChangePassword> {
                                   }
                                   return null;
                                 },
-                                onChanged: (value){
+                                onChanged: (value) {
                                   userData['newPassword'] = value;
                                 },
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyLarge
                                     ?.copyWith(
-                                    color: ColorUtils.Grey,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 16),
+                                        color: ColorUtils.Grey,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16),
                                 obscureText: showPassword ? false : true,
                                 decoration: InputDecoration(
                                   filled: false,
@@ -230,7 +233,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                                       .textTheme
                                       .bodyMedium
                                       ?.copyWith(
-                                      color: ColorUtils.Grey, fontSize: 16),
+                                          color: ColorUtils.Grey, fontSize: 16),
                                   border: UnderlineInputBorder(
                                     borderSide: BorderSide(
                                         width: 1.3,
@@ -278,9 +281,9 @@ class _ChangePasswordState extends State<ChangePassword> {
                                   Utils.loadingProgress(context);
                                   print(userData);
                                   final response =
-                                  await Provider.of<AuthProvider>(context,
-                                      listen: false)
-                                      .changePassword(userData);
+                                      await Provider.of<AuthProvider>(context,
+                                              listen: false)
+                                          .changePassword(userData);
                                   Navigator.pop(context);
                                   if(response == true){
                                     Toasts.showToast(Colors.green, 'Password updated successfully');
@@ -292,7 +295,6 @@ class _ChangePasswordState extends State<ChangePassword> {
                               textColor: ColorUtils.White,
                               isUppercase: true),
                         ),
-
                       ],
                     ),
                   ),

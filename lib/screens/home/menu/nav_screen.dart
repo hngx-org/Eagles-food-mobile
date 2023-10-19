@@ -4,6 +4,7 @@ import 'package:hng_task3/models/user.dart';
 import 'package:hng_task3/providers/AuthProvider.dart';
 import 'package:hng_task3/screens/home/menu/menu_screen.dart';
 import 'package:hng_task3/screens/onboarding/auth/auth_home.dart';
+import 'package:hng_task3/utils/dialogs.dart';
 import 'package:provider/provider.dart';
 
 class NavScreen extends StatefulWidget {
@@ -24,13 +25,14 @@ class _NavScreenState extends State<NavScreen> {
   void selectedPage(String selecteditem) {
     switch (selecteditem) {
       case "logout":
-        Provider.of<AuthProvider>(context, listen: false).logout();
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const AuthHome(),
-          ), (route) => false
-        );
+        Dialogs.logoutDialog(context: context);
+        // Provider.of<AuthProvider>(context, listen: false).logout();
+        // Navigator.pushAndRemoveUntil(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => const AuthHome(),
+        //   ), (route) => false
+        // );
         return;
       default:
         setState(() {

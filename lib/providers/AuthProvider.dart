@@ -13,6 +13,7 @@ class AuthProvider with ChangeNotifier {
   String? _userOrg;
   Organization? _organization;
 
+
   User? get user => _user;
   bool? get isLoggedIn => _isLoggedIn;
   bool get isLoading => _isLoading;
@@ -82,7 +83,7 @@ class AuthProvider with ChangeNotifier {
       'address': userData['address'],
       'phone': userData['phone'],
       'password': userData['password'],
-      'inviteCode': userData['inviteCode']
+      'inviteCode':  userData['inviteCode']
     };
     try {
       final response =

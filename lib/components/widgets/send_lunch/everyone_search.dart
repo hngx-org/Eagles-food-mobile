@@ -14,7 +14,6 @@ class EveryoneSearch extends StatefulWidget {
 }
 
 class _EveryoneSearchState extends State<EveryoneSearch> {
-
   bool end_reached = false;
   int page = 1;
 
@@ -29,24 +28,26 @@ class _EveryoneSearchState extends State<EveryoneSearch> {
               itemCount: 5,
               itemBuilder: (context, index) => const TeamShimmer())
           : NotificationListener<ScrollEndNotification>(
-            onNotification: (scrollEnd) {
-              var metrics = scrollEnd.metrics;
-              if (metrics.atEdge) {
-                if (metrics.pixels == 0) {
-                } else {
-                  setState(() {
-                    end_reached = true;
-                    page ++;
-                  });
-                  Provider.of<TeamAndLunchProvider>(context, listen: false).getAllOthers(page);
+              onNotification: (scrollEnd) {
+                var metrics = scrollEnd.metrics;
+                if (metrics.atEdge) {
+                  if (metrics.pixels == 0) {
+                  } else {
+                    setState(() {
+                      end_reached = true;
+                      page++;
+                    });
+                    Provider.of<TeamAndLunchProvider>(context, listen: false)
+                        .getAllOthers(page);
+                  }
                 }
-              }
-              return true;
-            },
-            child: Expanded(
-              child: ListView.builder(
+                return true;
+              },
+              child: Expanded(
+                child: ListView.builder(
                   itemCount: widget.list.length,
-                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                   itemBuilder: (context, index) {
                     final item = widget.list[index];
                     return SizedBox(
@@ -74,7 +75,10 @@ class _EveryoneSearchState extends State<EveryoneSearch> {
                           ),
                           trailing: Container(
                             padding: const EdgeInsets.symmetric(horizontal: 4),
-                            color: ColorUtils.Yellow,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? ColorUtils.Green
+                                    : ColorUtils.Yellow,
                             child: TextButton(
                               onPressed: () {
                                 Navigator.push(
@@ -90,15 +94,16 @@ class _EveryoneSearchState extends State<EveryoneSearch> {
                                     .textTheme
                                     .bodyLarge
                                     ?.copyWith(
-                                        fontWeight: FontWeight.w700, fontSize: 13),
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 13),
                               ),
                             ),
                           ),
                         ));
                   },
                 ),
-            ),
-          );
+              ),
+            );
     } else {
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
