@@ -43,7 +43,6 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     user = Provider.of<AuthProvider>(context).user;
     orgName = Provider.of<AuthProvider>(context).userOrg;
-
     print(user?.profilePic);
     return Scaffold(
         // ignore: deprecated_member_use
