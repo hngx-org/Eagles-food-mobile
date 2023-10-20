@@ -19,13 +19,19 @@ class OrganizationProvider with ChangeNotifier {
   bool get isFetchingOrgs => _isFetchingOrgs;
   bool get isFetchingUserJoinReq => _isFetchingUserJoinReq;
 
+  // Organization (all became plural)
+  // /api/v{version}/organizations/organization-invites
+  // /api/v{version}/organizations/organization-invite-request
+  // /api/v{version}/organizations/toggle-invite
+
+
   Future<dynamic> getOrganizations(
       {required int page, required String process}) async {
     SessionManager ss = SessionManager();
     var initialFetchOrg = await ss.getInitialFetchOrg();
     print('initial fetch org $initialFetchOrg');
     page ??= 1;
-    final String url = 'organization/all?pageNumber=$page';
+    final String url = 'organizations/all?pageNumber=$page';
     try {
       if (page == 1 || initialFetchOrg) {
         _organizations = [];
@@ -52,7 +58,7 @@ class OrganizationProvider with ChangeNotifier {
   Future<dynamic> getUserJoinRequest(page) async {
     page ??= 1;
     final String url =
-        'organization/organizationinviterequest?pageNumber=$page';
+        'organizations/organization-invite-request?pageNumber=$page';
     try {
       if (page == 1) {
         _org_request = [];
@@ -63,6 +69,7 @@ class OrganizationProvider with ChangeNotifier {
       }
       final response = await Network.get(url);
       var data = response["data"];
+      print("org request $data");
       data.forEach((element) {
         _org_request.add(OrgRequest.fromJson(element));
       });
@@ -77,7 +84,7 @@ class OrganizationProvider with ChangeNotifier {
   }
 
   Future<dynamic> requestToJoinOrg(int orgId) async {
-    final String url = 'user/requesttojoinOrg/$orgId';
+    final String url = 'users/join-request/$orgId';
     try {
       _isLoading = true;
       final response = await Network.post(endpoint: url);
@@ -94,7 +101,7 @@ class OrganizationProvider with ChangeNotifier {
   }
 
   Future<dynamic> toggleJoinRequest(Map<String, dynamic> data) async {
-    const String url = 'organization/toggleinvite';
+    const String url = 'organizations/toggle-invite';
     print(data);
     try {
       _isLoading = true;
@@ -126,7 +133,7 @@ class OrganizationProvider with ChangeNotifier {
   }
 
   Future<dynamic> leaveOrg() async {
-    const String url = 'organization/leave';
+    const String url = 'organizations/leave';
     try{
       final response = await Network.get(url);
       if(response['statusCode'] == 200 ){

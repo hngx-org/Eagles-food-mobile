@@ -33,7 +33,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<dynamic> getUserProfile() async {
-    const String url = 'user/profile';
+    const String url = 'users/profile';
     try {
       final response = await Network.get(url);
       var user = response["data"];
@@ -107,7 +107,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<dynamic> orgRegister(Map<String, dynamic> userData) async {
-    const String url = 'organization/staff/signup';
+    const String url = 'organizations/staff/signup';
     final Map<String, dynamic> data = {
       'firstName': userData['firstName'],
       'lastName': userData['lastName'],
@@ -142,7 +142,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<dynamic> updateProfile(Map<String, dynamic> data) async {
-    const String url = 'user/update';
+    const String url = 'users/update';
     try {
       final response = await Network.multipart(endpoint: url, data: data);
       if (response['statusCode'] == 200) {
@@ -217,7 +217,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<dynamic> changePassword(Map<String, dynamic> userData) async {
-    const String url = 'auth/changePassword';
+    const String url = 'auth/change-password';
     final Map<String, dynamic> data = {
       'email': userData['email'],
       'oldPassword': userData['oldPassword'],
@@ -237,7 +237,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<dynamic> getUserOrg() async {
-    const String url = 'user/organization';
+    const String url = 'users/organization';
     try {
       final response = await Network.get(url);
       var org = response["data"];
@@ -271,7 +271,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<dynamic> organisationSignUp(Map<String, dynamic> userData) async {
-    const String url = 'organization/staff/signup';
+    const String url = 'organizations/staff/signup';
     final Map<String, dynamic> data = {
       'firstName': userData['firstName'],
       'lastName': userData['lastName'],
@@ -305,7 +305,7 @@ class AuthProvider with ChangeNotifier {
   }
 
   Future<dynamic> userfetchOrganization() async {
-    const String url = 'user/organization';
+    const String url = 'users/organization';
     try {
       final response = await Network.get(url);
       if (response['statusCode'] == 200) {
@@ -322,29 +322,4 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  Future<User> searchUserByEmail(String email) async {
-     String url = 'user/search/$email';
-     try {
-      final response = await Network.get(url);
-      var user = response["data"];
-      _user = User.fromJson(user);
-      notifyListeners();
-    } catch (e) {
-      print(e);
-    }
-     return _user!;
-  }
-
-   Future<User?> searchUserByName(String firstName) async {
-     String url = 'user/searchname/$firstName';
-     try {
-      final response = await Network.get(url);
-      var user = response["data"];
-      _user = User.fromJson(user);
-      notifyListeners();
-    } catch (e) {
-      print(e);
-    }
-     return _user!;
-  }
 }

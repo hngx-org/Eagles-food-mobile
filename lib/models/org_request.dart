@@ -1,5 +1,17 @@
 
 class OrgRequest {
+
+  // {id: 47,
+  // senderId: 25,
+  // senderName: Boss,
+  // receiverId: 58,
+  // receiverName: steven,
+  // quantity: 10,
+  // redeemed: false,
+  // lunchStatus: 0,
+  // note: Final,
+  // createdAt: 2023-10-12T20:00:54},
+
   final int id;
   final int orgId;
   final String org, email;

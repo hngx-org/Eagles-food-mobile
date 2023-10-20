@@ -49,7 +49,7 @@ class TeamAndLunchProvider with ChangeNotifier {
   Future<dynamic> getMyTeam(int page, String process) async {
     var initialFetchTeam = await ss.getInitialFetchTeam();
     page ??= 1;
-    final String url = 'user/all?pageNumber=$page';
+    final String url = 'users/all?pageNumber=$page';
     if (initialFetchTeam || process == 'refresh' || process == 'loading') {
       try {
         if(process != 'loading'){
@@ -78,7 +78,7 @@ class TeamAndLunchProvider with ChangeNotifier {
 
   Future<dynamic> getAllOthers(page) async {
     page ??= 1;
-    final String url = 'user/others?pageNumber=$page';
+    final String url = 'users/others?pageNumber=$page';
     try {
       var initialFetchOthers = await ss.getInitialFetchOthers();
       if (page == 1 || initialFetchOthers) {
@@ -105,7 +105,7 @@ class TeamAndLunchProvider with ChangeNotifier {
 
 //  send lunch
   Future<dynamic> sendLunch(Map<String, dynamic> lunchData) async {
-    const String url = 'lunch/send';
+    const String url = 'lunches/send';
     final Map<String, dynamic> data = {
       'receivers': lunchData['receivers'],
       'note': lunchData['note'],
@@ -132,7 +132,7 @@ class TeamAndLunchProvider with ChangeNotifier {
     SessionManager ss = SessionManager();
     var initialFetchLunch = await ss.getInitialFetchLunchHistory();
     page ??= 1;
-    final String url = 'lunch/all?pageNumber=$page';
+    final String url = 'lunches/all?pageNumber=$page';
     try {
 
       if (process == 'refresh' || initialFetchLunch) {
@@ -161,7 +161,7 @@ class TeamAndLunchProvider with ChangeNotifier {
 
 //  withdraw lunch
   Future<dynamic> withDrawLunch(int amount, int balanceAmt) async {
-    const String url = 'lunch/withdrawlunch';
+    const String url = 'lunches/withdraw-lunch';
     final data = {"quantity": amount};
     try {
       final response =
@@ -184,7 +184,7 @@ class TeamAndLunchProvider with ChangeNotifier {
   Future<dynamic> getLeaderBoard(page) async {
     print('current page $page');
     page ??= 1;
-    final String url = 'lunch/leaderboard?pageNumber=$page';
+    final String url = 'lunches/leaderboard?pageNumber=$page';
     try {
       var initialFetchLearderboard = await ss.getInitialFetchLeaderboard();
       if (page == 1 || initialFetchLearderboard) {
@@ -211,7 +211,7 @@ class TeamAndLunchProvider with ChangeNotifier {
   }
 
   Future<dynamic> getLunchCreditBalance() async {
-    const String url = 'lunch/lunch-balance';
+    const String url = 'lunches/lunch-balance';
     try {
       final response = await Network.get(url);
       var data = response["data"]["balance"];
@@ -226,7 +226,7 @@ class TeamAndLunchProvider with ChangeNotifier {
   }
 
   Future<dynamic> searchUsersByName(String name) async {
-    final String url = 'user/searchname/$name';
+    final String url = 'users/searchname/$name';
     try {
       _searchedUsers = [];
       _isLoading = true;
@@ -247,7 +247,7 @@ class TeamAndLunchProvider with ChangeNotifier {
   }
 
   Future<dynamic> searchUsersByEmail(String email) async {
-    final String url = 'user/search/$email';
+    final String url = 'users/search/$email';
     try {
       _searchedUsers = [];
       _isLoading = true;
