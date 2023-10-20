@@ -24,6 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void navigateBasedOnSession() async {
     SessionManager ss = SessionManager();
     bool isLoggedIn = await ss.getLogin();
+    print('is logged in $isLoggedIn');
     Timer(const Duration(seconds: 3), () {
       Navigator.pushAndRemoveUntil(
         context,
