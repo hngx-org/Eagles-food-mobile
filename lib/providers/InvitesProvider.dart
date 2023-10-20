@@ -19,7 +19,7 @@ class InvitesProvider with ChangeNotifier {
   bool get isLoading => _isLoading;
 
   Future<dynamic> getInvites() async {
-    const String url = 'user/userinvites';
+    const String url = 'users/user-invites';
     try {
       _isLoading = true;
       _invites = [];
@@ -42,7 +42,7 @@ class InvitesProvider with ChangeNotifier {
   }
 
   Future<dynamic> getAllInvites() async {
-    const String url = 'user/userinvites';
+    const String url = 'users/user-invites';
     try {
       _isLoading = true;
       _invites = [];
@@ -64,7 +64,7 @@ class InvitesProvider with ChangeNotifier {
   }
 
   Future<dynamic> sendInvite(Map<String, dynamic> data) async {
-    const String url = 'organization/invite';
+    const String url = 'organizations/invite';
     try {
       final response = await Network.post(endpoint: url, data: jsonEncode(data));
       print(response);
@@ -81,7 +81,7 @@ class InvitesProvider with ChangeNotifier {
 
 //  accept invite
   Future<dynamic> replyInvite(Map<String, dynamic> data) async {
-    const String url = 'user/toggleinvite';
+    const String url = 'users/toggle-invite';
     try {
       final response = await Network.post(endpoint: url, data: jsonEncode(data));
       if(response['success'] == true){
@@ -104,7 +104,7 @@ class InvitesProvider with ChangeNotifier {
 
 //  invites history
   Future<dynamic> getInvitesHistory() async {
-    const String url = 'organization/organizationinvites';
+    const String url = 'organizations/organization-invites';
     try {
       _isLoading = true;
       _allPendingInvites = [];
@@ -137,7 +137,7 @@ class InvitesProvider with ChangeNotifier {
 
 //  cancel invite
   Future<dynamic> cancelOrgInvite(dynamic data) async {
-    const String url = 'organization/invite/cancel';
+    const String url = 'organizations/invite/cancel';
     try {
       final response = await Network.post(endpoint: url, data: jsonEncode(data));
       if(response['success'] == true){
