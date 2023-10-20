@@ -18,19 +18,23 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<TeamAndLunchProvider>(create: (_) => TeamAndLunchProvider()),
-        ChangeNotifierProvider<InvitesProvider>(create: (_) => InvitesProvider()),
-        ChangeNotifierProvider<OrganizationProvider>(create: (_) => OrganizationProvider()),
+        ChangeNotifierProvider<TeamAndLunchProvider>(
+            create: (_) => TeamAndLunchProvider()),
+        ChangeNotifierProvider<InvitesProvider>(
+            create: (_) => InvitesProvider()),
+        ChangeNotifierProvider<OrganizationProvider>(
+            create: (_) => OrganizationProvider()),
         ChangeNotifierProvider<AuthProvider>(create: (_) => AuthProvider()),
-        ChangeNotifierProvider<OrganizationProvider>(create: (_) => OrganizationProvider()),
+        ChangeNotifierProvider<OrganizationProvider>(
+            create: (_) => OrganizationProvider()),
       ],
       child: MaterialApp(
-      // theme: ThemeData.light(useMaterial3: true),
-          debugShowCheckedModeBanner: false,
+        // theme: ThemeData.light(useMaterial3: true),
+        debugShowCheckedModeBanner: false,
         theme: lightTheme,
-          darkTheme: darkTheme,
-          home: const SplashScreen(),
-         ),
+        darkTheme: darkTheme,
+        home: const SplashScreen(),
+      ),
     );
   }
 }
