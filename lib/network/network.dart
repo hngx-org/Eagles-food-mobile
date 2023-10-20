@@ -7,7 +7,7 @@ import 'package:hng_task3/utils/toast.dart';
 import 'package:http/http.dart' as http;
 
 //this base url should be the url of the backend e.g www.backend.com/api
-const String baseUrl = "https://hngxeaglesfood-4graz0d2.b4a.run/api/";
+const String baseUrl = "https://hngxeaglesfood-4graz0d2.b4a.run/api/v1/";
 
 class Network {
   static Future<dynamic> get(String endpoint) async {
@@ -83,7 +83,6 @@ class Network {
       };
       var url = Uri.parse(baseUrl + endpoint);
       try {
-
         var request = http.MultipartRequest('PUT', url);
         request.headers.addAll(await NetworkUtils.headers());
         request.fields['firstName'] = data['firstName'];
